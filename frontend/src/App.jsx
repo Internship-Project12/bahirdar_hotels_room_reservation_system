@@ -6,7 +6,8 @@ import {
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
-import LoginPage from "./pages/Signin";
+import SinginPage from "./pages/SigninPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/sign-in" element={<LoginPage />} />
+          <Route path="/sign-in" element={<SinginPage />} />
+          <Route path="/sign-up" element={<SignupPage />} />
           {/*<Route path='/register' element={<RegisterPage />} />
       <Route path='/dashboard' element={<DashboardPage />} /> */}
           <Route path="/*" element={<Navigate to="/" />} />
