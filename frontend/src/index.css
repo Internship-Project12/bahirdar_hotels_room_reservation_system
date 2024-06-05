@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  .btn {
-    @apply;
+  .color-primary {
+    @apply :;
   }
 }
