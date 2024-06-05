@@ -6,7 +6,7 @@ function AppLayout() {
   return (
     <div className="flex min-h-screen flex-col gap-4">
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 h-[100%]">
         <Outlet />
       </main>
       <Footer />
