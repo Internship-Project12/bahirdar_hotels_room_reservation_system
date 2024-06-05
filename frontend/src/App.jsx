@@ -6,14 +6,18 @@ import {
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
+import SinginPage from "./pages/SigninPage";
+import SignupPage from "./pages/SignupPage";
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
-          {/* <Route path='/login' element={<LoginPage />} />
-        <Route path='/register' element={<RegisterPage />} />
+          <Route path="/sign-in" element={<SinginPage />} />
+          <Route path="/sign-up" element={<SignupPage />} />
+          {/*<Route path='/register' element={<RegisterPage />} />
       <Route path='/dashboard' element={<DashboardPage />} /> */}
           <Route path="/*" element={<Navigate to="/" />} />
         </Route>
