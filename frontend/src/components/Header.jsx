@@ -16,7 +16,7 @@ function Header() {
               to="/hotels"
               className="flex items-center rounded px-3 py-2 font-bold text-blue-100 underline transition duration-300"
             >
-              hotels
+              Hotels
             </Link>
           </li>
           {/* <li>
