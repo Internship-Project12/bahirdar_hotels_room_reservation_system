@@ -1,7 +1,7 @@
 function Hero() {
   return (
-    <section className="flex flex-col items-center gap-6 px-8 md:flex-row">
-      <div className="flex-1 p-4 text-2xl font-light tracking-wider">
+    <section className="flex flex-col items-center gap-6 md:flex-row">
+      <div className="flex-1 p-4 text-2xl font-thin tracking-wider">
         <p className="">
           <span className="">
             Welcome to{" "}
