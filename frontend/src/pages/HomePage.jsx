@@ -4,13 +4,13 @@ import ExploreMoreBtn from "../components/homepage/ExploreMoreBtn";
 function HomePage() {
   return (
     <>
-      <section className="bg-blue-300 px-10">
-        <div className="min-h-[calc(100vh-2*24px-50px)] flex flex-1 flex-col items-center justify-center gap-6 bg-red-500 py-6 md:p-3">
+      <section className="px-10">
+        <div className="flex min-h-[calc(100vh-2*24px-50px)] flex-1 flex-col items-center justify-center gap-6 py-6 md:p-3">
           <Hero />
           <ExploreMoreBtn />
         </div>
       </section>
-      <section className="bg-blue-800 px-10">
+      <section className="px-10">
         <div className="flex min-h-screen flex-col items-center gap-6 border-t-4 bg-slate-100 shadow-xl md:flex-row md:p-3">
           <p className="flex flex-1 flex-col gap-8 text-xl font-thin leading-7 tracking-wide md:order-1">
             <span className="">
