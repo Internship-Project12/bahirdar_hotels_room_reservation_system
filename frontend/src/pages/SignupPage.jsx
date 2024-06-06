@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Signup() {
   return (
-    <form className="m-auto  flex max-w-[85%] flex-col gap-6 rounded bg-slate-300 p-10 shadow-lg md:max-w-[40%]">
+    <form className="m-auto flex max-w-[85%] flex-col gap-6 rounded bg-slate-300 p-10 shadow-lg md:max-w-[40%]">
       <h1 className="text-2xl font-bold text-gray-800">Sign Up</h1>
       <label className="flex-1 text-sm font-bold text-gray-700">
         First Name
@@ -32,6 +32,15 @@ function Signup() {
           defaultValue="test@test.com"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="test@test.com"
+          required
+        />
+      </label>
+      <label className="flex-1 text-sm font-bold text-gray-700">
+        Phone Number
+        <input
+          type="number"
+          className="w-full rounded border border-gray-400 px-3 py-2"
+          placeholder="+251"
           required
         />
       </label>
