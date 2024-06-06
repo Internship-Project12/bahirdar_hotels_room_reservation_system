@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 function Signin() {
+  const { handleSubmit } = useForm();
+
+  const onSubmitHandler = handleSubmit((data) => {
+    console.log(data);
+  });
+
   return (
-    <form className="m-auto mt-4 flex max-w-[85%] flex-col gap-6 bg-slate-300 p-10 md:max-w-[40%]">
+    <form
+      onSubmit={onSubmitHandler}
+      className="m-auto mt-4 flex max-w-[85%] flex-col gap-6 rounded bg-slate-300 p-10 shadow-lg md:max-w-[40%]"
+    >
       <h1 className="text-2xl font-bold text-gray-800">Sign In</h1>
       <label className="flex-1 text-sm font-bold text-gray-700">
         <span>Email</span>
