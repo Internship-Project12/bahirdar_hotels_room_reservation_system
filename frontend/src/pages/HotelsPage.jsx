@@ -50,11 +50,11 @@ function HotelsPage() {
                         </p>
                       </div>
                     </div>
-                    <p>free Cancelation && free Breakfast</p>
+                    <p>Free Cancelation && free Breakfast</p>
                   </div>
                 </div>
                 <p className="mt-2 text-sm">
-                  <span>total of 5 floors(G + 5) </span>{" "}
+                  <span>Total of 5 floors(G + 5) </span>{" "}
                 </p>
               </div>
 
@@ -85,7 +85,7 @@ function HotelsPage() {
                   <p className="text-sm font-bold text-slate-600">
                     Price:{" "}
                     <span className="text-lg font-bold tracking-tighter text-blue-800">
-                      $230
+                      230ETB
                     </span>
                   </p>
                 </div>
