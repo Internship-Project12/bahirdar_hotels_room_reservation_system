@@ -8,7 +8,7 @@ function About() {
             <span className="text-xl font-extrabold tracking-tighter text-blue-800">
               Bahir Dar Hotel Booking Website
             </span>
-            , we&rsquo;re committed to providing you with the best possible
+            , we&rsquo;re committed to provid you with the best possible
             experience for planning and booking your dream getaway.
           </span>
           <span>
