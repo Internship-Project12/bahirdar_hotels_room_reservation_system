@@ -25,6 +25,15 @@ function Signup() {
         />
       </label>
       <label className="flex-1 text-sm font-bold text-gray-700">
+        <label className="flex-1 text-sm font-bold text-gray-700">
+          Gender
+          <input
+            type="text"
+            className="w-full rounded border border-gray-400 px-3 py-2"
+            placeholder="Male/Female"
+            required
+          />
+        </label>
         <span>Email</span>
         <input
           type="email"
