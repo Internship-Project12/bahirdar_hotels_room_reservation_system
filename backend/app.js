@@ -6,6 +6,8 @@ import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 
+import hotelRouter from './src/routes/hotelRoutes.js';
+
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
@@ -18,6 +20,8 @@ app.get('/test', (req, res) => {
     message: 'Hello from the server | Hotel Booking App',
   });
 });
+
+app.use('/api/v1/hotels', hotelRouter);
 
 const PORT = process.env.PORT || 3000;
 
