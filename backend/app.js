@@ -14,6 +14,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+app.use(express.json())
+
 app.get('/test', (req, res) => {
   res.status(200).json({
     status: 'success',
