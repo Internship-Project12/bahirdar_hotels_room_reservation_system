@@ -10,11 +10,11 @@ const HotelSchema = new mongoose.Schema({
   photo: [String],
   numOfRatings: {
     type: Number,
-    defaultValue: 0,
+    default: 0,
   },
   avgRating: {
     type: Number,
-    defaultValue: 4.5,
+    default: 4.5,
   },
   address: String,
 });
