@@ -5,7 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/app.js"
+    "setup-project": "npm i && cd ../frontend && npm i",
+    "setup-production-app": "npm i && cd ../frontend  && npm i && npm run build",
+    "server": "nodemon server",
+    "client": "cd ../frontend  && npm run dev",
+    "dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
   },
   "keywords": [],
   "author": "",
