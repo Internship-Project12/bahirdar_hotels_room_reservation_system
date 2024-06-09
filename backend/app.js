@@ -14,9 +14,9 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-app.use(express.json())
+app.use(express.json());
 
-app.get('/test', (req, res) => {
+app.get('/api/v1/test', (req, res) => {
   res.status(200).json({
     status: 'success',
     message: 'Hello from the server | Hotel Booking App',
