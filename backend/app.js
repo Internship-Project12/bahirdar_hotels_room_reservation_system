@@ -1,6 +1,16 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+import 'express-async-errors';
 import express from 'express';
+import morgan from 'morgan';
+import mongoose from 'mongoose';
 
 const app = express();
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 app.get('/test', (req, res) => {
   res.status(200).json({
@@ -9,4 +19,14 @@ app.get('/test', (req, res) => {
   });
 });
 
-export default app;
+const PORT = process.env.PORT || 3000;
+
+try {
+  await mongoose.connect(process.env.DB);
+  app.listen(PORT, () => {
+    console.log(`DB connected... and Server running on port ${PORT}...`);
+  });
+} catch (error) {
+  console.log('ERROR', error);
+  process.exit(1);
+}

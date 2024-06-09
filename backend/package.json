@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "the backend login for the Hotel booking app",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "setup-project": "npm i && cd ../frontend && npm i",
     "setup-production-app": "npm i && cd ../frontend  && npm i && npm run build",
-    "server": "nodemon server",
+    "server": "nodemon app",
     "client": "cd ../frontend  && npm run dev",
     "dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
   },
