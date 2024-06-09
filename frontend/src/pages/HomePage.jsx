@@ -1,7 +1,7 @@
 import Hero from "../components/homepage/Hero";
 import ExploreMoreBtn from "../components/homepage/ExploreMoreBtn";
 import About from "../components/homepage/About";
-import { HotelsSection } from "./HotelsSection";
+import { HotelsSection } from "../components/homepage/HotelsSection";
 
 function HomePage() {
   return (

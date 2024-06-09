@@ -93,7 +93,7 @@ function HotelsPage() {
                   to={`/booking/${1}`}
                   className="rounded bg-blue-500 p-2 text-white"
                 >
-                  Book Now
+                  See Details
                 </Link>
               </div>
             </div>
