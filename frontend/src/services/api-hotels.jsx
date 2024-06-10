@@ -15,8 +15,40 @@ const addHotel = async (hotel) => {
   }
 };
 
+const getAllHotels = async () => {
+  try {
+    const res = await customFetch.get("/api/v1/hotels");
+
+    const { data } = res;
+
+    if (data.status !== "success") throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+const getHotel = async (id) => {
+  try {
+    const res = await customFetch.get(`/api/v1/hotels/${id}`);
+
+    const { data } = res;
+
+    if (data.status !== "success") throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 const apiHotels = {
   addHotel,
+  getHotel,
+  getAllHotels,
 };
 
 export default apiHotels;

@@ -1,7 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import { FaStar, FaRegStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import apiHotels from "../services/api-hotels";
 
 function HotelsListPage() {
+  const { data: res, isLoading } = useQuery({
+    queryKey: ["hotels"],
+    queryFn: apiHotels.getAllHotels,
+  });
+
+  if (isLoading) {
+    return <div>Loading all hotels</div>;
+  }
+
+  if (res.status !== "success") {
+    return <div>{res.message}</div>;
+  }
+
+  console.log(res);
+
+  const { data: hotels } = res.data;
+
   return (
     <div className="relative">
       <div className="sticky top-4 flex justify-center">
@@ -12,9 +31,9 @@ function HotelsListPage() {
         {/* hotels list */}
         <section className="h-screen max-w-[1024px] flex-1 overflow-scroll bg-gray-200">
           {/* hotel cards */}
-          {[1, 2, 3, 4, 5, 6].map((val) => (
+          {hotels.map((hotel) => (
             <div
-              key={val}
+              key={hotel._id}
               className="m-4 flex justify-between overflow-hidden rounded border-2 border-blue-300 p-3"
             >
               <div>
@@ -33,7 +52,7 @@ function HotelsListPage() {
                         to={`/hotels/${1}`}
                         className="text-2xl font-bold text-blue-900 underline"
                       >
-                        Azwa International Hotel
+                        {hotel.name}
                       </Link>
                       <span className="text-sm text-slate-500">
                         (7 Star Hotel In Bahirdar)
@@ -90,7 +109,7 @@ function HotelsListPage() {
                   </p>
                 </div>
                 <Link
-                  to={`/booking/${1}`}
+                  to={`/hotel/${hotel._id}`}
                   className="rounded bg-blue-500 p-2 text-white"
                 >
                   See Details
