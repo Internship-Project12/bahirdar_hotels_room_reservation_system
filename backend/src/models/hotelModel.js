@@ -12,19 +12,7 @@ const HotelSchema = new mongoose.Schema(
         'A hotel name must have less or equal then 50 characters',
       ],
     },
-    address: {
-      type: String,
-      trim: true,
-      require: [true, 'A hotel must have an address'],
-      minlength: [
-        10,
-        'A hotel address must have more or equal then 10 characters',
-      ],
-      maxlength: [
-        100,
-        'A hotel address must have less or equal then 100 characters',
-      ],
-    },
+
     starRating: {
       type: Number,
     },
@@ -39,6 +27,19 @@ const HotelSchema = new mongoose.Schema(
     avgRating: {
       type: Number,
       default: 4.5,
+    },
+    address: {
+      type: String,
+      trim: true,
+      require: [true, 'A hotel must have an address'],
+      minlength: [
+        10,
+        'A hotel address must have more or equal then 10 characters',
+      ],
+      maxlength: [
+        100,
+        'A hotel address must have less or equal then 100 characters',
+      ],
     },
     summary: {
       type: String,
