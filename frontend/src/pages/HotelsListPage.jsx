@@ -1,7 +1,7 @@
 import { FaStar, FaRegStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-function HotelsPage() {
+function HotelsListPage() {
   return (
     <div className="relative">
       <div className="sticky top-4 flex justify-center">
@@ -104,4 +104,4 @@ function HotelsPage() {
   );
 }
 
-export default HotelsPage;
+export default HotelsListPage;
