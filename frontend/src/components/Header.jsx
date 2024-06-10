@@ -10,27 +10,29 @@ function Header() {
         BDHotels.com
       </Link>
       <nav>
-        <ul className="flex justify-between gap-4">
+        <ul className="flex items-center justify-between gap-4">
           <li>
             <Link
               to="/hotels"
-              className="flex items-center rounded px-3 py-2 font-bold text-blue-100 underline transition duration-300"
+              className="rounded px-3 py-2 font-bold text-blue-100 underline"
             >
               Hotels
             </Link>
           </li>
-          {/* <li>
-            <a
-              href="#services-section"
-              className="flex items-center rounded px-3 py-2 font-bold text-blue-100 underline transition duration-300"
+
+          <li>
+            <Link
+              to="/add-hotel"
+              className="px-3 py-2 font-bold text-blue-100 underline"
             >
-              services
-            </a>
-          </li>{" "} */}
+              Add Hotel
+            </Link>
+          </li>
+
           <li>
             <Link
               to="/sign-in"
-              className="flex items-center rounded bg-slate-200 px-3 py-2 font-bold text-blue-800 transition duration-300"
+              className="rounded bg-slate-200 px-3 py-2 font-bold text-blue-800"
             >
               Sign In
             </Link>
