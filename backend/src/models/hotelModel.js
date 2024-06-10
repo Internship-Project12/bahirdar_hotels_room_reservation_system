@@ -16,10 +16,10 @@ const HotelSchema = new mongoose.Schema(
     starRating: {
       type: Number,
     },
-    imageCover: {
-      type: String,
-      required: [true, 'A hotel must have a cover image'],
-    },
+    // imageCover: {
+    //   type: String,
+    //   // required: [true, 'A hotel must have a cover image'],
+    // },
     numOfRatings: {
       type: Number,
       default: 0,
@@ -50,8 +50,8 @@ const HotelSchema = new mongoose.Schema(
         'A hotel summary must have more or equal then 20 characters',
       ],
       maxlength: [
-        50,
-        'A hotel summary must have less or equal then 50 characters',
+        100,
+        'A hotel summary must have less or equal then 100 characters',
       ],
     },
     description: {
@@ -61,10 +61,6 @@ const HotelSchema = new mongoose.Schema(
       minlength: [
         50,
         'A hotel description must have more or equal then 50 characters',
-      ],
-      maxlength: [
-        500,
-        'A hotel description must have less or equal then 500 characters',
       ],
     },
   },
