@@ -8,12 +8,12 @@ const HotelSchema = new mongoose.Schema(
       require: true,
     },
     description: String,
+    starRating: {
+      type: Number,
+    },
     imageCover: {
       type: String,
       default: '',
-    },
-    starRating: {
-      type: Number,
     },
     numOfRatings: {
       type: Number,
