@@ -10,6 +10,12 @@ import userRouter from './src/routes/hotelRoutes.js';
 import globalErrorHandlerMiddleWare from './src/middlewares/globalErrorHandler.js';
 import AppError from './src/utils/appError.js';
 
+process.on('uncaughtException', (err) => {
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.log(err.name, err.message);
+  process.exit(1);
+});
+
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
