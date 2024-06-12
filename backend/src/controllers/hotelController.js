@@ -60,13 +60,13 @@ export const updateHotel = catchAsync(async (req, res, next) => {
     return next(new AppError('No hotel found with that ID', 404));
   }
 
-   res.status(StatusCodes.OK).json({
-     status: 'success',
-     message: 'Get a hotel',
-     data: { 
-      data: hotel
-     },
-   });
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    message: 'Get a hotel',
+    data: {
+      data: hotel,
+    },
+  });
 });
 
 export const deleteHotel = catchAsync(async (req, res, next) => {
