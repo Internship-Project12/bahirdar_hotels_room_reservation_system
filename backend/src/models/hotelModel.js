@@ -16,10 +16,10 @@ const HotelSchema = new mongoose.Schema(
     starRating: {
       type: Number,
     },
-    // imageCover: {
-    //   type: String,
-    //   // required: [true, 'A hotel must have a cover image'],
-    // },
+    imageCover: {
+      type: String,
+      // required: [true, 'A hotel must have a cover image'],
+    },
     numOfRatings: {
       type: Number,
       default: 0,
