@@ -43,10 +43,24 @@ const getHotel = async (id) => {
   }
 };
 
+const deleteHotel = async (id) => {
+   try {
+     const res = await customFetch.delete(`/api/v1/hotels/${id}`);
+
+     const { data } = res;
+     // console.log(data);
+     return data;
+   } catch (error) {
+     // console.log(error.response.data);
+     return error.response.data;
+   }
+}
+
 const apiHotels = {
   addHotel,
   getHotel,
   getAllHotels,
+  deleteHotel
 };
 
 export default apiHotels;

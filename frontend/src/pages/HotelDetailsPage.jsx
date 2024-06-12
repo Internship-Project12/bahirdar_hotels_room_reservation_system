@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import apiHotels from "../services/api-hotels";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 function HotelDetailsPage() {
@@ -12,7 +12,16 @@ function HotelDetailsPage() {
     queryFn: () => apiHotels.getHotel(id),
   });
 
-  console.log(data);
+  const { mutate, isPending } = useMutation({
+    mutationFn: apiHotels.deleteHotel,
+    onSuccess: () => {
+      toast.success("Hotel deleted");
+      navigate("/hotels");
+    },
+    onError: (data) => {
+      toast.success(`fail to delete a hotel ${data.message}`);
+    },
+  });
 
   if (isLoading) {
     return <p>Loading</p>;
@@ -34,6 +43,15 @@ function HotelDetailsPage() {
       <h3>address: {hotel.address}</h3>
       <h3>summary: {hotel.summary}</h3>
       <h3>description: {hotel.description}</h3>
+      <div className="flex justify-end">
+        <Link
+          onClick={() => mutate(hotel._id)}
+          disabled={isPending}
+          className="rounded bg-blue-500 p-2 text-white disabled:cursor-not-allowed disabled:bg-blue-300"
+        >
+          delete hotel
+        </Link>
+      </div>
     </div>
   );
 }
