@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import Hotel from '../models/hotelModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
+import AppError from '../utils/appError.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Hotel.find(), req.query)
@@ -77,8 +78,8 @@ export const deleteHotel = catchAsync(async (req, res, next) => {
     return next(new AppError('No hotel found with that ID', 404));
   }
 
-  res.status(StatusCodes.DELETED).json({
+  res.status(StatusCodes.OK).json({
     status: 'success',
-    message: 'Delete a hotel',
+    message: 'hotel deleted successfully ',
   });
 });
