@@ -49,7 +49,7 @@ function HotelsListPage() {
                   <div className="flex flex-col justify-around">
                     <div className="flex flex-col gap-2">
                       <Link
-                        to={`/hotels/${1}`}
+                        to={`/hotels/${hotel._id}`}
                         className="text-2xl font-bold text-blue-900 underline"
                       >
                         {hotel.name}
@@ -109,7 +109,7 @@ function HotelsListPage() {
                   </p>
                 </div>
                 <Link
-                  to={`/hotel/${hotel._id}`}
+                  to={`/hotels/${hotel._id}`}
                   className="rounded bg-blue-500 p-2 text-white"
                 >
                   See Details

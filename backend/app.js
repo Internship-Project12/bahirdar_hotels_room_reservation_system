@@ -10,7 +10,7 @@ import userRouter from './src/routes/userRoutes.js';
 import globalErrorHandlerMiddleWare from './src/middlewares/globalErrorHandlerMiddleWare.js';
 import AppError from './src/utils/appError.js';
 
-// using undeclared vars console.log(x) -- handles
+// using undeclared vars console.log(x) -- handles uncaughtException for asynchronous code
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
   console.log(err.name, err.message);
@@ -19,9 +19,9 @@ process.on('uncaughtException', (err) => {
 
 const app = express();
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+// if (process.env.NODE_ENV === 'development') {
+// }
+app.use(morgan('dev'));
 
 app.use(express.json());
 
@@ -48,7 +48,7 @@ try {
   app.listen(PORT, () => {
     console.log(`DB connected... and Server running on port ${PORT}...`);
   });
-} catch (error) {
+} catch (err) {
   console.log('Something went wrong');
   console.log(err.name, err.message);
   process.exit(1);

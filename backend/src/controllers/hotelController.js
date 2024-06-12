@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import Hotel from '../models/hotelModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
+import AppError from '../utils/appError.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   const features = new APIFeatures(Hotel.find(), req.query)
@@ -9,7 +10,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
     .sort()
     .limitFields()
     .paginate();
-  const hotels = await features.query; // the we execute that query here and get the result
+  const hotels = await features.query;
 
   res.status(StatusCodes.OK).json({
     status: 'success',
@@ -22,6 +23,10 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 });
 
 export const createHotel = catchAsync(async (req, res, next) => {
+  if (req.body.imageCover) {
+    req.body.imageCover = 'some image uploaded';
+  }
+  
   const hotel = await Hotel.create(req.body);
 
   res.status(StatusCodes.CREATED).json({
@@ -60,13 +65,13 @@ export const updateHotel = catchAsync(async (req, res, next) => {
     return next(new AppError('No hotel found with that ID', 404));
   }
 
-   res.status(StatusCodes.OK).json({
-     status: 'success',
-     message: 'Get a hotel',
-     data: { 
-      data: hotel
-     },
-   });
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    message: 'Get a hotel',
+    data: {
+      data: hotel,
+    },
+  });
 });
 
 export const deleteHotel = catchAsync(async (req, res, next) => {
@@ -77,8 +82,8 @@ export const deleteHotel = catchAsync(async (req, res, next) => {
     return next(new AppError('No hotel found with that ID', 404));
   }
 
-  res.status(StatusCodes.DELETED).json({
+  res.status(StatusCodes.OK).json({
     status: 'success',
-    message: 'Delete a hotel',
+    message: 'hotel deleted successfully ',
   });
 });
