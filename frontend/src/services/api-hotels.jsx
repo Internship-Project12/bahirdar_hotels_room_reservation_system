@@ -35,13 +35,11 @@ const getHotel = async (id) => {
     const res = await customFetch.get(`/api/v1/hotels/${id}`);
 
     const { data } = res;
-
-    if (data.status !== "success") throw new Error(data.message);
-
+    // console.log(data);
     return data;
   } catch (error) {
-    console.log(error);
-    return error;
+    // console.log(error.response.data);
+    return error.response.data;
   }
 };
 
