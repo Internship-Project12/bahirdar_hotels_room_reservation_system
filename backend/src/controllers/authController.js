@@ -43,3 +43,45 @@ export const login = catchAsync(async (req, res, next) => {
     token,
   });
 });
+
+export const protect = catchAsync(async (req, res, next) => {
+  // 1) Getting token and check if it's there
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+
+  if (!token) {
+    return next(
+      new AppError('You are not logged in! Please log in to get access.', 401)
+    );
+  }
+
+  // 2) Verification token
+  const decoded = verifyJWT(token);
+
+  // 3) Check if user still exists
+  const currentUser = await User.findById(decoded.id);
+
+  if (!currentUser) {
+    return next(
+      new AppError('The User belonging to the token doe no longer exist', 401)
+    );
+  }
+
+  // 4) Check if user changed password after the token was issued
+  const isChangedPasswordAfter = currentUser.changedPasswordAfter(decoded.iat);
+  if (isChangedPasswordAfter) {
+    return next(
+      new AppError('User recently changed password! Please log in again')
+    );
+  }
+
+  req.user = currentUser;
+
+  // GRANT ACCESS TO PROTECTED ROUTE
+  next();
+});
