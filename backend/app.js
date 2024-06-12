@@ -6,8 +6,8 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 
 import hotelRouter from './src/routes/hotelRoutes.js';
-import userRouter from './src/routes/hotelRoutes.js';
-import globalErrorHandlerMiddleWare from './src/middlewares/globalErrorHandler.js';
+import userRouter from './src/routes/userRoutes.js';
+import globalErrorHandlerMiddleWare from './src/middlewares/globalErrorHandlerMiddleWare.js';
 import AppError from './src/utils/appError.js';
 
 process.on('uncaughtException', (err) => {
@@ -48,7 +48,8 @@ try {
     console.log(`DB connected... and Server running on port ${PORT}...`);
   });
 } catch (error) {
-  console.log('ERROR', error);
+  console.log('Something went wrong');
+  console.log(err.name, err.message);
   process.exit(1);
 }
 
