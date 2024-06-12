@@ -41,6 +41,20 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
 });
 
+userSchema.pre('save', async function (next) {
+  // Only run this function if password was actually modified
+  if (!this.isModified('password')) return next();
+
+  // Hash the password with cost of 12
+  const salt = await bcrypt.genSalt(12);
+  const hashedPassword = await bcrypt.hash(this.password, salt);
+  this.password = hashedPassword;
+
+  // Delete passwordConfirm field
+  this.passwordConfirm = undefined;
+  next();
+});
+
 const User = mongoose.model('User', userSchema);
 
 export default User;
