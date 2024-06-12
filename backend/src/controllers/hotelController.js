@@ -9,7 +9,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
     .sort()
     .limitFields()
     .paginate();
-  const hotels = await features.query; // the we execute that query here and get the result
+  const hotels = await features.query;
 
   res.status(StatusCodes.OK).json({
     status: 'success',
