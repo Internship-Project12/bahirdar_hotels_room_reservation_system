@@ -23,6 +23,10 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 });
 
 export const createHotel = catchAsync(async (req, res, next) => {
+  if (req.body.imageCover) {
+    req.body.imageCover = 'some image uploaded';
+  }
+  
   const hotel = await Hotel.create(req.body);
 
   res.status(StatusCodes.CREATED).json({

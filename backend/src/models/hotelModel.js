@@ -5,7 +5,7 @@ const HotelSchema = new mongoose.Schema(
     name: {
       type: String,
       trim: true,
-      require: [true, 'A hotel must have a name'],
+      required: [true, 'A hotel must have a name'],
       minlength: [5, 'A hotel name must have more or equal then 5 characters'],
       maxlength: [
         50,
@@ -18,7 +18,7 @@ const HotelSchema = new mongoose.Schema(
     },
     imageCover: {
       type: String,
-      // required: [true, 'A hotel must have a cover image'],
+      required: [true, 'A hotel must have a cover image'],
     },
     numOfRatings: {
       type: Number,
@@ -31,7 +31,7 @@ const HotelSchema = new mongoose.Schema(
     address: {
       type: String,
       trim: true,
-      require: [true, 'A hotel must have an address'],
+      required: [true, 'A hotel must have an address'],
       minlength: [
         10,
         'A hotel address must have more or equal then 10 characters',
@@ -44,7 +44,7 @@ const HotelSchema = new mongoose.Schema(
     summary: {
       type: String,
       trim: true,
-      require: [true, 'A hotel must have a summary'],
+      required: [true, 'A hotel must have a summary'],
       minlength: [
         20,
         'A hotel summary must have more or equal then 20 characters',
