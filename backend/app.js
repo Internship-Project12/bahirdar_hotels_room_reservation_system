@@ -1,12 +1,14 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import 'express-async-errors';
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 
 import hotelRouter from './src/routes/hotelRoutes.js';
+import userRouter from './src/routes/hotelRoutes.js';
+import globalErrorHandlerMiddleWare from './src/middlewares/globalErrorHandler.js';
+import AppError from './src/utils/appError.js';
 
 const app = express();
 
@@ -24,6 +26,13 @@ app.get('/api/v1/test', (req, res) => {
 });
 
 app.use('/api/v1/hotels', hotelRouter);
+app.use('/api/v1/users', userRouter);
+
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+app.use(globalErrorHandlerMiddleWare);
 
 const PORT = process.env.PORT || 3000;
 
