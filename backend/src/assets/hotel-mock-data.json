@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Azwa International Hotel",
+    "description": "Azwa International Hotel is a 3-star hotel located in the heart of the city of Kano, Nigeria. The hotel is a 5-minute drive from the airport and is close to the Kano Zoo. The hotel offers a range of services and facilities including free Wi-Fi, a restaurant, a bar, a fitness center, and a swimming pool. The hotel also has a conference center and meeting rooms for business travelers. The hotel has 24-hour security and offers free parking to guests. The hotel has a range of rooms and suites to choose from, all of which are air-conditioned and have a TV, a mini-bar, and a private bathroom. The hotel also offers laundry and dry cleaning services, as well as car rental services. The hotel is a great choice for both business and leisure travelers visiting Kano.",
+    "address": "No 1, Azwa Street, Kano, Nigeria",
+    "starRating": 3
+  },
+  {
+    "name": "Royal Tropicana Hotel",
+    "description": "Royal Tropicana Hotel is a 4-star hotel located in the heart of the city of Lagos, Nigeria. The hotel is a 10-minute drive from the airport and is close to the Lagos Island. The hotel offers a range of services and facilities including free Wi-Fi, a restaurant, a bar, a fitness center, and a swimming pool. The hotel also has a conference center and meeting rooms for business travelers. The hotel has 24-hour security and offers free parking to guests. The hotel has a range of rooms and suites to choose from, all of which are air-conditioned and have a TV, a mini-bar, and a private bathroom. The hotel also offers laundry and dry cleaning services, as well as car rental services. The hotel is a great choice for both business and leisure travelers visiting Lagos.",
+    "address": "No 1, Royal Street, Lagos, Nigeria",
+    "starRating": 4
+  },
+  {
+    "name": "Golden Tulip Hotel",
+    "description": "Golden Tulip Hotel is a 5-star hotel located in the heart of the city of Abuja, Nigeria. The hotel is a 15-minute drive from the airport and is close to the Abuja National Mosque. The hotel offers a range of services and facilities including free Wi-Fi, a restaurant, a bar, a fitness center, and a swimming pool. The hotel also has a conference center and meeting rooms for business travelers. The hotel has 24-hour security and offers free parking to guests. The hotel has a range of rooms and suites to choose from, all of which are air-conditioned and have a TV, a mini-bar, and a private bathroom. The hotel also offers laundry and dry cleaning services, as well as car rental services. The hotel is a great choice for both business and leisure travelers visiting Abuja.",
+    "address": "No 1, Golden Street, Abuja, Nigeria",
+    "starRating": 5
+  },
+  {
+    "name": "Sheraton Hotel",
+    "description": "Sheraton Hotel is a 5-star hotel located in the heart of the city of Port Harcourt, Nigeria. The hotel is a 20-minute drive from the airport and is close to the Port Harcourt Zoo. The hotel offers a range of services and facilities including free Wi-Fi, a restaurant, a bar, a fitness center, and a swimming pool. The hotel also has a conference center and meeting rooms for business travelers. The hotel has 24-hour security and offers free parking to guests. The hotel has a range of rooms and suites to choose from, all of which are air-conditioned and have a TV, a mini-bar, and a private bathroom. The hotel also offers laundry and dry cleaning services, as well as car rental services. The hotel is a great choice for both business and leisure travelers visiting Port Harcourt.",
+    "address": "No 1, Sheraton Street, Port Harcourt, Nigeria",
+    "starRating": 5
+  },
+  {
+    "name": "Hilton Hotel",
+    "description": "Hilton Hotel is a 5-star hotel located in the heart of Addis Ababa, Ethiopia. The hotel offers a luxurious experience with its spacious rooms, modern amenities, and exceptional service. Whether you are traveling for business or pleasure, Hilton Hotel is the perfect choice for your stay in Addis Ababa.",
+    "address": "No 1, Hilton Street, Enugu, Nigeria",
+    "starRating": 5
+  }
+]

@@ -2,10 +2,16 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "the backend login for the Hotel booking app",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/app.js"
+    "setup-project": "npm i && cd ../frontend && npm i",
+    "setup-production-app": "npm i && cd ../frontend  && npm i && npm run build",
+    "server": "nodemon app.js",
+    "serverProd": "NODE_ENV=production nodemon app.js",
+    "client": "cd ../frontend  && npm run dev",
+    "dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\"",
+    "prod": "concurrently --kill-others-on-fail \" npm run serverProd\" \" npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -18,7 +24,6 @@
     "datauri": "^4.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "express-async-errors": "^3.1.1",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^7.3.0",
     "express-validator": "^7.1.0",
@@ -27,7 +32,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.1",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.3"
