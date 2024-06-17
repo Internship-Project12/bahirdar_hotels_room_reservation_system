@@ -6,9 +6,9 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cloudinary from 'cloudinary';
 
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
-const mongoSanitize = require('express-mongo-sanitize');
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
 
 import hotelRouter from './src/routes/hotelRoutes.js';
 import userRouter from './src/routes/userRoutes.js';
@@ -47,6 +47,7 @@ app.use('/api', limiter);
 
 // Body parser, reading data from body into req.body
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); //  is used for parsing x-www-form-urlencoded request bodies
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
