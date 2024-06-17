@@ -3,8 +3,12 @@ import Hotel from '../models/hotelModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
+import { uploadImages } from '../middlewares/multerMiddleware.js';
+import cloudinary from 'cloudinary';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const features = new APIFeatures(Hotel.find(), req.query)
     .filter()
     .sort()
@@ -23,11 +27,17 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 });
 
 export const createHotel = catchAsync(async (req, res, next) => {
-  if (req.body.imageCover) {
-    req.body.imageCover = 'some image uploaded';
-  }
-  
-  const hotel = await Hotel.create(req.body);
+  const image = req.file;
+  console.log(image);
+  // const imageCover = await uploadImages([req.file]);
+
+  const b64 = Buffer.from(image.buffer).toString('base64');
+  let dataURI = `data:${image.mimetype};base64,${b64}`;
+  const imgRes = await cloudinary.v2.uploader.upload(dataURI);
+  console.log('upload image ', imgRes);
+
+  const hotel = await Hotel.create({ ...req.body, imageCover: imgRes.url });
+  console.log(hotel);
 
   res.status(StatusCodes.CREATED).json({
     status: 'success',
@@ -37,6 +47,8 @@ export const createHotel = catchAsync(async (req, res, next) => {
 });
 
 export const getHotel = catchAsync(async (req, res, next) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const { id } = req.params;
 
   const hotel = await Hotel.findOne({
@@ -56,6 +68,8 @@ export const getHotel = catchAsync(async (req, res, next) => {
 });
 
 export const updateHotel = catchAsync(async (req, res, next) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -75,6 +89,8 @@ export const updateHotel = catchAsync(async (req, res, next) => {
 });
 
 export const deleteHotel = catchAsync(async (req, res, next) => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const { id } = req.params;
   const hotel = await Hotel.findByIdAndDelete(id);
 

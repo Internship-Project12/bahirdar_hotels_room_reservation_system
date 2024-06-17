@@ -4,6 +4,11 @@ dotenv.config();
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import cloudinary from 'cloudinary';
+
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
 
 import hotelRouter from './src/routes/hotelRoutes.js';
 import userRouter from './src/routes/userRoutes.js';
@@ -19,11 +24,33 @@ process.on('uncaughtException', (err) => {
 
 const app = express();
 
+// Set security HTTP headers
+app.use(helmet());
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 // if (process.env.NODE_ENV === 'development') {
 // }
 app.use(morgan('dev'));
 
+// Limit requests from same API
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: 'Too many requests from this IP, please try again in an hour!',
+});
+app.use('/api', limiter);
+
+// Body parser, reading data from body into req.body
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); //  is used for parsing x-www-form-urlencoded request bodies
+
+// Data sanitization against NoSQL query injection
+app.use(mongoSanitize());
 
 app.get('/api/v1/test', (req, res) => {
   res.status(200).json({
