@@ -6,10 +6,14 @@ import {
   getHotel,
   updateHotel,
 } from '../controllers/hotelController.js';
+import upload from '../middlewares/multerMiddleware.js';
 
 const router = express.Router();
 
-router.route('/').get(getAllHotels).post(createHotel);
+router
+  .route('/')
+  .get(getAllHotels)
+  .post(upload.single('imageCover'), createHotel);
 
 router.route('/:id').get(getHotel).patch(updateHotel).delete(deleteHotel);
 
