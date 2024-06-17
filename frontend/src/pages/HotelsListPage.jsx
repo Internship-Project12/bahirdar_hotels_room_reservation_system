@@ -38,11 +38,11 @@ function HotelsListPage() {
             >
               <div>
                 <div className="flex gap-3">
-                  <div className="h-[300px] min-w-[300px] flex-1 overflow-hidden rounded shadow-xl">
+                  <div className="h-[300px] max-w-[300px] flex-1 overflow-hidden rounded bg-black shadow-xl">
                     <img
                       src={hotel.imageCover}
                       alt=""
-                      className="h-full object-cover"
+                      className="h-full w-full object-cover"
                     />
                   </div>
                   {/* hotel name */}
@@ -54,9 +54,11 @@ function HotelsListPage() {
                       >
                         {hotel.name}
                       </Link>
-                      <span className="text-sm text-slate-500">
-                        (7 Star Hotel In Bahirdar)
-                      </span>
+                      {hotel.starRating && (
+                        <span className="text-sm text-slate-500">
+                          ({hotel.starRating} Star Hotel In Bahirdar)
+                        </span>
+                      )}
                     </div>
                     <div className="flex flex-col justify-center gap-3">
                       <span>Standard Rooms</span>
