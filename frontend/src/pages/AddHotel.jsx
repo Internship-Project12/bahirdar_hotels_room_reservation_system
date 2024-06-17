@@ -8,12 +8,14 @@ function AddHotel() {
   const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
     mutationFn: apiHotels.addHotel,
-    onSuccess: () => {
+    onSettled: (data) => {
+      if (data.status !== "success") {
+        return toast.error(
+          data.message || "something went wrong: unable to add a hotel",
+        );
+      }
       toast.success("Hotel added successfully");
       navigate("/hotels");
-    },
-    onError: (error) => {
-      toast.error(error.message);
     },
   });
 

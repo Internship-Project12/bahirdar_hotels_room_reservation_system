@@ -19,6 +19,8 @@ function ManageHotelForm({ isPending, onSubmit }) {
     formData.append("address", data.address);
     formData.append("starRating", data.starRating);
     formData.append("summary", data.summary);
+    formData.append("pricePerNight", data.pricePerNight);
+    formData.append("numOfRooms", data.numOfRooms);
 
     Array.from(data.imageCover).forEach((image) => {
       formData.append(`imageCover`, image);
@@ -33,7 +35,9 @@ function ManageHotelForm({ isPending, onSubmit }) {
         onSubmit={onSubmitHandler}
         className="m-auto flex max-w-[85%] flex-col gap-8 rounded bg-slate-100 p-10 shadow-lg"
       >
-        <DetailSection />
+        <div className="max-w-[50%]">
+          <DetailSection />
+        </div>
         <SummarySection />
         <ImageSection />
         <button

@@ -20,6 +20,16 @@ const HotelSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A hotel must have a cover image'],
     },
+    pricePerNight: {
+      type: Number,
+      required: [true, 'A hotel must have a price'],
+      min: 0,
+    },
+    numOfRooms: {
+      type: Number,
+      required: [true, 'A hotel must have a number of rooms'],
+      min: [1, 'a hotel must have at least one room'],
+    },
     numOfRatings: {
       type: Number,
       default: 0,

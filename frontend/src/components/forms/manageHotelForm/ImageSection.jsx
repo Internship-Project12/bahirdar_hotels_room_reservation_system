@@ -15,7 +15,7 @@ function ImageSection() {
           type="file"
           accept="image/*"
           {...register("imageCover", {
-            // required: "A hotel must have a cover image",
+            required: "A hotel must have a cover image",
           })}
         />
       </label>

@@ -7,7 +7,7 @@ function DetailSection() {
   } = useFormContext();
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold text-gray-800">Add Hotel</h1>
 
       {/* NAME */}
@@ -25,7 +25,7 @@ function DetailSection() {
               message: "Hotel name should not exceed 50 characters",
             },
             minLength: {
-              value: 5,
+              value: 1,
               message: "Hotel name should be at least 5 characters",
             },
           })}
@@ -54,25 +54,48 @@ function DetailSection() {
         )}
       </label>
 
-      {/* PRICE PER NIGHT
+      {/* PRICE PER NIGHT */}
       <label>
-        Price per Night
+        Price per Night (ETB)
         <input
           type="number"
-          defaultValue="200"
+          defaultValue="250"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="price per night"
-          {...register("price", {
+          {...register("pricePerNight", {
             required: "Price per night is required",
             min: { value: 1, message: "Price per night should be at least 1" },
           })}
         />
-        {errors.address && (
+        {errors.pricePerNight && (
           <p className="text-sm font-normal text-red-700">
-            {errors.address.message}
+            {errors.pricePerNight.message}
           </p>
         )}
-      </label> */}
+      </label>
+
+      {/*Total Number of Rooms*/}
+      <label>
+        Total Number of Rooms
+        <input
+          type="number"
+          defaultValue="20"
+          className="w-full rounded border border-gray-400 px-3 py-2"
+          placeholder="total number of rooms"
+          {...register("numOfRooms", {
+            required: "Total number of rooms is required",
+            min: {
+              value: 1,
+              message: "Total number of rooms should be at least 1",
+            },
+          })}
+        />
+        {errors.numOfRooms && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.numOfRooms.message}
+          </p>
+        )}
+      </label>
 
       {/* STAR RATING */}
       <label>

@@ -6,12 +6,9 @@ const addHotel = async (hotel) => {
 
     const { data } = res;
 
-    if (data.status !== "success") throw new Error(data.message);
-
     return data;
   } catch (error) {
-    console.log(error);
-    return error;
+    return error?.response?.data;
   }
 };
 
@@ -20,47 +17,43 @@ const getAllHotels = async () => {
     const res = await customFetch.get("/api/v1/hotels");
 
     const { data } = res;
+    // console.log(data);
 
     if (data.status !== "success") throw new Error(data.message);
 
     return data;
   } catch (error) {
-    console.log(error);
-    return error;
+    return error?.response?.data;
   }
 };
 
 const getHotel = async (id) => {
   try {
     const res = await customFetch.get(`/api/v1/hotels/${id}`);
-
     const { data } = res;
-    // console.log(data);
+
     return data;
   } catch (error) {
-    // console.log(error.response.data);
-    return error.response.data;
+    return error?.response?.data;
   }
 };
 
 const deleteHotel = async (id) => {
-   try {
-     const res = await customFetch.delete(`/api/v1/hotels/${id}`);
+  try {
+    const res = await customFetch.delete(`/api/v1/hotels/${id}`);
 
-     const { data } = res;
-     // console.log(data);
-     return data;
-   } catch (error) {
-     // console.log(error.response.data);
-     return error.response.data;
-   }
-}
+    const { data } = res;
+    return data;
+  } catch (error) {
+    return error?.response?.data;
+  }
+};
 
 const apiHotels = {
   addHotel,
   getHotel,
   getAllHotels,
-  deleteHotel
+  deleteHotel,
 };
 
 export default apiHotels;
