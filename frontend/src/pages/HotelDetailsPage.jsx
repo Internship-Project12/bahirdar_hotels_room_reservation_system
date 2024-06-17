@@ -38,6 +38,9 @@ function HotelDetailsPage() {
 
   return (
     <div className="flex flex-col gap-5">
+      <div className="">
+        <img src={hotel.imageCover} alt="" className="h-[300px]" />
+      </div>
       <h1>{hotel.name}</h1>
       <h3>starRating: {hotel.starRating}</h3>
       <h3>address: {hotel.address}</h3>
