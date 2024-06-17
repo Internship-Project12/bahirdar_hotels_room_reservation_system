@@ -25,7 +25,7 @@ function DetailSection() {
               message: "Hotel name should not exceed 50 characters",
             },
             minLength: {
-              value: 5,
+              value: 1,
               message: "Hotel name should be at least 5 characters",
             },
           })}
