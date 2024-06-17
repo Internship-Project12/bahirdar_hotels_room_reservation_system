@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import cloudinary from 'cloudinary';
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -25,6 +26,12 @@ const app = express();
 
 // Set security HTTP headers
 app.use(helmet());
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
 // if (process.env.NODE_ENV === 'development') {
 // }
