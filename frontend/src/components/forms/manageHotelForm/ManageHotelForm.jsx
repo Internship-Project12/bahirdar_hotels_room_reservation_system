@@ -10,7 +10,21 @@ function ManageHotelForm({ isPending, onSubmit }) {
   const { handleSubmit } = formMethods;
 
   const onSubmitHandler = handleSubmit((data) => {
-    onSubmit(data);
+    console.log(data);
+
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("address", data.address);
+    formData.append("starRating", data.starRating);
+    formData.append("summary", data.summary);
+
+    Array.from(data.imageCover).forEach((image) => {
+      formData.append(`imageCover`, image);
+    });
+
+    onSubmit(formData);
   });
 
   return (
@@ -27,7 +41,7 @@ function ManageHotelForm({ isPending, onSubmit }) {
           className="w-full rounded bg-blue-800 px-3 py-2 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
           disabled={isPending}
         >
-          Add Hotel
+          {isPending ? "Adding Hotel..." : "Add Hotel"}
         </button>
       </form>
     </FormProvider>
