@@ -39,6 +39,14 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "img-src 'self' data: http://res.cloudinary.com"
+  );
+  next();
+});
+
 // if (process.env.NODE_ENV === 'development') {
 // }
 app.use(morgan('dev'));
