@@ -77,6 +77,10 @@ const HotelSchema = new mongoose.Schema(
         'A hotel description must have more or equal then 50 characters',
       ],
     },
+    facilities: {
+      type: [String],
+      required: [true, 'hotels must have some facilities'],
+    },
   },
   {
     timestamps: true,
