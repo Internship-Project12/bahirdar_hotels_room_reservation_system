@@ -13,7 +13,13 @@ const router = express.Router();
 router
   .route('/')
   .get(getAllHotels)
-  .post(upload.single('imageCover'), createHotel);
+  .post(
+    upload.fields([
+      { name: 'imageCover', maxCount: 1 },
+      { name: 'hotelImages', maxCount: 10 },
+    ]),
+    createHotel
+  );
 
 router.route('/:id').get(getHotel).patch(updateHotel).delete(deleteHotel);
 
