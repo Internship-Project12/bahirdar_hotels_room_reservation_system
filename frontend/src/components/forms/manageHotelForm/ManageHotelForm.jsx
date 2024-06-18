@@ -26,6 +26,12 @@ function ManageHotelForm({ isPending, onSubmit }) {
       formData.append(`imageCover`, image);
     });
 
+    Array.from(data.hotelImages).forEach((image) => {
+      formData.append(`hotelImages`, image);
+    });
+
+    console.log(formData);
+
     onSubmit(formData);
   });
 
