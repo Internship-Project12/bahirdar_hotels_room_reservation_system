@@ -37,26 +37,64 @@ function HotelDetailsPage() {
   // console.log(hotel);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 p-4">
       <div className="">
-        <img src={hotel.imageCover} alt="" className="max-w-[300px]" />
+        <img src={hotel.imageCover} alt="" />
       </div>
-      <h1>{hotel.name}</h1>
-      <h3>starRating: {hotel.starRating}</h3>
-      <h3>address: {hotel.address}</h3>
-      <h3>summary: {hotel.summary}</h3>
-      <h3>description: {hotel.description}</h3>
-      <h3>price per Night: {hotel.pricePerNight}</h3>
-      <h3>num of rooms: {hotel.numOfRooms}</h3>
-      <div className="flex flex-wrap">
-          {hotel?.hotelImages?.map((image, i) => (
+      <h1 className="text-xl font-bold">{hotel.name}</h1>
+      <div>
+        <span className="text-xl font-bold">starRating: </span>
+        {hotel.starRating}
+      </div>
+      <div>
+        <span className="text-xl font-bold">address: </span>
+        {hotel.address}
+      </div>
+      <div>
+        <span className="text-xl font-bold">summary: </span>
+        {hotel.summary}
+      </div>
+      <div>
+        <span className="text-xl font-bold">description: </span>
+        {hotel.description}
+      </div>
+      <div>
+        <span className="text-xl font-bold">price per Night: </span>
+        {hotel.pricePerNight}
+      </div>
+      <div>
+        <span className="text-xl font-bold">num of rooms: </span>
+        {hotel.numOfRooms}
+      </div>
+      <span className="text-xl font-bold">Hotel Facilities: </span>
+      <div className="flex flex-wrap gap-7">
+        {hotel.facilities.map((facility) => (
+          <span
+            className="min-w-[10rem] rounded-full bg-blue-900 px-4 py-2 text-center text-white"
+            key={facility}
+          >
+            {facility}
+          </span>
+        ))}
+      </div>
+
+      <div className="flex gap-8 mt-8 overflow-scroll">
+        {hotel?.hotelImages?.map((image, i) => (
+          <>
             <img
               key={image}
               src={image}
               alt={`hotel-image-[${i + 1}]`}
-              className="max-w-[200px]"
+              // className="max-w-[200px]"
             />
-          ))}
+            <img
+              key={image}
+              src={image}
+              alt={`hotel-image-[${i + 1}]`}
+              // className="max-w-[200px]"
+            />
+          </>
+        ))}
       </div>
       <div className="flex justify-end">
         <button

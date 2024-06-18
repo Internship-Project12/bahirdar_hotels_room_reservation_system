@@ -33,7 +33,7 @@ function HotelsListPage() {
             >
               <div>
                 <div className="flex gap-3">
-                  <div className="h-[300px] w-[300px] overflow-hidden rounded bg-black shadow-xl">
+                  <div className="h-[300px] w-[300px] overflow-hidden rounded shadow-xl">
                     <img
                       src={hotel.imageCover}
                       alt="hotel cover image"

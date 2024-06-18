@@ -4,6 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import DetailSection from "./DetailSection";
 import ImageSection from "./ImageSection";
 import SummarySection from "./SummarySection";
+import FacilitiesSection from "./FacilitiesSection";
 
 function ManageHotelForm({ isPending, onSubmit }) {
   const formMethods = useForm();
@@ -22,6 +23,10 @@ function ManageHotelForm({ isPending, onSubmit }) {
     formData.append("pricePerNight", data.pricePerNight);
     formData.append("numOfRooms", data.numOfRooms);
 
+    data.facilities.forEach((facility, i) => {
+      formData.append(`facilities[${i}]`, facility)
+    })
+
     Array.from(data.imageCover).forEach((image) => {
       formData.append(`imageCover`, image);
     });
@@ -30,7 +35,7 @@ function ManageHotelForm({ isPending, onSubmit }) {
       formData.append(`hotelImages`, image);
     });
 
-    // console.log(formData);
+    console.log(formData);
 
     onSubmit(formData);
   });
@@ -44,6 +49,7 @@ function ManageHotelForm({ isPending, onSubmit }) {
         <div className="max-w-[50%]">
           <DetailSection />
         </div>
+        <FacilitiesSection />
         <SummarySection />
         <ImageSection />
         <button

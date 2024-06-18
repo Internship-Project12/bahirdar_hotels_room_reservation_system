@@ -1,6 +1,7 @@
 import AppError from '../utils/appError.js';
 
 const sendErrorDev = (err, res) => {
+  console.error('ERROR 💥', err);
   res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
