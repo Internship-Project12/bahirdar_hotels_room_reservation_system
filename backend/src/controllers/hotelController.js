@@ -4,7 +4,6 @@ import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
 import { uploadImages } from '../middlewares/multerMiddleware.js';
-import cloudinary from 'cloudinary';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -27,16 +26,15 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 });
 
 export const createHotel = catchAsync(async (req, res, next) => {
-  const image = req.file;
-  console.log(image);
-  // const imageCover = await uploadImages([req.file]);
+  const imageCoverUrl = await uploadImages(req.files.imageCover);
+  const hotelImagesUrl = await uploadImages(req.files.hotelImages);
+  console.log(imageCoverUrl[0], hotelImagesUrl);
 
-  const b64 = Buffer.from(image.buffer).toString('base64');
-  let dataURI = `data:${image.mimetype};base64,${b64}`;
-  const imgRes = await cloudinary.v2.uploader.upload(dataURI);
-  console.log('upload image ', imgRes);
-
-  const hotel = await Hotel.create({ ...req.body, imageCover: imgRes.url });
+  const hotel = await Hotel.create({
+    ...req.body,
+    imageCover: imageCoverUrl[0],
+    hotelImages: hotelImagesUrl,
+  });
   console.log(hotel);
 
   res.status(StatusCodes.CREATED).json({
