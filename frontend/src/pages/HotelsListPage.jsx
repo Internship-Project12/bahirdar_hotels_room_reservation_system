@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { FaStar, FaRegStar } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import apiHotels from "../services/api-hotels";
 
 function HotelsListPage() {
+  const navigate = useNavigate();
+
   const { data: res, isLoading } = useQuery({
     queryKey: ["hotels"],
     queryFn: apiHotels.getAllHotels,
@@ -12,7 +14,20 @@ function HotelsListPage() {
   if (isLoading) {
     return <div>Loading all hotels</div>;
   }
-  // console.log(res);
+
+  if (!res?.data) {
+    return (
+      <div>
+        <p>No hotels found</p>
+        <button
+          onClick={() => navigate("/")}
+          className="rounded bg-blue-500 p-2 text-white"
+        >
+          Go to Home
+        </button>
+      </div>
+    );
+  }
 
   const { data: hotels } = res.data;
 
@@ -69,9 +84,6 @@ function HotelsListPage() {
                     <p>Free Cancelation && free Breakfast</p>
                   </div>
                 </div>
-                <p className="mt-2 text-sm">
-                  <span>Total of 5 floors(G + 5) </span>{" "}
-                </p>
               </div>
 
               {/* summary */}
@@ -101,7 +113,7 @@ function HotelsListPage() {
                   <p className="text-sm font-bold text-slate-600">
                     Price:{" "}
                     <span className="text-lg font-bold tracking-tighter text-blue-800">
-                      230ETB
+                      {`${hotel.pricePerNight} ETB`}
                     </span>
                   </p>
                 </div>

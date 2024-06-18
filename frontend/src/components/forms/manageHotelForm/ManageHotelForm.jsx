@@ -18,14 +18,14 @@ function ManageHotelForm({ isPending, onSubmit }) {
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("address", data.address);
-    formData.append("starRating", data.starRating);
+    formData.append("starRating", data.starRating.toString());
     formData.append("summary", data.summary);
-    formData.append("pricePerNight", data.pricePerNight);
-    formData.append("numOfRooms", data.numOfRooms);
+    formData.append("pricePerNight", data.pricePerNight.toString());
+    formData.append("numOfRooms", data.numOfRooms.toString());
 
     data.facilities.forEach((facility, i) => {
-      formData.append(`facilities[${i}]`, facility)
-    })
+      formData.append(`facilities[${i}]`, facility);
+    });
 
     Array.from(data.imageCover).forEach((image) => {
       formData.append(`imageCover`, image);

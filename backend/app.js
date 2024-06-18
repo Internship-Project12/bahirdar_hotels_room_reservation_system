@@ -15,6 +15,12 @@ import userRouter from './src/routes/userRoutes.js';
 import globalErrorHandlerMiddleWare from './src/middlewares/globalErrorHandlerMiddleWare.js';
 import AppError from './src/utils/appError.js';
 
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // using undeclared vars console.log(x) -- handles uncaughtException for asynchronous code
 process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
@@ -49,6 +55,8 @@ app.use('/api', limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //  is used for parsing x-www-form-urlencoded request bodies
 
+app.use(express.static(path.resolve(__dirname, './../frontend/dist')));
+
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
@@ -61,6 +69,14 @@ app.get('/api/v1/test', (req, res) => {
 
 app.use('/api/v1/hotels', hotelRouter);
 app.use('/api/v1/users', userRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './../frontend/dist', 'index.html'));
+});
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
+// });
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
