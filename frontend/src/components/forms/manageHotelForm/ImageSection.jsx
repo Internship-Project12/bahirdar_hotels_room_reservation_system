@@ -7,9 +7,9 @@ function ImageSection() {
     formState: { errors },
   } = useFormContext();
   return (
-    <div className="flex flex-col justify-center gap-3 capitalize">
-      <label className="flex w-[50%] items-center gap-3 capitalize">
-        upload cover image
+    <div className="flex justify-center gap-3 capitalize">
+      <label className="w-[50%] flex-1 items-center gap-3 capitalize">
+        upload hotel cover image
         {/* <FiUpload  size={'20px'}/> */}
         <input
           type="file"
@@ -18,12 +18,39 @@ function ImageSection() {
             required: "A hotel must have a cover image",
           })}
         />
+        {errors.imageCover && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.imageCover.message}
+          </p>
+        )}
       </label>
-      {errors.imageCover && (
-        <p className="text-sm font-normal text-red-700">
-          {errors.imageCover.message}
-        </p>
-      )}
+
+      <label className="w-[50%] flex-1 items-center gap-3 capitalize">
+        upload hotel images
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          {...register("hotelImages", {
+            validate: (hotelImages) => {
+              if (hotelImages.length < 2) {
+                return "A hotel must have at least 2 additional images";
+              }
+
+              if (hotelImages.length > 10) {
+                return "A hotel allowed to have at most 10 additional images";
+              }
+
+              return true;
+            },
+          })}
+        />
+        {errors.hotelImages && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.hotelImages.message}
+          </p>
+        )}
+      </label>
     </div>
   );
 }

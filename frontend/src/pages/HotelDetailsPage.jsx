@@ -48,6 +48,16 @@ function HotelDetailsPage() {
       <h3>description: {hotel.description}</h3>
       <h3>price per Night: {hotel.pricePerNight}</h3>
       <h3>num of rooms: {hotel.numOfRooms}</h3>
+      <div className="flex flex-wrap">
+          {hotel?.hotelImages?.map((image, i) => (
+            <img
+              key={image}
+              src={image}
+              alt={`hotel-image-[${i + 1}]`}
+              className="max-w-[200px]"
+            />
+          ))}
+      </div>
       <div className="flex justify-end">
         <button
           onClick={() => mutate(hotel._id)}

@@ -10,7 +10,7 @@ function ManageHotelForm({ isPending, onSubmit }) {
   const { handleSubmit } = formMethods;
 
   const onSubmitHandler = handleSubmit((data) => {
-    console.log(data);
+    // console.log(data);
 
     const formData = new FormData();
 
@@ -25,6 +25,12 @@ function ManageHotelForm({ isPending, onSubmit }) {
     Array.from(data.imageCover).forEach((image) => {
       formData.append(`imageCover`, image);
     });
+
+    Array.from(data.hotelImages).forEach((image) => {
+      formData.append(`hotelImages`, image);
+    });
+
+    // console.log(formData);
 
     onSubmit(formData);
   });
