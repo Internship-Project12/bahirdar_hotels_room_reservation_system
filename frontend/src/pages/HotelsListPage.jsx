@@ -12,12 +12,7 @@ function HotelsListPage() {
   if (isLoading) {
     return <div>Loading all hotels</div>;
   }
-
-  if (res.status !== "success") {
-    return <div>{res.message}</div>;
-  }
-
-  console.log(res);
+  // console.log(res);
 
   const { data: hotels } = res.data;
 
@@ -38,10 +33,10 @@ function HotelsListPage() {
             >
               <div>
                 <div className="flex gap-3">
-                  <div className="h-[300px] max-w-[300px] flex-1 overflow-hidden rounded bg-black shadow-xl">
+                  <div className="h-[300px] w-[300px] overflow-hidden rounded bg-black shadow-xl">
                     <img
                       src={hotel.imageCover}
-                      alt=""
+                      alt="hotel cover image"
                       className="h-full w-full object-cover"
                     />
                   </div>
