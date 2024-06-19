@@ -93,15 +93,13 @@ export const updateHotel = catchAsync(async (req, res, next) => {
 
   if (req.files.imageCoverFile) {
     imageCoverUrl = await uploadImages(req.files.imageCoverFile);
-    // hotel.imageCover = imageCoverUrl[0];
+    hotel.imageCover = imageCoverUrl[0];
   }
 
   if (req.files.hotelImagesFiles) {
     hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles);
+    hotel.hotelImages = [...hotel?.hotelImages, ...hotelImagesUrl];
   }
-
-  hotel.imageCover = imageCoverUrl[0];
-  hotel.hotelImages = [...hotel?.hotelImages, ...hotelImagesUrl];
 
   await hotel.save();
 
