@@ -85,17 +85,14 @@ function HotelDetailsPage() {
       </div>
 
       <div className="m-8">
-        <Swiper navigation>
+        <Swiper navigation slidesPerView={2} spaceBetween={20} loop={true}>
           {hotel?.hotelImages?.map((image, i) => (
-            <SwiperSlide
-              key={image}
-              className="flex items-center justify-center"
-            >
-              <div className="flex h-full w-full items-center justify-center">
+            <SwiperSlide key={image}>
+              <div className="flex justify-center">
                 <img
                   src={image}
                   alt={`hotel-image-[${i + 1}]`}
-                  className="max-h-full max-w-full rounded-lg"
+                  className="h-96 w-full rounded-lg object-cover"
                 />
               </div>
             </SwiperSlide>
