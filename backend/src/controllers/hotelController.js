@@ -31,13 +31,12 @@ export const createHotel = catchAsync(async (req, res, next) => {
   let hotelImagesUrl;
 
   try {
-    imageCoverUrl = await uploadImages(req.files.imageCover);
-    hotelImagesUrl = await uploadImages(req.files.hotelImages);
+    imageCoverUrl = await uploadImages(req.files.imageCoverFile);
+    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles);
   } catch (error) {
     console.error('🔥', error);
     return next(new AppError('Unable to upload images, try again', 500));
   }
-  console.log(imageCoverUrl, hotelImagesUrl);
 
   const hotel = await Hotel.create({
     ...req.body,
@@ -77,6 +76,8 @@ export const getHotel = catchAsync(async (req, res, next) => {
 export const updateHotel = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
+  console.log(req.files, req.body);
+
   const hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -85,6 +86,24 @@ export const updateHotel = catchAsync(async (req, res, next) => {
   if (!hotel) {
     return next(new AppError('No hotel found with that ID', 404));
   }
+
+  // IF THERE ARE IMAGE TO UPDATE
+  let imageCoverUrl;
+  let hotelImagesUrl;
+
+  if (req.files.imageCoverFile) {
+    imageCoverUrl = await uploadImages(req.files.imageCoverFile);
+    // hotel.imageCover = imageCoverUrl[0];
+  }
+
+  if (req.files.hotelImagesFiles) {
+    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles);
+  }
+
+  hotel.imageCover = imageCoverUrl[0];
+  hotel.hotelImages = [...hotel?.hotelImages, ...hotelImagesUrl];
+
+  await hotel.save();
 
   res.status(StatusCodes.OK).json({
     status: 'success',

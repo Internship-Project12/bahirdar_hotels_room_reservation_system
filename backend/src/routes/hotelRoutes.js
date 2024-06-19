@@ -15,12 +15,22 @@ router
   .get(getAllHotels)
   .post(
     upload.fields([
-      { name: 'imageCover', maxCount: 1 },
-      { name: 'hotelImages', maxCount: 10 },
+      { name: 'imageCoverFile', maxCount: 1 },
+      { name: 'hotelImagesFiles', maxCount: 10 },
     ]),
     createHotel
   );
 
-router.route('/:id').get(getHotel).patch(updateHotel).delete(deleteHotel);
+router
+  .route('/:id')
+  .get(getHotel)
+  .patch(
+    upload.fields([
+      { name: 'imageCoverFile', maxCount: 1 },
+      { name: 'hotelImagesFiles', maxCount: 10 },
+    ]),
+    updateHotel
+  )
+  .delete(deleteHotel);
 
 export default router;

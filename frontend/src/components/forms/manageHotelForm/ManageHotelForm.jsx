@@ -5,14 +5,32 @@ import DetailSection from "./DetailSection";
 import ImageSection from "./ImageSection";
 import SummarySection from "./SummarySection";
 import FacilitiesSection from "./FacilitiesSection";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function ManageHotelForm({ isPending, onSubmit }) {
+function ManageHotelForm({ isPending, onSubmit, hotel }) {
+  const isInUpdateMode = !!hotel;
+  const navigate = useNavigate();
+
   const formMethods = useForm();
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset, setValue, watch } = formMethods;
+
+  useEffect(() => {
+    // console.log("effect");
+    // FIXME: SOMETIMES THE FUNCTION NOT TRIGGERED
+    if (hotel) {
+      reset(hotel);
+      setValue("isInUpdateMode", isInUpdateMode);
+    }
+  }, [reset, hotel, isInUpdateMode, setValue]);
+
+  // To fix the issue of the form not being reset when the user navigates to the form
+  // useEffect does not run if so navigate to the hotels page
+  if (hotel && !watch("isInUpdateMode")) {
+    return navigate("/hotels");
+  }
 
   const onSubmitHandler = handleSubmit((data) => {
-    // console.log(data);
-
     const formData = new FormData();
 
     formData.append("name", data.name);
@@ -27,15 +45,29 @@ function ManageHotelForm({ isPending, onSubmit }) {
       formData.append(`facilities[${i}]`, facility);
     });
 
-    Array.from(data.imageCover).forEach((image) => {
-      formData.append(`imageCover`, image);
-    });
+    if (hotel?.imageCover) {
+      formData.append("imageCover", hotel.imageCover);
+    }
 
-    Array.from(data.hotelImages).forEach((image) => {
-      formData.append(`hotelImages`, image);
-    });
+    if (hotel?.hotelImages) {
+      hotel.hotelImages.forEach((image, i) => {
+        formData.append(`hotelImages[${i}]`, image);
+      });
+    }
 
-    console.log(formData);
+    if (data?.imageCoverFile)
+      Array.from(data.imageCoverFile).forEach((image) => {
+        formData.append(`imageCoverFile`, image);
+      });
+
+    if (data?.hotelImagesFiles)
+      Array.from(data.hotelImagesFiles).forEach((image) => {
+        formData.append(`hotelImagesFiles`, image);
+      });
+
+    if (hotel) {
+      formData.append("_id", hotel._id);
+    }
 
     onSubmit(formData);
   });
@@ -57,7 +89,7 @@ function ManageHotelForm({ isPending, onSubmit }) {
           className="w-full rounded bg-blue-800 px-3 py-2 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
           disabled={isPending}
         >
-          {isPending ? "Adding Hotel..." : "Add Hotel"}
+          {isPending ? "Saving Hotel..." : "Save Hotel"}
         </button>
       </form>
     </FormProvider>

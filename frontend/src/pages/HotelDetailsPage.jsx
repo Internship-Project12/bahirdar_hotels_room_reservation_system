@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiHotels from "../services/api-hotels";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
@@ -82,8 +82,7 @@ function HotelDetailsPage() {
             {facility}
           </span>
         ))}
-      </div>
-
+      </div>      
       <div className="m-8">
         <Swiper navigation slidesPerView={2} spaceBetween={20} loop={true}>
           {hotel?.hotelImages?.map((image, i) => (
@@ -100,6 +99,14 @@ function HotelDetailsPage() {
         </Swiper>
       </div>
       <div className="flex justify-end">
+        <Link
+          to={`/update-hotel/${hotel._id}`}
+          // onClick={() => mutate(hotel._id)}
+          // disabled={isPending || true}
+          className="rounded bg-blue-500 p-2 text-white disabled:cursor-not-allowed disabled:bg-blue-400"
+        >
+          update hotel
+        </Link>
         <button
           onClick={() => mutate(hotel._id)}
           disabled={isPending || true}
