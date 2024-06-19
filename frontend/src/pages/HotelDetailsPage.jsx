@@ -2,8 +2,14 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import apiHotels from "../services/api-hotels";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import SwiperCore from "swiper";
+import { Navigation } from "swiper/modules";
 
 function HotelDetailsPage() {
+  SwiperCore.use([Navigation]);
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -78,23 +84,23 @@ function HotelDetailsPage() {
         ))}
       </div>
 
-      <div className="flex gap-8 mt-8 overflow-scroll">
-        {hotel?.hotelImages?.map((image, i) => (
-          <>
-            <img
+      <div className="m-8">
+        <Swiper navigation>
+          {hotel?.hotelImages?.map((image, i) => (
+            <SwiperSlide
               key={image}
-              src={image}
-              alt={`hotel-image-[${i + 1}]`}
-              // className="max-w-[200px]"
-            />
-            <img
-              key={image}
-              src={image}
-              alt={`hotel-image-[${i + 1}]`}
-              // className="max-w-[200px]"
-            />
-          </>
-        ))}
+              className="flex items-center justify-center"
+            >
+              <div className="flex h-full w-full items-center justify-center">
+                <img
+                  src={image}
+                  alt={`hotel-image-[${i + 1}]`}
+                  className="max-h-full max-w-full rounded-lg"
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
       <div className="flex justify-end">
         <button
