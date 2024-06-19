@@ -76,8 +76,6 @@ export const getHotel = catchAsync(async (req, res, next) => {
 export const updateHotel = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  console.log(req.files, req.body.hotelImages.length);
-
   const hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -98,7 +96,7 @@ export const updateHotel = catchAsync(async (req, res, next) => {
 
   if (req.files.hotelImagesFiles) {
     hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles);
-    hotel.hotelImages = [...hotel?.hotelImages, ...hotelImagesUrl];
+    hotel.hotelImages = [...(hotel?.hotelImages || []), ...hotelImagesUrl];
   }
 
   await hotel.save();
