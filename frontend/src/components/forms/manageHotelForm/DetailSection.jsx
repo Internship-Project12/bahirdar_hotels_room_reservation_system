@@ -4,18 +4,23 @@ function DetailSection() {
   const {
     register,
     formState: { errors },
+    watch,
   } = useFormContext();
+
+  const isInUpdateMode = watch("isInUpdateMode");
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">Add Hotel</h1>
+      <h1 className="text-2xl font-bold text-gray-800">
+        {isInUpdateMode ? "update hotel" : "Add Hotel"}
+      </h1>
 
       {/* NAME */}
       <label className="flex-1 text-sm font-bold text-gray-700">
         Name
         <input
           type="text"
-          defaultValue="Addis International Hotel"
+          // defaultValue="Addis International Hotel"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="hotel name"
           {...register("name", {
@@ -42,7 +47,7 @@ function DetailSection() {
         Address
         <input
           type="text"
-          defaultValue="Addis Ababa, Ethiopia"
+          // defaultValue="Addis Ababa, Ethiopia"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="hotel address"
           {...register("address", { required: "Hotel address is required" })}
@@ -59,7 +64,7 @@ function DetailSection() {
         Price per Night (ETB)
         <input
           type="number"
-          defaultValue="250"
+          // defaultValue="250"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="price per night"
           {...register("pricePerNight", {
@@ -79,7 +84,7 @@ function DetailSection() {
         Total Number of Rooms
         <input
           type="number"
-          defaultValue="20"
+          // defaultValue="20"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="total number of rooms"
           {...register("numOfRooms", {
