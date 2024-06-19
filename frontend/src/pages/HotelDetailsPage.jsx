@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiHotels from "../services/api-hotels";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 function HotelDetailsPage() {
@@ -78,7 +78,7 @@ function HotelDetailsPage() {
         ))}
       </div>
 
-      <div className="flex gap-8 mt-8 overflow-scroll">
+      <div className="mt-8 flex gap-8 overflow-scroll">
         {hotel?.hotelImages?.map((image, i) => (
           <>
             <img
@@ -97,6 +97,14 @@ function HotelDetailsPage() {
         ))}
       </div>
       <div className="flex justify-end">
+        <Link
+          to={`/update-hotel/${hotel._id}`}
+          // onClick={() => mutate(hotel._id)}
+          // disabled={isPending || true}
+          className="rounded bg-blue-500 p-2 text-white disabled:cursor-not-allowed disabled:bg-blue-400"
+        >
+          update hotel
+        </Link>
         <button
           onClick={() => mutate(hotel._id)}
           disabled={isPending || true}
