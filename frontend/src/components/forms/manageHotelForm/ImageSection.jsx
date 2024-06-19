@@ -67,10 +67,12 @@ function ImageSection() {
             type="file"
             accept="image/*"
             {...register("imageCoverFile", {
-              required: isInUpdateMode ? false : "A hotel must have a cover image",
+              required: isInUpdateMode
+                ? false
+                : "A hotel must have a cover image",
             })}
           />
-          {errors.imageCoverFile  && (
+          {errors.imageCoverFile && (
             <p className="text-sm font-normal text-red-700">
               {errors.imageCoverFile.message}
             </p>
@@ -89,11 +91,13 @@ function ImageSection() {
           <input
             type="file"
             accept="image/*"
+            disabled={10 - existingHotelImagesUrl?.length <= 0}
+            className='disabled:cursor-not-allowed'
             multiple
             {...register("hotelImagesFiles", {
               validate: (hotelImagesFiles) => {
                 const numOfTotalImages =
-                  hotelImagesFiles.length +
+                  (hotelImagesFiles?.length || 0) +
                   (existingHotelImagesUrl?.length || 0);
 
                 if (numOfTotalImages < 2) {

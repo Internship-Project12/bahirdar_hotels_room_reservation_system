@@ -50,7 +50,7 @@ function ManageHotelForm({ isPending, onSubmit, hotel }) {
     }
 
     if (hotel?.hotelImages) {
-      hotel.hotelImages.forEach((image, i) => {
+      data.hotelImages.forEach((image, i) => {
         formData.append(`hotelImages[${i}]`, image);
       });
     }
