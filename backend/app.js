@@ -23,7 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // using undeclared vars console.log(x) -- handles uncaughtException for asynchronous code
 process.on('uncaughtException', (err) => {
-  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...', err);
   console.log(err.name, err.message);
   process.exit(1);
 });
