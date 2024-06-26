@@ -82,7 +82,7 @@ function HotelDetailsPage() {
             {facility}
           </span>
         ))}
-      </div>      
+      </div>
       <div className="m-8">
         <Swiper navigation slidesPerView={2} spaceBetween={20} loop={true}>
           {hotel?.hotelImages?.map((image, i) => (
@@ -109,7 +109,7 @@ function HotelDetailsPage() {
         </Link>
         <button
           onClick={() => mutate(hotel._id)}
-          disabled={isPending || true}
+          disabled={isPending}
           className="rounded bg-blue-500 p-2 text-white disabled:cursor-not-allowed disabled:bg-blue-400"
         >
           delete hotel
