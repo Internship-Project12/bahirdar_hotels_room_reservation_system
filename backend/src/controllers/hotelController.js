@@ -3,7 +3,7 @@ import Hotel from '../models/hotelModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
-import { uploadImages } from '../middlewares/multerMiddleware.js';
+import { uploadImages } from '../utils/uploadImages.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
