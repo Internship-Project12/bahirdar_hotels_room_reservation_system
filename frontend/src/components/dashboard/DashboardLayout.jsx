@@ -4,11 +4,11 @@ import Header from "./Header";
 
 function DashboardLayout() {
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="mx-auto flex max-w-[1400px]">
       <SideBar />
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col bg-white">
         <Header />
-        <main className="flex-1 bg-gray-100 p-6">
+        <main className="flex-1s flex">
           <Outlet />
         </main>
       </div>
@@ -17,23 +17,3 @@ function DashboardLayout() {
 }
 
 export default DashboardLayout;
-
-// import Sidebar from "./SideBar";
-// import Header from "./../Header";
-// import { Outlet } from "react-router-dom";
-
-// const Layout = () => {
-//   return (
-//     <div className="flex h-screen">
-//       <Sidebar />
-//       <div className="flex flex-1 flex-col">
-//         <Header />
-//         <main className="flex-grow p-4">
-//           <Outlet />
-//         </main>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Layout;
