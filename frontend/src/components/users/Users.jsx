@@ -1,5 +1,5 @@
 function Users() {
-  return <div>Create Users</div>;
+  return <div>Users</div>;
 }
 
 export default Users;

@@ -12,6 +12,11 @@ import HotelsListPage from "./pages/HotelsListPage";
 import AddHotel from "./pages/AddHotel";
 import HotelDetailsPage from "./pages/HotelDetailsPage";
 import UpdateHotel from "./pages/UpdateHotel";
+// import Dashboard from "./pages/Dashboard";
+// import Bookings from "./pages/Bookings";
+// import Users from "./components/users/Users";
+// import DashboardLayout from "./components/dashboard/DashboardLayout";
+// import HotelsTable from "./components/hotels/HotelsTable";
 
 function App() {
   return (
@@ -28,6 +33,12 @@ function App() {
           <Route path="/update-hotel/:id" element={<UpdateHotel />} />
           <Route path="/*" element={<Navigate to="/" />} />
         </Route>
+        {/* <Route element={<DashboardLayout />}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/bookings" element={<Bookings />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/hotels" element={<HotelsTable />} />
+        </Route> */}
       </Routes>
     </Router>
   );
