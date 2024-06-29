@@ -4,10 +4,30 @@ import catchAsync from '../utils/catchAsync.js';
 import { createJWT, verifyJWT } from '../utils/tokenUtils.js';
 
 export const signup = catchAsync(async (req, res, next) => {
-  const { name, email, password, passwordConfirm } = req.body;
-  const newUser = await User.create({ name, email, password, passwordConfirm });
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const { firstName, lastName, email, password, passwordConfirm, phoneNumber } =
+    req.body;
+  const newUser = await User.create({
+    firstName,
+    lastName,
+    email,
+    password,
+    passwordConfirm,
+    phoneNumber,
+  });
 
   const token = createJWT({ id: newUser._id });
+
+  res.cookie('jwt', token, {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+  });
+
+  // Remove the password from the output | it does not alter the database
+  newUser.password = undefined;
 
   res.status(201).json({
     status: 'success',
@@ -52,8 +72,8 @@ export const protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
-  } else if(req.cookies.jwt) {
-    token = req.cookies.jwt
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
   if (!token) {

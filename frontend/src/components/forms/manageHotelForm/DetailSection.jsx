@@ -25,12 +25,9 @@ function DetailSection() {
           placeholder="hotel name"
           {...register("name", {
             required: "Hotel name is required",
-            maxLength: {
-              value: 50,
-              message: "Hotel name should not exceed 50 characters",
-            },
+
             minLength: {
-              value: 1,
+              value: 5,
               message: "Hotel name should be at least 5 characters",
             },
           })}
@@ -50,7 +47,14 @@ function DetailSection() {
           // defaultValue="Addis Ababa, Ethiopia"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="hotel address"
-          {...register("address", { required: "Hotel address is required" })}
+          {...register("address", {
+            required: "Hotel address is required",
+            minLength: {
+              value: 50,
+              message:
+                "A hotel address must have more or equal then 50 characters",
+            },
+          })}
         />
         {errors.address && (
           <p className="text-sm font-normal text-red-700">
@@ -60,7 +64,7 @@ function DetailSection() {
       </label>
 
       {/* PRICE PER NIGHT */}
-      <label>
+      {/* <label>
         Price per Night (ETB)
         <input
           type="number"
@@ -77,7 +81,7 @@ function DetailSection() {
             {errors.pricePerNight.message}
           </p>
         )}
-      </label>
+      </label> */}
 
       {/*Total Number of Rooms*/}
       <label>

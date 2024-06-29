@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import apiHotels from "../services/api-hotels";
 import ManageHotelForm from "../components/forms/manageHotelForm/ManageHotelForm";
 import toast from "react-hot-toast";
+import apiHotels from "../services/apiHotels";
 
 function UpdateHotel() {
   const { id } = useParams();

@@ -2,7 +2,7 @@ import customFetch from "../utils/customFetch";
 
 const addHotel = async (hotel) => {
   try {
-    const res = await customFetch.post("/api/v1/hotels", hotel);
+    const res = await customFetch.post("/hotels", hotel);
 
     const { data } = res;
 
@@ -15,7 +15,7 @@ const addHotel = async (hotel) => {
 
 const getAllHotels = async () => {
   try {
-    const res = await customFetch.get("/api/v1/hotels");
+    const res = await customFetch.get("/hotels");
 
     const { data } = res;
     // console.log(data);
@@ -30,7 +30,7 @@ const getAllHotels = async () => {
 
 const getHotel = async (id) => {
   try {
-    const res = await customFetch.get(`/api/v1/hotels/${id}`);
+    const res = await customFetch.get(`/hotels/${id}`);
     const { data } = res;
 
     return data;
@@ -42,7 +42,7 @@ const getHotel = async (id) => {
 const updateHotel = async ({ updatedHotelData, id }) => {
   try {
     const res = await customFetch.patch(
-      `/api/v1/hotels/${id}`,
+      `/hotels/${id}`,
       updatedHotelData,
     );
 
@@ -56,7 +56,7 @@ const updateHotel = async ({ updatedHotelData, id }) => {
 
 const deleteHotel = async (id) => {
   try {
-    const res = await customFetch.delete(`/api/v1/hotels/${id}`);
+    const res = await customFetch.delete(`/hotels/${id}`);
 
     const { data } = res;
     return data;
