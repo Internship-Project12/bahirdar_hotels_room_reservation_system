@@ -5,16 +5,23 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
 function Signup() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const { mutate, isPending } = useMutation({
     mutationFn: apiAuth.signup,
-    onSuccess: (data) => {
+    onSuccess: () => {
       // console.log(data)
       toast.success("User signed up successfully");
     },
     onError: (error) => {
-      toast.error(error?.response?.data.message || "something went wrong when singing up a user");
+      toast.error(
+        // error?.response?.data.message ||
+        "something went wrong when singing up, Please try again later.",
+      );
     },
   });
 
@@ -36,8 +43,15 @@ function Signup() {
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="John"
           required
-          {...register("firstName")}
+          {...register("firstName", {
+            required: "first name is a required field",
+          })}
         />
+        {errors.firstName && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.firstName.message}
+          </p>
+        )}
       </label>
       <label className="flex-1 text-sm font-bold text-gray-700">
         Last Name
@@ -47,8 +61,15 @@ function Signup() {
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="Doe"
           // required
-          {...register("lastName")}
+          {...register("lastName", {
+            required: "last name is a required field",
+          })}
         />
+        {errors.lastName && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.lastName.message}
+          </p>
+        )}
       </label>
       <label className="flex-1 text-sm font-bold text-gray-700">
         <span>Email</span>
@@ -58,8 +79,15 @@ function Signup() {
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="test@test.com"
           // required
-          {...register("email")}
+          {...register("email", {
+            required: "email is a required field",
+          })}
         />
+        {errors.email && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.email.message}
+          </p>
+        )}
       </label>
       <label className="flex-1 text-sm font-bold text-gray-700">
         Password
@@ -69,8 +97,15 @@ function Signup() {
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="**********"
           // required
-          {...register("password")}
+          {...register("password", {
+            required: "password is a required field",
+          })}
         />
+        {errors.password && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.password.message}
+          </p>
+        )}
       </label>
       <label className="flex-1 text-sm font-bold text-gray-700">
         Password Confirm
@@ -80,8 +115,15 @@ function Signup() {
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="**********"
           // required
-          {...register("passwordConfirm")}
+          {...register("passwordConfirm", {
+            required: "password confirm is a required field",
+          })}
         />
+        {errors.passwordConfirm && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.passwordConfirm.message}
+          </p>
+        )}
       </label>
       <label className="flex-1 text-sm font-bold text-gray-700">
         Phone Number
@@ -90,8 +132,15 @@ function Signup() {
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder=""
           // required
-          {...register("phoneNumber")}
+          {...register("phoneNumber", {
+            required: "phone number is a required field",
+          })}
         />
+        {errors.phoneNumber && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.phoneNumber.message}
+          </p>
+        )}
       </label>
 
       <button
