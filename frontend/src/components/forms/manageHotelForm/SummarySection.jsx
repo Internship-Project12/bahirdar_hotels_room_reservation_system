@@ -22,11 +22,6 @@ function SummarySection() {
               message:
                 "A hotel summary must have more or equal then 50 characters",
             },
-            maxLength: {
-              value: 100,
-              message:
-                "A hotel summary must have less or equal then 100 characters",
-            },
           })}
         />
         {errors.summary && (
@@ -48,11 +43,6 @@ function SummarySection() {
               value: 50,
               message:
                 "A hotel description must have more or equal then 50 characters",
-            },
-            maxLength: {
-              value: 500,
-              message:
-                "A hotel description must have less or equal then 500 characters",
             },
           })}
         />
