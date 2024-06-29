@@ -1,19 +1,14 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
 import express from 'express';
 import morgan from 'morgan';
-import mongoose from 'mongoose';
-import cloudinary from 'cloudinary';
 
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
 
-import hotelRouter from './src/routes/hotelRoutes.js';
-import userRouter from './src/routes/userRoutes.js';
-import globalErrorHandlerMiddleWare from './src/middlewares/globalErrorHandlerMiddleWare.js';
-import AppError from './src/utils/appError.js';
+import hotelRouter from './routes/hotelRoutes.js';
+import userRouter from './routes/userRoutes.js';
+import globalErrorHandlerMiddleWare from './middlewares/globalErrorHandlerMiddleWare.js';
+import AppError from './utils/appError.js';
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -21,23 +16,10 @@ import path from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// using undeclared vars console.log(x) -- handles uncaughtException for asynchronous code
-process.on('uncaughtException', (err) => {
-  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...', err);
-  console.log(err.name, err.message);
-  process.exit(1);
-});
-
 const app = express();
 
 // Set security HTTP headers
 app.use(helmet());
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
-});
 
 app.use((req, res, next) => {
   res.setHeader(
@@ -92,22 +74,4 @@ app.all('*', (req, res, next) => {
 
 app.use(globalErrorHandlerMiddleWare);
 
-const PORT = process.env.PORT || 3000;
-
-try {
-  await mongoose.connect(process.env.DB);
-  app.listen(PORT, () => {
-    console.log(`DB connected... and Server running on port ${PORT}...`);
-  });
-} catch (err) {
-  console.log('Something went wrong');
-  console.log(err.name, err.message);
-  process.exit(1);
-}
-
-// unhandled promise rejections for asynchronous code
-process.on('unhandledRejection', (err) => {
-  console.log('UNHANDLED REJECTION! 💥 Shutting down...');
-  console.log(err.name, err.message);
-  process.exit(1);
-});
+export default app;
