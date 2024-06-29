@@ -4,7 +4,7 @@ import catchAsync from '../utils/catchAsync.js';
 import { createJWT, verifyJWT } from '../utils/tokenUtils.js';
 
 export const signup = catchAsync(async (req, res, next) => {
-  console.log(req.body);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const { firstName, lastName, email, password, passwordConfirm, phoneNumber } =
     req.body;
   const newUser = await User.create({
