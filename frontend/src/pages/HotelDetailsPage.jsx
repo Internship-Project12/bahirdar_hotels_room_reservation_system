@@ -1,11 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import apiHotels from "../services/api-hotels";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
+import apiHotels from "../services/apiHotels";
 
 function HotelDetailsPage() {
   SwiperCore.use([Navigation]);

@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import apiHotels from "../../services/api-hotels";
+import apiHotels from "../../services/apiHotels";
 
 export const useHotels = () => {
   const {
