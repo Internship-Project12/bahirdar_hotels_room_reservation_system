@@ -3,7 +3,7 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import { createJWT, verifyJWT } from '../utils/tokenUtils.js';
 
-export const signup = catchAsync(async (req, res, next) => {
+const signup = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const { firstName, lastName, email, password, passwordConfirm, phoneNumber } =
     req.body;
@@ -38,7 +38,7 @@ export const signup = catchAsync(async (req, res, next) => {
   });
 });
 
-export const login = catchAsync(async (req, res, next) => {
+const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   // 1) Check if email and password exist
@@ -77,7 +77,7 @@ export const login = catchAsync(async (req, res, next) => {
   });
 });
 
-export const protect = catchAsync(async (req, res, next) => {
+const protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check if it's there
   let token;
   if (
@@ -120,3 +120,19 @@ export const protect = catchAsync(async (req, res, next) => {
   // GRANT ACCESS TO PROTECTED ROUTE
   next();
 });
+
+const logout = (req, res, next) => {
+  res.cookie('jwt', 'loggedOut', {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+    // secure: process.env.NODE_ENV === 'production',
+  });
+
+  res.status(200).json({
+    status: 'success',
+  })
+};
+
+const authController = { signup, login, protect, logout };
+
+export default authController;

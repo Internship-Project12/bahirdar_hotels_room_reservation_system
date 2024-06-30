@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import mongoSanitize from 'express-mongo-sanitize';
-import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser';
 
 import hotelRouter from './routes/hotelRoutes.js';
 import userRouter from './routes/userRoutes.js';
@@ -46,7 +46,7 @@ app.use('/api', limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //  is used for parsing x-www-form-urlencoded request bodies
 
-app.use(cookieParser())
+app.use(cookieParser());
 
 app.use(express.static(path.resolve(__dirname, './../frontend/dist')));
 
@@ -55,7 +55,6 @@ app.use(mongoSanitize());
 
 app.use('/', (req, res, next) => {
   console.log(req.cookies);
-  console.log('hello');
   // res.status(200).json({
   //   status: 'success',
   //   message: 'Hello from the server | Hotel Booking App',

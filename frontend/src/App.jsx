@@ -24,8 +24,8 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/sign-in" element={<SinginPage />} />
-          <Route path="/sign-up" element={<SignupPage />} />
+          <Route path="/login" element={<SinginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/hotels" element={<HotelsListPage />} />
           <Route path="/hotels/:id" element={<HotelDetailsPage />} />
           <Route path="/booking/:id" element={<p>Hotel booking page</p>} />

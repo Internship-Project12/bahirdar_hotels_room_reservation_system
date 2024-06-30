@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiAuth from "../services/apiAuth";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import QueryKey from "../constants/QueryKey";
 
 function Signup() {
+  const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -15,7 +20,9 @@ function Signup() {
     mutationFn: apiAuth.signup,
     onSuccess: () => {
       // console.log(data)
+      queryClient.invalidateQueries(QueryKey.USER);
       toast.success("User signed up successfully");
+      navigate("/", { replace: true });
     },
     onError: () => {
       toast.error(
@@ -152,7 +159,7 @@ function Signup() {
       </button>
       <div>
         have an account?{" "}
-        <Link to="/sign-in" className="text-blue-600 underline">
+        <Link to="/login" className="text-blue-600 underline">
           Sign in
         </Link>
       </div>
