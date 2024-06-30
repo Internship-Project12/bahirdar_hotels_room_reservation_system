@@ -26,7 +26,8 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 });
 
 export const createHotel = catchAsync(async (req, res, next) => {
-  console.log(req.files, req.body);
+  // console.log(req.files, req.body);
+
   let imageCoverUrl;
   let hotelImagesUrl;
 
@@ -43,7 +44,7 @@ export const createHotel = catchAsync(async (req, res, next) => {
     imageCover: imageCoverUrl[0],
     hotelImages: hotelImagesUrl,
   });
-  console.log(hotel);
+  // console.log(hotel);
 
   res.status(StatusCodes.CREATED).json({
     status: 'success',
