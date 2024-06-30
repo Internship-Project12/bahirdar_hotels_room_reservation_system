@@ -42,10 +42,6 @@ const HotelSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, 'A hotel must have an address'],
-      minlength: [
-        50,
-        'A hotel address must have more or equal then 50 characters',
-      ],
     },
     summary: {
       type: String,

@@ -10,15 +10,17 @@ function AddHotel() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: apiHotels.addHotel,
-    onSettled: (data) => {
-      if (data.status !== "success") {
-        queryClient.invalidateQueries('hotels')
-        return toast.error(
-          data.message || "something went wrong: unable to add a hotel",
-        );
-      }
+    onSuccess: () => {
       toast.success("Hotel added successfully");
+      queryClient.invalidateQueries("hotels");
+
       navigate("/hotels");
+    },
+    onError: (err) => {
+      toast.error(
+        err?.response?.data.message ||
+          "Something went wrong: unable to add a hotel",
+      );
     },
   });
 

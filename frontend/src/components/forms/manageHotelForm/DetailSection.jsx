@@ -20,7 +20,7 @@ function DetailSection() {
         Name
         <input
           type="text"
-          // defaultValue="Addis International Hotel"
+          defaultValue="Addis International Hotel"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="hotel name"
           {...register("name", {
@@ -44,16 +44,11 @@ function DetailSection() {
         Address
         <input
           type="text"
-          // defaultValue="Addis Ababa, Ethiopia"
+          defaultValue="Addis Ababa, Ethiopia"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="hotel address"
           {...register("address", {
             required: "Hotel address is required",
-            minLength: {
-              value: 50,
-              message:
-                "A hotel address must have more or equal then 50 characters",
-            },
           })}
         />
         {errors.address && (
@@ -68,7 +63,7 @@ function DetailSection() {
         Price per Night (ETB)
         <input
           type="number"
-          // defaultValue="250"
+          defaultValue="250"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="price per night"
           {...register("pricePerNight", {
@@ -88,7 +83,7 @@ function DetailSection() {
         Total Number of Rooms
         <input
           type="number"
-          // defaultValue="20"
+          defaultValue="20"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="total number of rooms"
           {...register("numOfRooms", {

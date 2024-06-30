@@ -65,10 +65,6 @@ function HotelDetailsPage() {
         {hotel.description}
       </div>
       <div>
-        <span className="text-xl font-bold">price per Night: </span>
-        {hotel.pricePerNight}
-      </div>
-      <div>
         <span className="text-xl font-bold">num of rooms: </span>
         {hotel.numOfRooms}
       </div>
