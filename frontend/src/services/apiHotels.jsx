@@ -1,17 +1,6 @@
 import customFetch from "../utils/customFetch";
 
-const addHotel = async (hotel) => {
-  try {
-    const res = await customFetch.post("/hotels", hotel);
-
-    const { data } = res;
-
-    return data;
-  } catch (error) {
-    console.log(error);
-    return error?.response?.data;
-  }
-};
+const addHotel = async (hotel) => await customFetch.post("/hotels", hotel);
 
 const getAllHotels = async () => {
   try {
@@ -41,10 +30,7 @@ const getHotel = async (id) => {
 
 const updateHotel = async ({ updatedHotelData, id }) => {
   try {
-    const res = await customFetch.patch(
-      `/hotels/${id}`,
-      updatedHotelData,
-    );
+    const res = await customFetch.patch(`/hotels/${id}`, updatedHotelData);
 
     console.log(res);
 
