@@ -38,7 +38,6 @@ function ManageHotelForm({ isPending, onSubmit, hotel }) {
     formData.append("address", data.address);
     formData.append("starRating", data.starRating.toString());
     formData.append("summary", data.summary);
-    formData.append("pricePerNight", data.pricePerNight.toString());
     formData.append("numOfRooms", data.numOfRooms.toString());
 
     data.facilities.forEach((facility, i) => {

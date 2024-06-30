@@ -113,7 +113,7 @@ function HotelsListPage() {
                   <p className="text-sm font-bold text-slate-600">
                     Price:{" "}
                     <span className="text-lg font-bold tracking-tighter text-blue-800">
-                      {`${hotel.pricePerNight} ETB`}
+                      {`255 ETB`}
                     </span>
                   </p>
                 </div>
