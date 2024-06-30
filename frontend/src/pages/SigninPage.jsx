@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiAuth from "../services/apiAuth";
 import toast from "react-hot-toast";
+import QueryKey from "../constants/QueryKey";
 
 function Signin() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -13,9 +17,10 @@ function Signin() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: apiAuth.login,
-    onSuccess: (data) => {
-      // console.log(data);
+    onSuccess: () => {
+      queryClient.invalidateQueries(QueryKey.USER);
       toast.success("Welcome to BDHotels Booking website");
+      navigate("/", { replace: true });
     },
     onError: (err) => {
       toast.error(err?.response?.data.message);
@@ -67,15 +72,15 @@ function Signin() {
         )}
       </label>
       <button
-        className="rounded bg-blue-600 px-3 py-2 text-xl font-bold text-white hover:bg-blue-500 disabled:bg-blue-400"
-        type="submit"
         disabled={isPending}
+        className="rounded bg-blue-600 px-3 py-2 text-xl font-bold text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-400"
+        type="submit"
       >
         {isPending ? "Signing In" : "Sign In"}
       </button>
       <div>
         have no account?{" "}
-        <Link to="/sign-up" className="text-blue-600 underline">
+        <Link to="/signup" className="text-blue-600 underline">
           Create your account
         </Link>
       </div>
