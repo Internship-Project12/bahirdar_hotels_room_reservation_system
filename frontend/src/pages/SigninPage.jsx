@@ -1,11 +1,29 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import apiAuth from "../services/apiAuth";
+import toast from "react-hot-toast";
 
 function Signin() {
-  const { handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: apiAuth.login,
+    onSuccess: (data) => {
+      // console.log(data);
+      toast.success("Welcome to BDHotels Booking website");
+    },
+    onError: (err) => {
+      toast.error(err?.response?.data.message);
+    },
+  });
 
   const onSubmitHandler = handleSubmit((data) => {
-    console.log(data);
+    mutate(data);
   });
 
   return (
@@ -18,12 +36,18 @@ function Signin() {
         <span>Email</span>
         <input
           type="email"
-          name="email"
           defaultValue="test@test.com"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="test@test.com"
-          required
+          {...register("email", {
+            required: "Please provide your email address",
+          })}
         />
+        {errors.email && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.email.message}
+          </p>
+        )}
       </label>
       <label className="flex-1 text-sm font-bold text-gray-700">
         Password
@@ -32,14 +56,22 @@ function Signin() {
           defaultValue="test1234"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder="test@test.com"
-          required
+          {...register("password", {
+            required: "Please Provide your password",
+          })}
         />
+        {errors.password && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.password.message}
+          </p>
+        )}
       </label>
       <button
-        className="rounded bg-blue-600 px-3 py-2 text-xl font-bold text-white hover:bg-blue-500"
+        className="rounded bg-blue-600 px-3 py-2 text-xl font-bold text-white hover:bg-blue-500 disabled:bg-blue-400"
         type="submit"
+        disabled={isPending}
       >
-        Sign In
+        {isPending ? "Signing In" : "Sign In"}
       </button>
       <div>
         have no account?{" "}
