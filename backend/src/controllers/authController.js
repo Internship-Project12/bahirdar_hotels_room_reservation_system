@@ -23,7 +23,7 @@ export const signup = catchAsync(async (req, res, next) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    secure: process.env.NODE_ENV === 'production',
   });
 
   // Remove the password from the output | it does not alter the database
@@ -58,9 +58,22 @@ export const login = catchAsync(async (req, res, next) => {
   // 3) If everything ok, send token to client
   const token = createJWT({ id: user._id });
 
+  res.cookie('jwt', token, {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  });
+
+  user.password = undefined;
+
   res.status(200).json({
     status: 'success',
     token,
+    data: {
+      user,
+    },
   });
 });
 

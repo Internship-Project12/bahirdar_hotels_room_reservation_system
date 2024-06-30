@@ -75,22 +75,22 @@ userSchema.pre('save', async function (next) {
 });
 
 // Check/Compare if the password is correct
-// userSchema.methods.isCorrectPassword = async function (pass, hashedPass) {
-//   return await bcrypt.compare(pass, hashedPass);
-// };
+userSchema.methods.isCorrectPassword = async function (pass, hashedPass) {
+  return await bcrypt.compare(pass, hashedPass);
+};
 
 // Check if The user changed his password After a token is signed
-// userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
-//   if (this.passwordChangedAt) {
-//     const changedTimestamp = parseInt(
-//       this.passwordChangedAt.getTime() / 1000,
-//       10
-//     );
-//     return JWTTimestamp < changedTimestamp;
-//   }
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return JWTTimestamp < changedTimestamp;
+  }
 
-//   return false;
-// };
+  return false;
+};
 
 // Create a mongoose model
 const User = mongoose.model('User', userSchema);

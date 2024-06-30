@@ -17,10 +17,10 @@ function Signup() {
       // console.log(data)
       toast.success("User signed up successfully");
     },
-    onError: (error) => {
+    onError: () => {
       toast.error(
         // error?.response?.data.message ||
-        "something went wrong when singing up, Please try again later.",
+        "something went wrong when singing up, Please check your email or your internet connection. try again later.",
       );
     },
   });
