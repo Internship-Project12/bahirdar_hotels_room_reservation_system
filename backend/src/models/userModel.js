@@ -59,6 +59,18 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// set the first user as an admin
+userSchema.pre('save', async function (next) {
+  const countDoc = await this.constructor.countDocuments();
+  console.log(countDoc)
+
+  if (countDoc === 0) {
+    this.role = 'admin';
+  }
+
+  next();
+});
+
 // Hash the password before save
 userSchema.pre('save', async function (next) {
   // Only run this function if password was actually modified

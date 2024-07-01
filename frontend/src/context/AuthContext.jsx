@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { useQuery } from "@tanstack/react-query";
-import { createContext, useContext,  } from "react";
+import { createContext, useContext } from "react";
 import apiAuth from "../services/apiAuth";
 import QueryKey from "../constants/QueryKey";
 
@@ -20,9 +20,15 @@ function AuthContextProvider({ children }) {
 
   if (isLoading) return;
 
+  const user = res?.data?.data.user || null;
+
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: !isError, user: res?.data?.data.user || null }}
+      value={{
+        isLoggedIn: !isError,
+        user,
+        role: user?.role || null,
+      }}
     >
       {children}
     </AuthContext.Provider>
