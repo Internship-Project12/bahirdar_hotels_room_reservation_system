@@ -5,31 +5,24 @@ import {
   HiOutlineCalendarDays,
   HiOutlineUsers,
 } from "react-icons/hi2";
+import Logo from "../../../ui/Logo";
 
 function SideBar() {
   return (
-    <div className="flex h-screen w-[250px] flex-col gap-2 bg-gray-800 p-5 text-white">
-      <div className="flex items-center gap-4 p-[3px]">
-        <img
-          className="h-16 w-16 rounded-full"
-          src="hotel-images/img-2.jpg"
-          alt="Logo"
-        />
-        <span className="text-2xl font-bold">BDUHotels</span>
-      </div>
-      <hr className="border-b-2 border-gray-700" />
-      <nav className="flex flex-col gap-1 p-4 text-lg">
+    <div className="flex h-screen overflow-auto w-[300px] flex-col gap-2 bg-gray-900 p-5 text-white border-slate-700 border-r-2">
+      <Logo />
+      <nav className="flex flex-col gap-2 mt-4  text-lg">
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="/"
+          to="dashboard"
         >
           <HiOutlineHome size={20} />
-          <span>Home</span>
+          <span>Dashboard</span>
         </Link>
 
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="/hotels"
+          to="hotels"
         >
           <HiBuildingLibrary size={20} />
           <span>Hotels</span>
@@ -37,7 +30,7 @@ function SideBar() {
 
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="/bookings"
+          to="bookings"
         >
           <HiOutlineCalendarDays size={20} />
           <span>Bookings</span>
@@ -45,7 +38,7 @@ function SideBar() {
 
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="/users"
+          to="users"
         >
           <HiOutlineUsers size={20} />
           <span>Users</span>

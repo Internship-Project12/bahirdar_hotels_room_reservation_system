@@ -32,7 +32,7 @@ function HotelsListPage() {
   const { data: hotels } = res.data;
 
   return (
-    <div className="relative">
+    <div className="relative -z-10">
       <div className="sticky top-4 flex justify-center">
         {/* filter/sort */}
         <div className="h-[100vh] min-w-[300px] border-r-2 border-r-blue-300 bg-blue-100">
