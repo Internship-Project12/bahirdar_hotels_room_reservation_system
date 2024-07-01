@@ -6,6 +6,7 @@ import {
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
 import HotelsStat from "../components/hotels/HotelsStat";
+import AvailableHotelRooms from "../components/hotels/AvailableHotelRooms";
 
 function Dashboard() {
   return (
@@ -42,12 +43,48 @@ function Dashboard() {
         />
       </section>
 
+      <section className="flex justify-between bg-gray-400">
+        <div>
+          <h2>Recent Enquiries</h2>
+        </div>
+        <div>
+          <h2>Booking Status</h2>
+        </div>
+      </section>
+
+      <section className="text-gray-700">
+        <h2 className="text-lg font-bold">Available Hotel Rooms</h2>
+        <div className="grid md:grid-cols-3 lg:grid-cols-4">
+          <AvailableHotelRooms
+            hotelPhoto={"/hotel-images/img-2.jpg"}
+            hotelName={"Palm Palace International Hotel"}
+            availableRooms={74}
+            pricePerDay={64}
+          />
+          <AvailableHotelRooms
+            hotelPhoto={"/hotel-images/img-3.jpg"}
+            hotelName={"Azwa International Hotel"}
+            availableRooms={76}
+            pricePerDay={53}
+          />
+          <AvailableHotelRooms
+            hotelPhoto={"/hotel-images/img-2.jpg"}
+            hotelName={"Unison International Hotel"}
+            availableRooms={95}
+            pricePerDay={79}
+          />
+          <AvailableHotelRooms
+            hotelPhoto={"/hotel-images/img-2.jpg"}
+            hotelName={"Dib Anbessa International Hotel"}
+            availableRooms={95}
+            pricePerDay={79}
+          />
+        </div>
+      </section>
+
       <div>
-        <h2>Recent Enquiries</h2>
-        <h2>Booking Status</h2>
+        <h2>Booking Detials</h2>
       </div>
-      <h2>Available Rooms</h2>
-      <h2>Booking Detials</h2>
     </div>
   );
 }
