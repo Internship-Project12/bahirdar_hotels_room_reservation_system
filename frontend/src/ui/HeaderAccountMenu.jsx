@@ -4,13 +4,14 @@ import { FiSettings } from "react-icons/fi";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { IoIosLogOut } from "react-icons/io";
 import { useAuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 function HeaderAccountMenu() {
   const { logout, isPending } = useLogout();
   const { role } = useAuthContext();
 
   return (
-    <ul className="flex flex-col gap-2 p-2">
+    <ul className="z-[1000] flex flex-col gap-2 p-2">
       <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
         <div className="flex items-center justify-start gap-2 p-3 py-2">
           <VscAccount size={"25px"} />
@@ -32,10 +33,13 @@ function HeaderAccountMenu() {
       </li>
       {role === "admin" ? (
         <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
-          <div className="flex items-center justify-start gap-2 p-3 py-2">
+          <Link
+            to="/admin"
+            className="flex items-center justify-start gap-2 p-3 py-2"
+          >
             <LuLayoutDashboard size="25px" />
             <p>Dashboard</p>
-          </div>
+          </Link>
         </li>
       ) : null}
       <li>
