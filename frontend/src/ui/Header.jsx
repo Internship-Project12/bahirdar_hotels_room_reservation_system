@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import useLogout from "./useLogout";
+import useLogout from "../features/auth/useLogout";
 
 function Header() {
-  const { isLoggedIn } = useAuthContext();
+  const { isLoggedIn, user } = useAuthContext();
 
   const { logout, isPending } = useLogout();
 
@@ -34,6 +34,17 @@ function Header() {
                 >
                   Add Hotel
                 </Link>
+              </li>
+              <li>
+                <div className="flex items-center justify-center">
+                  <p className="flex h-[3rem] w-[3rem] items-center justify-center rounded-full bg-blue-200 text-4xl font-bold text-blue-900 shadow-md transition duration-300 hover:cursor-pointer hover:bg-blue-100">
+                    {user?.firstName[0]}
+                  </p>
+                  <p className="text-xl italic text-blue-200">
+                    {" "}
+                    {user?.firstName}
+                  </p>
+                </div>
               </li>
 
               <li>

@@ -5,18 +5,18 @@ import {
   Navigate,
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import AppLayout from "./components/AppLayout";
-import SinginPage from "./pages/SigninPage";
-import SignupPage from "./pages/SignupPage";
+import AppLayout from "./ui/AppLayout";
+import SinginPage from "./pages/auth/SigninPage";
+import SignupPage from "./pages/auth/SignupPage";
 import HotelsListPage from "./pages/HotelsListPage";
-import AddHotel from "./pages/AddHotel";
+import AddHotel from "./pages/admin/AddHotel";
 import HotelDetailsPage from "./pages/HotelDetailsPage";
 import UpdateHotel from "./pages/UpdateHotel";
-// import Dashboard from "./pages/Dashboard";
-// import Bookings from "./pages/Bookings";
-// import Users from "./components/users/Users";
-// import DashboardLayout from "./components/dashboard/DashboardLayout";
-// import HotelsTable from "./components/hotels/HotelsTable";
+import Dashboard from "./pages/admin/Dashboard";
+import Bookings from "./pages/Bookings";
+import Users from "./features/admin/users/ManageUsers";
+import DashboardLayout from "./features/admin/dashboard/DashboardLayout";
+import HotelsTable from "./features/admin/hotels/HotelsTable";
 
 function App() {
   return (
@@ -33,12 +33,12 @@ function App() {
           <Route path="/update-hotel/:id" element={<UpdateHotel />} />
           <Route path="/*" element={<Navigate to="/" />} />
         </Route>
-        {/* <Route element={<DashboardLayout />}>
-          <Route path="/" element={<Dashboard />} />
+        <Route element={<DashboardLayout />}>
+          <Route path="/admin" element={<Dashboard />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/users" element={<Users />} />
           <Route path="/hotels" element={<HotelsTable />} />
-        </Route> */}
+        </Route>
       </Routes>
     </Router>
   );

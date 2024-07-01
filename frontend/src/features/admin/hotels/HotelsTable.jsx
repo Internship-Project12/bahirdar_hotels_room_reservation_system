@@ -2,7 +2,7 @@ import { hotels } from "../../../data/hotels";
 import HotelTableBody from "./HotelTableBody";
 import HotelTableHeading from "./HotelTableHeading";
 
-function Hotels() {
+function HotelsTable() {
   return (
     <div className="p-3 text-gray-600 shadow-md">
       <HotelTableHeading />
@@ -14,4 +14,4 @@ function Hotels() {
   );
 }
 
-export default Hotels;
+export default HotelsTable;

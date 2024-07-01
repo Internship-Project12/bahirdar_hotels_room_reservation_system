@@ -1,35 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiAuth from "../services/apiAuth";
-import toast from "react-hot-toast";
-import QueryKey from "../constants/QueryKey";
+/* eslint-disable react/prop-types */
+import { useFormContext } from "react-hook-form";
+import { Link } from "react-router-dom";
 
-function Signin() {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
+function SignInForm({ onSubmitHandler, isPending }) {
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: apiAuth.login,
-    onSuccess: () => {
-      queryClient.invalidateQueries(QueryKey.USER);
-      toast.success("Welcome to BDHotels Booking website");
-      navigate("/", { replace: true });
-    },
-    onError: (err) => {
-      toast.error(err?.response?.data.message);
-    },
-  });
-
-  const onSubmitHandler = handleSubmit((data) => {
-    mutate(data);
-  });
+  } = useFormContext();
 
   return (
     <form
@@ -88,4 +65,4 @@ function Signin() {
   );
 }
 
-export default Signin;
+export default SignInForm;
