@@ -20,7 +20,7 @@ function HeaderAccount({ user, children }) {
         </p>
       </div>
       {isOpenModal ? (
-        <div className="top-15 absolute right-[-30px] mt-2 w-[13rem] rounded-md bg-slate-900 p-4 text-slate-50">
+        <div className="top-15 absolute right-[-30px] mt-2 w-[13rem] rounded-md bg-slate-900 text-slate-50">
           {children}
         </div>
       ) : null}
