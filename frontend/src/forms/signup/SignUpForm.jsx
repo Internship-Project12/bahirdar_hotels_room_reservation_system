@@ -1,40 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiAuth from "../services/apiAuth";
-import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import QueryKey from "../constants/QueryKey";
+/* eslint-disable react/prop-types */
+import { useFormContext } from "react-hook-form";
+import { Link } from "react-router-dom";
 
-function Signup() {
-  const queryClient = useQueryClient();
-
-  const navigate = useNavigate();
-
+function SignUpForm({ onSubmitHandler, isPending }) {
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: apiAuth.signup,
-    onSuccess: () => {
-      // console.log(data)
-      queryClient.invalidateQueries(QueryKey.USER);
-      toast.success("User signed up successfully");
-      navigate("/", { replace: true });
-    },
-    onError: () => {
-      toast.error(
-        // error?.response?.data.message ||
-        "something went wrong when singing up, Please check your email or your internet connection. try again later.",
-      );
-    },
-  });
-
-  const onSubmitHandler = handleSubmit((data) => {
-    mutate(data);
-  });
+  } = useFormContext();
 
   return (
     <form
@@ -167,4 +139,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default SignUpForm;
