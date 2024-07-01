@@ -8,7 +8,7 @@ import {
 
 function SideBar() {
   return (
-    <div className="flex h-screen w-[250px] flex-col gap-2 bg-gray-800 p-5 text-white">
+    <div className="fixed left-0 top-0 flex min-h-screen w-[260px] flex-col gap-2 bg-gray-800 p-5 uppercase text-white">
       <div className="flex items-center gap-4 p-[3px]">
         <img
           className="h-16 w-16 rounded-full"
@@ -18,7 +18,7 @@ function SideBar() {
         <span className="text-2xl font-bold">BDUHotels</span>
       </div>
       <hr className="border-b-2 border-gray-700" />
-      <nav className="flex flex-col gap-1 p-4 text-lg">
+      <nav className="flex flex-col gap-1 p-4 text-lg transition">
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
           to="/"

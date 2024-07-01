@@ -4,11 +4,11 @@ import Header from "./Header";
 
 function DashboardLayout() {
   return (
-    <div className="mx-auto flex max-w-[1400px]">
+    <div className="relative mx-auto flex max-w-[1400px]">
       <SideBar />
-      <div className="flex flex-1 flex-col bg-slate-100">
+      <div className="ml-[260px] flex flex-1 flex-col overflow-hidden bg-slate-200/75">
         <Header />
-        <main className="flex flex-1">
+        <main className="font-opensans mt-24 flex flex-1 overflow-y-auto">
           <Outlet />
         </main>
       </div>
