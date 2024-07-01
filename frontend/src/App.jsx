@@ -33,11 +33,12 @@ function App() {
           <Route path="/update-hotel/:id" element={<UpdateHotel />} />
           <Route path="/*" element={<Navigate to="/" />} />
         </Route>
-        <Route element={<DashboardLayout />}>
-          <Route path="/admin" element={<Dashboard />} />
-          <Route path="/bookings" element={<Bookings />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/hotels" element={<HotelsTable />} />
+        <Route path="/admin" element={<DashboardLayout />}>
+          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="bookings" element={<Bookings />} />
+          <Route path="users" element={<Users />} />
+          <Route path="hotels" element={<HotelsTable />} />
         </Route>
       </Routes>
     </Router>
