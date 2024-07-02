@@ -7,11 +7,11 @@ import {
 } from "react-icons/md";
 import HotelsStat from "../../features/admin/hotels/HotelsStat";
 import AvailableHotelRooms from "../../features/admin/hotels/AvailableHotelRooms";
-import BookingTable from "../../features/manager/bookings/BookingTable";
+import BookingTable from "../../features/admin/bookings/BookingTable";
 
 function Dashboard() {
   return (
-    <div className="overflow-hiddsen flex w-full flex-col p-3">
+    <div className="overflow-auto flex w-full flex-col p-3">
       <section className="grid grid-cols-4 justify-between">
         <HotelsStat
           Icon={MdOutlineBedroomChild}

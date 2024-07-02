@@ -4,11 +4,11 @@ import Header from "./DashboardHeader";
 
 function DashboardLayout() {
   return (
-    <div className="relative mx-auto flex max-w-[1400px]">
+    <div className="max-w-[120rem relative mx-auto flex">
       <SideBar />
-      <div className="absolute left-[260px] flex flex-1 flex-col overflow-hidden bg-slate-200/75">
-        <Header />
-        <main className="flex flex-1 overflow-y-auto overflow-x-hidden font-opensans">
+      <div className="absolute left-[260px] flex h-screen min-w-[calc(100vw-260px)] flex-1 flex-col overflow-auto bg-slate-200/75">
+        <DashboardHeader />
+        <main className="h-[100%] overflow-auto">
           <Outlet />
         </main>
       </div>
