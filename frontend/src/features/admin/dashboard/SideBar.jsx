@@ -8,7 +8,7 @@ import {
 
 function SideBar() {
   return (
-    <div className=" flex min-h-screen w-[260px] flex-col gap-2 bg-gray-800 p-5 uppercase text-white">
+    <div className="fixed left-0 top-0 flex min-h-screen w-[260px] flex-col gap-2 bg-gray-800 p-5 uppercase text-white">
       <div className="flex items-center gap-4 p-[3px]">
         <img
           className="h-16 w-16 rounded-full"
@@ -21,7 +21,7 @@ function SideBar() {
       <nav className="flex flex-col gap-1 p-4 text-lg transition">
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="dashboard"
+          to="/dashboard"
         >
           <HiOutlineHome size={20} />
           <span>Home</span>
@@ -29,7 +29,7 @@ function SideBar() {
 
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="hotels"
+          to="/dashboard/hotels"
         >
           <HiBuildingLibrary size={20} />
           <span>Hotels</span>
@@ -37,7 +37,7 @@ function SideBar() {
 
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="bookings"
+          to="/dashboard/bookings"
         >
           <HiOutlineCalendarDays size={20} />
           <span>Bookings</span>
@@ -45,7 +45,7 @@ function SideBar() {
 
         <Link
           className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="users"
+          to="/dashboard/users"
         >
           <HiOutlineUsers size={20} />
           <span>Users</span>
