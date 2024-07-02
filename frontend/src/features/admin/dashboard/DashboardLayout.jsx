@@ -4,15 +4,13 @@ import DashboardHeader from "./DashboardHeader";
 
 function DashboardLayout() {
   return (
-    <div className="min-h-[100vh bg-slate-800">
-      <div className="mx-auto flex max-w-[120rem] overflow-auto">
-        <SideBar />
-        <div className="flex flex-1 flex-col bg-slate-800">
-          <DashboardHeader />
-          <main className="flex flex-1">
-            <Outlet />
-          </main>
-        </div>
+    <div className="max-w-[120rem relative mx-auto flex">
+      <SideBar />
+      <div className="absolute left-[260px] flex h-screen min-w-[calc(100vw-260px)] flex-1 flex-col overflow-auto bg-slate-200/75">
+        <DashboardHeader />
+        <main className="h-[100%] overflow-auto">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
