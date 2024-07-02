@@ -1,7 +1,7 @@
-import Hero from "../components/homepage/Hero";
-import ExploreMoreBtn from "../components/homepage/ExploreMoreBtn";
-import About from "../components/homepage/About";
-import { HotelsSection } from "../components/homepage/HotelsSection";
+import Hero from "../ui/homepage/Hero";
+import ExploreMoreBtn from "../ui/homepage/ExploreMoreBtn";
+import About from "../ui/homepage/About";
+import { HotelsSection } from "../ui/homepage/HotelsSection";
 
 function HomePage() {
   return (

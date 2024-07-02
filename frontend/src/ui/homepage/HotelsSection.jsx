@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { hotels } from "../../../data/hotels";
+import { hotels } from "../../data/hotels";
 
 export const HotelsSection = () => {
   return (

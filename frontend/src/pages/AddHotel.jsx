@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import ManageHotelForm from "../components/forms/manageHotelForm/ManageHotelForm";
+import ManageHotelForm from "../forms/manageHotelForm/ManageHotelForm";
 import apiHotels from "../services/api-hotels";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ function AddHotel() {
     mutationFn: apiHotels.addHotel,
     onSettled: (data) => {
       if (data.status !== "success") {
-        queryClient.invalidateQueries('hotels')
+        queryClient.invalidateQueries("hotels");
         return toast.error(
           data.message || "something went wrong: unable to add a hotel",
         );

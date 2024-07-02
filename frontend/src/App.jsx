@@ -5,26 +5,25 @@ import {
   Navigate,
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import AppLayout from "./components/AppLayout";
-import SinginPage from "./pages/SigninPage";
-import SignupPage from "./pages/SignupPage";
+import AppLayout from "./ui/AppLayout";
+import SignupPage from "./pages/auth/SignupPage";
+import SigninPage from "./pages/auth/SigninPage";
 import HotelsListPage from "./pages/HotelsListPage";
 import AddHotel from "./pages/AddHotel";
 import HotelDetailsPage from "./pages/HotelDetailsPage";
 import UpdateHotel from "./pages/UpdateHotel";
-import Dashboard from "./pages//Dashboard";
+import Dashboard from "./pages/admin/Dashboard";
 import Bookings from "./pages/Bookings";
-import Users from "./features/users/Users";
-import DashboardLayout from "./features/dashboard/DashboardLayout";
-import HotelsTable from "./features/hotels/HotelsTable";
-
+import Users from "./features/admin/users/Users";
+import DashboardLayout from "./features/admin/dashboard/DashboardLayout";
+import HotelsTable from "./features/admin/hotels/HotelsTable";
 function App() {
   return (
     <Router>
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/sign-in" element={<SinginPage />} />
+          <Route path="/sign-in" element={<SigninPage />} />
           <Route path="/sign-up" element={<SignupPage />} />
           <Route path="/hotels" element={<HotelsListPage />} />
           <Route path="/hotels/:id" element={<HotelDetailsPage />} />

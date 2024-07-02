@@ -5,9 +5,9 @@ import {
   MdOutlinePendingActions,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
-import HotelsStat from "../features/hotels/HotelsStat";
-import AvailableHotelRooms from "../features/hotels/AvailableHotelRooms";
-import BookingTable from "../features/bookings/BookingTable";
+import HotelsStat from "../../features/admin/hotels/HotelsStat";
+import AvailableHotelRooms from "../../features/admin/hotels/AvailableHotelRooms";
+import BookingTable from "../../features/manager/bookings/BookingTable";
 
 function Dashboard() {
   return (
