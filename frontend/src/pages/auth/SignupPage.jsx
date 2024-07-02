@@ -4,7 +4,7 @@ import apiAuth from "../../services/apiAuth";
 import toast from "react-hot-toast";
 import { FormProvider, useForm } from "react-hook-form";
 import QueryKey from "../../constants/QueryKey";
-import SignUpForm from "../../forms/signup/SignUpForm";
+import SignUpForm from "../../forms/auth/SignUpForm";
 
 function Signup() {
   const queryClient = useQueryClient();

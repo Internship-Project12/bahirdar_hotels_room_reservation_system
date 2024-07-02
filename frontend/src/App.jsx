@@ -8,16 +8,16 @@ import HomePage from "./pages/HomePage";
 import AppLayout from "./ui/AppLayout";
 import SignupPage from "./pages/auth/SignupPage";
 import SigninPage from "./pages/auth/SigninPage";
-import HotelsListPage from "./pages/HotelsListPage";
-import AddHotel from "./pages/admin/AddHotel";
-import HotelDetailsPage from "./pages/HotelDetailsPage";
-import UpdateHotel from "./pages/UpdateHotel";
-import Dashboard from "./pages/admin/Dashboard";
-import Users from "./features/admin/users/ManageUsers";
-import DashboardLayout from "./features/admin/dashboard/DashboardLayout";
-import HotelsTable from "./features/admin/hotels/HotelsTable";
+import HotelsListPage from "./pages/hotels/HotelsListPage";
+import AddHotel from "./features/hotels/AddHotel";
+import HotelDetailsPage from "./pages/hotels/HotelDetailsPage";
+import UpdateHotel from "./features/hotels/UpdateHotel";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Users from "./features/users/ManageUsers";
+import DashboardLayout from "./features/dashboard/DashboardLayout";
+import HotelsTable from "./pages/dashboard/HotelsTable";
 
-import Bookings from "./pages/Bookings";
+import Bookings from "./pages/dashboard/Bookings";
 
 function App() {
   return (
@@ -41,20 +41,6 @@ function App() {
             <Route path="users" element={<Users />} />
             <Route path="hotels" element={<HotelsTable />} />
           </Route>
-        </Route>
-        <Route path="/admin" element={<DashboardLayout />}>
-          <Route index element={<Navigate replace to="dashboard" />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="bookings" element={<Bookings />} />
-          <Route path="users" element={<Users />} />
-          <Route path="hotels" element={<HotelsTable />} />
-        </Route>
-        <Route path="/admin" element={<DashboardLayout />}>
-          <Route index element={<Navigate replace to="dashboard" />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="hotels" element={<HotelsTable />} />
-          <Route path="bookings" element={<Bookings />} />
-          <Route path="users" element={<Users />} />
         </Route>
       </Routes>
     </Router>

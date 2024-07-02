@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { FaStar, FaRegStar } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
-import apiHotels from "../services/apiHotels";
+import apiHotels from "../../services/apiHotels";
 
 function HotelsListPage() {
   const navigate = useNavigate();

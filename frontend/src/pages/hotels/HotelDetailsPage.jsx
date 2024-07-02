@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
-import apiHotels from "../services/apiHotels";
+import apiHotels from "../../services/apiHotels";
 
 function HotelDetailsPage() {
   SwiperCore.use([Navigation]);

@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiAuth from "../../services/apiAuth";
 import toast from "react-hot-toast";
 import QueryKey from "../../constants/QueryKey";
-import SignInForm from "../../forms/signin/SignInForm";
+import SignInForm from "../../forms/auth/SignInForm";
 
 function Signin() {
   const queryClient = useQueryClient();
