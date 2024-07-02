@@ -4,7 +4,10 @@ import HotelTableHeading from "./HotelTableHeading";
 
 function HotelsTable() {
   return (
-    <div className="p-3 text-gray-600 shadow-md">
+    <div className="m-6 bg-white p-3 font-lato text-gray-600 shadow-md">
+      <h1 className="font-opensans p-4 text-2xl font-bold uppercase">
+        All Hotels
+      </h1>
       <HotelTableHeading />
 
       {hotels.map((hotel) => (

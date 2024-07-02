@@ -5,10 +5,25 @@ export default {
     extend: {
       gridTemplateColumns: {
         // Simple 8 column grid
-        10: "repeat(3, minmax(10%, 1fr)) 10% 10% 10% 20% 10% ",
+        8: "repeat(2, minmax(10%, 1fr)) 20% 8% 8% 8% 20% 10% ",
+        2: "minmax(min-content, 1fr) 135px",
+        7: "repeat(7,minmax(10%, 1fr))",
+      },
+      fontFamily: {
+        lato: ["Lato", "sans-serif"],
+        opensans: ["Open Sans", "sans-serif"],
+      },
+      fontWeight: {
+        thin: "100",
+        light: "300",
+        normal: "400",
+        medium: "500",
+        semibold: "600",
+        bold: "700",
+        extrabold: "800",
+        black: "900",
       },
     },
-    lato: ["Lato", "sans-serif"],
   },
   plugins: [],
 };

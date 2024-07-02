@@ -13,7 +13,7 @@ function HomePage() {
         </div>
       </section>
 
-      <HotelsSection title={"Explore More Hotels"} />
+      <HotelsSection />
 
       <About />
     </>
