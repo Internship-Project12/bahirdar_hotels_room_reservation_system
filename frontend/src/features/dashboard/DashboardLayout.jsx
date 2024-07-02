@@ -6,9 +6,9 @@ function DashboardLayout() {
   return (
     <div className="relative mx-auto flex max-w-[1400px]">
       <SideBar />
-      <div className="ml-[260px] flex flex-1 flex-col overflow-hidden bg-slate-200/75">
+      <div className="absolute left-[260px] flex flex-1 flex-col overflow-hidden bg-slate-200/75">
         <Header />
-        <main className="font-opensans mt-24 flex flex-1 overflow-y-auto">
+        <main className="flex flex-1 overflow-y-auto overflow-x-hidden font-opensans">
           <Outlet />
         </main>
       </div>

@@ -5,12 +5,13 @@ import {
   MdOutlinePendingActions,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
-import HotelsStat from "../components/hotels/HotelsStat";
-import AvailableHotelRooms from "../components/hotels/AvailableHotelRooms";
+import HotelsStat from "../features/hotels/HotelsStat";
+import AvailableHotelRooms from "../features/hotels/AvailableHotelRooms";
+import BookingTable from "../features/bookings/BookingTable";
 
 function Dashboard() {
   return (
-    <div className="flex w-full flex-col p-3">
+    <div className="overflow-hiddsen flex w-full flex-col p-3">
       <section className="grid grid-cols-4 justify-between">
         <HotelsStat
           Icon={MdOutlineBedroomChild}
@@ -82,9 +83,7 @@ function Dashboard() {
         </div>
       </section>
 
-      <div>
-        <h2>Booking Detials</h2>
-      </div>
+      <BookingTable bookingTitle={"Recent Bookings"} />
     </div>
   );
 }

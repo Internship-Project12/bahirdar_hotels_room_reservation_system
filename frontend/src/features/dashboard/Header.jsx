@@ -18,7 +18,7 @@ function Header() {
       </div>
 
       <div className="flex items-center gap-2">
-        <img className="h-16 w-16 rounded-full" src="user.jpg" alt="user" />
+        <img className="h-16 w-16 rounded-full" src="/user.jpg" alt="user" />
         <span>Bob</span>
       </div>
     </div>

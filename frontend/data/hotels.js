@@ -60,45 +60,45 @@ export const hotels = [
   },
   {
     id: 4,
-    image: "./hotel-images/img-1-hero.jpg",
+    image: "/hotel-images/img-1-hero.jpg",
     name: "Palm Palace",
   },
   {
     id: 5,
-    image: "./hotel-images/img-2.jpg",
+    image: "/hotel-images/img-2.jpg",
     name: "Riverland Hotel",
   },
 
   {
     id: 6,
-    image: "./hotel-images/img-4.jpg",
+    image: "/hotel-images/img-4.jpg",
     name: "Lakemark Hotel",
   },
   {
     id: 7,
-    image: "./hotel-images/img-3.jpg",
+    image: "/hotel-images/img-3.jpg",
     name: "Dib Anbesa Hotel",
   },
   {
     id: 8,
-    image: "./hotel-images/img-2.jpg",
+    image: "/hotel-images/img-2.jpg",
     name: "Azwa Hotel",
   },
 
   {
     id: 9,
-    image: "./hotel-images/img-5.jpg",
+    image: "/hotel-images/img-5.jpg",
     name: "Unison Hotel",
   },
 
   {
     id: 10,
-    image: "./hotel-images/img-2.jpg",
+    image: "/hotel-images/img-2.jpg",
     name: "Yiganda Hotel",
   },
   {
     id: 11,
-    image: "./hotel-images/img-3.jpg",
+    image: "/hotel-images/img-3.jpg",
     name: "Lake Avenue Hotel",
   },
 ];

@@ -1,5 +1,7 @@
+import BookingTable from "../features/bookings/BookingTable";
+
 function Bookings() {
-  return <div>Bookings</div>;
+  return <BookingTable bookingTitle={"All Bookings"} />;
 }
 
 export default Bookings;
