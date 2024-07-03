@@ -12,7 +12,7 @@ import BookingTable from "../../features/bookings/BookingTable";
 function Dashboard() {
   return (
     <div className="flex w-full flex-col">
-      <section className="grid grid-cols-4 justify-between">
+      <section className="mb-8 grid grid-cols-4 justify-between">
         <HotelsStat
           Icon={MdOutlineBedroomChild}
           title={"Available rooms"}
@@ -44,7 +44,7 @@ function Dashboard() {
         />
       </section>
 
-      <section className="flex justify-between bg-gray-400">
+      <section className="mb-8 flex justify-between bg-gray-400">
         <div>
           <h2>Recent Enquiries</h2>
         </div>
@@ -53,7 +53,7 @@ function Dashboard() {
         </div>
       </section>
 
-      <section className="flex flex-col">
+      <section className="mb-8 flex flex-col">
         <h2 className="bg-white p-4 text-2xl font-bold uppercase">
           Available Hotel Rooms
         </h2>
