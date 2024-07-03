@@ -11,7 +11,7 @@ import BookingTable from "../../features/bookings/BookingTable";
 
 function Dashboard() {
   return (
-    <div className="m-4 flex w-full flex-col p-3">
+    <div className="flex w-full flex-col">
       <section className="grid grid-cols-4 justify-between">
         <HotelsStat
           Icon={MdOutlineBedroomChild}

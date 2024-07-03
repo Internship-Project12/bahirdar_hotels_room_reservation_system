@@ -6,7 +6,7 @@ import BookingTableHeading from "./BookingTableHeading";
 function BookingTable({ bookingTitle }) {
   return (
     <div>
-      <div className="m-2 w-full rounded bg-white p-3 shadow-md">
+      <div className="w-full rounded bg-white shadow-md">
         <h1 className="p-4 font-opensans text-2xl font-bold uppercase">
           {bookingTitle}
         </h1>

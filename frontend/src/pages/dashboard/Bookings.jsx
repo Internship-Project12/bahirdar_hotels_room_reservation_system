@@ -2,7 +2,7 @@ import BookingTable from "../../features/bookings/BookingTable";
 
 function Bookings() {
   return (
-    <div className="w-full p-4">
+    <div className="w-full">
       <BookingTable bookingTitle={"All Bookings"} />;
     </div>
   );

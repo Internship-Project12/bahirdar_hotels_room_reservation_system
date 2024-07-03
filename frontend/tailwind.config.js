@@ -6,7 +6,7 @@ export default {
       gridTemplateColumns: {
         // Simple 8 column grid
         8: "repeat(2, minmax(10%, 1fr)) 20% 8% 8% 8% 20% 10% ",
-        2: "minmax(min-content, 1fr) 135px",
+        2: "minmax(max-content, 1fr) 149px",
         7: "repeat(7,minmax(10%, 1fr))",
       },
       fontFamily: {
