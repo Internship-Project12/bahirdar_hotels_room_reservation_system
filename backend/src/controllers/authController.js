@@ -130,9 +130,21 @@ const logout = (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-  })
+  });
 };
 
-const authController = { signup, login, protect, logout };
+const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
+
+    next();
+  };
+};
+
+const authController = { signup, login, protect, logout, restrictTo };
 
 export default authController;
