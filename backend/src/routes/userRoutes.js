@@ -13,6 +13,9 @@ router.use(authController.protect)
 router.get('/me', userController.getMe, userController.getUser)
 router.post('/logout', authController.logout);
 
+
+router.use(authController.restrictTo('admin'));
+
 router
   .route('/')
   .get(userController.getAllUsers)
