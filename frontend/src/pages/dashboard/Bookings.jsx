@@ -1,7 +1,11 @@
 import BookingTable from "../../features/bookings/BookingTable";
 
 function Bookings() {
-  return <BookingTable bookingTitle={"All Bookings"} />;
+  return (
+    <div className="w-full p-4">
+      <BookingTable bookingTitle={"All Bookings"} />;
+    </div>
+  );
 }
 
 export default Bookings;

@@ -16,7 +16,6 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Users from "./features/users/ManageUsers";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
 import HotelsTable from "./pages/dashboard/HotelsTable";
-
 import Bookings from "./pages/dashboard/Bookings";
 
 function App() {

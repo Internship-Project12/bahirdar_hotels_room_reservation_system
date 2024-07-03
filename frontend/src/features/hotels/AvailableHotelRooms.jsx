@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 function AvailableHotelRooms({
   hotelPhoto,
   hotelName,
@@ -5,7 +6,7 @@ function AvailableHotelRooms({
   pricePerDay,
 }) {
   return (
-    <div className="m-2 flex flex-col items-center rounded-lg bg-white p-4">
+    <div className="m-2 flex flex-col items-center rounded-lg bg-white p-3">
       <img
         src={hotelPhoto}
         alt={hotelName}
