@@ -150,6 +150,20 @@ const restrictTo = (...roles) => {
   };
 };
 
-const authController = { signup, login, protect, logout, restrictTo };
+const updateMyPassword = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'update my password',
+  });
+});
+
+const authController = {
+  signup,
+  login,
+  protect,
+  logout,
+  restrictTo,
+  updateMyPassword,
+};
 
 export default authController;
