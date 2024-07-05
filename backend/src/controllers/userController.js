@@ -42,6 +42,13 @@ export const updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
+export const deleteMe = catchAsync(async (req, res, next) => {
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 // ************CRUD***************
 export const getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();

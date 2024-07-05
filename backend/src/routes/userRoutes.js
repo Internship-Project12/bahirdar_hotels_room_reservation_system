@@ -18,6 +18,7 @@ router.post('/logout', authController.logout);
 // CURRENT USER
 router.get('/me', userController.getMe, userController.getUser);
 router.patch('/updateMe', userController.updateMe);
+router.delete('/deleteMe', userController.deleteMe);
 
 // RESTRICT ACCESS TO ROUTES
 router.use(authController.restrictTo('admin'));
