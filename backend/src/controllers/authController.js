@@ -3,6 +3,7 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import { createJWT, verifyJWT } from '../utils/tokenUtils.js';
 
+// SIGNUP A USER
 const signup = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const { firstName, lastName, email, password, passwordConfirm, phoneNumber } =
@@ -38,6 +39,7 @@ const signup = catchAsync(async (req, res, next) => {
   });
 });
 
+// LOGIN FUNCTIONALITY
 const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -77,6 +79,20 @@ const login = catchAsync(async (req, res, next) => {
   });
 });
 
+// LOGOUT A USER
+const logout = (req, res, next) => {
+  res.cookie('jwt', 'loggedOut', {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+    // secure: process.env.NODE_ENV === 'production',
+  });
+
+  res.status(200).json({
+    status: 'success',
+  });
+};
+
+// PROTECT ROUTES
 const protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check if it's there
   let token;
@@ -121,18 +137,7 @@ const protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-const logout = (req, res, next) => {
-  res.cookie('jwt', 'loggedOut', {
-    expires: new Date(Date.now()),
-    httpOnly: true,
-    // secure: process.env.NODE_ENV === 'production',
-  });
-
-  res.status(200).json({
-    status: 'success',
-  });
-};
-
+// RESTRICT ACCESS TO ROUTES
 const restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {

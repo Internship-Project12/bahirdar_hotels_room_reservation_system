@@ -15,8 +15,17 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 export const createUser = async (req, res) => {
-  res.status(200).json({ message: 'Create user' });
+  const user = await User.create(req.body);
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Create user',
+    data: {
+      user,
+    },
+  });
 };
+
 export const getUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 

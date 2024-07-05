@@ -10,8 +10,8 @@ router.post('/login', authController.login);
 
 router.use(authController.protect)
 
-router.get('/me', userController.getMe, userController.getUser)
 router.post('/logout', authController.logout);
+router.get('/me', userController.getMe, userController.getUser)
 
 
 router.use(authController.restrictTo('admin'));
