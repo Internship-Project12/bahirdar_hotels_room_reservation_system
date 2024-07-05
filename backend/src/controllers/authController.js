@@ -151,6 +151,7 @@ const restrictTo = (...roles) => {
 };
 
 const updateMyPassword = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const { passwordCurrent, password, passwordConfirm } = req.body;
 
   if (!passwordCurrent || !password || !passwordConfirm) {
@@ -179,43 +180,43 @@ const authController = {
 
 export default authController;
 
-catchAsync(async (req, res, next) => {
-  // 1) check if the user has provided the required fields
-  const { passwordCurrent, password, passwordConfirm } = req.body;
+// catchAsync(async (req, res, next) => {
+//   // 1) check if the user has provided the required fields
+//   const { passwordCurrent, password, passwordConfirm } = req.body;
 
-  if (!passwordCurrent || !password || !passwordConfirm) {
-    return next(
-      new AppError(
-        'Please provide all the required fields, passwordCurrent, password, passwordConfirm',
-        400
-      )
-    );
-  }
-  // 2) Get user from collection
-  const user = await User.findById(req.user._id).select('+password');
+//   if (!passwordCurrent || !password || !passwordConfirm) {
+//     return next(
+//       new AppError(
+//         'Please provide all the required fields, passwordCurrent, password, passwordConfirm',
+//         400
+//       )
+//     );
+//   }
+//   // 2) Get user from collection
+//   const user = await User.findById(req.user._id).select('+password');
 
-  // 3) Check if POSTed current password is correct
-  const isCorrectPass = await user?.isCorrectPassword(
-    req.body.passwordCurrent,
-    user.password
-  );
+//   // 3) Check if POSTed current password is correct
+//   const isCorrectPass = await user?.isCorrectPassword(
+//     req.body.passwordCurrent,
+//     user.password
+//   );
 
-  if (!user || !isCorrectPass) {
-    return next(new AppError('Incorrect password', 401));
-  }
+//   if (!user || !isCorrectPass) {
+//     return next(new AppError('Incorrect password', 401));
+//   }
 
-  // 4) If so, update password
-  user.password = req.body.password;
-  user.passwordConfirm = req.body.passwordConfirm;
-  await user.save();
+//   // 4) If so, update password
+//   user.password = req.body.password;
+//   user.passwordConfirm = req.body.passwordConfirm;
+//   await user.save();
 
-  // 5) Log user in, send JWT
-  const token = createJWT({ id: user._id });
-  sendCookie(res, token);
+//   // 5) Log user in, send JWT
+//   const token = createJWT({ id: user._id });
+//   sendCookie(res, token);
 
-  res.status(200).json({
-    status: 'success',
-    message: 'password updated successfully',
-    token,
-  });
-});
+//   res.status(200).json({
+//     status: 'success',
+//     message: 'password updated successfully',
+//     token,
+//   });
+// });
