@@ -8,12 +8,23 @@ export const getMe = (req, res, next) => {
 };
 
 export const updateMe = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(req.user._id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!user) return next(new AppError('No user found with that ID', 404));
+
   res.status(200).json({
     status: 200,
-    message: 'update me'
-  })
-})
+    message: 'update me',
+    data: {
+      user,
+    },
+  });
+});
 
+// ************CRUD***************
 export const getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
 
