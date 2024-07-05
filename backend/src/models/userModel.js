@@ -52,6 +52,11 @@ const userSchema = new mongoose.Schema(
         message: 'Passwords are not the same!',
       },
     },
+    active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
     // passwordChangedAt: Date,
   },
   {
@@ -59,10 +64,11 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// ************HOOKS************
 // set the first user as an admin
 userSchema.pre('save', async function (next) {
   const countDoc = await this.constructor.countDocuments();
-  console.log(countDoc)
+  console.log(countDoc);
 
   if (countDoc === 0) {
     this.role = 'admin';
@@ -86,6 +92,13 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
+
+  next();
+});
+
+// ************STATIC METHODS**************
 // Check/Compare if the password is correct
 userSchema.methods.isCorrectPassword = async function (pass, hashedPass) {
   return await bcrypt.compare(pass, hashedPass);

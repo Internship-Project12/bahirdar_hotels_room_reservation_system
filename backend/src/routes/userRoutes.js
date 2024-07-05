@@ -5,17 +5,26 @@ import authController from '../controllers/authController.js';
 
 const router = Router();
 
+// SIGNUP AND LOGIN
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
-router.use(authController.protect)
+// PROTECT ROUTES
+router.use(authController.protect);
 
+// LOGOUT
 router.post('/logout', authController.logout);
-router.get('/me', userController.getMe, userController.getUser)
 
+// CURRENT USER
+router.get('/me', userController.getMe, userController.getUser);
+router.patch('/updateMe', userController.updateMe);
+router.patch('/updateMyPassword', authController.updateMyPassword);
+router.delete('/deleteMe', userController.deleteMe);
 
+// RESTRICT ACCESS TO ROUTES
 router.use(authController.restrictTo('admin'));
 
+// CRUD
 router
   .route('/')
   .get(userController.getAllUsers)
