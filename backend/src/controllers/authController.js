@@ -150,6 +150,29 @@ const restrictTo = (...roles) => {
   };
 };
 
+export const forgotPassword = catchAsync(async (req, res, next) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return next(new AppError('Please provide your email add', 401));
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return next(
+      new AppError('There is no user found with that email address', 401)
+    );
+  }
+
+  console.log(user);
+
+  res.status(200).json({
+    status: 'success',
+    message: 'forgot password',
+  });
+});
+
 const updateMyPassword = catchAsync(async (req, res, next) => {
   const { passwordCurrent, password, passwordConfirm } = req.body;
 
@@ -206,22 +229,7 @@ const authController = {
   logout,
   restrictTo,
   updateMyPassword,
+  forgotPassword,
 };
 
 export default authController;
-
-//   // 4) If so, update password
-//   user.password = req.body.password;
-//   user.passwordConfirm = req.body.passwordConfirm;
-//   await user.save();
-
-//   // 5) Log user in, send JWT
-//   const token = createJWT({ id: user._id });
-//   sendCookie(res, token);
-
-//   res.status(200).json({
-//     status: 'success',
-//     message: 'password updated successfully',
-//     token,
-//   });
-// });
