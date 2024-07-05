@@ -19,7 +19,7 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
   });
 });
 
-export const createUser = async (req, res) => {
+export const createUser = catchAsync(async (req, res, next) => {
   const user = await User.create(req.body);
 
   res.status(200).json({
@@ -29,7 +29,7 @@ export const createUser = async (req, res) => {
       user,
     },
   });
-};
+});
 
 export const getUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -47,7 +47,7 @@ export const getUser = catchAsync(async (req, res, next) => {
   });
 });
 
-export const updateUser = async (req, res) => {
+export const updateUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   const user = await User.findByIdAndUpdate(id, req.body, {
@@ -64,8 +64,16 @@ export const updateUser = async (req, res) => {
       user,
     },
   });
-};
+});
 
-export const deleteUser = async (req, res) => {
-  res.status(200).json({ message: 'Delete user' });
-};
+export const deleteUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await User.findByIdAndDelete(id);
+
+  if (!user) return next(new AppError('No user found with that ID', 404));
+
+  res
+    .status(204)
+    .json({ status: 'success', message: 'Delete user', data: null });
+});
