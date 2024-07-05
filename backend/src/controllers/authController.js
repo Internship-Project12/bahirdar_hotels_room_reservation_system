@@ -192,6 +192,13 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   });
 });
 
+const resetPassword = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'reset password',
+  });
+});
+
 const updateMyPassword = catchAsync(async (req, res, next) => {
   const { passwordCurrent, password, passwordConfirm } = req.body;
 
@@ -249,6 +256,7 @@ const authController = {
   restrictTo,
   updateMyPassword,
   forgotPassword,
+  resetPassword,
 };
 
 export default authController;
