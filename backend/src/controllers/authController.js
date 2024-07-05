@@ -1,6 +1,7 @@
 import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
+import sendEmail from '../utils/email.js';
 import { createJWT, verifyJWT } from '../utils/tokenUtils.js';
 
 // SIGNUP A USER
@@ -168,9 +169,26 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
 
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Your password reset token (valid for 10 min)',
+      message: `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetToken}.\nIf you didn't forget your password, please ignore this email!`,
+      html: `<h1>Forgot your password?</h1><p>Submit a PATCH request with your new password and passwordConfirm to: <a href="${resetToken}" target='_blank'>${resetToken}</a></p>`,
+    });
+  } catch (err) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    return next(
+      new AppError('There was an error sending an email. Try again later', 500)
+    );
+  }
+
   res.status(200).json({
     status: 'success',
-    message: 'forgot password',
+    message: 'token is sent to an email',
   });
 });
 
