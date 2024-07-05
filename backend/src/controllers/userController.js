@@ -1,6 +1,7 @@
 import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
+import filterObject from '../utils/filterObject.js';
 
 export const getMe = (req, res, next) => {
   req.params.id = req.user._id;
@@ -8,7 +9,15 @@ export const getMe = (req, res, next) => {
 };
 
 export const updateMe = catchAsync(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(req.user._id, req.body, {
+  const filteredBody = filterObject(
+    req.body,
+    'firstName',
+    'lastName',
+    'email',
+    'phoneNumber'
+  );
+
+  const user = await User.findByIdAndUpdate(req.user._id, filteredBody, {
     new: true,
     runValidators: true,
   });
