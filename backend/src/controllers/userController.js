@@ -9,6 +9,15 @@ export const getMe = (req, res, next) => {
 };
 
 export const updateMe = catchAsync(async (req, res, next) => {
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(
+      new AppError(
+        'This route is not for password updates. Please use /updateMyPassword route.',
+        400
+      )
+    );
+  }
+
   const filteredBody = filterObject(
     req.body,
     'firstName',
