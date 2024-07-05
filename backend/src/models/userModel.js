@@ -64,6 +64,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// ************HOOKS************
 // set the first user as an admin
 userSchema.pre('save', async function (next) {
   const countDoc = await this.constructor.countDocuments();
@@ -91,6 +92,13 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
+
+  next();
+});
+
+// ************STATIC METHODS**************
 // Check/Compare if the password is correct
 userSchema.methods.isCorrectPassword = async function (pass, hashedPass) {
   return await bcrypt.compare(pass, hashedPass);
