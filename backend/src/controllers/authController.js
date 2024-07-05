@@ -165,7 +165,6 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
     );
   }
 
-  console.log(user);
 
   res.status(200).json({
     status: 'success',

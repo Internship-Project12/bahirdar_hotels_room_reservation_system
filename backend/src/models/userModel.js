@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema(
       default: true,
       select: false,
     },
-    // passwordChangedAt: Date,
+    passwordChangedAt: Date,
   },
   {
     timestamps: true,
@@ -92,6 +92,16 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// UPDATE PASSWORD CHANGED AT PROP
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000;
+
+  next();
+});
+
+// DELETE ME
 userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
 
