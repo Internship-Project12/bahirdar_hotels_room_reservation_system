@@ -52,6 +52,11 @@ const userSchema = new mongoose.Schema(
         message: 'Passwords are not the same!',
       },
     },
+    active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
     // passwordChangedAt: Date,
   },
   {
@@ -62,7 +67,7 @@ const userSchema = new mongoose.Schema(
 // set the first user as an admin
 userSchema.pre('save', async function (next) {
   const countDoc = await this.constructor.countDocuments();
-  console.log(countDoc)
+  console.log(countDoc);
 
   if (countDoc === 0) {
     this.role = 'admin';
