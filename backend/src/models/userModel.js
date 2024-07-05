@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 const userSchema = new mongoose.Schema(
   {
@@ -57,7 +58,9 @@ const userSchema = new mongoose.Schema(
       default: true,
       select: false,
     },
-    // passwordChangedAt: Date,
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   {
     timestamps: true,
@@ -92,6 +95,16 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// UPDATE PASSWORD CHANGED AT PROP
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000;
+
+  next();
+});
+
+// DELETE ME
 userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
 
@@ -115,6 +128,19 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   }
 
   return false;
+};
+
+userSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
 };
 
 // Create a mongoose model

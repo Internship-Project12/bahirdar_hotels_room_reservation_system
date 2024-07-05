@@ -1,6 +1,7 @@
 import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
+import sendEmail from '../utils/email.js';
 import { createJWT, verifyJWT } from '../utils/tokenUtils.js';
 
 // SIGNUP A USER
@@ -150,6 +151,67 @@ const restrictTo = (...roles) => {
   };
 };
 
+export const forgotPassword = catchAsync(async (req, res, next) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return next(new AppError('Please provide your email add', 401));
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return next(
+      new AppError('There is no user found with that email address', 401)
+    );
+  }
+
+  const resetToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  try {
+    // 3) Send it to user's email
+    // const resetURL = `${req.protocol}://${req.get(
+    //   'host'
+    // )}/api/v1/users/resetPassword/${resetToken}`;
+
+    const resetURL = `${req.protocol}://${req.get(
+      'host'
+    )}/api/v1/users/resetPassword/${resetToken}`;
+
+    const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
+
+    const html = `<h1>Forgot your password?</h1><p>Submit a PATCH request with your new password and passwordConfirm to: <a href="${resetURL}" target='_blank'>${resetURL}</a></p>`;
+
+    await sendEmail({
+      email: user.email,
+      subject: 'Your password reset token (valid for 10 min)',
+      message,
+      html,
+    });
+  } catch (err) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    return next(
+      new AppError('There was an error sending an email. Try again later', 500)
+    );
+  }
+
+  res.status(200).json({
+    status: 'success',
+    message: 'token is sent to an email',
+  });
+});
+
+const resetPassword = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'reset password',
+  });
+});
+
 const updateMyPassword = catchAsync(async (req, res, next) => {
   const { passwordCurrent, password, passwordConfirm } = req.body;
 
@@ -206,22 +268,8 @@ const authController = {
   logout,
   restrictTo,
   updateMyPassword,
+  forgotPassword,
+  resetPassword,
 };
 
 export default authController;
-
-//   // 4) If so, update password
-//   user.password = req.body.password;
-//   user.passwordConfirm = req.body.passwordConfirm;
-//   await user.save();
-
-//   // 5) Log user in, send JWT
-//   const token = createJWT({ id: user._id });
-//   sendCookie(res, token);
-
-//   res.status(200).json({
-//     status: 'success',
-//     message: 'password updated successfully',
-//     token,
-//   });
-// });
