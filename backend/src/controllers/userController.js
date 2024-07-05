@@ -7,6 +7,13 @@ export const getMe = (req, res, next) => {
   next();
 };
 
+export const updateMe = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    status: 200,
+    message: 'update me'
+  })
+})
+
 export const getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
 
