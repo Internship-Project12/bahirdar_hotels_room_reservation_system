@@ -1,7 +1,13 @@
 import express from 'express';
 import roomController from '../controllers/roomController.js';
+import authController from '../controllers/authController.js';
 
 const router = express.Router();
+
+router.use(
+  authController.protect,
+  authController.restrictTo('admin', 'manager')
+);
 
 router
   .route('/')

@@ -6,9 +6,21 @@ const RoomSchema = new mongoose.Schema({
     required: [true, 'A room must have a room number'],
     unique: [true, 'A room number must be unique'],
   },
-  type: {
+  rooType: {
     type: String,
     required: [true, 'A room must have a type'],
+    enum: {
+      values: [
+        'single', // One single bed, basic amenities - Solo travelers, business travelers
+        'double', // One double or queen-sized bed - Couples, friends
+        'twin', // Two single beds - Friends, colleagues, siblings
+        'triple', // Three single beds or one double and one single bed -	Small families, friends
+        'quad', // Four single beds or two double beds -	Families, groups of friends
+        'twin-double', // Two double beds - Families, groups of friends
+      ],
+      message:
+        'Room type is either: single, double, twin, triple, quad, twin-double',
+    },
   },
   pricePerNight: {
     type: Number,

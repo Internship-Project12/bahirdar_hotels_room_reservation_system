@@ -56,7 +56,7 @@ app.use(express.static(path.resolve(__dirname, './../frontend/dist')));
 app.use(mongoSanitize());
 
 app.use('/', (req, res, next) => {
-  console.log(req.cookies);
+  // console.log(req.cookies);
   // res.status(200).json({
   //   status: 'success',
   //   message: 'Hello from the server | Hotel Booking App',

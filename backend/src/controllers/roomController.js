@@ -40,7 +40,7 @@ const roomController = {
   getRoom,
   createRoom,
   updateRoom,
-  deleteRoom,s
+  deleteRoom,
 };
 
 export default roomController;
