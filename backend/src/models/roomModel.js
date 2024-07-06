@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
+import Hotel from './hotelModel.js'
 
 const roomSchema = new mongoose.Schema(
   {
     roomNumber: {
       type: String,
       required: [true, 'A room must have a room number'],
-      unique: [true, 'A room number must be unique'],
     },
     roomType: {
       type: String,
@@ -70,6 +70,37 @@ roomSchema.index({ hotel: 1, roomNumber: 1 }, { unique: true });
 
 //   next();
 // });
+
+roomSchema.statics.calcMinPriceAndNumOfRooms = async function (hotelId) {
+  const stats = await this.aggregate([
+    { $match: { hotel: hotelId } },
+    {
+      $group: {
+        _id: '$hotel',
+        numOfRooms: { $sum: 1 },
+        minPrice: { $min: '$pricePerNight' },
+      },
+    },
+  ]);
+
+  if (stats.length > 0) {
+    await Hotel.findByIdAndUpdate(hotelId, {
+      numOfRooms: stats[0].numOfRooms,
+      minPricePerNight: stats[0].minPrice,
+    });
+  } else {
+    await Hotel.findByIdAndUpdate(hotelId, {
+      numOfRooms: 1,
+      minPricePerNight: 0,
+    });
+  }
+};
+
+roomSchema.pre('save', function (next) {
+  this.constructor.calcMinPriceAndNumOfRooms(this.hotel);
+
+  next();
+});
 
 const Room = mongoose.model('Room', roomSchema);
 

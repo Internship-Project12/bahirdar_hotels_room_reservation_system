@@ -20,14 +20,12 @@ const hotelSchema = new mongoose.Schema(
       type: [String],
       required: [true, 'A hotel must have additional images'],
     },
-    // pricePerNight: {
-    //   type: Number,
-    //   required: [true, 'A hotel must have a price'],
-    //   min: 0,
-    // },
+    minPricePerNight: {
+      type: Number,
+      min: 0,
+    },
     numOfRooms: {
       type: Number,
-      required: [true, 'A hotel must have a number of rooms'],
       min: [1, 'a hotel must have at least one room'],
     },
     numOfRatings: {
@@ -65,11 +63,13 @@ const hotelSchema = new mongoose.Schema(
       type: [String],
       required: [true, 'hotels must have some facilities'],
     },
-    manager: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: [true, 'A hotel must have a manager']
-    }
+    manager: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: [true, 'A hotel must have a manager'],
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },

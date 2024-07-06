@@ -32,8 +32,10 @@ export const createHotel = catchAsync(async (req, res, next) => {
   let hotelImagesUrl;
 
   try {
-    imageCoverUrl = await uploadImages(req.files.imageCoverFile);
-    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles);
+    if (!req.files?.imageCoverFile || !req.files?.hotelImagesFiles) {
+      imageCoverUrl = await uploadImages(req.files.imageCoverFile);
+      hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles);
+    }
   } catch (error) {
     console.error('🔥', error);
     return next(new AppError('Unable to upload images, try again', 500));
