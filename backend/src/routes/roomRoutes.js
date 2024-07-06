@@ -2,7 +2,7 @@ import express from 'express';
 import roomController from '../controllers/roomController.js';
 import authController from '../controllers/authController.js';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.use(
   authController.protect,

@@ -52,22 +52,22 @@ const roomSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,
-  },
-  {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
+  },
+  {
+    timestamps: true,
   }
 );
 
-roomSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'hotel',
-    select: 'name starRating imageCover',
-  });
+// roomSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: 'hotel',
+//     select: 'name starRating imageCover',
+//   });
 
-  next();
-});
+//   next();
+// });
 
 const Room = mongoose.model('Room', roomSchema);
 
