@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Hotel from './hotelModel.js'
+import Hotel from './hotelModel.js';
 
 const roomSchema = new mongoose.Schema(
   {
