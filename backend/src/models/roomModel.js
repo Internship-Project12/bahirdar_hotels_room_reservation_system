@@ -60,6 +60,8 @@ const roomSchema = new mongoose.Schema(
   }
 );
 
+roomSchema.index({ hotel: 1, roomNumber: 1 }, { unique: true });
+
 // roomSchema.pre(/^find/, function (next) {
 //   this.populate({
 //     path: 'hotel',
