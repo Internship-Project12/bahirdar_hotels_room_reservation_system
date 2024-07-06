@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const RoomSchema = new mongoose.Schema(
+const roomSchema = new mongoose.Schema(
   {
     roomNumber: {
       type: String,
@@ -46,7 +46,7 @@ const RoomSchema = new mongoose.Schema(
     },
     // bookingHistory: [{ startDate: Date, endDate: Date }],
     hotel: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: 'Hotel',
       required: [true, 'A room must belong to a hotel'],
     },
@@ -60,7 +60,7 @@ const RoomSchema = new mongoose.Schema(
   }
 );
 
-RoomSchema.pre(/^find/, function (next) {
+roomSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'hotel',
     select: 'name starRating imageCover',
@@ -69,6 +69,6 @@ RoomSchema.pre(/^find/, function (next) {
   next();
 });
 
-const Room = mongoose.model('Room', RoomSchema);
+const Room = mongoose.model('Room', roomSchema);
 
 export default Room;

@@ -54,13 +54,12 @@ export const createHotel = catchAsync(async (req, res, next) => {
 });
 
 export const getHotel = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const { id } = req.params;
 
-  const hotel = await Hotel.findOne({
-    _id: id,
-    // userId: req.userId,
+  const hotel = await Hotel.findById(id).populate({
+    path: 'rooms',
   });
 
   if (!hotel) {
