@@ -65,6 +65,9 @@ const updateRoom = catchAsync(async (req, res, next) => {
     return next(new AppError('There is no room found with that id', 404));
   }
 
+  // update hotel | price per night and number of rooms
+  await room.constructor.calcMinPriceAndNumOfRooms(room.hotel);
+
   res.status(200).json({
     status: 'success',
     message: 'update room route',
@@ -80,6 +83,9 @@ const deleteRoom = catchAsync(async (req, res, next) => {
   if (!room) {
     return next(new AppError('There is no room found with that id', 404));
   }
+
+  // update hotel | price per night and number of rooms
+  await room.constructor.calcMinPriceAndNumOfRooms(room.hotel);
 
   res.status(204).json({
     status: 'success',
