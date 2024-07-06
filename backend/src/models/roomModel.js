@@ -6,7 +6,7 @@ const RoomSchema = new mongoose.Schema({
     required: [true, 'A room must have a room number'],
     unique: [true, 'A room number must be unique'],
   },
-  rooType: {
+  roomType: {
     type: String,
     required: [true, 'A room must have a type'],
     enum: {
