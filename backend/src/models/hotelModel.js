@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const HotelSchema = new mongoose.Schema(
+const hotelSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -67,14 +67,20 @@ const HotelSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true,
-  },
-  {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
+  },
+  {
+    timestamps: true,
   }
 );
 
-const Hotel = mongoose.model('Hotel', HotelSchema);
+hotelSchema.virtual('rooms', {
+  ref: 'Room',
+  foreignField: 'hotel',
+  localField: '_id',
+});
+
+const Hotel = mongoose.model('Hotel', hotelSchema);
 
 export default Hotel;
