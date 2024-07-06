@@ -46,7 +46,7 @@ const roomSchema = new mongoose.Schema(
     },
     // bookingHistory: [{ startDate: Date, endDate: Date }],
     hotel: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: 'Hotel',
       required: [true, 'A room must belong to a hotel'],
     },
