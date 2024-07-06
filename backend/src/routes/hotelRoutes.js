@@ -8,8 +8,11 @@ import {
 } from '../controllers/hotelController.js';
 import upload from '../middlewares/multerMiddleware.js';
 import authController from '../controllers/authController.js';
+import roomRouter from './roomRoutes.js';
 
 const router = express.Router();
+
+router.use('/:tourId/rooms', roomRouter);
 
 router
   .route('/')
