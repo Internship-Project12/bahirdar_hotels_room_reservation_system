@@ -65,6 +65,11 @@ const hotelSchema = new mongoose.Schema(
       type: [String],
       required: [true, 'hotels must have some facilities'],
     },
+    manager: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: [true, 'A hotel must have a manager']
+    }
   },
   {
     toJSON: { virtuals: true },
