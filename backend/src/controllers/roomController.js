@@ -1,37 +1,85 @@
+import Room from '../models/roomModel.js';
+import APIFeatures from '../utils/apiFeatures.js';
+import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 
 const getAllRooms = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Room.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const rooms = await features.query;
+
   res.status(200).json({
     status: 'success',
     message: 'get all routes',
+    numOfRooms: rooms.length,
+    data: {
+      rooms,
+    },
   });
 });
 
 const getRoom = catchAsync(async (req, res, next) => {
+  const room = await Room.findById(req.params.id);
+
+  if (!room) {
+    return next(new AppError('There is no room found with that id', 404));
+  }
+
   res.status(200).json({
     status: 'success',
-    message: 'get one route',
+    message: 'get room route',
+    data: {
+      room,
+    },
   });
 });
 
 const createRoom = catchAsync(async (req, res, next) => {
+  const room = await Room.create(req.body);
+
   res.status(200).json({
     status: 'success',
-    message: 'create one route',
+    message: 'create room route',
+    data: {
+      room,
+    },
   });
 });
 
 const updateRoom = catchAsync(async (req, res, next) => {
+  const room = await Room.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!room) {
+    return next(new AppError('There is no room found with that id', 404));
+  }
+
   res.status(200).json({
     status: 'success',
-    message: 'update one route',
+    message: 'update room route',
+    data: {
+      room,
+    },
   });
 });
 
 const deleteRoom = catchAsync(async (req, res, next) => {
-  res.status(200).json({
+  const room = await Room.findByIdAndDelete(req.params.id);
+
+  if (!room) {
+    return next(new AppError('There is no room found with that id', 404));
+  }
+
+  res.status(204).json({
     status: 'success',
-    message: 'delete one route',
+    message: 'delete room route',
+    data: null,
   });
 });
 
