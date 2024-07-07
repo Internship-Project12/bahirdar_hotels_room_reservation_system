@@ -5,7 +5,7 @@ import catchAsync from '../utils/catchAsync.js';
 
 const getAllRooms = catchAsync(async (req, res, next) => {
   let filter = {};
-  if (req.params.tourId) filter.hotel = req.params.tourId;
+  if (req.params.tourId) filter.hotel = req.params.hotelId;
 
   const features = new APIFeatures(Room.find(filter), req.query)
     .filter()
