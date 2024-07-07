@@ -40,7 +40,7 @@ reviewSchema.index({ hotel: 1, user: 1 }, { unique: true });
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'user',
-    select: 'name photo', // Adjust fields as per your user model
+    select: 'firstName lastName photo', // Adjust fields as per your user model
   }).populate({
     path: 'hotel',
     select: 'name', // Adjust fields as per your hotel model
