@@ -13,6 +13,7 @@ import hotelRouter from './routes/hotelRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import roomRouter from './routes/roomRoutes.js';
 import bookingRouter from './routes/bookingRoutes.js';
+import reviewRouter from './routes/reviewRoutes.js';
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -65,10 +66,12 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+// ROUTES
 app.use('/api/v1/hotels', hotelRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/rooms', roomRouter);
 app.use('/api/v1/bookings', bookingRouter);
+app.use('/api/v1/reviews', reviewRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './../frontend/dist', 'index.html'));
