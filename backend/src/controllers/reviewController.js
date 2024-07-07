@@ -21,16 +21,32 @@ const getAllReviews = catchAsync(async (req, res, next) => {
 });
 
 const getReview = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const review = await Review.findById(id);
+
+  if (!review) {
+    return next(new AppError('there is no review found with that id', 404));
+  }
+
   res.status(200).json({
     status: 'success',
     message: 'get review',
+    data: {
+      review,
+    },
   });
 });
 
 const createReview = catchAsync(async (req, res, next) => {
+  const review = await Review.create(req.body);
+
   res.status(200).json({
     status: 'success',
     message: 'create review',
+    data: {
+      review
+    }
   });
 });
 
