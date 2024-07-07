@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { BookingStatus } from '../utils/constants.js';
+import { BookingStatus } from '../constants/constants.js';
 
 const bookingSchema = new mongoose.Schema(
   {
