@@ -12,7 +12,7 @@ import roomRouter from './roomRoutes.js';
 
 const router = express.Router();
 
-router.use('/:tourId/rooms', roomRouter);
+router.use('/:hotelId/rooms', roomRouter);
 
 router
   .route('/')

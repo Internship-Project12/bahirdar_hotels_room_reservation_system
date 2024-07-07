@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { BookingStatus } from '../constants/constants.js';
 import AppError from '../utils/appError.js';
+import Room from './roomModel.js';
 
 const bookingSchema = new mongoose.Schema(
   {
@@ -16,13 +17,23 @@ const bookingSchema = new mongoose.Schema(
     },
     totalPrice: {
       type: Number,
-      required: [true, 'a book must have a price'],
-      // min: [0, ''] // TODO: total price must greater than pricePerNight of the room
+    },
+    pricePerNight: {
+      type: Number,
     },
     checkInDate: {
       //TODO: add a custom validator to check if the day is >= Date.now()
       type: Date,
       required: [true, 'a booking must have check in date'],
+      // validate: {
+      //   validator: function (val) {
+      //     const checkIn = new Date(val);
+      //     console.log(checkIn.getTime(), Date.now());
+      //     return checkIn.getTime() >= Date.now();
+      //   },
+      //   message: 'check in date must be now or in the future',
+      // },
+      // default: Date.now(),
     },
     checkOutDate: {
       type: Date,
@@ -68,6 +79,17 @@ bookingSchema.pre('save', function (next) {
 
   this.numOfNights = numOfNights;
 
+  next();
+});
+
+// CALCULATE THE TOTAL PRICE BEFORE SAVE
+bookingSchema.pre('save', async function (next) {
+  const room = await Room.findById(this.room);
+  if (!room) {
+    next(new AppError('there is no room found with that id', 404));
+  }
+  this.pricePerNight = room.pricePerNight;
+  this.totalPrice = room.pricePerNight * this.numOfNights;
   next();
 });
 
