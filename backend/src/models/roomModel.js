@@ -102,4 +102,12 @@ roomSchema.pre('save', function (next) {
 
 const Room = mongoose.model('Room', roomSchema);
 
+Room.on('index', function (error) {
+  if (error) {
+    console.error('Index creation failed:', error);
+  } else {
+    console.log('Indexes created successfully.');
+  }
+});
+
 export default Room;
