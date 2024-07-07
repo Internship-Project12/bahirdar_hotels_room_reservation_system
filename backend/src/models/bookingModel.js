@@ -19,6 +19,7 @@ const bookingSchema = new mongoose.Schema(
       // min: [0, ''] // TODO: total price must greater than pricePerNight of the room
     },
     checkInDate: {
+      //TODO: add a custom validator to check if the day is >= Date.now()
       type: Date,
       required: [true, 'a booking must have check in date'],
     },
@@ -44,8 +45,20 @@ const bookingSchema = new mongoose.Schema(
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
     timestamps: true,
-  },
+  }
 );
+
+bookingSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'user',
+    select: '-createdAt -updatedAt -__v -passwordChangedAt',
+  }).populate({
+    path: 'room',
+    select: 'roomNumber roomType pricePerNight',
+  });
+
+  next();
+});
 
 const Booking = mongoose.model('Booking', bookingSchema);
 
