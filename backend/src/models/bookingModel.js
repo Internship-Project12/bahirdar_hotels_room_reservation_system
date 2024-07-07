@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { BookingStatus } from '../constants/constants.js';
+import AppError from '../utils/appError.js';
 
 const bookingSchema = new mongoose.Schema(
   {
@@ -27,6 +28,10 @@ const bookingSchema = new mongoose.Schema(
       type: Date,
       required: [true, 'a booking must have check out date'],
     },
+    numOfNights: {
+      type: Number,
+      min: [1, 'a book must be at least one night '],
+    },
     status: {
       type: String,
       enum: {
@@ -47,6 +52,24 @@ const bookingSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// calculate the number of nights from the checkOut and checkIn date
+bookingSchema.pre('save', function (next) {
+  const checkInDate = new Date(this.checkInDate);
+  const checkOutDate = new Date(this.checkOutDate);
+
+  const numOfNights = Math.ceil(
+    (checkOutDate.getTime() - checkInDate.getTime()) / (24 * 60 * 60 * 1000)
+  );
+
+  if (numOfNights < 1) {
+    next(new AppError('number of nights must be at least one night', 401));
+  }
+
+  this.numOfNights = numOfNights;
+
+  next();
+});
 
 bookingSchema.pre(/^find/, function (next) {
   this.populate({
