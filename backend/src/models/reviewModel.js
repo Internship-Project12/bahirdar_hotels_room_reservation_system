@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 // import User from './userModel.js';
-// import Hotel from './hotelModel.js';
+import Hotel from './hotelModel.js';
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -35,6 +35,37 @@ const reviewSchema = new mongoose.Schema(
 
 // Prevent multiple reviews from the same user for the same hotel
 reviewSchema.index({ hotel: 1, user: 1 }, { unique: true });
+
+reviewSchema.statics.calcAvgRating = async function (hotelId) {
+  const stats = await this.aggregate([
+    { $match: { hotel: hotelId } },
+    {
+      $group: {
+        _id: '$hotel',
+        nRating: { $sum: 1 },
+        avgRating: { $avg: '$rating' },
+      },
+    },
+  ]);
+
+  if (stats.length > 0) {
+    await Hotel.findByIdAndUpdate(hotelId, {
+      numOfRatings: stats[0].nRating,
+      avgRating: stats[0].avgRating,
+    });
+  } else {
+    await Hotel.findByIdAndUpdate(hotelId, {
+      numOfRatings: 0,
+      avgRating: 4.5,
+    });
+  }
+};
+
+reviewSchema.pre('save', function (next) {
+  this.constructor.calcAvgRating(this.hotel);
+
+  next();
+});
 
 // Populate the user and hotel fields when querying reviews
 reviewSchema.pre(/^find/, function (next) {

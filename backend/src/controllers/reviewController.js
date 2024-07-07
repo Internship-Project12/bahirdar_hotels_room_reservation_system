@@ -63,6 +63,9 @@ const updateReview = catchAsync(async (req, res, next) => {
     return next(new AppError('there is no review found with that id', 404));
   }
 
+  // UPDATE THE HOTEL BASED ON THE RATING GIVEN ON THE REVIEW
+  review.constructor.calcAvgRating(review.hotel);
+
   res.status(200).json({
     status: 'success',
     message: 'update review',
@@ -80,6 +83,9 @@ const deleteReview = catchAsync(async (req, res, next) => {
   if (!review) {
     return next(new AppError('there is no review found with that id', 404));
   }
+
+  // UPDATE THE HOTEL NUMBER OF RATING AND AVG RATING ON DELETING A REVIEW
+  review.constructor.calcAvgRating(review.hotel);
 
   res.status(204).json({
     status: 'success',
