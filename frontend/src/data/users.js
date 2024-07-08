@@ -1,0 +1,42 @@
+export const users = [
+  {
+    id: 1,
+    firstName: "Abrham",
+    lastName: "Mulugeta",
+    email: "abrham@gmail.com",
+    phoneNumber: "+251 23 3298 353",
+    role: "Admin",
+  },
+  {
+    id: 2,
+    firstName: "Birtukan",
+    lastName: "Alemu",
+    email: "birtukan@gmail.com",
+    phoneNumber: "+251 23 3298 353",
+    role: "Hotel Manager",
+  },
+  {
+    id: 3,
+    firstName: "Yehalem",
+    lastName: "Kasew",
+    email: "yehalem@gmail.com",
+    phoneNumber: "+251 23 3298 353",
+    role: "User",
+  },
+  {
+    id: 4,
+    firstName: "Weynareg",
+    lastName: "Yibeltal",
+    email: "weynua@gmail.com",
+    phoneNumber: "+251 23 3298 353",
+    role: "User",
+  },
+  {
+    id: 5,
+    firstName: "Yitbark",
+    lastName: "Amlaku",
+    email: "yitbarek@gmail.com",
+    phoneNumber: "+251 23 3298 353",
+    role: "User",
+  },
+];
