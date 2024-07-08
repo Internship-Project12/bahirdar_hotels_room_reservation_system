@@ -12,11 +12,11 @@ import HotelsListPage from "./pages/hotels/HotelsListPage";
 import AddHotel from "./features/hotels/AddHotel";
 import HotelDetailsPage from "./pages/hotels/HotelDetailsPage";
 import UpdateHotel from "./features/hotels/UpdateHotel";
-import Dashboard from "./pages/dashboard/Dashboard";
+import Dashboard from "./features/dashboard/Dashboard";
 import Users from "./features/users/Users";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
-import HotelsTable from "./pages/dashboard/HotelsTable";
-import Bookings from "./pages/dashboard/Bookings";
+import HotelsTable from "./features/hotels/HotelsTable";
+import Bookings from "./features/bookings/Bookings";
 
 function App() {
   return (

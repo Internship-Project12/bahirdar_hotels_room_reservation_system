@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 
-function TableBody({ columns, bodyData }) {
+function TableBody({ headers, bodyData }) {
   return (
     <div
-      className={`mb-2 grid grid-cols-${columns.length} items-center gap-3 border-b border-l border-r border-slate-200 p-2 text-sm`}
+      className={`mb-2 grid grid-cols-${headers?.length} items-center gap-3 border-b border-l border-r border-slate-200 p-2 text-sm`}
     >
-      {columns.map((col, index) => (
+      {headers?.map((col, index) => (
         <div key={index} className="col-span-1 flex items-center gap-3">
           {renderCell(bodyData, col.key)}
         </div>

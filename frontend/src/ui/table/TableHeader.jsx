@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-function TableHeader({ columns }) {
+function TableHeader({ headers }) {
   return (
     <div
-      className={`mb-2 grid grid-cols-${columns.length} items-start justify-items-start gap-3 border border-slate-200 bg-slate-200 p-3 font-semibold`}
+      className={`mb-2 grid grid-cols-${headers.length} items-start justify-items-start gap-3 border border-slate-200 bg-slate-200 p-3 font-semibold`}
     >
-      {columns.map((col, index) => (
+      {headers.map((col, index) => (
         <div key={index} className="col-span-1">
           {col.label}
         </div>

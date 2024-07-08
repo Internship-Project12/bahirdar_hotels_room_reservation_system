@@ -1,4 +1,4 @@
-import BookingTable from "../../features/bookings/BookingTable";
+import BookingTable from "./BookingTable";
 
 function Bookings() {
   return (

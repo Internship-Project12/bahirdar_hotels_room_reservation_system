@@ -1,6 +1,6 @@
 import { hotels } from "../../data/hotels";
-import HotelTableBody from "../../features/hotels/HotelTableBody";
-import HotelTableHeading from "../../features/hotels/HotelTableHeading";
+import HotelTableBody from "./HotelTableBody";
+import HotelTableHeading from "./HotelTableHeading";
 
 function HotelsTable() {
   return (
