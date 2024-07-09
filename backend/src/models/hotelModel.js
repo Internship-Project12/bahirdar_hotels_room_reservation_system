@@ -84,6 +84,12 @@ hotelSchema.virtual('rooms', {
   localField: '_id',
 });
 
+hotelSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'hotel',
+  localField: '_id',
+});
+
 const Hotel = mongoose.model('Hotel', hotelSchema);
 
 export default Hotel;
