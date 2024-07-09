@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import HeaderAccount from "./HeaderAccount";
 
 function Header() {
   return (
@@ -36,6 +37,9 @@ function Header() {
             >
               Sign In
             </Link>
+          </li>
+          <li>
+            <HeaderAccount />
           </li>
         </ul>
       </nav>

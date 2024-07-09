@@ -1,17 +1,11 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+// import { useState } from "react";
 import HeaderAccountMenu from "./HeaderAccountMenu";
 import { useAuthContext } from "../context/AuthContext";
 
 function HeaderAccount() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-    const { user } = useAuthContext();
-
-
-  const handleOpenModal = () => {
-    setIsOpenModal((prev) => !prev);
-  };
+  const { user, isOpenModal, handleOpenModal } = useAuthContext();
 
   return (
     <div className="relative z-50">
@@ -19,9 +13,16 @@ function HeaderAccount() {
         onClick={handleOpenModal}
         className="flex items-center justify-center gap-2 hover:cursor-pointer"
       >
-        <p className="flex h-[3rem] w-[3rem] items-center justify-center rounded-full bg-orange-600 text-4xl text-slate-900 shadow-md transition duration-300 hover:cursor-pointer">
+        {/* <p className="flex h-[3rem] w-[3rem] items-center justify-center rounded-full bg-orange-600 text-4xl text-slate-900 shadow-md transition duration-300 hover:cursor-pointer">
           {user?.firstName[0]}
-        </p>
+        </p> */}
+        <div>
+          <img
+            className="h-10 w-10 rounded-full object-cover"
+            src="/user1.jpeg"
+            alt="user photo"
+          />
+        </div>
         <p className="tracking-widest text-white underline underline-offset-4">
           {" "}
           {user?.firstName}

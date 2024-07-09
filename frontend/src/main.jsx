@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import App from "./App.jsx";
 import "./index.css";
-import AuthContextProvider from "./context/AuthContext";
+import { AuthContextProvider } from "./context/AuthContext";
 // import customFetch from "./utils/customFetch.js";
 
 // const res = await customFetch.get("/api/v1/hotels");

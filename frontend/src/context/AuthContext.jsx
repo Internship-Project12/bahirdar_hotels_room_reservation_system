@@ -1,33 +1,55 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { useQuery } from "@tanstack/react-query";
-import { createContext, useContext } from "react";
-import apiAuth from "../services/apiAuth";
-import QueryKey from "../constants/QueryKey";
+// import { useQuery } from "@tanstack/react-query";
+// import apiAuth from "../services/apiAuth";
+// import QueryKey from "../constants/QueryKey";
+import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  const {
-    data: res,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: [QueryKey.USER],
-    queryFn: apiAuth.getCurrentUser,
-    retry: false,
+  // const {
+  //   data: res,
+  //   isLoading,
+  //   isError,
+  // } = useQuery({
+  //   queryKey: [QueryKey.USER],
+  //   queryFn: apiAuth.getCurrentUser,
+  //   retry: false,
+  // });
+
+  // if (isLoading) return;
+
+  // const user = res?.data?.data.user || null;
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsOpenModal((prev) => !prev);
+  };
+
+  const [user, setUser] = useState({
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+    phoneNumber: "+1234567890",
+    photo: "/user1.jpeg", // Placeholder image
   });
 
-  if (isLoading) return;
-
-  const user = res?.data?.data.user || null;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: !isError,
+        // isLoggedIn: !isError,
+        isOpenModal,
+        handleOpenModal,
         user,
         role: user?.role || null,
+        handleChange,
       }}
     >
       {children}
@@ -35,7 +57,7 @@ function AuthContextProvider({ children }) {
   );
 }
 
-export const useAuthContext = () => {
+const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error("useAuthContext must be used within a AuthContextProvider");
@@ -43,4 +65,4 @@ export const useAuthContext = () => {
   return context;
 };
 
-export default AuthContextProvider;
+export { AuthContextProvider, useAuthContext };

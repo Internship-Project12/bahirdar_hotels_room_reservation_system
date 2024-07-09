@@ -8,15 +8,19 @@ import { Link } from "react-router-dom";
 
 function HeaderAccountMenu() {
   const { logout, isPending } = useLogout();
-  const { role } = useAuthContext();
+  const { role, handleOpenModal } = useAuthContext();
 
   return (
     <ul className="z-[1000] flex flex-col gap-2 p-2">
       <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
-        <div className="flex items-center justify-start gap-2 p-3 py-2">
+        <Link
+          onClick={() => handleOpenModal()}
+          to="/profile"
+          className="flex items-center justify-start gap-2 p-3 py-2"
+        >
           <VscAccount size={"25px"} />
           <p>Profile</p>
-        </div>
+        </Link>
       </li>
       <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
         <div className="flex items-center justify-start gap-2 p-3 py-2">

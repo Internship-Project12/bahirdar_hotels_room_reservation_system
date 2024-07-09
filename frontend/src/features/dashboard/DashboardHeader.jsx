@@ -1,6 +1,8 @@
 import { HiOutlineSearch } from "react-icons/hi";
+import { useAuthContext } from "../../context/AuthContext";
 
 function DashboardHeader() {
+  const { user } = useAuthContext();
   return (
     <div className="fixed left-[260px] right-0 top-0 z-10 flex h-24 flex-1 items-center justify-between border-b-2 bg-slate-200 p-4 shadow-md">
       <p className="text-2xl font-bold">Admin Dashboard</p>
@@ -18,8 +20,8 @@ function DashboardHeader() {
       </div>
 
       <div className="flex items-center gap-2">
-        <img className="h-16 w-16 rounded-full" src="/user.jpg" alt="user" />
-        <span>Bob</span>
+        <img className="h-16 w-16 rounded-full" src={user.photo} alt="user" />
+        <span>{user.firstName}</span>
       </div>
     </div>
   );
