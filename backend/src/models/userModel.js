@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema(
         message: 'Role is either: user, admin, manager',
       },
     },
+    hotel: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Hotel',
+    },
     photo: String,
     phoneNumber: {
       type: String,

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import User from './userModel.js';
 
 const hotelSchema = new mongoose.Schema(
   {
@@ -63,13 +64,11 @@ const hotelSchema = new mongoose.Schema(
       type: [String],
       required: [true, 'hotels must have some facilities'],
     },
-    manager: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-        required: [true, 'A hotel must have a manager'],
-      },
-    ],
+    manager: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: [true, 'A hotel must have a manager'],
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -78,6 +77,15 @@ const hotelSchema = new mongoose.Schema(
   }
 );
 
+// link/add the hotel id to the manager's doc
+hotelSchema.post('save', async function (doc) {
+  console.log(doc)
+ const user =  await User.findByIdAndUpdate(doc.manager, { hotel: doc._id }, {new: true});
+});
+
+// Note: virtual populate is a two step populate.
+// 1st we add a virtual rooms prop to the model which has a ref
+// 2nd we populate that prop on querying that model
 hotelSchema.virtual('rooms', {
   ref: 'Room',
   foreignField: 'hotel',
