@@ -17,6 +17,7 @@ import Users from "./features/users/Users";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
 import HotelsTable from "./features/hotels/HotelsTable";
 import Bookings from "./features/bookings/Bookings";
+import UserProfile from "./features/profile/UserProfile";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/profile" element={<UserProfile />} />
           <Route path="/sign-in" element={<SigninPage />} />
           <Route path="/sign-up" element={<SignupPage />} />
           <Route path="/login" element={<SigninPage />} />
