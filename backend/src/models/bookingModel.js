@@ -15,34 +15,16 @@ const bookingSchema = new mongoose.Schema(
       ref: 'Room',
       required: [true, 'a booking should have a room to book'],
     },
-    totalPrice: {
-      type: Number,
-    },
-    pricePerNight: {
-      type: Number,
-    },
     checkInDate: {
       //TODO: add a custom validator to check if the day is >= Date.now()
       type: Date,
       required: [true, 'a booking must have check in date'],
-      // validate: {
-      //   validator: function (val) {
-      //     const checkIn = new Date(val);
-      //     console.log(checkIn.getTime(), Date.now());
-      //     return checkIn.getTime() >= Date.now();
-      //   },
-      //   message: 'check in date must be now or in the future',
-      // },
-      // default: Date.now(),
     },
     checkOutDate: {
       type: Date,
       required: [true, 'a booking must have check out date'],
     },
-    numOfNights: {
-      type: Number,
-      min: [1, 'a book must be at least one night '],
-    },
+
     status: {
       type: String,
       enum: {
@@ -55,6 +37,24 @@ const bookingSchema = new mongoose.Schema(
           'a booking type must either be pending, confirmed, or cancelled',
       },
       default: 'pending',
+    },
+
+    // ****************************************************** //
+
+    // we calculate this from the two dates
+    numOfNights: {
+      type: Number,
+      min: [1, 'a book must be at least one night '],
+    },
+
+    // this will be calculated from the price per night of the room and the num of nights
+    totalPrice: {
+      type: Number,
+    },
+
+    // we get this prop from the room on the creation of a book
+    pricePerNight: {
+      type: Number,
     },
   },
   {

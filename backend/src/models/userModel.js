@@ -22,18 +22,6 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, 'Please provide a valid email'],
     },
-    role: {
-      type: String,
-      default: 'user',
-      enum: {
-        values: ['user', 'admin', 'manager'],
-        message: 'Role is either: user, admin, manager',
-      },
-    },
-    hotel: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Hotel',
-    },
     photo: String,
     phoneNumber: {
       type: String,
@@ -65,6 +53,27 @@ const userSchema = new mongoose.Schema(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+
+    // ****************************************************** //
+    // we add this prop on hotel creation
+    // 1st we admin creates a user with role=manager
+    // then we add the hotels' id to the user on hotel creation
+    hotel: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Hotel',
+    },
+
+    // role will be admin for the first user
+    // role will be manager when the admin creates the user or updates the user to the manager
+    // else it will be user on signup
+    role: {
+      type: String,
+      default: 'user',
+      enum: {
+        values: ['user', 'admin', 'manager'],
+        message: 'Role is either: user, admin, manager',
+      },
+    },
   },
   {
     timestamps: true,
