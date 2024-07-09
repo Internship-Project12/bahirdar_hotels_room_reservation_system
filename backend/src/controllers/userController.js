@@ -1,7 +1,9 @@
+import { DEFAULT_USER_AVATAR } from '../constants/constants.js';
 import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import filterObject from '../utils/filterObject.js';
+import { uploadSingleImage } from '../utils/uploadImages.js';
 
 export const getMe = (req, res, next) => {
   req.params.id = req.user._id;
@@ -9,6 +11,7 @@ export const getMe = (req, res, next) => {
 };
 
 export const updateMe = catchAsync(async (req, res, next) => {
+  // make sure the user does not update his password through this route
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
@@ -18,6 +21,7 @@ export const updateMe = catchAsync(async (req, res, next) => {
     );
   }
 
+  // filter the body to prevent the user from updating his role or like that...
   const filteredBody = filterObject(
     req.body,
     'firstName',
@@ -26,6 +30,7 @@ export const updateMe = catchAsync(async (req, res, next) => {
     'phoneNumber'
   );
 
+  // update user
   const user = await User.findByIdAndUpdate(req.user._id, filteredBody, {
     new: true,
     runValidators: true,
@@ -33,6 +38,16 @@ export const updateMe = catchAsync(async (req, res, next) => {
 
   if (!user) return next(new AppError('No user found with that ID', 404));
 
+  // upload images if the user updates his avatar
+  let photo = DEFAULT_USER_AVATAR;
+  if (req.file) {
+    photo = await uploadSingleImage(req.file);
+  }
+
+  user.photo = photo;
+  await user.save();
+
+  // return response
   res.status(200).json({
     status: 200,
     message: 'update me',
@@ -71,8 +86,16 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 export const createUser = catchAsync(async (req, res, next) => {
-  const user = await User.create(req.body);
+  // check if file and upload it
+  let photo = DEFAULT_USER_AVATAR;
+  if (req.file) {
+    photo = await uploadSingleImage(req.file);
+  }
 
+  // create a user
+  const user = await User.create({ ...req.body, photo });
+
+  // send response
   res.status(200).json({
     status: 'success',
     message: 'Create user',
@@ -111,6 +134,16 @@ export const updateUser = catchAsync(async (req, res, next) => {
 
   if (!user) return next(new AppError('No user found with that ID', 404));
 
+  // upload images if the user updates his avatar
+  let photo = DEFAULT_USER_AVATAR;
+  if (req.file) {
+    photo = await uploadSingleImage(req.file);
+  }
+
+  user.photo = photo;
+  await user.save();
+
+  // return response
   res.status(200).json({
     status: 'success',
     message: 'Update user',
