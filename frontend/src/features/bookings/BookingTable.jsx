@@ -14,7 +14,7 @@ const bookingHeaders = [
 
 function BookingTable({ bookingTitle }) {
   return (
-    <Table title={bookingTitle} headers={bookingHeaders} bodyDatas={bookings} />
+    <Table title={bookingTitle} headers={bookingHeaders} datas={bookings} />
   );
 }
 

@@ -11,7 +11,7 @@ const userHeaders = [
 ];
 
 function Users() {
-  return <Table title={"All Users"} headers={userHeaders} bodyDatas={users} />;
+  return <Table title={"All Users"} headers={userHeaders} datas={users} />;
 }
 
 export default Users;
