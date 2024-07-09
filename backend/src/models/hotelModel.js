@@ -87,8 +87,7 @@ const hotelSchema = new mongoose.Schema(
 
 // link/add the hotel id to the manager's doc
 hotelSchema.post('save', async function (doc) {
-  console.log(doc)
- const user =  await User.findByIdAndUpdate(doc.manager, { hotel: doc._id }, {new: true});
+  await User.findByIdAndUpdate(doc.manager, { hotel: doc._id });
 });
 
 // Note: virtual populate is a two step populate.
