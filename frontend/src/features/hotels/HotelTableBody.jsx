@@ -22,9 +22,12 @@ function HotelTable({ hotel }) {
       <div className="col-span-1 col-start-7 flex">
         {hotel.facilities && hotel.facilities.join(", ")}
       </div>
-      <div className="col-span-1 col-start-8 flex gap-2">
+      <div className="col-span-1 col-start-8 flex items-center gap-1">
         <MdEdit size={24} color="blue" />
         <MdDeleteOutline size={24} color="red" />
+        <button className="rounded bg-green-600 p-2 font-semibold text-white">
+          Details
+        </button>
       </div>
     </div>
   );
