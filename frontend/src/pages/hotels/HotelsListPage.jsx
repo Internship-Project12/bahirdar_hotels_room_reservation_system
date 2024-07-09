@@ -32,14 +32,15 @@ function HotelsListPage() {
   const { data: hotels } = res.data;
 
   return (
-    <div className="relative -z-10">
+    // <div className="relative -z-10">
+    <div className="overflow-auto">
       <div className="sticky top-4 flex justify-center">
         {/* filter/sort */}
         <div className="h-[100vh] min-w-[300px] border-r-2 border-r-blue-300 bg-blue-100">
           filter/sort
         </div>
         {/* hotels list */}
-        <section className="h-screen max-w-[1024px] flex-1 overflow-scroll bg-gray-200">
+        <section className="h-screen max-w-[1024px] flex-1 overflow-auto bg-gray-200">
           {/* hotel cards */}
           {hotels.map((hotel) => (
             <div
