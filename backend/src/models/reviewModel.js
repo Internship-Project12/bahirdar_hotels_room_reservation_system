@@ -36,6 +36,7 @@ const reviewSchema = new mongoose.Schema(
 // Prevent multiple reviews from the same user for the same hotel
 reviewSchema.index({ hotel: 1, user: 1 }, { unique: true });
 
+// calculate avg rating and number of ratings for a hotel
 reviewSchema.statics.calcAvgRating = async function (hotelId) {
   const stats = await this.aggregate([
     { $match: { hotel: hotelId } },
@@ -72,10 +73,11 @@ reviewSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'user',
     select: 'firstName lastName photo', // Adjust fields as per your user model
-  }).populate({
-    path: 'hotel',
-    select: 'name', // Adjust fields as per your hotel model
-  });
+  })
+  // .populate({
+  //   path: 'hotel',
+  //   select: 'name', // Adjust fields as per your hotel model
+  // });
 
   next();
 });

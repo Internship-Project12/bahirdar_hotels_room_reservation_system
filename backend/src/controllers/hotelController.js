@@ -60,9 +60,17 @@ export const getHotel = catchAsync(async (req, res, next) => {
 
   const { id } = req.params;
 
-  const hotel = await Hotel.findById(id).populate({
-    path: 'rooms',
-  });
+  const hotel = await Hotel.findById(id)
+    .populate({
+      path: 'rooms',
+    })
+    .populate({
+      path: 'reviews',
+    })
+    .populate({
+      path: 'manager',
+      select: `firstName lastName email photo phoneNumber`,
+    });
 
   if (!hotel) {
     return next(new AppError('No hotel found with that ID', 404));
