@@ -2,9 +2,11 @@ import Room from '../models/roomModel.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
+import { uploadImages } from '../utils/uploadImages.js';
 
 const getAllRooms = catchAsync(async (req, res, next) => {
   let filter = {};
+  // filter if getting all rooms of one hotel // nested get route
   if (req.params.tourId) filter.hotel = req.params.hotelId;
 
   const features = new APIFeatures(Room.find(filter), req.query)
@@ -13,8 +15,10 @@ const getAllRooms = catchAsync(async (req, res, next) => {
     .limitFields()
     .paginate();
 
+    // execute the query
   const rooms = await features.query;
 
+  // send response
   res.status(200).json({
     status: 'success',
     message: 'get all routes',
@@ -26,12 +30,14 @@ const getAllRooms = catchAsync(async (req, res, next) => {
 });
 
 const getRoom = catchAsync(async (req, res, next) => {
+  // find by id
   const room = await Room.findById(req.params.id);
 
   if (!room) {
     return next(new AppError('There is no room found with that id', 404));
   }
 
+  // send response
   res.status(200).json({
     status: 'success',
     message: 'get room route',
@@ -42,10 +48,17 @@ const getRoom = catchAsync(async (req, res, next) => {
 });
 
 const createRoom = catchAsync(async (req, res, next) => {
+  // if creating is on the nested route and we get the hotel id from the merge param
   if (!req.body.hotel) req.body.hotel = req.params.hotelId;
 
-  const room = await Room.create(req.body);
+  // upload room images to cloudinary
+  let imageUrls;
+  if (req.files) imageUrls = uploadImages(req.files);
 
+  // create room
+  const room = await Room.create({ ...req.body, images: imageUrls });
+
+  // send response
   res.status(200).json({
     status: 'success',
     message: 'create room route',
@@ -56,6 +69,7 @@ const createRoom = catchAsync(async (req, res, next) => {
 });
 
 const updateRoom = catchAsync(async (req, res, next) => {
+  // find and update
   const room = await Room.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -65,9 +79,16 @@ const updateRoom = catchAsync(async (req, res, next) => {
     return next(new AppError('There is no room found with that id', 404));
   }
 
+  // upload room images to cloudinary
+  let imageUrls;
+  if (req.files) imageUrls = uploadImages(req.files);
+  room.images = [...(room?.images || []), ...imageUrls];
+  await room.save();
+
   // update hotel | price per night and number of rooms
   await room.constructor.calcMinPriceAndNumOfRooms(room.hotel);
 
+  // send response
   res.status(200).json({
     status: 'success',
     message: 'update room route',
@@ -78,6 +99,7 @@ const updateRoom = catchAsync(async (req, res, next) => {
 });
 
 const deleteRoom = catchAsync(async (req, res, next) => {
+  // find and delete
   const room = await Room.findByIdAndDelete(req.params.id);
 
   if (!room) {
@@ -87,6 +109,7 @@ const deleteRoom = catchAsync(async (req, res, next) => {
   // update hotel | price per night and number of rooms
   await room.constructor.calcMinPriceAndNumOfRooms(room.hotel);
 
+  // send response
   res.status(204).json({
     status: 'success',
     message: 'delete room route',
