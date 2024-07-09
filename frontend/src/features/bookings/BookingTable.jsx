@@ -1,21 +1,20 @@
 /* eslint-disable react/prop-types */
 import { bookings } from "../../data/bookings";
-import BookingTableBody from "./BookingTableBody";
-import BookingTableHeading from "./BookingTableHeading";
+import Table from "../../ui/table/Table";
+
+const bookingHeaders = [
+  { label: "Booking Date", key: "bookingDate" },
+  { label: "Customer", key: "customer" },
+  { label: "Persons", key: "persons" },
+  { label: "Phone", key: "phone" },
+  { label: "Check-In", key: "checkIn" },
+  { label: "Check-Out", key: "checkOut" },
+  { label: "Payment", key: "paymentStatus" },
+];
 
 function BookingTable({ bookingTitle }) {
   return (
-    <div>
-      <div className="w-full rounded bg-white shadow-md">
-        <h1 className="p-4 font-opensans text-2xl font-bold uppercase">
-          {bookingTitle}
-        </h1>
-        <BookingTableHeading />
-        {bookings.map((booking) => (
-          <BookingTableBody key={booking.phone} booking={booking} />
-        ))}
-      </div>
-    </div>
+    <Table title={bookingTitle} headers={bookingHeaders} datas={bookings} />
   );
 }
 
