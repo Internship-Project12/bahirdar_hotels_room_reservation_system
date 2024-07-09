@@ -52,7 +52,7 @@ reviewSchema.statics.calcAvgRating = async function (hotelId) {
   if (stats.length > 0) {
     await Hotel.findByIdAndUpdate(hotelId, {
       numOfRatings: stats[0].nRating,
-      avgRating: stats[0].avgRating,
+      avgRating: Math.floor(stats[0].avgRating * 10) / 10,
     });
   } else {
     await Hotel.findByIdAndUpdate(hotelId, {
