@@ -1,6 +1,5 @@
 import Hero from "../ui/homepage/Hero";
 import ExploreMoreBtn from "../ui/homepage/ExploreMoreBtn";
-import About from "../ui/homepage/About";
 import { HotelsSection } from "../ui/homepage/HotelsSection";
 
 function HomePage() {
@@ -14,8 +13,6 @@ function HomePage() {
       </section>
 
       <HotelsSection />
-
-      <About />
     </>
   );
 }

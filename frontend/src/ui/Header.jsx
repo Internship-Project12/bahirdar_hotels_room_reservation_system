@@ -29,6 +29,14 @@ function Header() {
               Add Hotel
             </Link>
           </li>
+          <li>
+            <Link
+              to="/about"
+              className="px-3 py-2 font-bold text-blue-100 underline"
+            >
+              About
+            </Link>
+          </li>
 
           <li>
             <Link

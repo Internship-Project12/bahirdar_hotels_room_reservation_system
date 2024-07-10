@@ -20,6 +20,7 @@ import Bookings from "./features/bookings/Bookings";
 import UserProfile from "./features/profile/UserProfile";
 import Hotel from "./features/hotels/Hotel";
 import Rooms from "./features/rooms/Rooms";
+import About from "./ui/homepage/About";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<About />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/sign-in" element={<SigninPage />} />
           <Route path="/sign-up" element={<SignupPage />} />
