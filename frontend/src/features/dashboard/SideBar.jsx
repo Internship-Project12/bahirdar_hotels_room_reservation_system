@@ -1,12 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import {
-  HiOutlineHome,
-  HiBuildingLibrary,
-  HiOutlineCalendarDays,
-  HiOutlineUsers,
-} from "react-icons/hi2";
 
-function SideBar() {
+function SideBar({ menus }) {
   return (
     <div className="fixed left-0 top-0 flex min-h-screen w-[260px] flex-col gap-2 bg-gray-800 p-5 uppercase text-white">
       <div className="flex items-center gap-4 p-[3px]">
@@ -18,38 +13,18 @@ function SideBar() {
         <span className="text-2xl font-bold">BDUHotels</span>
       </div>
       <hr className="border-b-2 border-gray-700" />
-      <nav className="flex flex-col gap-1 p-4 text-lg transition">
-        <Link
-          className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="/dashboard"
-        >
-          <HiOutlineHome size={20} />
-          <span>Home</span>
-        </Link>
 
-        <Link
-          className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="/dashboard/hotels"
-        >
-          <HiBuildingLibrary size={20} />
-          <span>Hotels</span>
-        </Link>
-
-        <Link
-          className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="/dashboard/bookings"
-        >
-          <HiOutlineCalendarDays size={20} />
-          <span>Bookings</span>
-        </Link>
-
-        <Link
-          className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
-          to="/dashboard/users"
-        >
-          <HiOutlineUsers size={20} />
-          <span>Users</span>
-        </Link>
+      <nav className="mt-4 flex flex-col gap-3 p-4 text-lg transition">
+        {menus.map((menu) => (
+          <Link
+            key={menu.title}
+            className="flex items-center gap-3 rounded p-3 hover:bg-slate-700"
+            to={menu.url}
+          >
+            {menu.Icon}
+            <span>{menu.title}</span>
+          </Link>
+        ))}
       </nav>
     </div>
   );
