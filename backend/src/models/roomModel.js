@@ -33,6 +33,8 @@ const roomSchema = new mongoose.Schema(
     },
     amenities: {
       type: [String],
+      default: ['Wi-Fi', 'Air Conditioning', 'Television'], // Default amenities
+      // "amenities": ["Wi-Fi", "Air Conditioning", "Television", "Mini Fridge", "Coffee Maker", "Room Service", "Safe", "Hair Dryer", "Iron and Ironing Board", "Toiletries", "Desk and Chair"],
     },
     capacity: {
       type: Number,
@@ -58,17 +60,10 @@ const roomSchema = new mongoose.Schema(
   }
 );
 
+// this will prevent creating the same roomNumber on the same hotel
 roomSchema.index({ hotel: 1, roomNumber: 1 }, { unique: true });
 
-// roomSchema.pre(/^find/, function (next) {
-//   this.populate({
-//     path: 'hotel',
-//     select: 'name starRating imageCover',
-//   });
-
-//   next();
-// });
-
+// calcMinPriceAndNumOfRooms
 roomSchema.statics.calcMinPriceAndNumOfRooms = async function (hotelId) {
   const stats = await this.aggregate([
     { $match: { hotel: hotelId } },
@@ -102,6 +97,7 @@ roomSchema.pre('save', function (next) {
 
 const Room = mongoose.model('Room', roomSchema);
 
+// check the creation of the index
 Room.on('index', function (error) {
   if (error) {
     console.error('Index creation failed on room model:', error);

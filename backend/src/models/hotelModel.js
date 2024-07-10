@@ -21,22 +21,6 @@ const hotelSchema = new mongoose.Schema(
       type: [String],
       required: [true, 'A hotel must have additional images'],
     },
-    minPricePerNight: {
-      type: Number,
-      min: 0,
-    },
-    numOfRooms: {
-      type: Number,
-      min: [1, 'a hotel must have at least one room'],
-    },
-    numOfRatings: {
-      type: Number,
-      default: 0,
-    },
-    avgRating: {
-      type: Number,
-      default: 4.5,
-    },
     address: {
       type: String,
       trim: true,
@@ -64,10 +48,34 @@ const hotelSchema = new mongoose.Schema(
       type: [String],
       required: [true, 'hotels must have some facilities'],
     },
+
+    // hotel managers' id
     manager: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
       required: [true, 'A hotel must have a manager'],
+    },
+
+    // ****************************************************** //
+
+    // the below two props will be calculated automatically on the creation of a room
+    minPricePerNight: {
+      type: Number,
+      min: 0,
+    },
+    numOfRooms: {
+      type: Number,
+      min: [1, 'a hotel must have at least one room'],
+    },
+
+    // this two will be calculated on the creation of a review
+    numOfRatings: {
+      type: Number,
+      default: 0,
+    },
+    avgRating: {
+      type: Number,
+      default: 4.5,
     },
   },
   {
@@ -79,8 +87,7 @@ const hotelSchema = new mongoose.Schema(
 
 // link/add the hotel id to the manager's doc
 hotelSchema.post('save', async function (doc) {
-  console.log(doc)
- const user =  await User.findByIdAndUpdate(doc.manager, { hotel: doc._id }, {new: true});
+  await User.findByIdAndUpdate(doc.manager, { hotel: doc._id });
 });
 
 // Note: virtual populate is a two step populate.
