@@ -1,5 +1,5 @@
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Routes,
   Navigate,
@@ -18,20 +18,20 @@ import DashboardLayout from "./features/dashboard/DashboardLayout";
 import HotelsTable from "./features/hotels/HotelsTable";
 import Bookings from "./features/bookings/Bookings";
 import UserProfile from "./features/profile/UserProfile";
-// import Hotel from "./features/hotels/Hotel";
+import Hotel from "./features/hotels/Hotel";
 import Rooms from "./features/rooms/Rooms";
 import About from "./ui/homepage/About";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
+
+        {/* HOME ROUTES */}
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/sign-in" element={<SigninPage />} />
-          <Route path="/sign-up" element={<SignupPage />} />
           <Route path="/login" element={<SigninPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/hotels" element={<HotelsListPage />} />
@@ -39,18 +39,23 @@ function App() {
           <Route path="/booking/:id" element={<p>Hotel booking page</p>} />
           <Route path="/add-hotel" element={<AddHotel />} />
           <Route path="/update-hotel/:id" element={<UpdateHotel />} />
-          <Route path="/*" element={<Navigate to="/" />} />
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="bookings" element={<Bookings />} />
-            <Route path="users" element={<Users />} />
-            <Route path="hotels" element={<HotelsTable />} />
-            {/* <Route index path="hotel" element={<Hotel />} /> */}
-            <Route path="rooms" element={<Rooms />} />
-          </Route>
         </Route>
+
+        {/* DASHBOARD ROUTES */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="bookings" element={<Bookings />} />
+          <Route path="users" element={<Users />} />
+          <Route path="hotels" element={<HotelsTable />} />
+          <Route index path="hotel" element={<Hotel />} />
+          <Route path="rooms" element={<Rooms />} />
+        </Route>
+
+        {/* NOT FOUND ROUTES */}
+        <Route path="/*" element={<Navigate to="/" />} />
+
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
