@@ -10,6 +10,8 @@ function HeaderAccountMenu() {
   const { logout, isPending } = useLogout();
   const { role, handleOpenModal } = useAuthContext();
 
+  console.log(role);
+
   return (
     <ul className="z-[1000] flex flex-col gap-2 p-2">
       <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
