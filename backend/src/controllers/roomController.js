@@ -53,7 +53,7 @@ const createRoom = catchAsync(async (req, res, next) => {
 
   // upload room images to cloudinary
   let imageUrls;
-  if (req.files) imageUrls = uploadImages(req.files);
+  if (req.files) imageUrls = uploadImages(req.files, next);
 
   // create room
   const room = await Room.create({ ...req.body, images: imageUrls });

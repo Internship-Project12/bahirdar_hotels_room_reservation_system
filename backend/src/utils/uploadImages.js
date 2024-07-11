@@ -1,7 +1,7 @@
 import cloudinary from 'cloudinary';
 import AppError from './appError.js';
 
-export async function uploadImages(imageFiles) {
+export async function uploadImages(imageFiles, next) {
   try {
     const uploadPromises = imageFiles.map(async (image) => {
       const b64 = Buffer.from(image.buffer).toString('base64');

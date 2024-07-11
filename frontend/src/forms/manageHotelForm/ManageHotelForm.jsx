@@ -75,7 +75,7 @@ function ManageHotelForm({ isPending, onSubmit, hotel }) {
     <FormProvider {...formMethods}>
       <form
         onSubmit={onSubmitHandler}
-        className="m-auto flex max-w-[85%] flex-col gap-8 rounded bg-slate-100 p-10 shadow-lg"
+        className="m-auto flex  flex-col gap-8 rounded bg-slate-100 p-10 shadow-lg"
       >
         <div className="max-w-[50%]">
           <DetailSection />
@@ -85,7 +85,7 @@ function ManageHotelForm({ isPending, onSubmit, hotel }) {
         <ImageSection />
         <button
           type="submit"
-          className="w-full rounded bg-blue-800 px-3 py-2 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
+          className="w-full rounded bg-slate-800 px-3 py-2 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
           disabled={isPending}
         >
           {isPending ? "Saving Hotel..." : "Save Hotel"}

@@ -32,8 +32,8 @@ export const createHotel = catchAsync(async (req, res, next) => {
   let hotelImagesUrl;
 
   if (req.files?.imageCoverFile || req.files?.hotelImagesFiles) {
-    imageCoverUrl = await uploadImages(req.files.imageCoverFile);
-    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles);
+    imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
+    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
   }
 
   const hotel = await Hotel.create({
@@ -95,12 +95,12 @@ export const updateHotel = catchAsync(async (req, res, next) => {
   let hotelImagesUrl;
 
   if (req.files.imageCoverFile) {
-    imageCoverUrl = await uploadImages(req.files.imageCoverFile);
+    imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
     hotel.imageCover = imageCoverUrl[0];
   }
 
   if (req.files.hotelImagesFiles) {
-    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles);
+    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
     hotel.hotelImages = [...(hotel?.hotelImages || []), ...hotelImagesUrl];
   }
 

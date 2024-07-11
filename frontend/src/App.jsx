@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./ui/AppLayout";
 import SignupPage from "./pages/auth/SignupPage";
@@ -26,7 +21,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* HOME ROUTES */}
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
@@ -37,23 +31,22 @@ function App() {
           <Route path="/hotels" element={<HotelsListPage />} />
           <Route path="/hotels/:id" element={<HotelDetailsPage />} />
           <Route path="/booking/:id" element={<p>Hotel booking page</p>} />
-          <Route path="/add-hotel" element={<AddHotel />} />
           <Route path="/update-hotel/:id" element={<UpdateHotel />} />
         </Route>
 
         {/* DASHBOARD ROUTES */}
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path="bookings" element={<Bookings />} />
-          <Route path="users" element={<Users />} />
           <Route path="hotels" element={<HotelsTable />} />
+          <Route path="add-hotel" element={<AddHotel />} />
           {/* <Route index path="hotel" element={<Hotel />} /> */}
+          <Route path="bookings" element={<Bookings />} />
           <Route path="rooms" element={<Rooms />} />
+          <Route path="users" element={<Users />} />
         </Route>
 
         {/* NOT FOUND ROUTES */}
         <Route path="/*" element={<Navigate to="/" />} />
-
       </Routes>
     </BrowserRouter>
   );
