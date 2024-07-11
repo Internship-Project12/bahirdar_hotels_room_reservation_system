@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function SideBar({ menus }) {
   return (
-    <div className="fixed left-0 top-0 flex min-h-screen w-[260px] flex-col gap-2 bg-gray-800 p-5 uppercase text-white">
+    <div className="flex min-h-screen w-[260px] flex-col gap-2 bg-gray-800 p-5 uppercase text-white">
       <div className="flex items-center gap-4 p-[3px]">
         <img
           className="h-16 w-16 rounded-full"
