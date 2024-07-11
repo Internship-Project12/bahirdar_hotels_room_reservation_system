@@ -10,7 +10,7 @@ function HotelTable({ hotel }) {
       <div className="col-span-1 col-start-1 h-full w-full">
         <img
           className="aspect-[3/2] h-full w-full rounded object-cover"
-          src={hotel.image}
+          src={hotel.imageCover}
           alt=""
         />
       </div>
