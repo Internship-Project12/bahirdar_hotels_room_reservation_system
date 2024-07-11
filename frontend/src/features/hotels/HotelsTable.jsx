@@ -11,7 +11,7 @@ function HotelsTable() {
           All Hotels
         </h1>
         <Link
-          to={"/add-hotel"}
+          to={"/dashboard/add-hotel"}
           className="mr-2 cursor-pointer rounded bg-blue-700 px-4 py-[6px] text-lg text-white"
         >
           Add Hotel
