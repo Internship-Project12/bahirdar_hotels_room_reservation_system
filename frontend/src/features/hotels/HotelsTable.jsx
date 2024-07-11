@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { hotels } from "../../data/hotels";
 import HotelTableBody from "./HotelTableBody";
-import HotelTableHeading from "./HotelTableHeading";
+// import HotelTableHeading from "./HotelTableHeading";
 
 function HotelsTable() {
   return (
@@ -17,7 +17,8 @@ function HotelsTable() {
           Add Hotel
         </Link>
       </div>
-      <HotelTableHeading />
+
+      {/* <HotelTableHeading /> */}
 
       {hotels.map((hotel) => (
         <HotelTableBody key={hotel.id} hotel={hotel} />
