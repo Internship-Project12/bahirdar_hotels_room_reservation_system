@@ -13,7 +13,7 @@ import DashboardLayout from "./features/dashboard/DashboardLayout";
 import HotelsTable from "./features/hotels/HotelsTable";
 import Bookings from "./features/bookings/Bookings";
 import UserProfile from "./features/profile/UserProfile";
-import Hotel from "./features/hotels/Hotel";
+// import Hotel from "./features/hotels/Hotel";
 import Rooms from "./features/rooms/Rooms";
 import About from "./ui/homepage/About";
 
@@ -31,7 +31,6 @@ function App() {
           <Route path="/hotels" element={<HotelsListPage />} />
           <Route path="/hotels/:id" element={<HotelDetailsPage />} />
           <Route path="/booking/:id" element={<p>Hotel booking page</p>} />
-          <Route path="/update-hotel/:id" element={<UpdateHotel />} />
         </Route>
 
         {/* DASHBOARD ROUTES */}
@@ -39,6 +38,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="hotels" element={<HotelsTable />} />
           <Route path="add-hotel" element={<AddHotel />} />
+          <Route path="update-hotel/:id" element={<UpdateHotel />} />
           {/* <Route index path="hotel" element={<Hotel />} /> */}
           <Route path="bookings" element={<Bookings />} />
           <Route path="rooms" element={<Rooms />} />

@@ -25,10 +25,17 @@ function HotelTable({ hotel }) {
       </div>
       <div className="col-span-1 col-start-8 flex flex-col items-center gap-1">
         <div className="flex gap-2">
-          <MdEdit size={24} className="fill-blue-700" />
-          <MdDeleteOutline size={24} color="red" />
+          <Link to="/dashboard/update-hotel/668ce2f3603914bd3b9e584e">
+            <MdEdit size={24} className="fill-blue-700" />
+          </Link>
+          <Link>
+            <MdDeleteOutline size={24} color="red" />
+          </Link>
         </div>
-        <Link className="rounded bg-blue-700 p-2 font-semibold text-white">
+        <Link
+          to="/hotels/668ce2f3603914bd3b9e584e"
+          className="rounded bg-blue-700 p-2 font-semibold text-white"
+        >
           Details
         </Link>
       </div>
