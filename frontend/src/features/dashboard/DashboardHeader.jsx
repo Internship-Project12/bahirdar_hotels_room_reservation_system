@@ -4,7 +4,7 @@ import { useAuthContext } from "../../context/AuthContext";
 function DashboardHeader() {
   const { user } = useAuthContext();
   return (
-    <div className="fixed left-[260px] right-0 top-0 z-10 flex h-24 flex-1 items-center justify-between border-b-2 bg-slate-200 p-4 shadow-md">
+    <div className="h-24 flex items-center justify-between border-b-2 bg-slate-200 p-4 shadow-md">
       <p className="text-2xl font-bold">Admin Dashboard</p>
 
       <div className="flex items-center rounded-full border border-gray-300 bg-gray-100 shadow-md">

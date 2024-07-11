@@ -48,12 +48,12 @@ const managerMenus = [
 
 function DashboardLayout() {
   return (
-    <div className="relative mx-auto flex max-w-[1400px]">
+    <div className="mx-auto flex max-w-[120rem] bg-black">
       <SideBar menus={adminMenus} />
       {/* <SideBar menus={managerMenus} /> */}
-      <div className="ml-[260px] flex h-full flex-1 flex-col overflow-hidden bg-slate-200/75 text-gray-700">
+      <div className="flex h-screen w-[calc(100vw-260px)] flex-col bg-slate-200 text-gray-700">
         <DashboardHeader />
-        <main className="mx-4 flex flex-1 overflow-y-auto overflow-x-hidden p-3 font-opensans">
+        <main className="overflow-auto">
           <Outlet />
         </main>
       </div>
