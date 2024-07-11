@@ -20,7 +20,7 @@ function HeaderAccount() {
             alt="user photo"
           />
         </div>
-       
+
       </div>
       {isOpenModal ? (
         <>

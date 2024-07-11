@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
 import HeaderAccount from "./HeaderAccount";
 import { useAuthContext } from "../context/AuthContext";
+import Logo from "./Logo";
 
 function Header() {
   const { isLoggedIn } = useAuthContext();
   return (
     <header className="top-0 flex min-w-full justify-between bg-blue-900 px-24 py-6 opacity-85">
-      <Link
-        to="/"
-        className="text-3xl font-extrabold tracking-tighter text-gray-100"
-      >
-        BDHotels.com
-      </Link>
+      <Logo />
       <nav>
         <ul className="flex items-center justify-between gap-4">
           <li>
