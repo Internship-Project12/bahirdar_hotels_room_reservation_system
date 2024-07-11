@@ -47,7 +47,7 @@ function App() {
           <Route path="bookings" element={<Bookings />} />
           <Route path="users" element={<Users />} />
           <Route path="hotels" element={<HotelsTable />} />
-          <Route index path="hotel" element={<Hotel />} />
+          {/* <Route index path="hotel" element={<Hotel />} /> */}
           <Route path="rooms" element={<Rooms />} />
         </Route>
 

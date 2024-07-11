@@ -8,7 +8,7 @@ function Table({ title, headers, datas }) {
   return (
     <div className="w-full bg-white font-lato text-gray-600 shadow-md">
       <div className="flex items-center justify-between">
-        <h1 className="p-4 font-opensans text-2xl font-bold uppercase">
+        <h1 className="p-4 text-2xl font-bold uppercase">
           {title}
         </h1>
       </div>

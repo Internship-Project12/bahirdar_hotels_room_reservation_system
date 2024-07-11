@@ -20,9 +20,7 @@ function HeaderAccount() {
             alt="user photo"
           />
         </div>
-        <p className="tracking-widest text-white underline underline-offset-4">
-          {user?.firstName}
-        </p>
+       
       </div>
       {isOpenModal ? (
         <>

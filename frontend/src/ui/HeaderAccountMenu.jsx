@@ -10,10 +10,8 @@ function HeaderAccountMenu() {
   const { logout, isPending } = useLogout();
   const { role, handleOpenModal } = useAuthContext();
 
-  console.log(role);
-
   return (
-    <ul className="z-[1000] flex flex-col gap-2 p-2">
+    <ul className="flex flex-col gap-2 p-2">
       <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
         <Link
           onClick={() => handleOpenModal()}
@@ -40,7 +38,7 @@ function HeaderAccountMenu() {
       {role === "admin" ? (
         <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
           <Link
-            to="/admin"
+            to="/dashboard"
             className="flex items-center justify-start gap-2 p-3 py-2"
           >
             <LuLayoutDashboard size="25px" />
