@@ -35,7 +35,7 @@ function HeaderAccountMenu() {
           <p>Settings</p>
         </div>
       </li>
-      {role === "admin" ? (
+      {role === "admin" || role === "manager" ? (
         <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
           <Link
             to="/dashboard"

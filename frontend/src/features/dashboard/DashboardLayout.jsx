@@ -10,6 +10,7 @@ import {
 } from "react-icons/hi2";
 import { MdAddHomeWork } from "react-icons/md";
 import { MdRoom } from "react-icons/md";
+import { useAuthContext } from "../../context/AuthContext";
 
 const adminMenus = [
   {
@@ -53,10 +54,15 @@ const managerMenus = [
 ];
 
 function DashboardLayout() {
+  const { role } = useAuthContext();
+
   return (
     <div className="mx-auto flex max-w-[120rem] bg-black">
-      <SideBar menus={adminMenus} />
-      {/* <SideBar menus={managerMenus} /> */}
+      {role === "admin" ? (
+        <SideBar menus={adminMenus} />
+      ) : role === "manager" ? (
+        <SideBar menus={managerMenus} />
+      ) : null}
       <div className="flex h-screen w-[calc(100vw-260px)] flex-col bg-slate-200 px-4 text-gray-700">
         <DashboardHeader />
         <main className="overflow-auto">
