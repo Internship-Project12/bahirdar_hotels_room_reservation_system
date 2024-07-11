@@ -1,7 +1,7 @@
 export const hotels = [
   {
     id: 1,
-    image: "/hotel-images/img-2.jpg",
+    imageCover: "/hotel-images/img-2.jpg",
     name: "Unison Hotel",
     address: "Bahir Dar, Ethiopia Near Lake Tana in front of Mulualem Hall",
     numOfRooms: 100,
@@ -20,10 +20,11 @@ export const hotels = [
       "Spa",
       "City View",
     ],
+    minPricePerNight: 350,
   },
   {
     id: 2,
-    image: "/hotel-images/img-3.jpg",
+    imageCover: "/hotel-images/img-3.jpg",
     name: "Palace Hotel",
     address: "Bahir Dar, Ethiopia Near St. George Church",
     numOfRooms: 150,
@@ -39,10 +40,11 @@ export const hotels = [
       "Spa",
       "City View",
     ],
+    minPricePerNight: 290,
   },
   {
     id: 3,
-    image: "/hotel-images/img-4.jpg",
+    imageCover: "/hotel-images/img-4.jpg",
     name: "Azwa Hotel",
     address: "Bahir Dar, Ethiopia Near Bahir Dar International Stadium",
     numOfRooms: 150,
@@ -57,48 +59,15 @@ export const hotels = [
       "TV",
       "City View",
     ],
+    minPricePerNight: 480,
   },
   {
     id: 4,
-    image: "/hotel-images/img-1-hero.jpg",
-    name: "Palm Palace",
-  },
-  {
-    id: 5,
-    image: "/hotel-images/img-2.jpg",
-    name: "Riverland Hotel",
-  },
-
-  {
-    id: 6,
-    image: "/hotel-images/img-4.jpg",
-    name: "Lakemark Hotel",
-  },
-  {
-    id: 7,
-    image: "/hotel-images/img-3.jpg",
-    name: "Dib Anbesa Hotel",
-  },
-  {
-    id: 8,
-    image: "/hotel-images/img-2.jpg",
-    name: "Azwa Hotel",
-  },
-
-  {
-    id: 9,
-    image: "/hotel-images/img-5.jpg",
-    name: "Unison Hotel",
-  },
-
-  {
-    id: 10,
-    image: "/hotel-images/img-2.jpg",
-    name: "Yiganda Hotel",
-  },
-  {
-    id: 11,
-    image: "/hotel-images/img-3.jpg",
-    name: "Lake Avenue Hotel",
+    name: "Grand Budapest Hotel",
+    imageCover: "/hotel-images/img-1-hero.jpg",
+    starRating: 4,
+    address: "Zubrowka, Europe",
+    description: "An iconic hotel with a rich history and luxury service.",
+    minPricePerNight: 300,
   },
 ];

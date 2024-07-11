@@ -54,20 +54,7 @@ function renderCell(data, key) {
       </div>
     );
   }
-  if (key === "facilities") {
-    return data[key] && data[key].join(", ");
-  }
-  if (key === "actions") {
-    return (
-      <div className="flex gap-2">
-        {data[key].map((action, index) => (
-          <button key={index} onClick={action.onClick}>
-            {action.icon}
-          </button>
-        ))}
-      </div>
-    );
-  }
+
   return data[key];
 }
 

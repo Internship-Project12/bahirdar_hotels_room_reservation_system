@@ -4,32 +4,47 @@ import { hotels } from "../../data/hotels";
 
 export const HotelsSection = () => {
   return (
-    <section className="px-10 py-6">
-      <h2 className="mb-4 text-2xl font-bold text-gray-600">
-        Explore More Hotels
-      </h2>
-      <div className="grid grid-cols-2 gap-4 text-gray-600 md:grid-cols-3 lg:grid-cols-4">
-        {hotels.map((hotel, index) => (
-          <HotelCard
-            key={index}
-            imageSrc={hotel.image}
-            hotelName={hotel.name}
-          />
+    <div className="min-h-screen bg-gray-200 p-8">
+      <h1 className="mb-8 text-4xl font-bold">Popular Hotels</h1>
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {hotels.map((hotel) => (
+          <HotelCard hotel={hotel} key={hotel.id} />
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 
-const HotelCard = ({ imageSrc, hotelName }) => {
+const HotelCard = ({ hotel }) => {
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg bg-gray-200 p-4">
+    <div className="overflow-hidden rounded-lg bg-white shadow-lg">
       <img
-        src={imageSrc}
-        alt={hotelName}
-        className="mb-2 h-40 w-full rounded-lg object-cover"
+        className="h-48 w-full object-cover"
+        src={hotel.imageCover}
+        alt={hotel.name}
       />
-      <h3 className="text-lg font-semibold text-gray-600">{hotelName}</h3>
+      <div className="p-4">
+        <h2 className="mb-2 text-2xl font-bold">{hotel.name}</h2>
+        <p className="text-gray-600">{hotel.address}</p>
+        <p className="mt-2 text-gray-800">{hotel.description}</p>
+        <div className="mt-4 flex items-center justify-between">
+          <div className="flex items-center">
+            {[...Array(hotel.starRating)].map((star, index) => (
+              <svg
+                key={index}
+                className="h-5 w-5 text-yellow-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.42 4.368a1 1 0 00.95.69h4.584c.969 0 1.371 1.24.588 1.81l-3.705 2.693a1 1 0 00-.364 1.118l1.42 4.368c.3.921-.755 1.688-1.538 1.118l-3.705-2.693a1 1 0 00-1.175 0l-3.705 2.693c-.783.57-1.838-.197-1.538-1.118l1.42-4.368a1 1 0 00-.364-1.118L2.505 9.795c-.783-.57-.381-1.81.588-1.81h4.584a1 1 0 00.95-.69l1.42-4.368z" />
+              </svg>
+            ))}
+          </div>
+          <p className="rounded border bg-blue-500 p-2 text-lg font-bold text-white">
+            ${hotel.minPricePerNight}/night
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
