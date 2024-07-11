@@ -16,6 +16,7 @@ import UserProfile from "./features/profile/UserProfile";
 // import Hotel from "./features/hotels/Hotel";
 import Rooms from "./features/rooms/Rooms";
 import About from "./ui/homepage/About";
+import ProtectRoutes from "./ui/ProtectRoutes";
 
 function App() {
   return (
@@ -34,7 +35,14 @@ function App() {
         </Route>
 
         {/* DASHBOARD ROUTES */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectRoutes>
+              <DashboardLayout />
+            </ProtectRoutes>
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="hotels" element={<HotelsTable />} />
           <Route path="add-hotel" element={<AddHotel />} />
