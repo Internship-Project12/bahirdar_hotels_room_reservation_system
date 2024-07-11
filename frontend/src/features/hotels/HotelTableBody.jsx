@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { MdDeleteOutline, MdEdit } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 function HotelTable({ hotel }) {
   return (
@@ -22,12 +23,14 @@ function HotelTable({ hotel }) {
       <div className="col-span-1 col-start-7 flex">
         {hotel.facilities && hotel.facilities.join(", ")}
       </div>
-      <div className="col-span-1 col-start-8 flex items-center gap-1">
-        <MdEdit size={24} color="blue" />
-        <MdDeleteOutline size={24} color="red" />
-        <button className="rounded bg-green-600 p-2 font-semibold text-white">
+      <div className="col-span-1 col-start-8 flex flex-col items-center gap-1">
+        <div className="flex gap-2">
+          <MdEdit size={24} className="fill-blue-700" />
+          <MdDeleteOutline size={24} color="red" />
+        </div>
+        <Link className="rounded bg-blue-700 p-2 font-semibold text-white">
           Details
-        </button>
+        </Link>
       </div>
     </div>
   );
