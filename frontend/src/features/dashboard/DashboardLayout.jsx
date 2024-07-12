@@ -42,13 +42,28 @@ const adminMenus = [
 
 const managerMenus = [
   {
-    title: "Hotel",
+    title: "Home",
     url: "/dashboard/hotel",
     Icon: <HiBuildingLibrary size={20} />,
   },
   {
     title: "Rooms",
     url: "/dashboard/rooms",
+    Icon: <MdRoom size={20} />,
+  },
+  {
+    title: "Bookings",
+    url: "",
+    Icon: <MdRoom size={20} />,
+  },
+  {
+    title: "Users",
+    url: "",
+    Icon: <MdRoom size={20} />,
+  },
+  {
+    title: "Settings",
+    url: "",
     Icon: <MdRoom size={20} />,
   },
 ];
