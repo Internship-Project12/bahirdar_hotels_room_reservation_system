@@ -5,83 +5,87 @@ import {
   MdOutlinePendingActions,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
-import HotelsStat from "../hotels/HotelsStat";
+import Stats from "../hotels/Stats";
 import AvailableHotelRooms from "../hotels/AvailableHotelRooms";
 import BookingTable from "../bookings/BookingTable";
+
+const managerStats = [
+  {
+    Icon: MdOutlineBedroomChild,
+    title: "Available rooms",
+    number: 30,
+  },
+    {
+      Icon: MdOutlineManageSearch,
+      title: "Today's CheckIn",
+      number: 30,
+    },
+  {
+    Icon: MdOutlineShoppingCartCheckout,
+    title: "Today's Checkout",
+    number: 130,
+  },
+  {
+    Icon: MdOutlineFreeCancellation,
+    title: "Cancellations",
+    number: 30,
+  },
+  {
+    Icon: MdOutlinePendingActions,
+    title: "Pending Payments",
+    number: 30,
+  },
+];
+
+const Rooms = [
+  {
+    image: "/hotel-images/img-2.jpg",
+    name: "Palm Palace International Hotel",
+    pricePerNight: 542,
+  },
+  {
+    image: "/hotel-images/img-2.jpg",
+    name: "Palm Palace International Hotel",
+    pricePerNight: 542,
+  },
+  {
+    image: "/hotel-images/img-2.jpg",
+    name: "Palm Palace International Hotel",
+    pricePerNight: 542,
+  },
+  {
+    image: "/hotel-images/img-2.jpg",
+    name: "Palm Palace International Hotel",
+    pricePerNight: 542,
+  },
+];
 
 function Dashboard() {
   return (
     <div className="flex w-full flex-col">
-      <section className="mb-8 grid grid-cols-4 justify-between">
-        <HotelsStat
-          Icon={MdOutlineBedroomChild}
-          title={"Available rooms"}
-          number={130}
-        />
-
-        <HotelsStat
-          Icon={MdOutlineShoppingCartCheckout}
-          title={"Today Checkouts"}
-          number={130}
-        />
-
-        <HotelsStat
-          Icon={MdOutlineFreeCancellation}
-          title={"Cancellations"}
-          number={21}
-        />
-
-        <HotelsStat
-          Icon={MdOutlineManageSearch}
-          title={"Enquiries"}
-          number={412}
-        />
-
-        <HotelsStat
-          Icon={MdOutlinePendingActions}
-          title={"Pending Payments"}
-          number={78}
-        />
-      </section>
-
-      <section className="mb-8 flex justify-between bg-gray-400">
-        <div>
-          <h2>Recent Enquiries</h2>
-        </div>
-        <div>
-          <h2>Booking Status</h2>
-        </div>
+      <section className="mb-8 grid grid-cols-5 justify-between">
+        {managerStats.map((stat, i) => (
+          <Stats
+            key={i}
+            Icon={stat.Icon}
+            title={stat.title}
+            number={stat.number}
+          />
+        ))}
       </section>
 
       <section className="mb-8 flex flex-col">
-        <h2 className="bg-white p-4 text-2xl font-bold uppercase">
-          Available Hotel Rooms
-        </h2>
+        <h2 className="bg-white p-4 text-2xl font-bold uppercase">Hotels</h2>
         <div className="grid md:grid-cols-3 lg:grid-cols-4">
-          <AvailableHotelRooms
-            hotelPhoto={"/hotel-images/img-2.jpg"}
-            hotelName={"Palm Palace International Hotel"}
-            availableRooms={74}
-            pricePerDay={64}
-          />
-          <AvailableHotelRooms
-            hotelPhoto={"/hotel-images/img-3.jpg"}
-            hotelName={"Azwa International Hotel"}
-            availableRooms={76}
-            pricePerDay={53}
-          />
-          <AvailableHotelRooms
-            hotelPhoto={"/hotel-images/img-2.jpg"}
-            hotelName={"Unison International Hotel"}
-            availableRooms={95}
-            pricePerDay={79}
-          />
-          <AvailableHotelRooms
-            hotelPhoto={"/hotel-images/img-2.jpg"}
-            hotelName={"Dib Anbessa International Hotel"}
-            availableRooms={95}
-            pricePerDay={79}
-          />
+          {Rooms.map((room, i) => (
+            <AvailableHotelRooms
+              key={i}
+              hotelPhoto={room.image}
+              hotelName={room.name}
+              availableRooms={74}
+              pricePerDay={room.pricePerNight}
+            />
+          ))}
         </div>
       </section>
 

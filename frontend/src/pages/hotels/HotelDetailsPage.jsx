@@ -94,7 +94,7 @@ function HotelDetailsPage() {
           ))}
         </Swiper>
       </div>
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <Link
           to={`/update-hotel/${hotel._id}`}
           // onClick={() => mutate(hotel._id)}
@@ -110,7 +110,7 @@ function HotelDetailsPage() {
         >
           delete hotel
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

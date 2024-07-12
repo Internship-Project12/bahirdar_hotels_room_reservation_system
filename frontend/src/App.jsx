@@ -1,9 +1,4 @@
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./ui/AppLayout";
 import SignupPage from "./pages/auth/SignupPage";
@@ -18,15 +13,15 @@ import DashboardLayout from "./features/dashboard/DashboardLayout";
 import HotelsTable from "./features/hotels/HotelsTable";
 import Bookings from "./features/bookings/Bookings";
 import UserProfile from "./features/profile/UserProfile";
-import Hotel from "./features/hotels/Hotel";
+// import Hotel from "./features/hotels/Hotel";
 import Rooms from "./features/rooms/Rooms";
 import About from "./ui/homepage/About";
+import ProtectRoutes from "./ui/ProtectRoutes";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         {/* HOME ROUTES */}
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
@@ -37,23 +32,29 @@ function App() {
           <Route path="/hotels" element={<HotelsListPage />} />
           <Route path="/hotels/:id" element={<HotelDetailsPage />} />
           <Route path="/booking/:id" element={<p>Hotel booking page</p>} />
-          <Route path="/add-hotel" element={<AddHotel />} />
-          <Route path="/update-hotel/:id" element={<UpdateHotel />} />
         </Route>
 
         {/* DASHBOARD ROUTES */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectRoutes>
+              <DashboardLayout />
+            </ProtectRoutes>
+          }
+        >
           <Route index element={<Dashboard />} />
-          <Route path="bookings" element={<Bookings />} />
-          <Route path="users" element={<Users />} />
           <Route path="hotels" element={<HotelsTable />} />
+          <Route path="add-hotel" element={<AddHotel />} />
+          <Route path="update-hotel/:id" element={<UpdateHotel />} />
           {/* <Route index path="hotel" element={<Hotel />} /> */}
+          <Route path="bookings" element={<Bookings />} />
           <Route path="rooms" element={<Rooms />} />
+          <Route path="users" element={<Users />} />
         </Route>
 
         {/* NOT FOUND ROUTES */}
         <Route path="/*" element={<Navigate to="/" />} />
-
       </Routes>
     </BrowserRouter>
   );
