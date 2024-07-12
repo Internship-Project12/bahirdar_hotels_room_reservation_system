@@ -47,9 +47,8 @@ function App() {
           <Route path="hotels" element={<HotelsTable />} />
           <Route path="add-hotel" element={<AddHotel />} />
           <Route path="update-hotel/:id" element={<UpdateHotel />} />
-          {/* <Route index path="hotel" element={<Hotel />} /> */}
-          <Route path="bookings" element={<Bookings />} />
           <Route path="rooms" element={<Rooms />} />
+          <Route path="bookings" element={<Bookings />} />
           <Route path="users" element={<Users />} />
         </Route>
 
