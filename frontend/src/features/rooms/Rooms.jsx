@@ -11,7 +11,16 @@ const roomHeaders = [
 ];
 
 function Rooms() {
-  return <Table headers={roomHeaders} data={rooms} />;
+  return (
+    <div>
+      <div className="flex justify-between p-3">
+        <h2>All Users </h2>
+        <p>filter/sort</p>
+      </div>
+
+      <Table headers={roomHeaders} data={rooms} />
+    </div>
+  );
 }
 
 export default Rooms;
