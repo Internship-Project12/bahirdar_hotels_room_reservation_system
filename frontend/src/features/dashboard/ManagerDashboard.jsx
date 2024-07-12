@@ -12,10 +12,8 @@ import { Link } from "react-router-dom";
 
 const bookingHeaders = [
   { label: "User", key: "user" },
-  { label: "Hotel", key: "hotel" },
   { label: "Room Num", key: "room" },
   { label: "Check-In", key: "checkIn" },
-  // { label: "Check-Out", key: "checkOut" },
   { label: "Num Of Nights", key: "numOfNights" },
   { label: "Price Per Night ", key: "pricePerNights" },
   { label: "status", key: "paymentStatus" },
@@ -31,7 +29,6 @@ const RecentBooks = [
     numOfNights: 5,
     pricePerNights: 250,
     paymentStatus: "Completed",
-    hotel: "abc international hotel",
   },
   {
     user: "John Doe",
@@ -42,7 +39,6 @@ const RecentBooks = [
     numOfNights: 1,
     pricePerNights: 250,
     paymentStatus: "Pending",
-    hotel: "abc international hotel",
   },
   {
     user: "Alemu",
@@ -53,7 +49,6 @@ const RecentBooks = [
     numOfNights: 5,
     pricePerNights: 250,
     paymentStatus: "Completed",
-    hotel: "abc international hotel",
   },
   {
     user: "John Doe",
@@ -64,7 +59,6 @@ const RecentBooks = [
     numOfNights: 1,
     pricePerNights: 250,
     paymentStatus: "Pending",
-    hotel: "abc international hotel",
   },
 ];
 
@@ -96,7 +90,7 @@ const managerStats = [
   },
 ];
 
-const Rooms = [
+const RecentlyBookedRooms = [
   {
     photo: "/hotel-images/img-2.jpg",
     roomNumber: "001 ",
@@ -151,14 +145,24 @@ function ManagerDashboard() {
         </div>
 
         <div className="grid md:grid-cols-3 lg:grid-cols-4">
-          {Rooms.map((room, i) => (
+          {RecentlyBookedRooms.map((room, i) => (
             <BookingCard key={i} {...room} />
           ))}
         </div>
       </section>
 
       <section>
-        <div className="p-3">Recent Book Operation</div>
+        <div className="flex justify-between bg-white p-4">
+          <h2 className="text-2xl font-bold uppercase">
+            Recent Users
+          </h2>
+          <Link
+            to="/dashboard/users"
+            className="flex items-center rounded-full bg-blue-500 px-2 py-1 text-sm text-white transition-all duration-200 hover:scale-105"
+          >
+            See more &gt;&gt;
+          </Link>
+        </div>
         <BookingTable bookings={RecentBooks} bookingHeaders={bookingHeaders} />
       </section>
     </div>

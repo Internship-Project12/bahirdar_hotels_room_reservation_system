@@ -7,13 +7,11 @@ const roomHeaders = [
   { label: "roomType", key: "roomType" },
   { label: "pricePerNight", key: "pricePerNight" },
   { label: "capacity", key: "capacity" },
-  { label: "capacity", key: "capacity" },
   { label: "isAvailable", key: "isAvailable" },
 ];
 
-
 function Rooms() {
-  return <Table title="Rooms" headers={roomHeaders} data={rooms} />;
+  return <Table headers={roomHeaders} data={rooms} />;
 }
 
 export default Rooms;
