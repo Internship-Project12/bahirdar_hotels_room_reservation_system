@@ -5,8 +5,8 @@ function TableBody({ headers, data }) {
     <div
       className={`mb-2 grid grid-cols-${headers.length} items-center gap-3 border-b border-l border-r border-slate-200 p-2 text-sm`}
     >
-      {headers.map((col, index) => (
-        <div key={index} className="col-span-1 flex">
+      {headers.map((col, i) => (
+        <div key={i} className="col-span-1 flex">
           {renderCell(data, col.key)}
         </div>
       ))}
