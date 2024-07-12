@@ -6,8 +6,6 @@ import ManagerDashboard from "./ManagerDashboard";
 function Dashboard() {
   const { role } = useAuthContext();
 
-  console.log(role)
-
   const navigate = useNavigate();
 
   return role === "admin" ? (
