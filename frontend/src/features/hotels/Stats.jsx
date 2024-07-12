@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-function HotelsStat({ Icon, title, number }) {
+function Stats({ Icon, title, number }) {
   return (
-    <div className="m-2 grid grid-cols-2 items-center gap-1 rounded bg-[#E0A75E] px-2 py-8 text-slate-100">
+    <div className="shadow-xl m-2 grid grid-cols-2 items-center gap-1 rounded bg-[#E0A75E] px-2 py-8 text-slate-100">
       <Icon size={40} className="text-blue-500" />
       <div>
         <h3 className="font-bold">{title}</h3>
@@ -14,4 +14,4 @@ function HotelsStat({ Icon, title, number }) {
   );
 }
 
-export default HotelsStat;
+export default Stats;
