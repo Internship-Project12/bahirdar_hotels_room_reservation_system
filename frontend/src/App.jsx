@@ -8,17 +8,21 @@ import AddHotel from "./features/hotels/AddHotel";
 import HotelDetailsPage from "./pages/hotels/HotelDetailsPage";
 import UpdateHotel from "./features/hotels/UpdateHotel";
 import Dashboard from "./features/dashboard/Dashboard";
-import Users from "./features/users/Users";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
 import HotelsTable from "./features/hotels/HotelsTable";
-import Bookings from "./features/bookings/Bookings";
 import UserProfile from "./features/profile/UserProfile";
-// import Hotel from "./features/hotels/Hotel";
 import Rooms from "./features/rooms/Rooms";
 import About from "./ui/homepage/About";
 import ProtectRoutes from "./ui/ProtectRoutes";
+import AllBookings from "./features/bookings/AllBookings";
+import { useAuthContext } from "./context/AuthContext";
+import HotelBookings from "./features/bookings/HotelBookings";
+import AllUsers from "./features/users/AllUsers";
+import HotelUsers from "./features/users/HotelUsers";
 
 function App() {
+  const { role } = useAuthContext();
+
   return (
     <BrowserRouter>
       <Routes>
@@ -44,12 +48,21 @@ function App() {
           }
         >
           <Route index element={<Dashboard />} />
-          <Route path="hotels" element={<HotelsTable />} />
-          <Route path="add-hotel" element={<AddHotel />} />
-          <Route path="update-hotel/:id" element={<UpdateHotel />} />
-          <Route path="rooms" element={<Rooms />} />
-          <Route path="bookings" element={<Bookings />} />
-          <Route path="users" element={<Users />} />
+          {role === "admin" ? (
+            <>
+              <Route path="hotels" element={<HotelsTable />} />
+              <Route path="add-hotel" element={<AddHotel />} />
+              <Route path="update-hotel/:id" element={<UpdateHotel />} />
+              <Route path="bookings" element={<AllBookings />} />
+              <Route path="users" element={<AllUsers />} />
+            </>
+          ) : role === "manager" ? (
+            <>
+              <Route path="rooms" element={<Rooms />} />
+              <Route path="users" element={<HotelUsers />} />
+              <Route path="bookings" element={<HotelBookings />} />
+            </>
+          ) : null}
         </Route>
 
         {/* NOT FOUND ROUTES */}

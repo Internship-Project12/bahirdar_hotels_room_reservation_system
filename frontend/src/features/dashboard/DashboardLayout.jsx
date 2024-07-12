@@ -8,8 +8,8 @@ import {
   HiOutlineCalendarDays,
   HiOutlineUsers,
 } from "react-icons/hi2";
-import { MdAddHomeWork } from "react-icons/md";
-import { MdRoom } from "react-icons/md";
+import { MdOutlineBookmarkAdded, MdSettings } from "react-icons/md";
+import { IoBedSharp } from "react-icons/io5";
 import { useAuthContext } from "../../context/AuthContext";
 
 const adminMenus = [
@@ -24,11 +24,6 @@ const adminMenus = [
     Icon: <HiBuildingLibrary size={20} />,
   },
   {
-    title: "Add Hotel",
-    url: "/dashboard/add-hotel",
-    Icon: <MdAddHomeWork size={20} />,
-  },
-  {
     title: "Bookings",
     url: "/dashboard/bookings",
     Icon: <HiOutlineCalendarDays size={20} />,
@@ -38,33 +33,38 @@ const adminMenus = [
     url: "/dashboard/users",
     Icon: <HiOutlineUsers size={20} />,
   },
+  {
+    title: "Settings",
+    url: "",
+    Icon: <MdSettings size={20} />,
+  },
 ];
 
 const managerMenus = [
   {
     title: "Home",
     url: "",
-    Icon: <HiBuildingLibrary size={20} />,
+    Icon: <HiOutlineHome size={20} />,
   },
   {
     title: "Rooms",
-    url: "",
-    Icon: <HiBuildingLibrary size={20} />,
+    url: "/dashboard/rooms",
+    Icon: <IoBedSharp size={20} />,
   },
   {
     title: "Bookings",
     url: "/dashboard/bookings",
-    Icon: <MdRoom size={20} />,
+    Icon: <MdOutlineBookmarkAdded size={20} />,
   },
   {
     title: "Users",
     url: "/dashboard/users",
-    Icon: <MdRoom size={20} />,
+    Icon: <HiOutlineUsers size={20} />,
   },
   {
     title: "Settings",
     url: "",
-    Icon: <MdRoom size={20} />,
+    Icon: <MdSettings size={20} />,
   },
 ];
 
