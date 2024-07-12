@@ -4,16 +4,15 @@ import TableBody from "./TableBody";
 import TableHeader from "./TableHeader";
 
 // Generic Table Component
-function Table({ title, headers, data }) {
+function Table({ headers, data }) {
   return (
     <div className="w-full bg-white text-gray-600 shadow-md">
-
       {/* TABLE TITLE */}
-      <div className="flex items-center justify-between">
+      {/* <div className="flex items-center justify-between">
         <h1 className="p-4 text-2xl font-bold uppercase">
           {title}
         </h1>
-      </div>
+      </div> */}
 
       {/* TABLE HEADER */}
       <TableHeader headers={headers} />
