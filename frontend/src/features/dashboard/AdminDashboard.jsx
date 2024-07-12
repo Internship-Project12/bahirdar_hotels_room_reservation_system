@@ -143,7 +143,12 @@ function AdminDashboard() {
           <h2 className="text-2xl font-bold uppercase">
             Recently added Hotels
           </h2>
-          <Link to='/dashboard/hotels' className="px-2 bg-blue-500 rounded-full py-1 text-sm text-white flex items-center hover:scale-105 transition-all duration-200">See more &gt;&gt;</Link>
+          <Link
+            to="/dashboard/hotels"
+            className="flex items-center rounded-full bg-blue-500 px-2 py-1 text-sm text-white transition-all duration-200 hover:scale-105"
+          >
+            See more &gt;&gt;
+          </Link>
         </div>
         <div className="relative grid md:grid-cols-3 lg:grid-cols-4">
           {Hotels.slice(0, 4).map((room, i) => (
@@ -159,7 +164,16 @@ function AdminDashboard() {
       </section>
 
       <section>
-        <div className="p-3">Recent Book Operation</div>
+        <div className="flex justify-between bg-white p-4">
+          <h2 className="text-2xl font-bold uppercase">Recent Users</h2>
+          <Link
+            to="/dashboard/users"
+            className="flex items-center rounded-full bg-blue-500 px-2 py-1 text-sm text-white transition-all duration-200 hover:scale-105"
+          >
+            See more &gt;&gt;
+          </Link>
+        </div>
+
         <BookingTable bookings={RecentBooks} bookingHeaders={bookingHeaders} />
       </section>
     </div>
