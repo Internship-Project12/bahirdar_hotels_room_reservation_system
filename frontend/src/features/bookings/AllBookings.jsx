@@ -1,122 +1,68 @@
-import Bookings from "./Bookings";
-
-const bookingHeaders = [
-  { label: "User", key: "user" },
-  { label: "Hotel", key: "hotel" },
-  { label: "Room Num", key: "room" },
-  { label: "Check-In", key: "checkIn" },
-  // { label: "Check-Out", key: "checkOut" },
-  { label: "Num Of Nights", key: "numOfNights" },
-  { label: "Price Per Night ", key: "pricePerNights" },
-  { label: "status", key: "paymentStatus" },
-];
-
-const AllBookingsData = [
-  {
-    user: "Alemu",
-    userImg: "/user1.jpeg",
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    room: `#${101}`,
-    numOfNights: 5,
-    pricePerNights: 250,
-    paymentStatus: "Completed",
-    hotel: "abc international hotel",
-  },
-  {
-    user: "John Doe",
-    userImg: "/user2.jpeg",
-    room: `#${101}`,
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    numOfNights: 1,
-    pricePerNights: 250,
-    paymentStatus: "Pending",
-    hotel: "abc international hotel",
-  },
-  {
-    user: "Jane Smith",
-    userImg: "/user3.jpeg",
-    room: `#${101}`,
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    numOfNights: 2,
-    pricePerNights: 250,
-    paymentStatus: "Cancelled",
-    hotel: "abc international hotel",
-  },
-  {
-    user: "Alemu",
-    userImg: "/user1.jpeg",
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    room: `#${101}`,
-    numOfNights: 5,
-    pricePerNights: 250,
-    paymentStatus: "Completed",
-    hotel: "abc international hotel",
-  },
-  {
-    user: "John Doe",
-    userImg: "/user2.jpeg",
-    room: `#${101}`,
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    numOfNights: 1,
-    pricePerNights: 250,
-    paymentStatus: "Pending",
-    hotel: "abc international hotel",
-  },
-  {
-    user: "Jane Smith",
-    userImg: "/user3.jpeg",
-    room: `#${101}`,
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    numOfNights: 2,
-    pricePerNights: 250,
-    paymentStatus: "Cancelled",
-    hotel: "abc international hotel",
-  },
-  {
-    user: "Alemu",
-    userImg: "/user1.jpeg",
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    room: `#${101}`,
-    numOfNights: 5,
-    pricePerNights: 250,
-    paymentStatus: "Completed",
-    hotel: "abc international hotel",
-  },
-  {
-    user: "John Doe",
-    userImg: "/user2.jpeg",
-    room: `#${101}`,
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    numOfNights: 1,
-    pricePerNights: 250,
-    paymentStatus: "Pending",
-    hotel: "abc international hotel",
-  },
-  {
-    user: "Jane Smith",
-    userImg: "/user3.jpeg",
-    room: `#${101}`,
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    numOfNights: 2,
-    pricePerNights: 250,
-    paymentStatus: "Cancelled",
-    hotel: "abc international hotel",
-  },
-];
+import BookingTableBody from "./BookingTableBody";
+import BookingTableHeading from "./BookingTableHeading";
+import { useBookings } from "./useBookings";
 
 function AllBookings() {
+  const { data, isLoading } = useBookings();
+
+  if (isLoading) return <div>Loading all Bookings</div>;
+
+  const { bookings } = data.data;
+
   return (
-    <Bookings bookings={AllBookingsData} bookingHeaders={bookingHeaders} />
+    <div className="grid w-full grid-cols-1">
+      <div className="flex justify-between p-3">
+        <h1>All Bookings</h1>
+        <p>filter/sort</p>
+      </div>
+
+      <BookingTableHeading />
+      {/* <Table headers={headers} data={bookings} /> */}
+
+      {bookings.map((booking, i) => (
+        <BookingTableBody booking={booking} key={i}/>
+      ))}
+    </div>
   );
 }
 
 export default AllBookings;
+/*
+{
+    status: 'success',
+    message: 'get all bookings',
+    numOfBookings: 1,
+    data: {
+      bookings: [
+        {
+          _id: '66921b10286016274ee101b0',
+          user: {
+            _id: '668ce28fa5b16ed846c21a22',
+            firstName: 'test',
+            lastName: 'TestF',
+            email: 'test@test.com',
+            role: 'user',
+            phoneNumber: '0908005801'
+          },
+          room: {
+            _id: '668ce6d9296708cdbae3865f',
+            roomNumber: '100',
+            roomType: 'single',
+            pricePerNight: 140,
+            id: '668ce6d9296708cdbae3865f'
+          },
+          checkInDate: '2024-07-10T08:58:40.000Z',
+          checkOutDate: '2024-07-13T08:58:40.000Z',
+          status: 'pending',
+          createdAt: '2024-07-13T06:13:36.243Z',
+          updatedAt: '2024-07-13T06:13:36.243Z',
+          hotel: '668ce408603914bd3b9e585b',
+          numOfNights: 3,
+          pricePerNight: 140,
+          totalPrice: 420,
+          id: '66921b10286016274ee101b0'
+        }
+      ]
+    }
+  }
+ */
