@@ -47,6 +47,11 @@ const bookingSchema = new mongoose.Schema(
       min: [1, 'a book must be at least one night '],
     },
 
+    hotel: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Hotel',
+    },
+
     // this will be calculated from the price per night of the room and the num of nights
     totalPrice: {
       type: Number,
@@ -63,6 +68,16 @@ const bookingSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// get the hotel from the room before save
+bookingSchema.pre('save', async function (next) {
+  const room = await Room.findById(this.room);
+  if (!room) {
+    next(new AppError('there is no room found with that id', 404));
+  }
+  this.hotel = room.hotel;
+  next();
+});
 
 // calculate the number of nights from the checkOut and checkIn date
 bookingSchema.pre('save', function (next) {
@@ -99,7 +114,7 @@ bookingSchema.pre(/^find/, function (next) {
     select: '-createdAt -updatedAt -__v -passwordChangedAt',
   }).populate({
     path: 'room',
-    select: 'roomNumber roomType pricePerNight',
+    select: 'roomNumber roomType pricePerNight images',
   });
 
   next();

@@ -1,13 +1,14 @@
 function BookingTableHeading() {
   return (
-    <div className="mb-2 grid grid-cols-7 items-start justify-items-start gap-3 border border-slate-200 bg-slate-200 p-3 font-semibold">
-      <div className="col-span-1 col-start-1">Booking Date</div>
-      <div className="col-span-1 col-start-2">Customer</div>
-      <div className="col-span-1 col-start-3">Persons</div>
-      <div className="col-span-1 col-start-4">Phone</div>
-      <div className="col-span-1 col-start-5">Check-In</div>
-      <div className="col-span-1 col-start-6">Check-Out</div>
-      <div className="col-span-1 col-start-7">Payment</div>
+    <div className="mb-2 grid grid-cols-9 items-center gap-3 border-b border-slate-300 bg-slate-300 p-3">
+      <div className="col-span-2 col-start-1">Hotel</div>
+      <div className="col-span-1 col-start-3">Room</div>
+      <div className="col-span-1 col-start-4">user</div>
+      <div className="col-span-1 col-start-5">checkInDate</div>
+      <div className="col-span-1 col-start-6">numOfNights</div>
+      <div className="col-span-1 col-start-7">pricePerNight</div>
+      <div className="col-span-1 col-start-8">totalPrice</div>
+      <div className="col-span-1 col-start-9">payment status</div>
     </div>
   );
 }

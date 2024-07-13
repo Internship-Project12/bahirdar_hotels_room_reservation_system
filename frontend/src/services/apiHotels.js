@@ -3,18 +3,9 @@ import customFetch from "../utils/customFetch";
 const addHotel = async (hotel) => await customFetch.post("/hotels", hotel);
 
 const getAllHotels = async () => {
-  try {
-    const res = await customFetch.get("/hotels");
+  const res = await customFetch.get("/hotels");
 
-    const { data } = res;
-    // console.log(data);
-
-    if (data.status !== "success") throw new Error(data.message);
-
-    return data;
-  } catch (error) {
-    return error?.response?.data;
-  }
+  return res.data;
 };
 
 const getHotel = async (id) => {

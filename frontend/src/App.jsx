@@ -9,7 +9,7 @@ import HotelDetailsPage from "./pages/hotels/HotelDetailsPage";
 import UpdateHotel from "./features/hotels/UpdateHotel";
 import Dashboard from "./features/dashboard/Dashboard";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
-import HotelsTable from "./features/hotels/HotelsTable";
+import AllHotels from "./features/hotels/AllHotels";
 import UserProfile from "./features/profile/UserProfile";
 import Rooms from "./features/rooms/Rooms";
 import About from "./ui/homepage/About";
@@ -50,7 +50,7 @@ function App() {
           <Route index element={<Dashboard />} />
           {role === "admin" ? (
             <>
-              <Route path="hotels" element={<HotelsTable />} />
+              <Route path="hotels" element={<AllHotels />} />
               <Route path="add-hotel" element={<AddHotel />} />
               <Route path="update-hotel/:id" element={<UpdateHotel />} />
               <Route path="bookings" element={<AllBookings />} />
