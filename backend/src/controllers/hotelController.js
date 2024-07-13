@@ -4,6 +4,10 @@ import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
 import { uploadImages } from '../utils/uploadImages.js';
+import {
+  DEFAULT_HOTEL_IMAGE,
+  DEFAULT_HOTEL_IMAGE_2,
+} from '../constants/constants.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -28,13 +32,13 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 export const createHotel = catchAsync(async (req, res, next) => {
   // console.log(req.files, req.body);
 
-  let imageCoverUrl;
-  let hotelImagesUrl;
+  let imageCoverUrl = DEFAULT_HOTEL_IMAGE;
+  let hotelImagesUrl = [DEFAULT_HOTEL_IMAGE, DEFAULT_HOTEL_IMAGE_2];
 
-  if (req.files?.imageCoverFile || req.files?.hotelImagesFiles) {
-    imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
-    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
-  }
+  // if (req.files?.imageCoverFile || req.files?.hotelImagesFiles) {
+  //   imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
+  //   hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
+  // }
 
   const hotel = await Hotel.create({
     ...req.body,
@@ -65,6 +69,9 @@ export const getHotel = catchAsync(async (req, res, next) => {
     .populate({
       path: 'manager',
       select: `firstName lastName email photo phoneNumber`,
+    })
+    .populate({
+      path: 'bookings',
     });
 
   if (!hotel) {
