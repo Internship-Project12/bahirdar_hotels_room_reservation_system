@@ -1,3 +1,4 @@
+import Spinner from "../../ui/Spinner";
 import BookingTableBody from "./BookingTableBody";
 import BookingTableHeading from "./BookingTableHeading";
 import { useBookings } from "./useBookings";
@@ -5,14 +6,27 @@ import { useBookings } from "./useBookings";
 function AllBookings() {
   const { data, isLoading } = useBookings();
 
-  if (isLoading) return <div>Loading all Bookings</div>;
+  if (isLoading)
+    return (
+      <div className="grid w-full grid-cols-1 bg-white">
+        <div className="flex justify-between">
+          <h1 className="p-4 uppercase">All Bookings</h1>
+          <p>filter/sort</p>
+        </div>
+
+        <BookingTableHeading />
+        {/* <Table headers={headers} data={bookings} /> */}
+
+        <Spinner />
+      </div>
+    );
 
   const { bookings } = data.data;
 
   return (
-    <div className="grid w-full grid-cols-1">
-      <div className="flex justify-between p-3">
-        <h1>All Bookings</h1>
+    <div className="grid w-full grid-cols-1 bg-white">
+      <div className="flex justify-between">
+        <h1 className="p-4 uppercase">All Bookings</h1>
         <p>filter/sort</p>
       </div>
 
@@ -20,7 +34,7 @@ function AllBookings() {
       {/* <Table headers={headers} data={bookings} /> */}
 
       {bookings.map((booking, i) => (
-        <BookingTableBody booking={booking} key={i}/>
+        <BookingTableBody booking={booking} key={i} />
       ))}
     </div>
   );
