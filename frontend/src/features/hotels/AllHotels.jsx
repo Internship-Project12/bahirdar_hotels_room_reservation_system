@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import HotelTableBody from "./HotelTableBody";
+import HotelTableBody from "./HotelTable";
 import HotelTableHeading from "./HotelTableHeading";
 import { useHotels } from "./useHotels";
 
