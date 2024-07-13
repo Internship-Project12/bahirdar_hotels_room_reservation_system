@@ -1,6 +1,6 @@
-function HotelHeading() {
+function HotelTableHeader() {
   return (
-    <div className="mb-2 grid grid-cols-8 items-start justify-items-start gap-3 border border-slate-200 bg-slate-200 p-3 font-semibold">
+    <div className="mb-2 grid grid-cols-8 items-center gap-2 border-b border-slate-200 bg-slate-200 p-3">
       <div className="col-span-1 col-start-1">Image</div>
       <div className="col-span-1 col-start-2">Name</div>
       <div className="col-span-1 col-start-3">Hotel Rating</div>
@@ -13,4 +13,4 @@ function HotelHeading() {
   );
 }
 
-export default HotelHeading;
+export default HotelTableHeader;

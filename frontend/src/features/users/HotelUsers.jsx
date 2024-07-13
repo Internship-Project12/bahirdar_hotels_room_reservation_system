@@ -1,10 +1,4 @@
-import Users from "./Users";
-
-const headers = [
-  { label: "user", key: "user" },
-  { label: "Email", key: "email" },
-  { label: "Phone Number", key: "phoneNumber" },
-];
+import UsersTable from "./UsersTable";
 
 const users = [
   {
@@ -48,7 +42,7 @@ const users = [
 ];
 
 function HotelUsers() {
-  return <Users headers={headers} users={users} />;
+  return <UsersTable users={users} />;
 }
 
 export default HotelUsers;

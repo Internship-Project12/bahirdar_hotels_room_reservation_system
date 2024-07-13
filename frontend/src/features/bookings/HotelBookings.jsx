@@ -1,4 +1,4 @@
-import Bookings from "./Bookings";
+import Table from "../../ui/table/Table";
 
 const bookingHeaders = [
   { label: "User", key: "user" },
@@ -105,7 +105,13 @@ const AllBookingsData = [
 
 function HotelBookings() {
   return (
-    <Bookings bookings={AllBookingsData} bookingHeaders={bookingHeaders} />
+    <div className="grid w-full grid-cols-1">
+      <div className="flex justify-between p-3">
+        <h1>All Bookings</h1>
+        <p>filter/sort</p>
+      </div>
+      <Table headers={bookingHeaders} data={AllBookingsData} />
+    </div>
   );
 }
 

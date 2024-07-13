@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
-import Table from "../../ui/table/Table";
-
-function BookingTable({  bookingHeaders , bookings}) {
+function BookingTable() {
   return (
-    <Table headers={bookingHeaders} data={bookings} />
-  );
+    <div>
+      BookingTable
+    </div>
+  )
 }
 
-export default BookingTable;
+export default BookingTable

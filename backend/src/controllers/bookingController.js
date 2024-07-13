@@ -4,6 +4,8 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 
 const getAllBookings = catchAsync(async (req, res, next) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const features = new APIFeatures(Booking.find(), req.query)
     .filter()
     .sort()

@@ -1,56 +1,59 @@
-import Users from "./Users";
+import Spinner from "../../ui/Spinner";
+import UsersTable from "./UsersTable";
+import UserTableHeader from "./UserTableHeader";
+import { useUsers } from "./useUsers";
 
-
-const headers = [
-  { label: "user", key: "user" },
-  { label: "Email", key: "email" },
-  { label: "Phone Number", key: "phoneNumber" },
-];
-
-const users = [
-  {
-    id: 1,
-    user: "Alemu kebede",
-    userImg: "/user1.jpeg",
-    email: "abrham@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-    role: "manager",
-    hotel: "abc international hotel",
-  },
-  {
-    id: 2,
-    user: "betel Doe",
-    userImg: "/user2.jpeg",
-
-    email: "birtukan@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-  },
-  {
-    id: 4,
-    user: "Jane Smith",
-    userImg: "/user3.jpeg",
-    email: "weynua@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-  },
-  {
-    id: 5,
-    user: "Alemu",
-    userImg: "/user1.jpeg",
-    email: "yitbarek@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-  },
-  {
-    id: 3,
-    user: "betel Doe",
-    userImg: "/user2.jpeg",
-    email: "yehalem@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-  },
-];
 function AllUsers() {
+  const { data, isLoading } = useUsers();
+
+  if (isLoading)
+    return (
+      <div className="w-full bg-white font-lato text-gray-600 shadow-md">
+        <div className="flex justify-between">
+          <h2 className="p-4 uppercase">All Users </h2>
+          <p>filter/sort</p>
+        </div>
+        <UserTableHeader />
+
+        <Spinner />
+      </div>
+    );
+
+  const { users } = data.data;
+
   return (
-   <Users headers={headers} users={users}/>
-  )
+    <div className="w-full bg-white font-lato text-gray-600 shadow-md">
+      <div className="flex justify-between">
+        <h2 className="p-4 uppercase">All Users </h2>
+        <p>filter/sort</p>
+      </div>
+
+      <UserTableHeader />
+
+      {users.map((user, i) => (
+        <UsersTable user={user} key={i} />
+      ))}
+    </div>
+  );
 }
 
-export default AllUsers
+export default AllUsers;
+
+/*
+{
+    status: 'success',
+    results: 7,
+    data: {
+      users: Array(7) [
+        {
+          _id: '668ce22aa5b16ed846c21a18',
+          firstName: 'admin',
+          lastName: 'TestF',
+          email: 'admin@test.com',
+          role: 'admin',
+          phoneNumber: '0908005801',
+          createdAt: '2024-07-09T07:09:30.494Z',
+          updatedAt: '2024-07-09T07:09:30.494Z',
+          __v: 0
+        },
+*/
