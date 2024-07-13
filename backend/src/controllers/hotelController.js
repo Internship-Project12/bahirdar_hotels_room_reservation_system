@@ -30,6 +30,8 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 });
 
 export const createHotel = catchAsync(async (req, res, next) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
   // console.log(req.files, req.body);
 
   let imageCoverUrl = DEFAULT_HOTEL_IMAGE;
@@ -55,7 +57,7 @@ export const createHotel = catchAsync(async (req, res, next) => {
 });
 
 export const getHotel = catchAsync(async (req, res, next) => {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const { id } = req.params;
 

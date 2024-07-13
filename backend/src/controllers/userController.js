@@ -74,6 +74,8 @@ export const deleteMe = catchAsync(async (req, res, next) => {
 
 // ************CRUD***************
 export const getAllUsers = catchAsync(async (req, res, next) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const users = await User.find();
 
   res.status(200).json({
@@ -141,7 +143,7 @@ export const updateUser = catchAsync(async (req, res, next) => {
   }
 
   user.photo = photo;
-  await user.save();
+  await user.save({ validateBeforeSave: false });
 
   // return response
   res.status(200).json({
