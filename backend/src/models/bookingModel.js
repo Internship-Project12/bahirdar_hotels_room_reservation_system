@@ -114,7 +114,7 @@ bookingSchema.pre(/^find/, function (next) {
     select: '-createdAt -updatedAt -__v -passwordChangedAt',
   }).populate({
     path: 'room',
-    select: 'roomNumber roomType pricePerNight',
+    select: 'roomNumber roomType pricePerNight images',
   });
 
   next();
