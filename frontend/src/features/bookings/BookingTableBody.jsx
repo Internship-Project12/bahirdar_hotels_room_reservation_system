@@ -47,10 +47,8 @@ import formatDate from "../../utils/formatDate";
 */
 
 function BookingTableBody({ booking }) {
-  console.log(booking.user.photo);
-  //   'https://res.cloudinary.com/dvp1mjhd9/image/upload/v1714759095/gsqg5uwxwtzc744wy6j5.png'
   return (
-    <div className="mb-2 grid grid-cols-9 items-center gap-3 border-b border-slate-200 p-3 text-sm shadow">
+    <div className="mb-1 grid grid-cols-9 items-center gap-3 border-b border-slate-200 p-3 text-sm shadow">
       {/* HOTEL NAME */}
       <div className="col-span-2 col-start-1 flex items-center gap-2">
         <img

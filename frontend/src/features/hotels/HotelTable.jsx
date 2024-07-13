@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 
 function HotelTable({ hotel }) {
   return (
-    <div
-      to={"/add-hotel"}
-      className="mb-1 grid grid-cols-9 items-center gap-3 overflow-hidden border-b border-l border-r border-slate-200 text-sm"
-    >
+    <div className="m-2 grid grid-cols-9 items-center gap-3 overflow-hidden border-b border-r border-slate-200 text-sm shadow">
       <div className="col-span-1 col-start-1 h-full w-full">
         <img className="h-16 object-cover" src={hotel.imageCover} alt="" />
       </div>
