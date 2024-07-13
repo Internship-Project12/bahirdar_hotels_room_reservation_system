@@ -3,7 +3,7 @@ import { hotels } from "../../data/hotels";
 import HotelTableBody from "./HotelTableBody";
 // import HotelTableHeading from "./HotelTableHeading";
 
-function HotelsTable() {
+function AllHotels() {
   return (
     <div className="w-full bg-white font-lato text-gray-600 shadow-md">
       <div className="flex items-center justify-between">
@@ -27,4 +27,4 @@ function HotelsTable() {
   );
 }
 
-export default HotelsTable;
+export default AllHotels;
