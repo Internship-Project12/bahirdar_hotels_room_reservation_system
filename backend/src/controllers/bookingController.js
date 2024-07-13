@@ -10,7 +10,11 @@ const getAllBookings = catchAsync(async (req, res, next) => {
     .limitFields()
     .paginate();
 
-  const bookings = await features.query;
+  const bookings = await features.query.populate({
+    path: 'hotel',
+    select: 'name imageCover',
+  });
+;
 
   res.status(200).json({
     status: 'success',
