@@ -1,3 +1,7 @@
+import {
+  DEFAULT_ROOM_IMAGE,
+  DEFAULT_ROOM_IMAGE_2,
+} from '../constants/constants.js';
 import Room from '../models/roomModel.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
@@ -15,7 +19,7 @@ const getAllRooms = catchAsync(async (req, res, next) => {
     .limitFields()
     .paginate();
 
-    // execute the query
+  // execute the query
   const rooms = await features.query;
 
   // send response
@@ -52,8 +56,8 @@ const createRoom = catchAsync(async (req, res, next) => {
   if (!req.body.hotel) req.body.hotel = req.params.hotelId;
 
   // upload room images to cloudinary
-  let imageUrls;
-  if (req.files) imageUrls = uploadImages(req.files, next);
+  let imageUrls = [DEFAULT_ROOM_IMAGE, DEFAULT_ROOM_IMAGE_2];
+  // if (req.files) imageUrls = uploadImages(req.files, next);
 
   // create room
   const room = await Room.create({ ...req.body, images: imageUrls });
