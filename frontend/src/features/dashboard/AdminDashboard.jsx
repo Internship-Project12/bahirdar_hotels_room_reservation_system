@@ -71,7 +71,7 @@ const RecentBooks = [
 const AdminStats = [
   {
     Icon: MdOutlineBedroomChild,
-    title: "",
+    title: "Available rooms",
     number: 30,
   },
   {
