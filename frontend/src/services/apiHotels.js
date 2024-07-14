@@ -2,16 +2,12 @@ import customFetch from "../utils/customFetch";
 
 const addHotel = async (hotel) => await customFetch.post("/hotels", hotel);
 
-const getAllHotels = async (searchParams) => {
+const getAllHotels = async ({ filter }) => {
+  const { search, hotelStar } = filter;
 
-  const search = searchParams.get("search");
-  let url = '/hotels'
-
-  if(search) {
-    url = url + `?search=${search}`
-  }
-
-  const res = await customFetch.get(url);
+  const res = await customFetch.get(
+    `/hotels?search=${search}&hotelStar=${hotelStar}`,
+  );
 
   return res.data;
 };
