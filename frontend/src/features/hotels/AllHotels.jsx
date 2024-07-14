@@ -4,6 +4,7 @@ import HotelTableHeader from "./HotelTableHeader";
 import { useHotels } from "./useHotels";
 import Spinner from "../../ui/Spinner";
 import { useForm } from "react-hook-form";
+import Search from "../../ui/Search";
 
 function AllHotels() {
   const navigate = useNavigate();
@@ -11,9 +12,7 @@ function AllHotels() {
   const { register, handleSubmit } = useForm();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // const { data: hotels } = data.data;
-
-  const onSubmitHandler = handleSubmit((data) => {
+  const onSearchHandler = handleSubmit((data) => {
     if (!data?.search) {
       return navigate("/dashboard/hotels");
     }
@@ -43,28 +42,11 @@ function AllHotels() {
         </h1>
 
         {/* SEARCH  */}
-        <form
-          className="group flex items-center justify-center"
-          onSubmit={onSubmitHandler}
-        >
-          <div className="">
-            <input
-              type="search"
-              disabled={isLoading}
-              autoFocus
-              className="rounded-full bg-slate-200 px-3 py-2 focus:outline-none disabled:cursor-not-allowed"
-              placeholder="Search"
-              {...register("search")}
-            />
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="-ml-16 w-24 rounded-full bg-blue-600 px-3 py-2 text-white disabled:cursor-not-allowed disabled:bg-blue-400"
-            >
-              Search
-            </button>
-          </div>
-        </form>
+        <Search
+          isLoading={isLoading}
+          onSearchHandler={onSearchHandler}
+          register={register}
+        />
 
         {/* FILTER */}
 
