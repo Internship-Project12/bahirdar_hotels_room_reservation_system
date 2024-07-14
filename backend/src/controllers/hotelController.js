@@ -13,11 +13,39 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const features = new APIFeatures(Hotel.find(), req.query)
-    .filter()
+    // .filter()
     .sort()
     .limitFields()
     .paginate();
-  const hotels = await features.query;
+
+  const filteredQueryObj = { ...req.query };
+  const excludedFields = ['page', 'sort', 'limit', 'fields'];
+  excludedFields.forEach((el) => delete filteredQueryObj[el]);
+
+  // Advanced Filtering
+  let queryStr = JSON.stringify(filteredQueryObj);
+  queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+  const query = JSON.parse(queryStr);
+  console.log(query);
+
+  const { search, hotelStar } = query;
+
+  const queryObj = {};
+
+  if (search) {
+    // queryObj.name = search or queryObj.name = search
+    // options: 'i' => ignore case
+    queryObj.$or = [
+      { name: { $regex: search, $options: 'i' } },
+      { address: { $regex: search, $options: 'i' } },
+    ];
+  }
+
+  if (hotelStar) {
+    queryObj.starRating = hotelStar;
+  }
+
+  const hotels = await features.query.find(queryObj);
 
   res.status(StatusCodes.OK).json({
     status: 'success',
@@ -30,7 +58,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 });
 
 export const createHotel = catchAsync(async (req, res, next) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // console.log(req.files, req.body);
 
