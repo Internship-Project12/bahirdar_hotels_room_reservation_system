@@ -36,11 +36,11 @@ function AllBookings() {
             all
           </Link>
           <button
-            onClick={() => handleClickStatus("completed")}
-            disabled={active === "completed"}
+            onClick={() => handleClickStatus("confirmed")}
+            disabled={active === "confirmed"}
             className={`rounded border px-3 text-sm transition-all duration-300 hover:bg-green-700 hover:text-white disabled:cursor-not-allowed disabled:bg-green-700 disabled:text-white`}
           >
-            completed
+            confirmed
           </button>
           <button
             onClick={() => handleClickStatus("pending")}
