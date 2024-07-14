@@ -4,7 +4,6 @@ import { GoDash } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 function HotelTable({ hotel }) {
-  console.log(hotel);
   return (
     <div className="m-2 grid scale-y-90 grid-cols-10 items-center gap-3 overflow-hidden border-b border-r border-slate-200 text-sm shadow">
       <div className="col-span-1 col-start-1 h-full w-full">
@@ -17,7 +16,10 @@ function HotelTable({ hotel }) {
         {hotel.numOfRooms > 0 ? `${hotel.numOfRooms} Rooms` : <GoDash />}
       </div>
       <div className="col-span-1 col-start-6">{hotel.minPricePerNight}</div>
-      <div className="col-span-1 col-start-7">{hotel.numOfRatings} ⭐</div>
+      <div className="col-span-1 col-start-7">
+        {/* NOTE: NUM OF RATINGS IS ALSO EQUAL TO NUM OF REVIEWS IN OUR CASE */}
+        {hotel.numOfRatings > 0 ? `${hotel.numOfRatings} Reviews` : <GoDash />}
+      </div>
       <div className="col-span-1 col-start-8">{hotel.avgRating} ⭐</div>
       <div className="col-span-1 col-start-9 flex">
         {hotel.facilities && hotel.facilities.slice(0, 3).join(", ")}
