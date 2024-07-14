@@ -34,13 +34,10 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
   if (sort) {
     req.query.sort = (sort === 'a-z' && 'name') || (sort === 'z-a' && '-name');
     req.query.sort =
-      (sort === 'newest' && '-createdAt') || (sort === 'oldest' && 'createdAt');
-
-    req.query.sort =
+      (sort === 'newest' && '-createdAt') ||
+      (sort === 'oldest' && 'createdAt') ||
       (sort === 'pricePerNight-desc' && '-pricePerNight') ||
-      (sort === 'pricePerNight-asc' && 'pricePerNight');
-
-    req.query.sort =
+      (sort === 'pricePerNight-asc' && 'pricePerNight') ||
       (sort === 'avgRating-desc' && '-avgRating') ||
       (sort === 'avgRating-asc' && 'avgRating');
   }
