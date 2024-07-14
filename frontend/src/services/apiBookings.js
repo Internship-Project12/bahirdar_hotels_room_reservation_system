@@ -1,7 +1,8 @@
 import customFetch from "../utils/customFetch";
 
-const getAllBookings = async () => {
-  const res = await customFetch("/bookings");
+const getAllBookings = async ({ filter }) => {
+  const { status } = filter;
+  const res = await customFetch(`/bookings?status=${status}`);
 
   return res.data;
 };
