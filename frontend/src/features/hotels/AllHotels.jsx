@@ -65,27 +65,30 @@ function AllHotels() {
             ]}
           />
 
-          <select
-            className="rounded-full px-4 py-2 transition-all duration-200 hover:scale-105 hover:cursor-pointer active:scale-105"
-            onChange={handleSortChange}
-          >
-            <option value="">sort by</option>
-            <option value="a-z">a-z</option>
-            <option value="z-a">z-a</option>
-            <option value="newest">(recent first)</option>
-            <option value="oldest">(earlier first)</option>
-            <option value="pricePerNight-desc">
-              price per night (high first)
-            </option>
-            <option value="pricePerNight-asc">
-              price per night (low first)
-            </option>
-          </select>
+          {/* OTHER SORTING   */}
+          <SortBy
+            handleChange={handleSortChange}
+            options={[
+              { label: "sort by", value: "" },
+              {
+                label: "price per night (high first)",
+                value: "pricePerNight-desc",
+              },
+              {
+                label: "price per night (low first)",
+                value: "pricePerNight-asc",
+              },
+              { label: "recent first", value: "newest" },
+              { label: "oldest", value: "oldest" },
+              { label: "a-z", value: "a-z" },
+              { label: "z-a", value: "z-a" },
+            ]}
+          />
         </div>
 
         <Link
           to={"/dashboard/add-hotel"}
-          className="mr-2 cursor-pointer rounded bg-blue-700 px-4 py-[6px] text-lg text-white"
+          className="mr-2 cursor-pointer rounded-full bg-blue-700 px-4 py-[6px] text-lg text-white transition-all duration-200 hover:scale-105"
         >
           Add Hotel
         </Link>
