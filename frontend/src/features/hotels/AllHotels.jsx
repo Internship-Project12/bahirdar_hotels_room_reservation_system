@@ -1,40 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import HotelTableBody from "./HotelTable";
 import HotelTableHeader from "./HotelTableHeader";
 import { useHotels } from "./useHotels";
 import Spinner from "../../ui/Spinner";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
+import QueryKey from "../../constants/QueryKey";
 
 function AllHotels() {
-  const { register, handleSubmit } = useForm();
-
   const { data, isLoading } = useHotels();
+  const queryClient = useQueryClient();
+  const { register, handleSubmit } = useForm();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // LOADING PLACEHOLDER
-  if (isLoading)
-    return (
-      <div className="w-full bg-white text-gray-600 shadow-md">
-        <div className="flex items-center justify-between">
-          <h1 className="p-4 uppercase">All Hotels</h1>
-          <Link
-            to={"/dashboard/add-hotel"}
-            className="mr-2 cursor-pointer rounded bg-blue-700 px-4 py-[6px] text-lg text-white"
-          >
-            Add Hotel
-          </Link>
-        </div>
-
-        <HotelTableHeader />
-
-        <Spinner />
-      </div>
-    );
+  if (isLoading) return <Spinner />;
 
   const { data: hotels } = data.data;
 
   const onSubmitHandler = handleSubmit((data) => {
-    if(!data?.search) return;
-    console.log(data);
+    if (!data?.search) return;
+    searchParams.set("search", data.search);
+    setSearchParams(searchParams);
+    queryClient.invalidateQueries(QueryKey.HOTELS)
   });
 
   return (
