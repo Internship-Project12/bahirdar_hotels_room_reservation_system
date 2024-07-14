@@ -1,41 +1,77 @@
+import { Link, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import BookingTableBody from "./BookingTableBody";
 import BookingTableHeading from "./BookingTableHeading";
 import { useBookings } from "./useBookings";
+import { useState } from "react";
 
 function AllBookings() {
-  const { data, isLoading } = useBookings();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [active, setActive] = useState("");
 
-  if (isLoading)
-    return (
-      <div className="grid w-full grid-cols-1 bg-white">
-        <div className="flex justify-between">
-          <h1 className="p-4 uppercase">All Bookings</h1>
-          <p>filter/sort</p>
-        </div>
+  const { data: { data: { bookings } = {} } = {}, isLoading } = useBookings();
 
-        <BookingTableHeading />
-        {/* <Table headers={headers} data={bookings} /> */}
-
-        <Spinner />
-      </div>
-    );
-
-  const { bookings } = data.data;
+  const handleClickStatus = (status) => {
+    searchParams.set("status", status);
+    setSearchParams(searchParams);
+    setActive(status);
+  };
 
   return (
     <div className="grid w-full grid-cols-1 bg-white">
-      <div className="flex justify-between">
-        <h1 className="p-4 uppercase">All Bookings</h1>
-        <p>filter/sort</p>
+      <div className="flex items-center justify-between p-6">
+        <h1 className="p-4 uppercase">
+          <Link to="/dashboard/bookings">All Bookings</Link>
+        </h1>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div className="flex items-center justify-between gap-2">
+          <Link
+            onClick={() => setActive("all")}
+            to="/dashboard/bookings"
+            className="rounded bg-blue-600 px-3 text-sm text-white"
+          >
+            all
+          </Link>
+          <button
+            onClick={() => handleClickStatus("confirmed")}
+            disabled={active === "confirmed"}
+            className={`rounded border px-3 text-sm transition-all duration-300 hover:bg-green-700 hover:text-white disabled:cursor-not-allowed disabled:bg-green-700 disabled:text-white`}
+          >
+            confirmed
+          </button>
+          <button
+            onClick={() => handleClickStatus("pending")}
+            disabled={active === "pending"}
+            className="rounded border px-3 text-sm transition-all duration-300 hover:bg-orange-400 hover:text-white disabled:cursor-not-allowed disabled:bg-orange-400 disabled:text-white"
+          >
+            pending
+          </button>
+          <button
+            onClick={() => handleClickStatus("cancelled")}
+            disabled={active === "cancelled"}
+            className="rounded border px-3 text-sm transition-all duration-300 hover:bg-red-500 hover:text-white disabled:cursor-not-allowed disabled:bg-red-500 disabled:text-white"
+          >
+            cancelled
+          </button>
+        </div>
+        <div></div>
       </div>
 
       <BookingTableHeading />
       {/* <Table headers={headers} data={bookings} /> */}
 
-      {bookings.map((booking, i) => (
-        <BookingTableBody booking={booking} key={i} />
-      ))}
+      {isLoading ? (
+        <Spinner />
+      ) : bookings.length > 0 ? (
+        bookings.map((booking, i) => (
+          <BookingTableBody booking={booking} key={i} />
+        ))
+      ) : (
+        <div>There are not hotels found</div>
+      )}
     </div>
   );
 }

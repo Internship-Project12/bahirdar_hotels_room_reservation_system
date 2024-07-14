@@ -39,6 +39,10 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
     req.query.sort =
       (sort === 'pricePerNight-desc' && '-pricePerNight') ||
       (sort === 'pricePerNight-asc' && 'pricePerNight');
+
+    req.query.sort =
+      (sort === 'avgRating-desc' && '-avgRating') ||
+      (sort === 'avgRating-asc' && 'avgRating');
   }
 
   const features = new APIFeatures(Hotel.find(), req.query)

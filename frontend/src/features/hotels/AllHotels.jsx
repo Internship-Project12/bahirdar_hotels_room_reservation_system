@@ -9,9 +9,10 @@ import SortBy from "../../ui/SortBy";
 
 function AllHotels() {
   const navigate = useNavigate();
-  const { data: { data: { data: hotels } = {} } = {}, isLoading } = useHotels();
   const { register, handleSubmit } = useForm();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { data: { data: { data: hotels } = {} } = {}, isLoading } = useHotels();
 
   const onSearchHandler = handleSubmit((data) => {
     if (!data?.search) {
@@ -78,8 +79,10 @@ function AllHotels() {
                 label: "price per night (low first)",
                 value: "pricePerNight-asc",
               },
+              { label: "avgRating (high first)", value: "avgRating-desc" },
+              { label: "low avgRating (low first)", value: "avgRating-asc" },
               { label: "recent first", value: "newest" },
-              { label: "oldest", value: "oldest" },
+              { label: "oldest first", value: "oldest" },
               { label: "a-z", value: "a-z" },
               { label: "z-a", value: "z-a" },
             ]}

@@ -4,19 +4,24 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 
 const getAllBookings = catchAsync(async (req, res, next) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  const { status } = req.query;
+
+  // FILTERING
+  const queryObj = {};
+  if (status) {
+    queryObj.status = status;
+  }
 
   const features = new APIFeatures(Booking.find(), req.query)
-    .filter()
+    // .filter()
     .sort()
     .limitFields()
     .paginate();
 
-  const bookings = await features.query.populate({
+  const bookings = await features.query.find(queryObj).populate({
     path: 'hotel',
     select: 'name imageCover',
   });
-;
 
   res.status(200).json({
     status: 'success',
