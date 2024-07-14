@@ -74,12 +74,25 @@ export const deleteMe = catchAsync(async (req, res, next) => {
 
 // ************CRUD***************
 export const getAllUsers = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const { search, role } = req.query;
 
-  const users = await User.find();
+  const queryObj = {};
+  if (search) {
+    queryObj.$or = [
+      { firstName: { $regex: search, $options: 'i' } },
+      { lastName: { $regex: search, $options: 'i' } },
+    ];
+  }
+
+  if (role) {
+    queryObj.role = role;
+  }
+
+  const users = await User.find(queryObj);
 
   res.status(200).json({
     status: 'success',
+    message: 'get all users',
     results: users.length,
     data: {
       users,

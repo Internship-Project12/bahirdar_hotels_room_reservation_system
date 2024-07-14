@@ -104,7 +104,7 @@ function AllHotels() {
       ) : hotels.length > 0 ? (
         hotels.map((hotel) => <HotelTableBody key={hotel.id} hotel={hotel} />)
       ) : (
-        <div>There are not hotels found</div>
+        <div>There are not bookings found</div>
       )}
     </div>
   );

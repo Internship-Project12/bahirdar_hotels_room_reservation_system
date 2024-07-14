@@ -1,38 +1,78 @@
+import { Link, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import UsersTable from "./UsersTable";
 import UserTableHeader from "./UserTableHeader";
 import { useUsers } from "./useUsers";
+import Search from "../../ui/Search";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 function AllUsers() {
-  const { data, isLoading } = useUsers();
+  const { register, handleSubmit } = useForm();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeBtn, setActiveBtn] = useState();
 
-  if (isLoading)
-    return (
-      <div className="w-full bg-white font-lato text-gray-600 shadow-md">
-        <div className="flex justify-between">
-          <h2 className="p-4 uppercase">All Users </h2>
-          <p>filter/sort</p>
-        </div>
-        <UserTableHeader />
+  const { data: { data: { users } = {} } = {}, isLoading } = useUsers();
 
-        <Spinner />
-      </div>
-    );
+  const onSearchHandler = handleSubmit((data) => {
+    searchParams.set("search", data.search);
+    setSearchParams(searchParams);
+  });
 
-  const { users } = data.data;
+  const onSearchByRoleHandler = (role) => {
+    searchParams.set("role", role);
+    setSearchParams(searchParams);
+    setActiveBtn(role);
+  };
 
   return (
     <div className="w-full bg-white font-lato text-gray-600 shadow-md">
-      <div className="flex justify-between">
-        <h2 className="p-4 uppercase">All Users </h2>
-        <p>filter/sort</p>
+      <div className="flex items-center justify-between p-6">
+        <h1 className="p-4 uppercase">
+          <Link to="/dashboard/users">All Users</Link>
+        </h1>
+
+        {/* SEARCH  */}
+        <Search
+          isLoading={isLoading}
+          onSearchHandler={onSearchHandler}
+          register={register}
+        />
+
+        <div className='flex justify-between items-center gap-2'>
+          <button
+            onClick={() => onSearchByRoleHandler("")}
+            disabled={activeBtn === ""}
+            className="rounded border bg-blue-600 px-3 text-sm text-white transition-all duration-300 disabled:cursor-not-allowed"
+          >
+            all
+          </button>
+          <button
+            onClick={() => onSearchByRoleHandler("user")}
+            disabled={activeBtn === "user"}
+            className="rounded border px-3 text-sm transition-all duration-300 hover:bg-blue-600 hover:text-white disabled:cursor-not-allowed disabled:bg-blue-700 disabled:text-white"
+          >
+            all users
+          </button>
+          <button
+            onClick={() => onSearchByRoleHandler("manager")}
+            disabled={activeBtn === "manager"}
+            className="rounded border px-3 text-sm transition-all duration-300 hover:bg-blue-600 hover:text-white disabled:cursor-not-allowed disabled:bg-blue-700 disabled:text-white"
+          >
+            all managers
+          </button>
+        </div>
       </div>
 
       <UserTableHeader />
 
-      {users.map((user, i) => (
-        <UsersTable user={user} key={i} />
-      ))}
+      {isLoading ? (
+        <Spinner />
+      ) : users.length > 0 ? (
+        users.map((user, i) => <UsersTable user={user} key={i} />)
+      ) : (
+        <div>There are no users found</div>
+      )}
     </div>
   );
 }
