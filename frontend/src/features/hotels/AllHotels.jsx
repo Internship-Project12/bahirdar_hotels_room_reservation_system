@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import HotelTableBody from "./HotelTable";
 import HotelTableHeader from "./HotelTableHeader";
 import { useHotels } from "./useHotels";
@@ -8,21 +8,21 @@ import { useQueryClient } from "@tanstack/react-query";
 import QueryKey from "../../constants/QueryKey";
 
 function AllHotels() {
-  const { data, isLoading } = useHotels();
+  const navigate = useNavigate();
+  const { data: { data: { data: hotels } = {} } = {}, isLoading } = useHotels();
   const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // LOADING PLACEHOLDER
-  if (isLoading) return <Spinner />;
-
-  const { data: hotels } = data.data;
+  // const { data: hotels } = data.data;
 
   const onSubmitHandler = handleSubmit((data) => {
-    if (!data?.search) return;
+    if (!data?.search) {
+      return navigate("/dashboard/hotels");
+    }
     searchParams.set("search", data.search);
     setSearchParams(searchParams);
-    queryClient.invalidateQueries(QueryKey.HOTELS)
+    queryClient.invalidateQueries(QueryKey.HOTELS);
   });
 
   return (
@@ -60,9 +60,13 @@ function AllHotels() {
 
       <HotelTableHeader />
 
-      {hotels.map((hotel) => (
-        <HotelTableBody key={hotel.id} hotel={hotel} />
-      ))}
+      {isLoading ? (
+        <Spinner />
+      ) : hotels.length > 0 ? (
+        hotels.map((hotel) => <HotelTableBody key={hotel.id} hotel={hotel} />)
+      ) : (
+        <div>There are not hotels found</div>
+      )}
     </div>
   );
 }
