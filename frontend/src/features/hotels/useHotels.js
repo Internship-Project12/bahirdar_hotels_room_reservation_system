@@ -7,8 +7,9 @@ export const useHotels = () => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
   const hotelStar = searchParams.get("hotelStar") || "";
+  const sort = searchParams.get("sortBy") || "newest";
 
-  const filter = { search, hotelStar };
+  const filter = { search, hotelStar, sort };
 
   const { data, isLoading } = useQuery({
     queryKey: [QueryKey.HOTELS, filter],

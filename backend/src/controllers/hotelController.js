@@ -10,31 +10,14 @@ import {
 } from '../constants/constants.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  // HERE WE DESTRUCTURE POSSIBLE VALUES FROM THE QUERY
+  const { search, hotelStar, sort } = req.query;
 
-  const features = new APIFeatures(Hotel.find(), req.query)
-    // .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-
-  const filteredQueryObj = { ...req.query };
-  const excludedFields = ['page', 'sort', 'limit', 'fields'];
-  excludedFields.forEach((el) => delete filteredQueryObj[el]);
-
-  // Advanced Filtering
-  let queryStr = JSON.stringify(filteredQueryObj);
-  queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-  const query = JSON.parse(queryStr);
-  console.log(query);
-
-  const { search, hotelStar } = query;
-
+  // FILTERING
   const queryObj = {};
 
   if (search) {
-    // queryObj.name = search or queryObj.name = search
-    // options: 'i' => ignore case
     queryObj.$or = [
       { name: { $regex: search, $options: 'i' } },
       // { address: { $regex: search, $options: 'i' } },
@@ -44,6 +27,25 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
   if (hotelStar) {
     queryObj.starRating = hotelStar;
   }
+
+  // SORTING
+  // possible values for sorting in hotels is d/t from users or others eg. sort by hotel star, there are no hotel star on other tables so we need to modify the req.query to use it on apiFeatures
+  // on the front-end there are sort by letter from a-z or z-a | sort on hotel name
+  if (sort) {
+    req.query.sort = (sort === 'a-z' && 'name') || (sort === 'z-a' && '-name');
+    req.query.sort =
+      (sort === 'newest' && '-createdAt') || (sort === 'oldest' && 'createdAt');
+
+    req.query.sort =
+      (sort === 'pricePerNight-desc' && '-pricePerNight') ||
+      (sort === 'pricePerNight-asc' && 'pricePerNight');
+  }
+
+  const features = new APIFeatures(Hotel.find(), req.query)
+    // FILTERING IS SPECIFIC TO THE DATA WE FILTER SO I DON'T USE IT HERE
+    .sort()
+    .limitFields()
+    .paginate();
 
   const hotels = await features.query.find(queryObj);
 

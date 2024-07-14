@@ -3,10 +3,10 @@ import customFetch from "../utils/customFetch";
 const addHotel = async (hotel) => await customFetch.post("/hotels", hotel);
 
 const getAllHotels = async ({ filter }) => {
-  const { search, hotelStar } = filter;
+  const { search, hotelStar, sort } = filter;
 
   const res = await customFetch.get(
-    `/hotels?search=${search}&hotelStar=${hotelStar}`,
+    `/hotels?search=${search}&hotelStar=${hotelStar}&sort=${sort}`,
   );
 
   return res.data;
