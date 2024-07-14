@@ -4,8 +4,9 @@ import { GoDash } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 function HotelTable({ hotel }) {
+  console.log(hotel);
   return (
-    <div className="m-2 grid grid-cols-9 items-center gap-3 overflow-hidden border-b border-r border-slate-200 text-sm shadow">
+    <div className="m-2 grid scale-y-90 grid-cols-10 items-center gap-3 overflow-hidden border-b border-r border-slate-200 text-sm shadow">
       <div className="col-span-1 col-start-1 h-full w-full">
         <img className="h-16 object-cover" src={hotel.imageCover} alt="" />
       </div>
@@ -15,12 +16,13 @@ function HotelTable({ hotel }) {
       <div className="col-span-1 col-start-5">
         {hotel.numOfRooms > 0 ? `${hotel.numOfRooms} Rooms` : <GoDash />}
       </div>
-      <div className="col-span-1 col-start-6">{hotel.numOfRatings} ⭐</div>
-      <div className="col-span-1 col-start-7">{hotel.avgRating} ⭐</div>
-      <div className="col-span-1 col-start-8 flex">
+      <div className="col-span-1 col-start-6">{hotel.minPricePerNight}</div>
+      <div className="col-span-1 col-start-7">{hotel.numOfRatings} ⭐</div>
+      <div className="col-span-1 col-start-8">{hotel.avgRating} ⭐</div>
+      <div className="col-span-1 col-start-9 flex">
         {hotel.facilities && hotel.facilities.slice(0, 3).join(", ")}
       </div>
-      <div className="col-span-1 col-start-9 flex flex-col items-center gap-1">
+      <div className="col-span-1 col-start-10 flex flex-col items-center gap-1">
         <div className="flex gap-2">
           <Link to={`/dashboard/update-hotel/${hotel._id}`}>
             <MdEdit size={24} className="fill-blue-700" />
