@@ -5,11 +5,14 @@ import { useSearchParams } from "react-router-dom";
 
 export const useHotels = () => {
   const [searchParams] = useSearchParams();
-  const search = searchParams.get("search") || null;
+  const search = searchParams.get("search") || "";
+  const hotelStar = searchParams.get("hotelStar") || "";
+
+  const filter = { search, hotelStar };
 
   const { data, isLoading } = useQuery({
-    queryKey: [QueryKey.HOTELS, search],
-    queryFn: () => apiHotels.getAllHotels(searchParams),
+    queryKey: [QueryKey.HOTELS, filter],
+    queryFn: () => apiHotels.getAllHotels({ filter }),
   });
 
   return { data, isLoading };

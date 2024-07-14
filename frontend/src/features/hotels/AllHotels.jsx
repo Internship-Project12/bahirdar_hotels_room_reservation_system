@@ -4,13 +4,10 @@ import HotelTableHeader from "./HotelTableHeader";
 import { useHotels } from "./useHotels";
 import Spinner from "../../ui/Spinner";
 import { useForm } from "react-hook-form";
-import { useQueryClient } from "@tanstack/react-query";
-import QueryKey from "../../constants/QueryKey";
 
 function AllHotels() {
   const navigate = useNavigate();
   const { data: { data: { data: hotels } = {} } = {}, isLoading } = useHotels();
-  const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -22,14 +19,23 @@ function AllHotels() {
     }
     searchParams.set("search", data.search);
     setSearchParams(searchParams);
-    queryClient.invalidateQueries(QueryKey.HOTELS);
   });
+
+  const handleStarsChange = (e) => {
+    e.preventDefault();
+    const star = e.target.value;
+    searchParams.set("hotelStar", star);
+    setSearchParams(searchParams);
+  };
 
   return (
     <div className="w-full bg-white text-gray-600 shadow-md">
       <div className="flex items-center justify-between">
-        <h1 className="p-4 uppercase">All Hotels</h1>
+        <h1 className="p-4 uppercase">
+          <Link to='/dashboard/hotels'>All Hotels</Link>
+        </h1>
 
+        {/* SEARCH  */}
         <form
           className="group flex items-center justify-center"
           onSubmit={onSubmitHandler}
@@ -49,6 +55,22 @@ function AllHotels() {
             </button>
           </div>
         </form>
+
+        {/* FILTER */}
+
+        <div className="flex items-center justify-between gap-2">
+          <select
+            className="rounded-full px-4 py-2"
+            onChange={handleStarsChange}
+          >
+            <option value="">hotel star</option>
+            <option value="1">1 star</option>
+            <option value="2">2 star</option>
+            <option value="3">3 star</option>
+            <option value="4">4 star</option>
+            <option value="5">5 star</option>
+          </select>
+        </div>
 
         <Link
           to={"/dashboard/add-hotel"}

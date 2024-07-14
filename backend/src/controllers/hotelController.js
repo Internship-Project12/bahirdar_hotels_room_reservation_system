@@ -37,7 +37,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
     // options: 'i' => ignore case
     queryObj.$or = [
       { name: { $regex: search, $options: 'i' } },
-      { address: { $regex: search, $options: 'i' } },
+      // { address: { $regex: search, $options: 'i' } },
     ];
   }
 
