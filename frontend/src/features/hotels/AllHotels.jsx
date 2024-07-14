@@ -5,6 +5,7 @@ import { useHotels } from "./useHotels";
 import Spinner from "../../ui/Spinner";
 import { useForm } from "react-hook-form";
 import Search from "../../ui/Search";
+import SortBy from "../../ui/SortBy";
 
 function AllHotels() {
   const navigate = useNavigate();
@@ -51,17 +52,18 @@ function AllHotels() {
         {/* FILTER */}
 
         <div className="flex items-center justify-between gap-2">
-          <select
-            className="rounded-full px-4 py-2 transition-all duration-200 hover:scale-105 hover:cursor-pointer active:scale-105"
-            onChange={handleStarsChange}
-          >
-            <option value="">hotel star</option>
-            <option value="1">1 star</option>
-            <option value="2">2 star</option>
-            <option value="3">3 star</option>
-            <option value="4">4 star</option>
-            <option value="5">5 star</option>
-          </select>
+          {/* SORT BY HOTEL STAR */}
+          <SortBy
+            handleChange={handleStarsChange}
+            options={[
+              { label: "hotel star", value: "" },
+              { label: "1 star", value: "1" },
+              { label: "2 star", value: "2" },
+              { label: "3 star", value: "3" },
+              { label: "4 star", value: "4" },
+              { label: "5 star", value: "5" },
+            ]}
+          />
 
           <select
             className="rounded-full px-4 py-2 transition-all duration-200 hover:scale-105 hover:cursor-pointer active:scale-105"
