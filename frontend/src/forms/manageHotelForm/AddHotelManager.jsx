@@ -9,12 +9,15 @@ function AddHotelManager() {
   const [showModal, setShowModal] = useState(false);
   const [selectedManager, setSelectedManager] = useState();
 
-  const { setValue } = useFormContext();
+  const { setValue, watch } = useFormContext();
 
   const handleShowModal = (e) => {
     e.preventDefault();
     setShowModal(!showModal);
   };
+
+  const isInUpdateMode = watch("isInUpdateMode");
+  const currentManager = watch("manager");
 
   const handleSelectManager = (user) => {
     setValue("manager", user._id);
@@ -27,15 +30,18 @@ function AddHotelManager() {
       <div className="flex items-center justify-around gap-3">
         <button
           onClick={handleShowModal}
-          className="flex items-center gap-2 rounded-full bg-blue-700 px-3 py-2 text-xl text-slate-200 transition-all duration-300 "
+          className="flex items-center gap-2 rounded-full bg-blue-700 px-3 py-2 text-xl text-slate-200 transition-all duration-300 hover:scale-105"
         >
           {/* <SpinnerMini/> */}
           <GrUserManager size={30} />
-          Add Manager
+          {`${!isInUpdateMode ? "Add Manager" : "Change Manger of Hotel"}`}
         </button>
-        {setSelectedManager ? (
+        {setSelectedManager || isInUpdateMode ? (
           <div className="overflow-hidden rounded-full bg-slate-300 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:translate-x-2">
-            <UsersListItem user={selectedManager} onClick={() => {}} />{" "}
+            <UsersListItem
+              user={selectedManager || currentManager}
+              onClick={() => {}}
+            />
           </div>
         ) : (
           // this empty div is for styling purpose justify around
