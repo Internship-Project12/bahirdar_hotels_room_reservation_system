@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import Stats from "../hotels/Stats";
 import HotelCard from "../hotels/HotelCard";
-import BookingTable from "../bookings/BookingTable";
+// import BookingTable from "../bookings/BookingTable";
 import { Link } from "react-router-dom";
 
 const bookingHeaders = [
@@ -174,7 +174,7 @@ function AdminDashboard() {
           </Link>
         </div>
 
-        <BookingTable bookings={RecentBooks} bookingHeaders={bookingHeaders} />
+        {/* <BookingTable bookings={RecentBooks} bookingHeaders={bookingHeaders} /> */}
       </section>
     </div>
   );

@@ -11,7 +11,6 @@ import Dashboard from "./features/dashboard/Dashboard";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
 import AllHotels from "./features/hotels/AllHotels";
 import UserProfile from "./features/profile/UserProfile";
-import Rooms from "./features/rooms/Rooms";
 import About from "./ui/homepage/About";
 import ProtectRoutes from "./ui/ProtectRoutes";
 import AllBookings from "./features/bookings/AllBookings";
@@ -19,6 +18,7 @@ import { useAuthContext } from "./context/AuthContext";
 import HotelBookings from "./features/bookings/HotelBookings";
 import AllUsers from "./features/users/AllUsers";
 import HotelUsers from "./features/users/HotelUsers";
+import HotelRoomsTable from "./features/rooms/HotelRoomsTable";
 
 function App() {
   const { role } = useAuthContext();
@@ -58,7 +58,7 @@ function App() {
             </>
           ) : role === "manager" ? (
             <>
-              <Route path="rooms" element={<Rooms />} />
+              <Route path="rooms" element={<HotelRoomsTable />} />
               <Route path="users" element={<HotelUsers />} />
               <Route path="bookings" element={<HotelBookings />} />
             </>
