@@ -4,6 +4,7 @@ const QueryKey = {
   HOTEL: "hotel",
   BOOKINGS: "bookings",
   ALL_USERS: "allUsers",
+  ROOMS: 'ROOMS',
 };
 
 export default QueryKey;
