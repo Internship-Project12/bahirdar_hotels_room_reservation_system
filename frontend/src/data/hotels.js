@@ -7,7 +7,7 @@ export const hotels = [
     numOfRooms: 100,
     numberOfRatings: 100,
     averageRatings: 4.5,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Bar",
@@ -30,7 +30,7 @@ export const hotels = [
     numOfRooms: 150,
     numberOfRatings: 80,
     averageRatings: 4.8,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Restaurant",
@@ -41,7 +41,8 @@ export const hotels = [
       "City View",
     ],
     minPricePerNight: 290,
-  }, {
+  },
+  {
     id: 1,
     imageCover: "/hotel-images/img-2.jpg",
     name: "Unison Hotel",
@@ -49,7 +50,7 @@ export const hotels = [
     numOfRooms: 100,
     numberOfRatings: 100,
     averageRatings: 4.5,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Bar",
@@ -72,7 +73,7 @@ export const hotels = [
     numOfRooms: 150,
     numberOfRatings: 80,
     averageRatings: 4.8,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Restaurant",
@@ -83,7 +84,8 @@ export const hotels = [
       "City View",
     ],
     minPricePerNight: 290,
-  }, {
+  },
+  {
     id: 1,
     imageCover: "/hotel-images/img-2.jpg",
     name: "Unison Hotel",
@@ -91,7 +93,7 @@ export const hotels = [
     numOfRooms: 100,
     numberOfRatings: 100,
     averageRatings: 4.5,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Bar",
@@ -114,7 +116,7 @@ export const hotels = [
     numOfRooms: 150,
     numberOfRatings: 80,
     averageRatings: 4.8,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Restaurant",
@@ -125,7 +127,8 @@ export const hotels = [
       "City View",
     ],
     minPricePerNight: 290,
-  }, {
+  },
+  {
     id: 1,
     imageCover: "/hotel-images/img-2.jpg",
     name: "Unison Hotel",
@@ -133,7 +136,7 @@ export const hotels = [
     numOfRooms: 100,
     numberOfRatings: 100,
     averageRatings: 4.5,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Bar",
@@ -156,7 +159,7 @@ export const hotels = [
     numOfRooms: 150,
     numberOfRatings: 80,
     averageRatings: 4.8,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Restaurant",
@@ -176,7 +179,7 @@ export const hotels = [
     numOfRooms: 150,
     numberOfRatings: 80,
     averageRatings: 4.8,
-    starRating: 5,
+    hotelStar: 5,
     facilities: [
       "Free Wifi",
       "Restaurant",
@@ -191,7 +194,7 @@ export const hotels = [
     id: 4,
     name: "Grand Budapest Hotel",
     imageCover: "/hotel-images/img-1-hero.jpg",
-    starRating: 4,
+    hotelStar: 4,
     address: "Zubrowka, Europe",
     description: "An iconic hotel with a rich history and luxury service.",
     minPricePerNight: 300,
