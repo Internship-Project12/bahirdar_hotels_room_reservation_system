@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiRooms from "../../services/apiRoom.js";
+import apiRooms from "../../services/apiRooms";
 import { useAuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import QueryKey from "../../constants/QueryKey";
