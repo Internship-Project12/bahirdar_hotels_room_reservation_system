@@ -6,9 +6,9 @@ import {
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
 import Stats from "../hotels/Stats";
-import BookingTable from "../bookings/BookingTable";
-import BookingCard from "../bookings/BookingCard";
 import { Link } from "react-router-dom";
+import BookingCard from "../bookings/BookingCard";
+import { useAuthContext } from "../../context/AuthContext";
 
 const bookingHeaders = [
   { label: "User", key: "user" },
@@ -153,9 +153,7 @@ function ManagerDashboard() {
 
       <section>
         <div className="flex justify-between bg-white p-4">
-          <h2 className="text-2xl font-bold uppercase">
-            Recent Users
-          </h2>
+          <h2 className="text-2xl font-bold uppercase">Recent Users</h2>
           <Link
             to="/dashboard/users"
             className="flex items-center rounded-full bg-blue-500 px-2 py-1 text-sm text-white transition-all duration-200 hover:scale-105"
@@ -163,7 +161,7 @@ function ManagerDashboard() {
             See more &gt;&gt;
           </Link>
         </div>
-        <BookingTable bookings={RecentBooks} bookingHeaders={bookingHeaders} />
+        {/* <BookingTable bookings={RecentBooks} bookingHeaders={bookingHeaders} /> */}
       </section>
     </div>
   );
