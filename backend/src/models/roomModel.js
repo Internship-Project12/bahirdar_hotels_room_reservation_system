@@ -35,16 +35,19 @@ const roomSchema = new mongoose.Schema(
       type: [String],
       default: ['Wi-Fi', 'Air Conditioning', 'Television'], // Default amenities
       // "amenities": ["Wi-Fi", "Air Conditioning", "Television", "Mini Fridge", "Coffee Maker", "Room Service", "Safe", "Hair Dryer", "Iron and Ironing Board", "Toiletries", "Desk and Chair"],
+      required: [true, 'A room must have amenities'],
     },
     capacity: {
       type: Number,
-      required: true,
+      required: [true, 'A room must have a capacity']
     },
     description: {
       type: String,
+      required: [true, 'A room must have a description'],
     },
     images: {
       type: [String],
+      required: [true, 'A room must have images'],
     },
     // bookingHistory: [{ startDate: Date, endDate: Date }],
     hotel: {

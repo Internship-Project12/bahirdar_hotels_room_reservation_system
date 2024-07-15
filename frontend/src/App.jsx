@@ -19,6 +19,8 @@ import HotelBookings from "./features/bookings/HotelBookings";
 import AllUsers from "./features/users/AllUsers";
 import HotelUsers from "./features/users/HotelUsers";
 import HotelRoomsTable from "./features/rooms/HotelRoomsTable";
+import AddRoom from "./features/rooms/AddRoom";
+import UpdateRoom from "./features/rooms/UpdateRoom";
 
 function App() {
   const { role } = useAuthContext();
@@ -59,6 +61,8 @@ function App() {
           ) : role === "manager" ? (
             <>
               <Route path="rooms" element={<HotelRoomsTable />} />
+              <Route path="add-room" element={<AddRoom />} />
+              <Route path="update-room/:id" element={<UpdateRoom />} />
               <Route path="users" element={<HotelUsers />} />
               <Route path="bookings" element={<HotelBookings />} />
             </>

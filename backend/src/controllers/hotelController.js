@@ -4,16 +4,11 @@ import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
 import { uploadImages } from '../utils/uploadImages.js';
-import {
-  DEFAULT_HOTEL_IMAGE,
-  DEFAULT_HOTEL_IMAGE_2,
-} from '../constants/constants.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
   // HERE WE DESTRUCTURE POSSIBLE VALUES FROM THE QUERY
   const { search, hotelStar, sort } = req.query;
-
   // FILTERING
   const queryObj = {};
 

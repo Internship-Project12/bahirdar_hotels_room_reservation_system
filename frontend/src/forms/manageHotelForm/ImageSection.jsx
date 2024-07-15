@@ -90,8 +90,7 @@ function ImageSection() {
             upload hotel images - at-least 3 images
             {existingHotelImagesUrl && (
               <span>
-                ( you can add {10 - existingHotelImagesUrl?.length} additional
-                images )
+                ( you can add {10 - existingHotelImagesUrl?.length} additional images )
               </span>
             )}
             <input

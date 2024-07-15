@@ -26,7 +26,7 @@ import { Link } from "react-router-dom";
 
 function RoomsTableBody({ room }) {
   return (
-    <div className="mb-1 grid grid-cols-10 items-center gap-3 border-b border-slate-200 p-3 text-sm shadow">
+    <div className="mb-1 grid grid-cols-9 items-center gap-3 border-b border-slate-200 p-3 text-sm shadow">
       {/* HOTEL NAME */}
       <div className="col-span-2 col-start-1 flex items-center gap-2">
         <img
@@ -45,13 +45,13 @@ function RoomsTableBody({ room }) {
       {/* CAPACITY */}
       <div className="col-span-1 col-start-6">{`${room.capacity} person`}</div>
       {/* DESCRIPTION */}
-      <div className="col-span-1 col-start-7">{`${room.description} person`}</div>
+      {/* <div className="col-span-1 col-start-7">{`${room.description} person`}</div> */}
       {/* AMENITIES */}
-      <div className="col-span-1 col-start-8 flex">
+      <div className="col-span-1 col-start-7 flex">
         {room.amenities && room.amenities.slice(0, 3).join(", ")}
       </div>
-      <div className="col-span-1 col-start-9">{`${room.isAvailable}`}</div>
-      <div className="col-span-1 col-start-10 flex flex-col items-center gap-1">
+      <div className="col-span-1 col-start-8">{`${room.isAvailable}`}</div>
+      <div className="col-span-1 col-start-9 flex flex-col items-center gap-1">
         <div className="flex gap-2">
           <Link>
             <MdEdit size={24} className="fill-blue-700" />
