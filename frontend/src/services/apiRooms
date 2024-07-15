@@ -3,7 +3,7 @@ import customFetch from "../utils/customFetch";
 const getAllRooms = async (id) => {
   let url = `/rooms`;
   if (id) {
-    url = `/rooms/${id}/rooms`;
+    url = `/hotels/${id}/rooms`;
   }
   const res = await customFetch.get(url);
 
