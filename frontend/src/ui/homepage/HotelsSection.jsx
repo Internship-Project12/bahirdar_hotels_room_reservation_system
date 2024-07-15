@@ -29,7 +29,7 @@ const HotelCard = ({ hotel }) => {
         <p className="mt-2 text-gray-800">{hotel.description}</p>
         <div className="mt-4 flex items-center justify-between">
           <div className="flex items-center">
-            {[...Array(hotel.starRating)].map((star, index) => (
+            {[...Array(hotel.hotelStar)].map((star, index) => (
               <svg
                 key={index}
                 className="h-5 w-5 text-yellow-500"

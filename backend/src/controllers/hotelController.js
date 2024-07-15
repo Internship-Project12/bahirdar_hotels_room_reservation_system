@@ -32,8 +32,9 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
   // possible values for sorting in hotels is d/t from users or others eg. sort by hotel star, there are no hotel star on other tables so we need to modify the req.query to use it on apiFeatures
   // on the front-end there are sort by letter from a-z or z-a | sort on hotel name
   if (sort) {
-    req.query.sort = (sort === 'a-z' && 'name') || (sort === 'z-a' && '-name');
     req.query.sort =
+      (sort === 'a-z' && 'name') ||
+      (sort === 'z-a' && '-name') ||
       (sort === 'newest' && '-createdAt') ||
       (sort === 'oldest' && 'createdAt') ||
       (sort === 'pricePerNight-desc' && '-pricePerNight') ||
@@ -143,7 +144,7 @@ export const updateHotel = catchAsync(async (req, res, next) => {
     hotel.hotelImages = [...(hotel?.hotelImages || []), ...hotelImagesUrl];
   }
 
-  await hotel.save();
+  await hotel.save({ validateBeforeSave: false });
 
   res.status(StatusCodes.OK).json({
     status: 'success',

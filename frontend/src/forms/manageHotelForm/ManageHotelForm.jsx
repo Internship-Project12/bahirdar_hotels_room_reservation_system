@@ -4,8 +4,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import DetailSection from "./DetailSection";
 import ImageSection from "./ImageSection";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import AddHotelManager from "./AddHotelManager";
+import Spinner from "../../ui/Spinner";
+import { useAuthContext } from "../../context/AuthContext";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 /*
 {
@@ -54,27 +56,27 @@ import AddHotelManager from "./AddHotelManager";
   }
  */
 
-function ManageHotelForm({ isPending, onSubmit, hotel }) {
-  const isInUpdateMode = !!hotel;
-  const navigate = useNavigate();
+function ManageHotelForm({
+  isAdding,
+  isLoading,
+  isUpdating = false,
+  onSubmit,
+  hotel,
+  isInUpdateMode = false,
+}) {
+  const { role } = useAuthContext();
 
   const formMethods = useForm();
-  const { handleSubmit, reset, setValue, watch } = formMethods;
+  const { handleSubmit, reset, setValue } = formMethods;
 
+  // IF IN UPDATE MODE RESET THE HOTEL DATA TO THE FORM
   useEffect(() => {
-    // console.log("effect");
     // FIXME: SOMETIMES THE FUNCTION NOT TRIGGERED
     if (hotel) {
       reset(hotel);
       setValue("isInUpdateMode", isInUpdateMode);
     }
   }, [reset, hotel, isInUpdateMode, setValue]);
-
-  // To fix the issue of the form not being reset when the user navigates to the form
-  // useEffect does not run if so navigate to the hotels page
-  if (hotel && !watch("isInUpdateMode")) {
-    return navigate("/hotels");
-  }
 
   const onSubmitHandler = handleSubmit((data) => {
     const formData = new FormData();
@@ -84,11 +86,14 @@ function ManageHotelForm({ isPending, onSubmit, hotel }) {
     formData.append("address", data.address);
     formData.append("hotelStar", data.hotelStar.toString());
     formData.append("summary", data.summary);
-    formData.append("manager", data.manager);
 
     data.facilities.forEach((facility, i) => {
       formData.append(`facilities[${i}]`, facility);
     });
+
+    if (typeof data.manager === "string") {
+      formData.append("manager", data.manager);
+    }
 
     if (hotel?.imageCover) {
       formData.append("imageCover", hotel.imageCover);
@@ -110,9 +115,9 @@ function ManageHotelForm({ isPending, onSubmit, hotel }) {
         formData.append(`hotelImagesFiles`, image);
       });
 
-    if (hotel) {
-      formData.append("_id", hotel._id);
-    }
+    // if (hotel) {
+    //   formData.append("_id", hotel._id);
+    // }
 
     onSubmit(formData);
   });
@@ -124,23 +129,27 @@ function ManageHotelForm({ isPending, onSubmit, hotel }) {
           {isInUpdateMode ? "update hotel" : "Add Hotel"}
         </h1>
       </div>
-      <form
-        onSubmit={onSubmitHandler}
-        className="m-auto flex flex-col gap-8 rounded bg-slate-100 p-10 shadow-lg"
-      >
-        <div>
-          <DetailSection />
-          <ImageSection />
-          <AddHotelManager />
-        </div>
-        <button
-          type="submit"
-          className="w-full rounded bg-blue-800 px-3 py-2 text-white transition-all duration-300  hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-600"
-          disabled={isPending}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <form
+          onSubmit={onSubmitHandler}
+          className="m-auto flex flex-col gap-8 rounded bg-slate-100 p-10 shadow-lg"
         >
-          {isPending ? "Saving Hotel..." : "Save Hotel"}
-        </button>
-      </form>
+          <div>
+            <DetailSection />
+            <ImageSection />
+            {role === "admin" && <AddHotelManager />}
+          </div>
+          <button
+            type="submit"
+            className="w-full rounded bg-blue-800 px-3 py-2 text-white transition-all duration-300 hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-600"
+            disabled={isAdding || isUpdating}
+          >
+            {isAdding || isUpdating ? <SpinnerMini /> : "Save Hotel"}
+          </button>
+        </form>
+      )}
     </FormProvider>
   );
 }
