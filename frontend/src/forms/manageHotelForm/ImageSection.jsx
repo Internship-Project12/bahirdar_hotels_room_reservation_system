@@ -58,66 +58,73 @@ function ImageSection() {
         ) : null}
       </div>
 
-      <div className="flex justify-center gap-3 capitalize">
-        <label className="w-[50%] flex-1 items-center capitalize">
-          {isInUpdateMode
-            ? "Change Hotel Cover Image"
-            : "upload hotel cover image"}
-          <input
-            type="file"
-            accept="image/*"
-            {...register("imageCoverFile", {
-              required: isInUpdateMode
-                ? false
-                : "A hotel must have a cover image",
-            })}
-          />
-          {errors.imageCoverFile && (
-            <p className="text-sm font-normal text-red-700">
-              {errors.imageCoverFile.message}
-            </p>
-          )}
-        </label>
+      <div className="flex justify-center gap-3 ">
+        <div className="flex-1 bg-slate-200 p-3">
+          <label className="flex flex-col border  hover:cursor-pointer">
+            {isInUpdateMode ? (
+              <h3>Change Hotel Cover Image</h3>
+            ) : (
+              <h3>upload hotel cover image</h3>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              // hidden
+              className="hover:cursor-pointer"
+              {...register("imageCoverFile", {
+                required: isInUpdateMode
+                  ? false
+                  : "A hotel must have a cover image",
+              })}
+            />
+            {errors.imageCoverFile && (
+              <p className="text-sm font-normal text-red-700">
+                {errors.imageCoverFile.message}
+              </p>
+            )}
+          </label>
+        </div>
 
-        <label className="w-[50%] flex-1 items-center gap-3 capitalize">
-          upload hotel images (
-          {existingHotelImagesUrl && (
-            <span>
-              you can add {10 - existingHotelImagesUrl?.length} additional
-              images
-            </span>
-          )}
-          )
-          <input
-            type="file"
-            accept="image/*"
-            disabled={10 - existingHotelImagesUrl?.length <= 0}
-            className='disabled:cursor-not-allowed'
-            multiple
-            {...register("hotelImagesFiles", {
-              validate: (hotelImagesFiles) => {
-                const numOfTotalImages =
-                  (hotelImagesFiles?.length || 0) +
-                  (existingHotelImagesUrl?.length || 0);
+        <div className="flex-1 bg-slate-200 p-3">
+          <label className="flex flex-col border  hover:cursor-pointer">
+            upload hotel images - at-least 3 images
+            {existingHotelImagesUrl && (
+              <span>
+                ( you can add {10 - existingHotelImagesUrl?.length} additional
+                images )
+              </span>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              disabled={10 - existingHotelImagesUrl?.length <= 0}
+              className="hover:cursor-pointer"
+              multiple
+              {...register("hotelImagesFiles", {
+                validate: (hotelImagesFiles) => {
+                  const numOfTotalImages =
+                    (hotelImagesFiles?.length || 0) +
+                    (existingHotelImagesUrl?.length || 0);
 
-                if (numOfTotalImages < 2) {
-                  return "A hotel must have at least 2 additional images";
-                }
+                  if (numOfTotalImages < 3) {
+                    return "A hotel must have at least 3 additional images";
+                  }
 
-                if (numOfTotalImages > 10) {
-                  return "A hotel allowed to have at most 10 additional images";
-                }
+                  if (numOfTotalImages > 10) {
+                    return "A hotel allowed to have at most 10 additional images";
+                  }
 
-                return true;
-              },
-            })}
-          />
-          {errors.hotelImagesFiles && (
-            <p className="text-sm font-normal text-red-700">
-              {errors.hotelImagesFiles.message}
-            </p>
-          )}
-        </label>
+                  return true;
+                },
+              })}
+            />
+            {errors.hotelImagesFiles && (
+              <p className="text-sm font-normal text-red-700">
+                {errors.hotelImagesFiles.message}
+              </p>
+            )}
+          </label>
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ const hotelSchema = new mongoose.Schema(
       minlength: [5, 'A hotel name must have more or equal then 5 characters'],
     },
 
-    starRating: {
+    hotelStar: {
       type: Number,
     },
     imageCover: {
@@ -65,7 +65,6 @@ const hotelSchema = new mongoose.Schema(
     },
     numOfRooms: {
       type: Number,
-      min: [1, 'a hotel must have at least one room'],
     },
 
     // this two will be calculated on the creation of a review
@@ -87,7 +86,10 @@ const hotelSchema = new mongoose.Schema(
 
 // link/add the hotel id to the manager's doc
 hotelSchema.post('save', async function (doc) {
-  await User.findByIdAndUpdate(doc.manager, { hotel: doc._id });
+  await User.findByIdAndUpdate(doc.manager, {
+    hotel: doc._id,
+    role: 'manager',
+  });
 });
 
 // Note: virtual populate is a two step populate.

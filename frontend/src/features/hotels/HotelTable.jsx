@@ -10,15 +10,17 @@ function HotelTable({ hotel }) {
         <img className="h-16 object-cover" src={hotel.imageCover} alt="" />
       </div>
       <div className="col-span-1 col-start-2">{hotel.name}</div>
-      <div className="col-span-1 col-start-3">{`${hotel.starRating} ⭐ Hotel`}</div>
+      <div className="col-span-1 col-start-3">{`${hotel.hotelStar} ⭐ Hotel`}</div>
       <div className="col-span-1 col-start-4">{hotel.address}</div>
       <div className="col-span-1 col-start-5">
         {hotel.numOfRooms > 0 ? `${hotel.numOfRooms} Rooms` : <GoDash />}
       </div>
-      <div className="col-span-1 col-start-6">{hotel.minPricePerNight}</div>
+      <div className="col-span-1 col-start-6">
+        {hotel.minPricePerNight || <GoDash />}
+      </div>
       <div className="col-span-1 col-start-7">
         {/* NOTE: NUM OF RATINGS IS ALSO EQUAL TO NUM OF REVIEWS IN OUR CASE */}
-        {hotel.numOfRatings > 0 ? `${hotel.numOfRatings} Reviews` : <GoDash />}
+        {hotel.numOfRatings > 0 ? `${hotel.numOfRatings} Reviews` : '0 Reviews'}
       </div>
       <div className="col-span-1 col-start-8">{hotel.avgRating} ⭐</div>
       <div className="col-span-1 col-start-9 flex">

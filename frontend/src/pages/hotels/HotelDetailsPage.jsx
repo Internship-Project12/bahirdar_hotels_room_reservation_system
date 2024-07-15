@@ -49,8 +49,8 @@ function HotelDetailsPage() {
       </div>
       <h1 className="text-xl font-bold">{hotel.name}</h1>
       <div>
-        <span className="text-xl font-bold">starRating: </span>
-        {hotel.starRating}
+        <span className="text-xl font-bold">hotelStar: </span>
+        {hotel.hotelStar}
       </div>
       <div>
         <span className="text-xl font-bold">address: </span>

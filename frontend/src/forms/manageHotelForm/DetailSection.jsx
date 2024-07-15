@@ -1,28 +1,22 @@
 import { useFormContext } from "react-hook-form";
+import { HOTEL_FACILITIES } from "../../constants/HotelFacilities";
 
 function DetailSection() {
   const {
     register,
     formState: { errors },
-    watch,
   } = useFormContext();
-
-  const isInUpdateMode = watch("isInUpdateMode");
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold text-gray-800">
-        {isInUpdateMode ? "update hotel" : "Add Hotel"}
-      </h1>
-
       {/* NAME */}
-      <label className="flex-1 text-sm font-bold text-gray-700">
+      <label className="">
         Name
         <input
           type="text"
           defaultValue="Addis International Hotel"
-          className="w-full rounded border border-gray-400 px-3 py-2"
-          placeholder="hotel name"
+          className="w-full rounded-full border bg-slate-200 px-3 py-2 hover:outline-none"
+          placeholder="abc international hotel"
           {...register("name", {
             required: "Hotel name is required",
 
@@ -40,13 +34,13 @@ function DetailSection() {
       </label>
 
       {/* ADDRESS */}
-      <label className="flex-1 text-sm font-bold text-gray-700">
+      <label className="">
         Address
         <input
           type="text"
-          defaultValue="Addis Ababa, Ethiopia"
-          className="w-full rounded border border-gray-400 px-3 py-2"
-          placeholder="hotel address"
+          defaultValue="Bahir Dar, Amhara, 16km from the main straight"
+          className="w-full rounded-full border bg-slate-200 px-3 py-2 hover:outline-none"
+          placeholder="Bahir Dar, Amhara, 16km from the main straight"
           {...register("address", {
             required: "Hotel address is required",
           })}
@@ -58,69 +52,105 @@ function DetailSection() {
         )}
       </label>
 
-      {/* PRICE PER NIGHT */}
-      {/* <label>
-        Price per Night (ETB)
-        <input
-          type="number"
-          defaultValue="250"
-          className="w-full rounded border border-gray-400 px-3 py-2"
-          placeholder="price per night"
-          {...register("pricePerNight", {
-            required: "Price per night is required",
-            min: { value: 1, message: "Price per night should be at least 1" },
-          })}
-        />
-        {errors.pricePerNight && (
-          <p className="text-sm font-normal text-red-700">
-            {errors.pricePerNight.message}
-          </p>
-        )}
-      </label> */}
-
-      {/*Total Number of Rooms*/}
-      <label>
-        Total Number of Rooms
-        <input
-          type="number"
-          defaultValue="20"
-          className="w-full rounded border border-gray-400 px-3 py-2"
-          placeholder="total number of rooms"
-          {...register("numOfRooms", {
-            required: "Total number of rooms is required",
-            min: {
-              value: 1,
-              message: "Total number of rooms should be at least 1",
-            },
-          })}
-        />
-        {errors.numOfRooms && (
-          <p className="text-sm font-normal text-red-700">
-            {errors.numOfRooms.message}
-          </p>
-        )}
-      </label>
-
       {/* STAR RATING */}
       <label>
-        Start Rating
+        Hotel Star
         <select
-          className="w-full rounded border border-gray-400 px-3 py-2"
-          {...register("starRating", {
+          className="w-full rounded-full border bg-slate-200 px-3 py-2 hover:outline-none"
+          {...register("hotelStar", {
             required: "Star rating is required",
             min: { value: 1, message: "Star rating should be at least 1" },
           })}
         >
-          <option value={0}>Select as Rating</option>
+          <option value={0}>Select Hotel Star</option>
           {[1, 2, 3, 4, 5].map((val) => (
             <option key={val} value={val}>
               {val}
             </option>
           ))}
         </select>
-        {errors.starRating && (
+        {errors.hotelStar && (
           <p className="text-sm font-normal text-red-700">
-            {errors.starRating.message}
+            {errors.hotelStar.message}
+          </p>
+        )}
+      </label>
+
+      {/* HOTEL FACILITIES */}
+
+      <div>
+        <h1 className="text-xl font-bold">Hotel Facilities</h1>
+        <div className="grid grid-cols-5 gap-4">
+          {HOTEL_FACILITIES.map((facility) => (
+            <label key={facility} className="flex flex-1 items-center gap-2">
+              <input
+                type="checkbox"
+                value={facility}
+                className="p-2 accent-blue-600"
+                {...register("facilities", {
+                  validate: (facilities) => {
+                    if (!facilities || facilities.length < 3) {
+                      return "a hotel should have at least 3 facilities";
+                    }
+                    return true;
+                  },
+                })}
+              />
+              <span>{facility}</span>
+            </label>
+          ))}
+        </div>
+        {errors.facilities && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.facilities.message}
+          </p>
+        )}
+      </div>
+
+      {/* HOTEL SUMMARY SECTION */}
+      <label>
+        Summary
+        <input
+          type="text"
+          defaultValue="5-star hotel located in the heart of Addis Ababa, Ethiopia"
+          className="w-full rounded-full border bg-slate-200 px-3 py-2 hover:outline-none"
+          placeholder="hotel summary"
+          {...register("summary", {
+            required: "A hotel must have a summary",
+            minLength: {
+              value: 50,
+              message:
+                "A hotel summary must have more or equal then 50 characters",
+            },
+          })}
+        />
+        {errors.summary && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.summary.message}
+          </p>
+        )}
+      </label>
+
+      {/* HOTEL DESCRIPTION SECTION */}
+      <label>
+        Description
+        <textarea
+          rows={5}
+          className="w-full rounded-lg border bg-slate-200 px-3 py-2 hover:outline-none"
+          placeholder="hotel description"
+          defaultValue="Addis International Hotel is a 5-star hotel located in the heart of Addis Ababa, Ethiopia. The hotel offers a luxurious experience with its spacious rooms, modern amenities, and exceptional service. Whether you are traveling for business or pleasure, Addis International Hotel is the perfect choice for your stay in Addis Ababa."
+          {...register("description", {
+            required: "A hotel must have a description",
+            minLength: {
+              value: 50,
+              message:
+                "A hotel description must have more or equal then 50 characters",
+            },
+          })}
+        />
+        {errors.description && (
+          <p className="text-sm font-normal text-red-700">
+            {errors.description.message}
           </p>
         )}
       </label>

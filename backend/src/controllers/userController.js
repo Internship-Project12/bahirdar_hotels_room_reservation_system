@@ -125,7 +125,7 @@ export const getUser = catchAsync(async (req, res, next) => {
 
   const user = await User.findById(id).populate({
     path: 'hotel',
-    select: `name starRating imageCover avgRating address summary`,
+    select: `name hotelStar imageCover avgRating address summary`,
   });
 
   if (!user) return next(new AppError('No user found with that ID', 404));

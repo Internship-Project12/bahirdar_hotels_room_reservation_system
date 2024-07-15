@@ -65,9 +65,9 @@ function HotelsListPage() {
                       >
                         {hotel.name}
                       </Link>
-                      {hotel.starRating && (
+                      {hotel.hotelStar && (
                         <span className="text-sm text-slate-500">
-                          ({hotel.starRating} Star Hotel In Bahirdar)
+                          ({hotel.hotelStar} Star Hotel In Bahirdar)
                         </span>
                       )}
                     </div>
