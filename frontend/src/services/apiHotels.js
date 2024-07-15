@@ -24,15 +24,8 @@ const getHotel = async (id) => {
 };
 
 const updateHotel = async ({ updatedHotelData, id }) => {
-  try {
-    const res = await customFetch.patch(`/hotels/${id}`, updatedHotelData);
-
-    console.log(res);
-
-    return res.data;
-  } catch (error) {
-    return error?.response?.data;
-  }
+  const res = await customFetch.patch(`/hotels/${id}`, updatedHotelData);
+  return res.data;
 };
 
 const deleteHotel = async (id) => {

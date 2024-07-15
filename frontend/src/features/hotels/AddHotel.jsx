@@ -8,7 +8,7 @@ function AddHotel() {
     mutate(hotel);
   };
 
-  return <ManageHotelForm onSubmit={handleSubmit} isPending={isPending} />;
+  return <ManageHotelForm onSubmit={handleSubmit} isAdding={isPending} />;
 }
 
 export default AddHotel;
