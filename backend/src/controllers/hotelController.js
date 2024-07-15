@@ -25,7 +25,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
   }
 
   if (hotelStar) {
-    queryObj.starRating = hotelStar;
+    queryObj.hotelStar = hotelStar;
   }
 
   // SORTING
@@ -61,24 +61,23 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 });
 
 export const createHotel = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  // console.log(req.files, req.body);
+  console.log(req.files, req.body);
 
-  let imageCoverUrl = DEFAULT_HOTEL_IMAGE;
-  let hotelImagesUrl = [DEFAULT_HOTEL_IMAGE, DEFAULT_HOTEL_IMAGE_2];
+  let imageCoverUrl;
+  let hotelImagesUrl;
 
-  // if (req.files?.imageCoverFile || req.files?.hotelImagesFiles) {
-  //   imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
-  //   hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
-  // }
+  if (req.files?.imageCoverFile || req.files?.hotelImagesFiles) {
+    imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
+    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
+  }
 
   const hotel = await Hotel.create({
     ...req.body,
     imageCover: imageCoverUrl[0],
     hotelImages: hotelImagesUrl,
   });
-  // console.log(hotel);
 
   res.status(StatusCodes.CREATED).json({
     status: 'success',
