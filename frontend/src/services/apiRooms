@@ -1,0 +1,15 @@
+import customFetch from "../utils/customFetch";
+
+const getAllRooms = async (id) => {
+  let url = `/rooms`;
+  if (id) {
+    url = `/rooms/${id}/rooms`;
+  }
+  const res = await customFetch.get(url);
+
+  return res.data;
+};
+
+const apiRooms = { getAllRooms };
+
+export default apiRooms;
