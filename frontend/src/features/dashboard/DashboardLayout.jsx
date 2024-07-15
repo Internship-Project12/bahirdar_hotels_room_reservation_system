@@ -72,7 +72,7 @@ function DashboardLayout() {
   const { role } = useAuthContext();
 
   return (
-    <div className="mx-auto flex max-w-[120rem] bg-black">
+    <div className="mx-auto flex max-w-[120rem] bg-black font-lato">
       {role === "admin" ? (
         <SideBar menus={adminMenus} />
       ) : role === "manager" ? (
