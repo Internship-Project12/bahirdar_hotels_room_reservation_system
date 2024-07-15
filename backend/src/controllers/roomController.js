@@ -58,8 +58,8 @@ const createRoom = catchAsync(async (req, res, next) => {
   if (!req.body.hotel) req.body.hotel = req.params.hotelId;
 
   // upload room images to cloudinary
-  let imageUrls = [DEFAULT_ROOM_IMAGE, DEFAULT_ROOM_IMAGE_2];
-  // if (req.files) imageUrls = uploadImages(req.files, next);
+  let imageUrls;
+  if (req.files) imageUrls = await uploadImages(req.files, next);
 
   // create room
   const room = await Room.create({ ...req.body, images: imageUrls });

@@ -13,12 +13,12 @@ router.use(
 router
   .route('/')
   .get(roomController.getAllRooms)
-  .post(upload.array('images', 5), roomController.createRoom);
+  .post(upload.array('RoomImageFiles', 10), roomController.createRoom);
 
 router
   .route('/:id')
   .get(roomController.getRoom)
-  .patch(upload.array('images', 5), roomController.updateRoom)
+  .patch(upload.array('RoomImageFiles', 10), roomController.updateRoom)
   .delete(roomController.deleteRoom);
 
 export default router;
