@@ -2,6 +2,7 @@ import {
   DEFAULT_ROOM_IMAGE,
   DEFAULT_ROOM_IMAGE_2,
 } from '../constants/constants.js';
+import Booking from '../models/bookingModel.js';
 import Room from '../models/roomModel.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
@@ -37,7 +38,9 @@ const getAllRooms = catchAsync(async (req, res, next) => {
 
 const getRoom = catchAsync(async (req, res, next) => {
   // find by id
-  const room = await Room.findById(req.params.id);
+  const room = await Room.findById(req.params.id).populate({
+    path: 'bookings',
+  });
 
   if (!room) {
     return next(new AppError('There is no room found with that id', 404));
@@ -86,10 +89,12 @@ const updateRoom = catchAsync(async (req, res, next) => {
   }
 
   // upload room images to cloudinary
-  let imageUrls;
-  if (req.files) imageUrls = uploadImages(req.files);
-  room.images = [...(room?.images || []), ...imageUrls];
-  await room.save();
+  if (req.files?.length > 0) {
+    let imageUrls;
+    imageUrls = await uploadImages(req.files);
+    room.images = [...(room.images || []), ...imageUrls];
+    await room.save({ validateBeforeSave: false });
+  }
 
   // update hotel | price per night and number of rooms
   await room.constructor.calcMinPriceAndNumOfRooms(room.hotel);
@@ -105,12 +110,22 @@ const updateRoom = catchAsync(async (req, res, next) => {
 });
 
 const deleteRoom = catchAsync(async (req, res, next) => {
-  // find and delete
-  const room = await Room.findByIdAndDelete(req.params.id);
+  // find by id
+  const room = await Room.findById(req.params.id).populate({
+    path: 'bookings',
+  });
 
   if (!room) {
     return next(new AppError('There is no room found with that id', 404));
   }
+  const bookingPromises = room.bookings?.map(
+    async (booking) => await Booking.findByIdAndDelete(booking._id)
+  );
+
+  await Promise.all(bookingPromises);
+
+  // find and delete
+  await Room.findByIdAndDelete(req.params.id);
 
   // update hotel | price per night and number of rooms
   await room.constructor.calcMinPriceAndNumOfRooms(room.hotel);

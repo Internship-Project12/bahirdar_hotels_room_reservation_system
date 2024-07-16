@@ -140,7 +140,10 @@ export const updateHotel = catchAsync(async (req, res, next) => {
 
   if (req.files.hotelImagesFiles) {
     hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
-    hotel.hotelImages = [...(hotel?.hotelImages || []), ...hotelImagesUrl];
+    hotel.hotelImages = [
+      ...(hotel?.hotelImages || []),
+      ...(hotelImagesUrl || []),
+    ];
   }
 
   await hotel.save({ validateBeforeSave: false });
@@ -188,20 +191,20 @@ export const deleteHotel = catchAsync(async (req, res, next) => {
     hotel: undefined,
   });
 
-  // DELETE ALL ROOM 
-  const roomPromises = hotel.rooms.map(
+  // DELETE ALL ROOM
+  const roomPromises = hotel.rooms?.map(
     async (room) => await Room.findByIdAndDelete(room._id)
   );
   await Promise.all(roomPromises);
 
   // DELETE ALL REVIEWS
-  const reviewPromises = hotel.reviews.map(
+  const reviewPromises = hotel.reviews?.map(
     async (review) => await Review.findByIdAndDelete(review._id)
   );
   await Promise.all(reviewPromises);
 
   // DELETE ALL BOOKINGS
-  const bookingPromises = hotel.bookings.map(
+  const bookingPromises = hotel.bookings?.map(
     async (booking) => await Booking.findByIdAndDelete(booking._id)
   );
   await Promise.all(bookingPromises);

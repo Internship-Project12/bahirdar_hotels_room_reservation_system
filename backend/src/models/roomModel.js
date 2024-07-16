@@ -39,7 +39,7 @@ const roomSchema = new mongoose.Schema(
     },
     capacity: {
       type: Number,
-      required: [true, 'A room must have a capacity']
+      required: [true, 'A room must have a capacity'],
     },
     description: {
       type: String,
@@ -65,6 +65,12 @@ const roomSchema = new mongoose.Schema(
 
 // this will prevent creating the same roomNumber on the same hotel
 roomSchema.index({ hotel: 1, roomNumber: 1 }, { unique: true });
+
+roomSchema.virtual('bookings', {
+  ref: 'Booking',
+  localField: '_id',
+  foreignField: 'room',
+});
 
 // calcMinPriceAndNumOfRooms
 roomSchema.statics.calcMinPriceAndNumOfRooms = async function (hotelId) {

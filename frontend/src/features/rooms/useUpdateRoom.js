@@ -15,7 +15,7 @@ export const useUpdateRoom = () => {
     onSuccess: () => {
       queryClient.invalidateQueries([QueryKey.ROOM, id]);
       toast.success("Hotel room updated successfully");
-      navigate(`/rooms`);
+      navigate(`/dashboard/rooms`);
     },
     onError: (err) => {
       toast.error(
