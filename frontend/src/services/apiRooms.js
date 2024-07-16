@@ -31,6 +31,11 @@ const getRoom = async ({ id }) => {
   return res.data;
 };
 
-const apiRooms = { getAllRooms, createRoom, updateRoom, getRoom };
+const deleteRoom = async ({ id }) => {
+  const res = await customFetch.delete(`/rooms/${id}`);
+  return res.data;
+};
+
+const apiRooms = { getAllRooms, createRoom, updateRoom, getRoom , deleteRoom};
 
 export default apiRooms;
