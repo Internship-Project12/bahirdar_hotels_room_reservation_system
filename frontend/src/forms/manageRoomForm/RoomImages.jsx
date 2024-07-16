@@ -14,7 +14,7 @@ function RoomImages() {
     e.preventDefault();
 
     setValue(
-      "hotelImages",
+      "images",
       existingImageUrls.filter((img) => img !== image),
     );
   };
@@ -26,9 +26,14 @@ function RoomImages() {
           <div>
             <h2>Rooms Images</h2>
             <div className="grid grid-cols-4 gap-3">
-              {existingImageUrls.map((image, i) => {
+              {existingImageUrls.map((image, i) => (
                 <div key={i} className="group relative bg-gray-200">
-                  <img key={i} src={image} alt="" className="w-[200px]" />
+                  <img
+                    key={i}
+                    src={image}
+                    alt={`image-${i + 1}`}
+                    className="h-[200px] w-[300px] object-center"
+                  />
                   <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition duration-300 group-hover:opacity-100">
                     <button
                       onClick={(e) => handleDeleteHotelImages(e, image)}
@@ -38,8 +43,8 @@ function RoomImages() {
                       delete
                     </button>
                   </div>
-                </div>;
-              })}
+                </div>
+              ))}
             </div>
           </div>
         ) : null}
