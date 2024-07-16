@@ -37,7 +37,9 @@ const getAllRooms = catchAsync(async (req, res, next) => {
 
 const getRoom = catchAsync(async (req, res, next) => {
   // find by id
-  const room = await Room.findById(req.params.id);
+  const room = await Room.findById(req.params.id).populate({
+    path: 'bookings',
+  });
 
   if (!room) {
     return next(new AppError('There is no room found with that id', 404));
