@@ -4,6 +4,10 @@ import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
 import { uploadImages } from '../utils/uploadImages.js';
+import User from '../models/userModel.js';
+import Room from '../models/roomModel.js';
+import Review from '../models/reviewModel.js';
+import Booking from '../models/bookingModel.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -154,11 +158,56 @@ export const deleteHotel = catchAsync(async (req, res, next) => {
   await new Promise((resolve) => setTimeout(resolve, 3000));
 
   const { id } = req.params;
-  const hotel = await Hotel.findByIdAndDelete(id);
+
+  // IT IS STRICT TO DELETE A HOTEL
+  // WHEN WE WANT TO DELETE A HOTEL WE SHOULD DELETE ALL THE DATA RELATED TO THAT HOTEL AS WELL
+  // 1ST WE FIND THE HOTEL BY ID AND POPULATE ALL THE DOCS RELATED TO THE HOTEL
+  // IF HOTEL THEN WE GO TO EACH ONE BY ONE AND DELETE THEM AS WELL IN ORDER TO NOT BREAK THE LOGIC
+  const hotel = await Hotel.findById(id)
+    .populate({
+      path: 'rooms',
+    })
+    .populate({
+      path: 'reviews',
+    })
+    .populate({
+      path: 'manager',
+      select: `firstName lastName email photo phoneNumber`,
+    })
+    .populate({
+      path: 'bookings',
+    });
 
   if (!hotel) {
     return next(new AppError('No hotel found with that ID', 404));
   }
+
+  // WE UPDATE THE MANAGER TO A USER AND DELETE THE LINKED HOTEL
+  await User.findByIdAndUpdate(hotel.manager._id, {
+    role: 'user',
+    hotel: undefined,
+  });
+
+  // DELETE ALL ROOM 
+  const roomPromises = hotel.rooms.map(
+    async (room) => await Room.findByIdAndDelete(room._id)
+  );
+  await Promise.all(roomPromises);
+
+  // DELETE ALL REVIEWS
+  const reviewPromises = hotel.reviews.map(
+    async (review) => await Review.findByIdAndDelete(review._id)
+  );
+  await Promise.all(reviewPromises);
+
+  // DELETE ALL BOOKINGS
+  const bookingPromises = hotel.bookings.map(
+    async (booking) => await Booking.findByIdAndDelete(booking._id)
+  );
+  await Promise.all(bookingPromises);
+
+  // AND FINALLY KILL THE ELEPHANT
+  await Hotel.findByIdAndDelete(id);
 
   res.status(StatusCodes.OK).json({
     status: 'success',

@@ -1,5 +1,5 @@
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import HotelTableBody from "./HotelTable";
+import HotelTable from "./HotelTable";
 import HotelTableHeader from "./HotelTableHeader";
 import { useHotels } from "./useHotels";
 import Spinner from "../../ui/Spinner";
@@ -102,7 +102,7 @@ function AllHotels() {
       {isLoading ? (
         <Spinner />
       ) : hotels?.length > 0 ? (
-        hotels.map((hotel) => <HotelTableBody key={hotel.id} hotel={hotel} />)
+        hotels.map((hotel) => <HotelTable key={hotel.id} hotel={hotel} />)
       ) : (
         <div>There are not hotels found</div>
       )}

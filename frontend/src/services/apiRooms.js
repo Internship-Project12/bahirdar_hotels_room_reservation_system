@@ -20,6 +20,17 @@ const createRoom = async ({ id, data }) => {
   return res.data;
 };
 
-const apiRooms = { getAllRooms, createRoom };
+const updateRoom = async ({ id, data }) => {
+  const res = await customFetch.patch(`/rooms/${id}`, data);
+
+  return res.data;
+};
+
+const getRoom = async ({ id }) => {
+  const res = await customFetch.get(`/rooms/${id}`);
+  return res.data;
+};
+
+const apiRooms = { getAllRooms, createRoom, updateRoom, getRoom };
 
 export default apiRooms;
