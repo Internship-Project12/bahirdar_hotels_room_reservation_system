@@ -4,12 +4,17 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 
 const getAllBookings = catchAsync(async (req, res, next) => {
-  const { status } = req.query;
+  const { status, hotel } = req.query;
 
   // FILTERING
   const queryObj = {};
   if (status) {
     queryObj.status = status;
+  }
+
+  // get all bookings of one hotel
+  if(hotel) {
+    queryObj.hotel = hotel
   }
 
   const features = new APIFeatures(Booking.find(), req.query)
