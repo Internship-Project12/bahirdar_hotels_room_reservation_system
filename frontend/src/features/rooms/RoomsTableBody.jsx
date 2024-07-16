@@ -23,8 +23,16 @@
 
 import { MdDeleteOutline, MdEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useDeleteRoom } from "./useDeleteRoom";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 function RoomsTableBody({ room }) {
+  const { mutate, isPending } = useDeleteRoom();
+
+  const handleDelete = (id) => {
+    mutate(id);
+  };
+
   return (
     <div className="mb-1 grid grid-cols-9 items-center gap-3 border-b border-slate-200 p-3 text-sm shadow">
       {/* HOTEL NAME */}
@@ -56,14 +64,23 @@ function RoomsTableBody({ room }) {
           <Link to={`/dashboard/update-room/${room._id}`}>
             <MdEdit size={24} className="fill-blue-700" />
           </Link>
-          <Link>
-            <MdDeleteOutline size={24} color="red" />
-          </Link>
+          <button
+            disabled={isPending}
+            onClick={() => handleDelete(room._id)}
+            className="disabled:cursor-not-allowed disabled:bg-slate-300 disabled:opacity-65"
+          >
+            {!isPending ? (
+              <MdDeleteOutline
+                disabled={isPending}
+                size={24}
+                className="fill-red-600 disabled:cursor-not-allowed disabled:fill-red-400"
+              />
+            ) : (
+              <SpinnerMini color="text-red-600" />
+            )}
+          </button>
         </div>
-        <Link
-         
-          className="rounded bg-blue-700 p-2 font-semibold text-white"
-        >
+        <Link className="rounded bg-blue-700 p-2 font-semibold text-white">
           Details
         </Link>
       </div>

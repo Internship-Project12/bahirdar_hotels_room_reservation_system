@@ -192,19 +192,19 @@ export const deleteHotel = catchAsync(async (req, res, next) => {
   });
 
   // DELETE ALL ROOM
-  const roomPromises = hotel.rooms.map(
+  const roomPromises = hotel.rooms?.map(
     async (room) => await Room.findByIdAndDelete(room._id)
   );
   await Promise.all(roomPromises);
 
   // DELETE ALL REVIEWS
-  const reviewPromises = hotel.reviews.map(
+  const reviewPromises = hotel.reviews?.map(
     async (review) => await Review.findByIdAndDelete(review._id)
   );
   await Promise.all(reviewPromises);
 
   // DELETE ALL BOOKINGS
-  const bookingPromises = hotel.bookings.map(
+  const bookingPromises = hotel.bookings?.map(
     async (booking) => await Booking.findByIdAndDelete(booking._id)
   );
   await Promise.all(bookingPromises);
