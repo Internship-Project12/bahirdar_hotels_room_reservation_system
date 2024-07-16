@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useFormContext } from "react-hook-form";
+import { useRooms } from "../../features/rooms/useRooms";
 
-function RoomNumber({ rooms }) {
+function RoomNumber() {
   // we use this array of room numbers to validate the room number on submit
+  const { data: { data: { rooms } = {} } = {}, isLoading } = useRooms();
+
   const roomNumbers = rooms?.map((room) => room.roomNumber);
 
   const {
@@ -16,6 +19,7 @@ function RoomNumber({ rooms }) {
       <input
         type="number"
         defaultValue={101}
+        disabled={isLoading}
         className="w-full rounded-full border bg-slate-200 px-3 py-2 hover:outline-none focus:outline-none"
         placeholder="101"
         {...register("roomNumber", {
