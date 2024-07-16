@@ -86,10 +86,12 @@ const updateRoom = catchAsync(async (req, res, next) => {
   }
 
   // upload room images to cloudinary
-  let imageUrls;
-  if (req.files) imageUrls = uploadImages(req.files);
-  room.images = [...(room?.images || []), ...imageUrls];
-  await room.save();
+  if (req.files?.length > 0) {
+    let imageUrls;
+    imageUrls = await uploadImages(req.files);
+    room.images = [...(room.images || []), ...imageUrls];
+    await room.save({ validateBeforeSave: false });
+  }
 
   // update hotel | price per night and number of rooms
   await room.constructor.calcMinPriceAndNumOfRooms(room.hotel);
