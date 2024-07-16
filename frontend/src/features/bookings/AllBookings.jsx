@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import BookingTableBody from "./BookingTableBody";
@@ -5,11 +6,14 @@ import BookingTableHeading from "./BookingTableHeading";
 import { useBookings } from "./useBookings";
 import { useState } from "react";
 
-function AllBookings() {
+function AllBookings({ hotelId }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [active, setActive] = useState("");
 
-  const { data: { data: { bookings } = {} } = {}, isLoading } = useBookings();
+  // // HERE THE HOTEL IS IS NEEDED TO FIND ALL THE BOOKINGS OF ONE HOTEL
+  const { data: { data: { bookings } = {} } = {}, isLoading } = useBookings({
+    hotelId,
+  });
 
   const handleClickStatus = (status) => {
     searchParams.set("status", status);

@@ -55,7 +55,7 @@ function HotelTable({ hotel }) {
             )}
           </button>
         </div>
-        <Link className="rounded bg-blue-700 p-2 font-semibold text-white">
+        <Link to={`/hotels/${hotel._id}`} className="rounded bg-blue-700 p-2 font-semibold text-white">
           Details
         </Link>
       </div>
