@@ -70,7 +70,7 @@ function AllBookings() {
           <BookingTableBody booking={booking} key={i} />
         ))
       ) : (
-        <div>There are not hotels found</div>
+        <div>There are not bookings found</div>
       )}
     </div>
   );
