@@ -29,14 +29,8 @@ const updateHotel = async ({ updatedHotelData, id }) => {
 };
 
 const deleteHotel = async (id) => {
-  try {
-    const res = await customFetch.delete(`/hotels/${id}`);
-
-    const { data } = res;
-    return data;
-  } catch (error) {
-    return error?.response?.data;
-  }
+  const res = await customFetch.delete(`/hotels/${id}`);
+  return res.data;
 };
 
 const apiHotels = {

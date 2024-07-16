@@ -9,6 +9,10 @@ function AddHotelManager() {
   const [showModal, setShowModal] = useState(false);
   const [selectedManager, setSelectedManager] = useState();
 
+  // the manager is not registered using react hook form so their is no way to validate if it is empty or not 
+  // so i use this state to manually check if manager is selected or not and then display a warning
+  // const [firstRender, setFirstRender] = useState(true);
+
   const { setValue, watch } = useFormContext();
 
   const handleShowModal = (e) => {
@@ -36,13 +40,17 @@ function AddHotelManager() {
           <GrUserManager size={30} />
           {`${!isInUpdateMode ? "Add Manager" : "Change Manger of Hotel"}`}
         </button>
-        {setSelectedManager || isInUpdateMode ? (
+        {selectedManager || isInUpdateMode ? (
           <div className="overflow-hidden rounded-full bg-slate-300 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:translate-x-2">
             <UsersListItem
               user={selectedManager || currentManager}
               onClick={() => {}}
             />
           </div>
+        ) : !currentManager ? (
+          <p className="text-sm font-normal text-red-400">
+            Please select the manager of the hotel. a hotel must have a manager
+          </p>
         ) : (
           // this empty div is for styling purpose justify around
           <div></div>
