@@ -11,7 +11,9 @@ function RoomNumber() {
   const {
     register,
     formState: { errors },
+    watch,
   } = useFormContext();
+  const inUpdateMode = watch("isInUpdateMode");
 
   return (
     <label className="">
@@ -24,7 +26,7 @@ function RoomNumber() {
         placeholder="101"
         {...register("roomNumber", {
           validate: (num) => {
-            if (roomNumbers.includes(num)) {
+            if (roomNumbers.includes(num) && !inUpdateMode) {
               return "please assign a unique room number";
             }
 
