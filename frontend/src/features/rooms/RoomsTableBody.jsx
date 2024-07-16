@@ -53,7 +53,7 @@ function RoomsTableBody({ room }) {
       <div className="col-span-1 col-start-8">{`${room.isAvailable}`}</div>
       <div className="col-span-1 col-start-9 flex flex-col items-center gap-1">
         <div className="flex gap-2">
-          <Link>
+          <Link to={`/dashboard/update-room/${room._id}`}>
             <MdEdit size={24} className="fill-blue-700" />
           </Link>
           <Link>
