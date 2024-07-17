@@ -40,14 +40,13 @@ function HotelsListPage() {
 
   return (
     <div>
-      <div className="z-10 h-24 bg-blue-900 opacity-85">
+      <div className="z-10 h-24 overflow-hidden bg-blue-900 opacity-85">
         {/* SEARCH */}
-        <div className="rounded p-3">
+        <div className="scale-150  rounded p-3 w-[50vw]  mx-auto">
           <Search
             onSearchHandler={onSearchHandler}
             register={register}
             isLoading={isLoading}
-            size={{ height: 3.5, width: 25 }}
           />
         </div>
       </div>

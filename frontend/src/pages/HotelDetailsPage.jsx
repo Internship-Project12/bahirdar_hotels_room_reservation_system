@@ -1,35 +1,36 @@
-import {  useQuery } from "@tanstack/react-query";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
-import apiHotels from "../services/apiHotels";
+import { useHotel } from "../features/hotels/useHotel";
+import Spinner from "../ui/Spinner";
 
 function HotelDetailsPage() {
   SwiperCore.use([Navigation]);
-
-  const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["hotel", id],
-    queryFn: () => apiHotels.getHotel(id),
-  });
+  const { id } = useParams();
+
+  const {
+    data: { data: { data: hotel } = {} } = {},
+    isLoading,
+    isError,
+    error,
+  } = useHotel({ id });
 
   if (isLoading) {
-    return <p>Loading</p>;
+    return <Spinner />;
   }
 
-  if (data.status !== "success") {
-    navigate("/hotels");
-    toast.error(`Error fetching the detail, ${data.message}`);
-    return;
-  }
+  if (isError) {
+    toast.error(
+      error?.response?.message || "No Hotel Found. 404); please try again",
+    );
 
-  const { data: hotel } = data.data;
-  // console.log(hotel);
+    return navigate("/hotels");
+  }
 
   return (
     <div className="flex flex-col gap-5 p-4">
