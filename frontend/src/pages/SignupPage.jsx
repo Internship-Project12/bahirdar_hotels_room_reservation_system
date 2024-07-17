@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiAuth from "../../services/apiAuth";
+import apiAuth from "../services/apiAuth";
 import toast from "react-hot-toast";
 import { FormProvider, useForm } from "react-hook-form";
-import QueryKey from "../../constants/QueryKey";
-import SignUpForm from "../../forms/auth/SignUpForm";
+import QueryKey from "../constants/QueryKey";
+import SignUpForm from "../forms/auth/SignUpForm";
 
-function Signup() {
+function SignupPage() {
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
@@ -41,4 +41,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default SignupPage;
