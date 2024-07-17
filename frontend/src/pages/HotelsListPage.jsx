@@ -26,7 +26,7 @@ function HotelsListPage() {
     <div className="flex w-full gap-4 bg-slate-100 p-6">
       {/* filter/sort */}
       <div className="sticky top-2 h-fit w-[25%] border-r-2 border-t-2 p-2">
-        <HotelListFilter>
+        <HotelListFilter isLoading={isLoading}>
           <StarRatingFilter
             selectedStars={selectedStars}
             onChange={handleStarsChange}
