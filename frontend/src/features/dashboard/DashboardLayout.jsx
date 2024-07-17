@@ -33,11 +33,6 @@ const adminMenus = [
     url: "/dashboard/users",
     Icon: <HiOutlineUsers size={20} />,
   },
-  // {
-  //   title: "Settings",
-  //   url: "",
-  //   Icon: <MdSettings size={20} />,
-  // },
 ];
 
 const managerMenus = [
