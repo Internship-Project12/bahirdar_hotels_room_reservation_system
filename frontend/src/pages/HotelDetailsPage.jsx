@@ -34,17 +34,30 @@ function HotelDetailsPage() {
 
   return (
     <div className="flex flex-col gap-5 p-4">
-      <div className="">
-        <img src={hotel.imageCover} alt="" />
-      </div>
-      <h1 className="text-xl font-bold">{hotel.name}</h1>
-      <div>
-        <span className="text-xl font-bold">hotelStar: </span>
-        {hotel.hotelStar}
-      </div>
-      <div>
-        <span className="text-xl font-bold">address: </span>
-        {hotel.address}
+      <div
+        className="relative flex h-[95vh] flex-col items-center justify-center"
+        style={{
+          "clip-path": "polygon(0 0, 100vw 0%, 100vw 70vh, 0 90vh)",
+        }}
+      >
+        <div className="absolute -z-[-9] h-full w-full bg-blue-600 opacity-50"></div>
+        <img
+          src={hotel.imageCover}
+          alt=""
+          className="absolute -z-10 h-full w-full object-cover object-center"
+        />
+        <h1
+          style={{ "backface-visibility": "hidden" }}
+          className="z-10 w-[55rem] bg-blue-600 p-4 text-center text-7xl font-bold text-slate-300 shadow-lg"
+        >
+          {hotel.name}
+        </h1>
+        <h2
+          style={{ "backface-visibility": "hidden" }}
+          className="z-10 flex w-[35rem] items-center whitespace-pre-line bg-blue-600 p-4 text-center text-xl font-bold text-slate-300 opacity-85 shadow-lg"
+        >
+          A {hotel.hotelStar} star Hotel. Located In {hotel.address}
+        </h2>
       </div>
       <div>
         <span className="text-xl font-bold">summary: </span>
