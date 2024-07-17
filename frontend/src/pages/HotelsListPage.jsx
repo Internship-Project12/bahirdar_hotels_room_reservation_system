@@ -1,114 +1,57 @@
-import { FaStar, FaRegStar } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useHotels } from "../features/hotels/useHotels";
+import HotelListFilter from "../ui/HotelListFilter";
+import HotelsListItem from "../ui/HotelsListItem";
 import Spinner from "../ui/Spinner";
+import StarRatingFilter from "../components/StarRatingFilter";
 
 function HotelsListPage() {
-  const { data: { data: { data: hotels } = {} } = {}, isLoading } = useHotels();
+  const [selectedStars, setSelectedStars] = useState([]);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  const { data: { data: { data: hotels } = {} } = {}, isLoading } = useHotels({
+    selectedStars,
+  });
 
+  const handleStarsChange = (e) => {
+    const starRating = e.target.value;
+
+    setSelectedStars((prevStars) =>
+      e.target.checked
+        ? [...prevStars, starRating]
+        : prevStars.filter((star) => star !== starRating),
+    );
+  };
 
   return (
-    // <div className="relative -z-10">
-    <div className="overflow-auto">
-      <div className="sticky top-4 flex justify-center">
-        {/* filter/sort */}
-        <div className="h-[100vh] min-w-[300px] border-r-2 border-r-blue-300 bg-blue-100">
-          filter/sort
-        </div>
-        {/* hotels list */}
-        <section className="h-screen max-w-[1024px] flex-1 overflow-auto bg-gray-200">
-          {/* hotel cards */}
-          {hotels?.map((hotel) => (
-            <div
-              key={hotel._id}
-              className="m-4 flex justify-between overflow-hidden rounded border-2 border-blue-300 p-3"
-            >
-              <div>
-                <div className="flex gap-3">
-                  <div className="h-[300px] w-[300px] overflow-hidden rounded shadow-xl">
-                    <img
-                      src={hotel.imageCover}
-                      alt="hotel cover image"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  {/* hotel name */}
-                  <div className="flex flex-col justify-around">
-                    <div className="flex flex-col gap-2">
-                      <Link
-                        to={`/hotels/${hotel._id}`}
-                        className="text-2xl font-bold text-blue-900 underline"
-                      >
-                        {hotel.name}
-                      </Link>
-                      {hotel.hotelStar && (
-                        <span className="text-sm text-slate-500">
-                          ({hotel.hotelStar} Star Hotel In Bahirdar)
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-col justify-center gap-3">
-                      <span>Standard Rooms</span>
-                      <div className="">
-                        <p>
-                          <span>3</span> Double bed
-                        </p>
-                        <p>
-                          <span>2</span> Single bed
-                        </p>
-                      </div>
-                    </div>
-                    <p>Free Cancelation && free Breakfast</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* summary */}
-              <div className="flex max-w-[200px] flex-col items-end justify-evenly">
-                <div className="flex flex-col items-end gap-1">
-                  <div className="flex items-center gap-2">
-                    <span className="flex gap-1">
-                      <FaStar color="#fcc419" fill="#fcc419" size={"20px"} />
-                      <FaStar color="#fcc419" fill="#fcc419" size={"20px"} />
-                      <FaStar color="#fcc419" fill="#fcc419" size={"20px"} />
-                      <FaStar color="#fcc419" fill="#fcc419" size={"20px"} />
-                      <FaRegStar color="#fcc419" fill="#fcc419" size={"20px"} />
-                    </span>
-                    <span className="font-bold tracking-tighter text-yellow-400">
-                      4.0
-                    </span>
-                  </div>
-                  <h3 className="text-gray-5 border-b-2 border-blue-800 font-light tracking-tight">
-                    <span className="font-bold text-blue-800">34</span> reviews
-                  </h3>
-                </div>
-                <div className="flex flex-col items-end">
-                  <p className="text-lg font-bold text-slate-600">3 Nights</p>
-                  <p className="text-xs font-bold text-slate-600">
-                    (2 Adults, 1 Children)
-                  </p>
-                  <p className="text-sm font-bold text-slate-600">
-                    Price:{" "}
-                    <span className="text-lg font-bold tracking-tighter text-blue-800">
-                      {`255 ETB`}
-                    </span>
-                  </p>
-                </div>
-                <Link
-                  to={`/hotels/${hotel._id}`}
-                  className="rounded bg-blue-500 p-2 text-white"
-                >
-                  See Details
-                </Link>
-              </div>
-            </div>
-          ))}
-        </section>
+    <div className="flex w-full gap-4 bg-slate-100 p-6">
+      {/* filter/sort */}
+      <div className="sticky top-2 h-fit w-[25%] border-r-2 border-t-2 p-2">
+        <HotelListFilter>
+          <StarRatingFilter
+            selectedStars={selectedStars}
+            onChange={handleStarsChange}
+          />
+        </HotelListFilter>
       </div>
+      {/* hotels list */}
+      {isLoading ? (
+        <div className="flex h-[10rem] w-full items-center justify-center">
+          <Spinner />
+        </div>
+      ) : (
+        <section className="w-[80%] rounded-md border-l-2 border-r-2 bg-slate-100 py-4 shadow-lg">
+          {/* hotel cards */}
+          {hotels.length > 0 ? (
+            hotels?.map((hotel) => (
+              <HotelsListItem hotel={hotel} key={hotel._id} />
+            ))
+          ) : (
+            <div className="flex h-full items-center justify-center uppercase">
+              <p className="text-2xl border-b-2">404): there are not hotels found</p>
+            </div>
+          )}
+        </section>
+      )}
     </div>
   );
 }
