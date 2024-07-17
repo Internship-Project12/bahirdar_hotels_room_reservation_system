@@ -58,7 +58,7 @@ const managerMenus = [
   },
   {
     title: "Settings",
-    url: "",
+    url: "/dashboard/settings",
     Icon: <MdSettings size={20} />,
   },
 ];

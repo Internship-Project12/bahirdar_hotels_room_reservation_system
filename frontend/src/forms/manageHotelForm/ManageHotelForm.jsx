@@ -125,13 +125,13 @@ function ManageHotelForm({
   return (
     <FormProvider {...formMethods}>
       <div className="flex items-center justify-center p-3">
-        <h1 className="min-w-[30rem] cursor-pointer rounded-full bg-blue-600 px-6 py-2 text-center text-2xl font-bold text-white shadow-xl">
+        <h1 className="min-w-[30rem] cursor-pointer uppercase rounded-full bg-blue-600 px-6 py-2 text-center text-2xl font-bold text-white shadow-xl">
           {isInUpdateMode ? "update hotel" : "Add Hotel"}
         </h1>
       </div>
       {isLoading ? (
         <Spinner />
-      ) : (
+      ) : isInUpdateMode && hotel ? (
         <form
           onSubmit={onSubmitHandler}
           className="m-auto flex flex-col gap-8 rounded bg-slate-100 p-10 shadow-lg"
@@ -149,6 +149,10 @@ function ManageHotelForm({
             {isAdding || isUpdating ? <SpinnerMini /> : "Save Hotel"}
           </button>
         </form>
+      ) : (
+        <div className="flex items-center justify-center p-6">
+          <p className="text-2xl uppercase">there is no hotel to update</p>
+        </div>
       )}
     </FormProvider>
   );
