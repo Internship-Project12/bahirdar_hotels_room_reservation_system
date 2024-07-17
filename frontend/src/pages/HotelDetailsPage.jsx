@@ -1,11 +1,11 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {  useQuery } from "@tanstack/react-query";
+import {  useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import SwiperCore from "swiper";
 import { Navigation } from "swiper/modules";
-import apiHotels from "../../services/apiHotels";
+import apiHotels from "../services/apiHotels";
 
 function HotelDetailsPage() {
   SwiperCore.use([Navigation]);
@@ -16,17 +16,6 @@ function HotelDetailsPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["hotel", id],
     queryFn: () => apiHotels.getHotel(id),
-  });
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: apiHotels.deleteHotel,
-    onSuccess: () => {
-      toast.success("Hotel deleted");
-      navigate("/hotels");
-    },
-    onError: (data) => {
-      toast.success(`fail to delete a hotel ${data.message}`);
-    },
   });
 
   if (isLoading) {

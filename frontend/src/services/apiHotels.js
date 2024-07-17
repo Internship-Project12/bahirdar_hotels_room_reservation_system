@@ -3,16 +3,20 @@ import customFetch from "../utils/customFetch";
 const addHotel = async (hotel) => await customFetch.post("/hotels", hotel);
 
 const getAllHotels = async ({ filter }) => {
-  const { search, hotelStar, sort } = filter;
+  const { search, hotelStar, sort, selectedStars } = filter;
+  let url = `/hotels?search=${search}&sort=${sort}`;
 
-  const res = await customFetch.get(
-    `/hotels?search=${search}&hotelStar=${hotelStar}&sort=${sort}`,
-  );
+  if (selectedStars?.length) {
+    selectedStars.forEach((val) => (url = url + `&hotelStar=${val}`));
+  } else if(hotelStar) {
+    url = url + `&hotelStar=${hotelStar}`;
+  }
+  const res = await customFetch.get(url);
 
   return res.data;
 };
 
-const getHotel = async ({id}) => {
+const getHotel = async ({ id }) => {
   const res = await customFetch.get(`/hotels/${id}`);
   return res.data;
 };
