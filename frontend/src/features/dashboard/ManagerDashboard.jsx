@@ -5,13 +5,15 @@ import {
   MdOutlinePendingActions,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
-import Stats from "../hotels/Stats";
-import { Link, useNavigate } from "react-router-dom";
-import BookingCard from "../bookings/BookingCard";
-import { useAuthContext } from "../../context/AuthContext";
-import { useHotel } from "../hotels/useHotel";
-import Spinner from "../../ui/Spinner";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+import Stats from "../hotels/Stats";
+import BookingCard from "../bookings/BookingCard";
+import { useCurrentHotel } from "./useCurrentHotel";
+import { useAuthContext } from "../../context/AuthContext";
+import Spinner from "../../ui/Spinner";
 
 const managerStats = [
   {
@@ -70,13 +72,9 @@ const RecentlyBookedRooms = [
 
 function ManagerDashboard() {
   const navigate = useNavigate();
-  const { user, setCurrentHotelHandler } = useAuthContext();
+  const { setCurrentHotelHandler } = useAuthContext();
 
-  const {
-    data: { data: { data: hotel } = {} } = {},
-    isLoading,
-    isError,
-  } = useHotel({ id: user.hotel._id });
+  const { hotel, isLoading, isError } = useCurrentHotel();
 
   if (isLoading) return <Spinner />;
 
