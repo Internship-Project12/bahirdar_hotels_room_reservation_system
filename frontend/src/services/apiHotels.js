@@ -12,15 +12,9 @@ const getAllHotels = async ({ filter }) => {
   return res.data;
 };
 
-const getHotel = async (id) => {
-  try {
-    const res = await customFetch.get(`/hotels/${id}`);
-    const { data } = res;
-
-    return data;
-  } catch (error) {
-    return error?.response?.data;
-  }
+const getHotel = async ({id}) => {
+  const res = await customFetch.get(`/hotels/${id}`);
+  return res.data;
 };
 
 const updateHotel = async ({ updatedHotelData, id }) => {

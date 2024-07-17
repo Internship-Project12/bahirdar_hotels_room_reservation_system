@@ -1,48 +1,70 @@
+import { Link } from "react-router-dom";
+import UserTableHeader from "./UserTableHeader";
 import UsersTable from "./UsersTable";
-
-const users = [
-  {
-    id: 1,
-    user: "Alemu kebede",
-    userImg: "/user1.jpeg",
-    email: "abrham@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-    role: "manager",
-    hotel: "abc international hotel",
-  },
-  {
-    id: 2,
-    user: "betel Doe",
-    userImg: "/user2.jpeg",
-
-    email: "birtukan@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-  },
-  {
-    id: 4,
-    user: "Jane Smith",
-    userImg: "/user3.jpeg",
-    email: "weynua@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-  },
-  {
-    id: 5,
-    user: "Alemu",
-    userImg: "/user1.jpeg",
-    email: "yitbarek@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-  },
-  {
-    id: 3,
-    user: "betel Doe",
-    userImg: "/user2.jpeg",
-    email: "yehalem@gmail.com",
-    phoneNumber: "+251 23 3298 353",
-  },
-];
+import { useCurrentHotel } from "../dashboard/useCurrentHotel";
+import Spinner from "../../ui/Spinner";
+import Search from "../../ui/Search";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 function HotelUsers() {
-  return <UsersTable users={users} />;
+  const { register, handleSubmit } = useForm();
+
+  const [search, setSearch] = useState("");
+
+  let users;
+
+  const { hotel, isLoading } = useCurrentHotel();
+
+  if (isLoading) return <Spinner />;
+  users = hotel.bookings?.map((booking) => booking.user);
+
+  const onSearchHandler = handleSubmit((data) => {
+    setSearch(data.search);
+  });
+
+  if (search) {
+    // FIXME: ADD IGNORE CASE
+    users = users.filter(
+      (user) =>
+        user.firstName.includes(search) || user.lastName.includes(search),
+    );
+  }
+
+  return (
+    <div className="w-full bg-white font-lato text-gray-600 shadow-md">
+      <div className="flex items-center justify-between p-6">
+        <h1 className="p-4 uppercase">
+          <Link to="/dashboard/users">All Users</Link>
+        </h1>
+
+        {/* SEARCH  */}
+        <Search
+          isLoading={isLoading}
+          onSearchHandler={onSearchHandler}
+          register={register}
+        />
+        {/* FOR STYLING | TO CENTER THE SEARCH COMPONENT */}
+        <div></div>
+      </div>
+      <UserTableHeader />
+      {users?.length ? (
+        <div>
+          {users.map((user, i) => (
+            <UsersTable user={user} key={i} />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full bg-white font-lato text-gray-600 shadow-md">
+          <div className="flex items-center justify-center p-6">
+            <h1 className="p-4 uppercase">
+              <Link to="/dashboard/users">404 ): No user found</Link>
+            </h1>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default HotelUsers;

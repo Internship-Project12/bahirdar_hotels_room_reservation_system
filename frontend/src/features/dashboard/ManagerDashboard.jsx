@@ -5,62 +5,15 @@ import {
   MdOutlinePendingActions,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
-import Stats from "../hotels/Stats";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+import Stats from "../hotels/Stats";
 import BookingCard from "../bookings/BookingCard";
+import { useCurrentHotel } from "./useCurrentHotel";
 import { useAuthContext } from "../../context/AuthContext";
-
-const bookingHeaders = [
-  { label: "User", key: "user" },
-  { label: "Room Num", key: "room" },
-  { label: "Check-In", key: "checkIn" },
-  { label: "Num Of Nights", key: "numOfNights" },
-  { label: "Price Per Night ", key: "pricePerNights" },
-  { label: "status", key: "paymentStatus" },
-];
-
-const RecentBooks = [
-  {
-    user: "Alemu",
-    userImg: "/user1.jpeg",
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    room: `#${101}`,
-    numOfNights: 5,
-    pricePerNights: 250,
-    paymentStatus: "Completed",
-  },
-  {
-    user: "John Doe",
-    userImg: "/user2.jpeg",
-    room: `#${101}`,
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    numOfNights: 1,
-    pricePerNights: 250,
-    paymentStatus: "Pending",
-  },
-  {
-    user: "Alemu",
-    userImg: "/user1.jpeg",
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    room: `#${101}`,
-    numOfNights: 5,
-    pricePerNights: 250,
-    paymentStatus: "Completed",
-  },
-  {
-    user: "John Doe",
-    userImg: "/user2.jpeg",
-    room: `#${101}`,
-    checkIn: "22-05-2024",
-    checkOut: "24-05-2024",
-    numOfNights: 1,
-    pricePerNights: 250,
-    paymentStatus: "Pending",
-  },
-];
+import Spinner from "../../ui/Spinner";
 
 const managerStats = [
   {
@@ -118,6 +71,24 @@ const RecentlyBookedRooms = [
 ];
 
 function ManagerDashboard() {
+  const navigate = useNavigate();
+  const { setCurrentHotelHandler } = useAuthContext();
+
+  const { hotel, isLoading, isError } = useCurrentHotel();
+
+  if (isLoading) return <Spinner />;
+
+  if (isError) {
+    toast.error(
+      "Something went very wrong when fetching a hotel data : Please try again.",
+    );
+    return navigate("/");
+  }
+
+  if (hotel) {
+    setCurrentHotelHandler(hotel);
+  }
+
   return (
     <div className="flex w-full flex-col">
       <section className="m-3 mb-8 grid grid-cols-5 justify-between">

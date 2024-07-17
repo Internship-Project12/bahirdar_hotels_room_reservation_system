@@ -9,6 +9,7 @@ const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [currentHotel, setCurrentHotel] = useState({});
 
   const {
     data: res,
@@ -24,11 +25,13 @@ function AuthContextProvider({ children }) {
 
   const user = res?.data?.data.user || null;
 
-
   const handleOpenModal = () => {
     setIsOpenModal((prev) => !prev);
   };
 
+  const setCurrentHotelHandler = (hotel) => {
+    setCurrentHotel(hotel);
+  };
 
   return (
     <AuthContext.Provider
@@ -38,6 +41,8 @@ function AuthContextProvider({ children }) {
         handleOpenModal,
         user,
         role: user?.role || null,
+        currentHotel,
+        setCurrentHotelHandler,
       }}
     >
       {children}

@@ -5,25 +5,28 @@ import UserTableHeader from "./UserTableHeader";
 import { useUsers } from "./useUsers";
 import Search from "../../ui/Search";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AllUsers() {
   const { register, handleSubmit } = useForm();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [activeBtn, setActiveBtn] = useState();
+  const [activeBtn, setActiveBtn] = useState("");
 
   const { data: { data: { users } = {} } = {}, isLoading } = useUsers();
 
   const onSearchHandler = handleSubmit((data) => {
-    searchParams.set("search", data.search);
+    searchParams.set("search", data.search || "");
     setSearchParams(searchParams);
   });
 
   const onSearchByRoleHandler = (role) => {
     searchParams.set("role", role);
     setSearchParams(searchParams);
-    setActiveBtn(role);
   };
+
+  useEffect(() => {
+    setActiveBtn(searchParams.get("role") || "");
+  }, [searchParams]);
 
   return (
     <div className="w-full bg-white font-lato text-gray-600 shadow-md">
@@ -39,7 +42,7 @@ function AllUsers() {
           register={register}
         />
 
-        <div className='flex justify-between items-center gap-2'>
+        <div className="flex items-center justify-between gap-2">
           <button
             onClick={() => onSearchByRoleHandler("")}
             disabled={activeBtn === ""}
