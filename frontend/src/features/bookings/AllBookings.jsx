@@ -6,7 +6,7 @@ import BookingTableHeading from "./BookingTableHeading";
 import { useBookings } from "./useBookings";
 import { useState } from "react";
 
-function AllBookings({ hotelId }) {
+function AllBookings({ hotelId = ''}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [active, setActive] = useState("");
 
@@ -69,7 +69,7 @@ function AllBookings({ hotelId }) {
 
       {isLoading ? (
         <Spinner />
-      ) : bookings.length > 0 ? (
+      ) : bookings?.length > 0 ? (
         bookings.map((booking, i) => (
           <BookingTableBody booking={booking} key={i} />
         ))
