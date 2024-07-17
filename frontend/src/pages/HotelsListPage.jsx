@@ -71,7 +71,7 @@ function HotelsListPage() {
           <section className="w-[80%] rounded-md border-l-2 border-r-2 bg-slate-100 py-4 shadow-lg">
             {/* hotel cards */}
             {hotels.length > 0 ? (
-              hotels?.map((hotel) => (
+              [...hotels, ...hotels].map((hotel) => (
                 <HotelsListItem hotel={hotel} key={hotel._id} />
               ))
             ) : (

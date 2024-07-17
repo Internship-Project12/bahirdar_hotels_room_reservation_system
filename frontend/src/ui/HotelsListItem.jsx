@@ -46,22 +46,36 @@ function HotelsListItem({ hotel }) {
               className="h-full w-full object-cover object-center"
             />
           </div>
-          {/* HOTEL NAME */}
+
           <div className="flex flex-col justify-around">
             <div className="flex flex-col gap-2">
+              {/* HOTEL NAME */}
               <Link
                 to={`/hotels/${hotel._id}`}
                 className="text-2xl font-bold text-blue-600"
               >
                 {hotel.name}
               </Link>
+
+              {/* hotel star */}
               <span className="text-sm text-slate-500">
                 ({hotel.hotelStar} Star Hotel In Bahirdar)
               </span>
+
+              {/* hotel address */}
               <p className="text-sm text-slate-500">{hotel.address}</p>
             </div>
+
+            {/* num of rooms */}
             <div className="flex flex-col justify-center gap-3">
               <span>{hotel.numOfRooms} Standard Rooms</span>
+            </div>
+            <div className="flex justify-center gap-3 text-xs text-slate-500">
+              <span>
+                {`${hotel.facilities.slice(0, 6).join(", ")}`}{" "}
+                {hotel.facilities.length > 6 &&
+                  `and ${hotel.facilities.length - 6} more facilities...`}
+              </span>
             </div>
             <p>{hotel.summary}</p>
           </div>
