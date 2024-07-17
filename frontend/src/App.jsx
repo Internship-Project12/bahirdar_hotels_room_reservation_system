@@ -1,11 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import AppLayout from "./ui/AppLayout";
-import SignupPage from "./pages/auth/SignupPage";
-import SigninPage from "./pages/auth/SigninPage";
-import HotelsListPage from "./pages/hotels/HotelsListPage";
 import AddHotel from "./features/hotels/AddHotel";
-import HotelDetailsPage from "./pages/hotels/HotelDetailsPage";
 import UpdateHotel from "./features/hotels/UpdateHotel";
 import Dashboard from "./features/dashboard/Dashboard";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
@@ -22,6 +17,14 @@ import HotelRoomsTable from "./features/rooms/HotelRoomsTable";
 import AddRoom from "./features/rooms/AddRoom";
 import UpdateRoom from "./features/rooms/UpdateRoom";
 import Settings from "./features/settings/Settings";
+
+import {
+  HomePage,
+  HotelDetailsPage,
+  HotelsListPage,
+  SigninPage,
+  SignupPage,
+} from "./pages";
 
 function App() {
   const { role } = useAuthContext();

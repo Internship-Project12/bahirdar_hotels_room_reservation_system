@@ -1,35 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
 import { FaStar, FaRegStar } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
-import apiHotels from "../../services/apiHotels";
+import { Link } from "react-router-dom";
+import { useHotels } from "../features/hotels/useHotels";
+import Spinner from "../ui/Spinner";
 
 function HotelsListPage() {
-  const navigate = useNavigate();
-
-  const { data: res, isLoading } = useQuery({
-    queryKey: ["hotels"],
-    queryFn: apiHotels.getAllHotels,
-  });
+  const { data: { data: { data: hotels } = {} } = {}, isLoading } = useHotels();
 
   if (isLoading) {
-    return <div>Loading all hotels</div>;
+    return <Spinner />;
   }
 
-  if (!res?.data) {
-    return (
-      <div>
-        <p>No hotels found</p>
-        <button
-          onClick={() => navigate("/")}
-          className="rounded bg-blue-500 p-2 text-white"
-        >
-          Go to Home
-        </button>
-      </div>
-    );
-  }
-
-  const { data: hotels } = res.data;
 
   return (
     // <div className="relative -z-10">
@@ -42,7 +22,7 @@ function HotelsListPage() {
         {/* hotels list */}
         <section className="h-screen max-w-[1024px] flex-1 overflow-auto bg-gray-200">
           {/* hotel cards */}
-          {hotels.map((hotel) => (
+          {hotels?.map((hotel) => (
             <div
               key={hotel._id}
               className="m-4 flex justify-between overflow-hidden rounded border-2 border-blue-300 p-3"
