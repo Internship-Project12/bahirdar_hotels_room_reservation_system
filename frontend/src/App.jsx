@@ -21,6 +21,7 @@ import HotelUsers from "./features/users/HotelUsers";
 import HotelRoomsTable from "./features/rooms/HotelRoomsTable";
 import AddRoom from "./features/rooms/AddRoom";
 import UpdateRoom from "./features/rooms/UpdateRoom";
+import Settings from "./features/settings/Settings";
 
 function App() {
   const { role } = useAuthContext();
@@ -65,6 +66,7 @@ function App() {
               <Route path="update-room/:id" element={<UpdateRoom />} />
               <Route path="users" element={<HotelUsers />} />
               <Route path="bookings" element={<HotelBookings />} />
+              <Route path="settings" element={<Settings />} />
             </>
           ) : null}
         </Route>
