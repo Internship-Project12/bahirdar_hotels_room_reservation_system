@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-function Search({ onSearchHandler, isLoading, register }) {
+function Search({ onSearchHandler, isLoading = false, register }) {
   return (
     <form
       className="group flex items-center justify-center"
       onSubmit={onSearchHandler}
     >
-      <div className="">
+      <div className="flex flex-row rounded-full shadow-lg">
         <input
           type="search"
           disabled={isLoading}
