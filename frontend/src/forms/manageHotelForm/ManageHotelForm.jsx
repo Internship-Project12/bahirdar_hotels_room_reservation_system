@@ -9,53 +9,6 @@ import Spinner from "../../ui/Spinner";
 import { useAuthContext } from "../../context/AuthContext";
 import SpinnerMini from "../../ui/SpinnerMini";
 
-/*
-{
-    name: 'Addis International Hotel',
-    address: 'Bahir Dar, Amhara, 16km from the main straight',
-    hotelStar: '1',
-    facilities: [ 'Free wifi', 'Bar', 'Family rooms', 'Daily housekeeping' ],
-    summary: '5-star hotel located in the heart of Addis , Ethiopia',
-    description: 
-      'Addis International Hotel is a 5-star hotel located in the heart of Addis, Ethiopia. The hotel offers a luxurious experience with its spacious rooms, modern amenities, and exceptional service. Whether you are traveling for business or pleasure, Addis International Hotel is the perfect choice for your stay in Addis Ababa.',
-    imageCoverFile: FileList {
-      0: File {
-        name: 'Screenshot 2024-01-05 033656.png',
-        lastModified: 1704454623517,
-        webkitRelativePath: '',
-        size: 23147,
-        type: 'image/png'
-      },
-      length: 1
-    },
-    hotelImagesFiles: FileList {
-      0: File {
-        name: '20221026_090015-COLLAGE.jpg',
-        lastModified: 1697973572000,
-        webkitRelativePath: '',
-        size: 164566,
-        type: 'image/jpeg'
-      },
-      1: File {
-        name: 'Screenshot 2024-01-01 043201.png',
-        lastModified: 1704112335133,
-        webkitRelativePath: '',
-        size: 135249,
-        type: 'image/png'
-      },
-      2: File {
-        name: 'Screenshot 2024-01-05 033656.png',
-        lastModified: 1704454623517,
-        webkitRelativePath: '',
-        size: 23147,
-        type: 'image/png'
-      },
-      length: 3
-    },
-    manager: '668ce22aa5b16ed846c21a18'
-  }
- */
-
 function ManageHotelForm({
   isAdding,
   isLoading,
@@ -125,13 +78,17 @@ function ManageHotelForm({
   return (
     <FormProvider {...formMethods}>
       <div className="flex items-center justify-center p-3">
-        <h1 className="min-w-[30rem] cursor-pointer uppercase rounded-full bg-blue-600 px-6 py-2 text-center text-2xl font-bold text-white shadow-xl">
+        <h1 className="min-w-[30rem] cursor-pointer rounded-full bg-blue-600 px-6 py-2 text-center text-2xl font-bold uppercase text-white shadow-xl">
           {isInUpdateMode ? "update hotel" : "Add Hotel"}
         </h1>
       </div>
       {isLoading ? (
         <Spinner />
-      ) : isInUpdateMode && hotel ? (
+      ) : isInUpdateMode && !hotel ? (
+        <div className="flex items-center justify-center p-6">
+          <p className="text-2xl uppercase">there is no hotel to update</p>
+        </div>
+      ) : (
         <form
           onSubmit={onSubmitHandler}
           className="m-auto flex flex-col gap-8 rounded bg-slate-100 p-10 shadow-lg"
@@ -149,10 +106,6 @@ function ManageHotelForm({
             {isAdding || isUpdating ? <SpinnerMini /> : "Save Hotel"}
           </button>
         </form>
-      ) : (
-        <div className="flex items-center justify-center p-6">
-          <p className="text-2xl uppercase">there is no hotel to update</p>
-        </div>
       )}
     </FormProvider>
   );
