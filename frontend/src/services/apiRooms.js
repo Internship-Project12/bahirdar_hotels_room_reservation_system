@@ -10,8 +10,13 @@ const getAllRooms = async (id) => {
   return res.data;
 };
 
-const getAllRoomsOnHotel = async ({ hotelId }) => {
-  const res = await customFetch.get(`/hotels/${hotelId}/rooms`);
+const getAllRoomsOnHotel = async ({ hotelId, selectedRoomTypes }) => {
+  let url = `/hotels/${hotelId}/rooms?`;
+
+  if (selectedRoomTypes.length > 0) {
+    selectedRoomTypes.forEach((type) => (url = url + `&roomType=${type}`));
+  }
+  const res = await customFetch.get(url);
 
   return res.data;
 };
