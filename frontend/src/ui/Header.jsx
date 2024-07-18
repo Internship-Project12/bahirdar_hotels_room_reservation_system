@@ -6,7 +6,7 @@ import Logo from "./Logo";
 function Header() {
   const { isLoggedIn } = useAuthContext();
   return (
-    <header className="z-10 flex h-24 min-w-full justify-between bg-blue-900 px-24 py-6 opacity-85">
+    <header className="z-10 flex h-[15vh] min-w-full items-center justify-between bg-blue-900 px-24 py-6 opacity-85">
       <Logo />
       <nav>
         <ul className="flex items-center justify-between gap-4">
