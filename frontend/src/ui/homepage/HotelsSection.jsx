@@ -17,7 +17,7 @@ export const HotelsSection = () => {
 
 const HotelCard = ({ hotel }) => {
   return (
-    <div className="overflow-hidden rounded-lg bg-white shadow-lg">
+    <div className="cursor-pointer overflow-hidden rounded-lg bg-white shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
       <img
         className="h-48 w-full object-cover"
         src={hotel.imageCover}
@@ -40,9 +40,9 @@ const HotelCard = ({ hotel }) => {
               </svg>
             ))}
           </div>
-          <p className="rounded border bg-blue-500 p-2 text-lg font-bold text-white">
+          <button className="border-n rounded bg-blue-500 p-2 text-lg font-bold text-white">
             ${hotel.minPricePerNight}/night
-          </p>
+          </button>
         </div>
       </div>
     </div>

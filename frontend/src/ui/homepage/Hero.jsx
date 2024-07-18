@@ -15,7 +15,7 @@ function Hero() {
       direction: "horizontal",
       loop: true,
       autoplay: {
-        delay: 5000,
+        delay: 3000,
         disableOnInteraction: false,
       },
       pagination: {
@@ -34,33 +34,33 @@ function Hero() {
       <div className="swiper absolute inset-0 z-0">
         <div className="swiper-wrapper">
           {images.map((image, index) => (
-            <div
-              key={index}
-              className="swiper-slide relative h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(${image})` }}
-            >
-              <div className="absolute inset-0"></div>
+            <div key={index} className="swiper-slide">
+              <img
+                className="relative inset-0 h-full w-full bg-center object-cover"
+                src={image}
+                alt="slider image"
+              />
             </div>
           ))}
         </div>
         <div className="swiper-pagination"></div>
-        <div className="swiper-button-prev"></div>
-        <div className="swiper-button-next"></div>
+        {/* <div className="swiper-button-prev h-8 w-8 text-white"></div>
+        <div className="swiper-button-next h-8 w-8 text-white"></div> */}
       </div>
 
-      <div className="absolute inset-0 z-10 flex h-full w-full flex-col items-center justify-center bg-black bg-opacity-80 p-4 text-center text-white">
-        <div className="rounded p-4 font-bold opacity-80">
-          <h1 className="text-2xl tracking-wider">
-            <span className="text-3xl font-extrabold tracking-tighter">
+      <div className="absolute inset-0 z-10 flex h-full w-full flex-col items-center justify-center bg-black p-8 text-center text-white opacity-80">
+        <div className="rounded p-4 opacity-80">
+          <h1 className="text-2xl font-light tracking-wider">
+            <span className="text-6xl font-extrabold tracking-tighter">
               Welcome to BDHotels.com <br />
             </span>
             Every stay is a memorable experience. Book your dream hotel and stay
             effortlessly.
+            <span className="mt-4">
+              Plan your next adventure with ease. Find and book hotels worldwide
+              in just a few clicks.
+            </span>
           </h1>
-          <h2 className="mt-4">
-            Plan your next adventure with ease. Find and book hotels worldwide
-            in just a few clicks.
-          </h2>
         </div>
         <ExploreMoreBtn className="mt-4" />
       </div>
