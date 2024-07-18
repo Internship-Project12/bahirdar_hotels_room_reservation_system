@@ -87,7 +87,7 @@ function RoomsListPage() {
           rooms.map((room, i) => <RoomsListItem key={i} room={room} />)
         ) : (
           <div className="flex h-[200px] items-center justify-center">
-            <p className="text-2xl text-slate-600 capitalize">
+            <p className="text-2xl capitalize text-slate-600">
               404 ): There are no rooms found.
             </p>
           </div>

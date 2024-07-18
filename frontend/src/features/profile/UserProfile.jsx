@@ -3,9 +3,13 @@ import { useAuthContext } from "../../context/AuthContext";
 const UserProfile = () => {
   const { user, handleChange } = useAuthContext();
 
+  console.log(user);
+
   return (
     <div className="mx-auto mt-10 max-w-4xl rounded-md bg-white p-6 shadow-md">
-      <h2 className="mb-6 text-2xl font-semibold">Welcome, John 🙋</h2>
+      <h2 className="mb-6 text-2xl font-semibold">
+        Welcome, {user.firstName} 🙋
+      </h2>
       <div className="flex flex-col md:flex-row md:space-x-6">
         <div className="flex-shrink-0">
           <img

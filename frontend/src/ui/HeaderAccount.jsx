@@ -16,11 +16,10 @@ function HeaderAccount() {
         <div>
           <img
             className="h-10 w-10 rounded-full object-cover"
-            src="/user1.jpeg"
+            src={user?.photo}
             alt="user photo"
           />
         </div>
-
       </div>
       {isOpenModal ? (
         <>

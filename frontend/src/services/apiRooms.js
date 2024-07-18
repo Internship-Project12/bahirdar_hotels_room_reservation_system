@@ -13,7 +13,7 @@ const getAllRooms = async (id) => {
 const getAllRoomsOnHotel = async ({ hotelId, selectedRoomTypes }) => {
   let url = `/hotels/${hotelId}/rooms?`;
 
-  if (selectedRoomTypes.length > 0) {
+  if (selectedRoomTypes?.length > 0) {
     selectedRoomTypes.forEach((type) => (url = url + `&roomType=${type}`));
   }
   const res = await customFetch.get(url);

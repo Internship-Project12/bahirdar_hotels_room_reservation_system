@@ -21,7 +21,7 @@ function HotelDetailHero({ hotel }) {
       </h1>
       <h2
         style={{ "backface-visibility": "hidden" }}
-        className="z-10 justify-center flex w-[35rem] items-center whitespace-pre-line bg-blue-600 p-4 text-center text-xl font-bold text-slate-300 opacity-85 shadow-lg"
+        className="z-10 flex w-[35rem] items-center justify-center whitespace-pre-line bg-blue-600 p-4 text-center text-xl font-bold text-slate-300 opacity-85 shadow-lg"
       >
         A {hotel.hotelStar} star Hotel. Located In {hotel.address}
       </h2>
@@ -29,7 +29,9 @@ function HotelDetailHero({ hotel }) {
         style={{ "backface-visibility": "hidden" }}
         className="z-10 mt-2 flex w-[25rem] items-center justify-center whitespace-pre-line p-2 text-slate-100 opacity-85 shadow-lg"
       >
-        Have A Total of {hotel.numOfRooms} Rooms
+        {hotel.numOfRooms > 0
+          ? `Have A Total of ${hotel.numOfRooms} Rooms`
+          : "There are no Rooms Found In This Hotel"}
       </p>
     </div>
   );
