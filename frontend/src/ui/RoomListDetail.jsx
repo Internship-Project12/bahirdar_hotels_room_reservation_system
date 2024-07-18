@@ -53,13 +53,13 @@ function RoomListDetail() {
 
       {/* ROOM TYPE | NUMBER */}
       <div className="flex w-full items-center justify-between gap-2 p-3">
-        <p className="flex items-center justify-center gap-1 text-sm text-slate-600">
-          <span className="text-xl capitalize text-slate-500">{`${room.roomType} `}</span>
+        <p className="inline-block items-center justify-center gap-1 text-sm text-slate-600">
+          <span className="text-sm capitalize text-slate-500">{`${room.roomType} `}</span>
           :) Bed Room
         </p>
 
-        <p className="flex items-center justify-center gap-1 text-sm text-slate-600">
-          <span className="text-xl capitalize text-slate-500">
+        <p className="inline-block items-center justify-center gap-1 text-sm text-slate-600">
+          <span className="text-sm capitalize text-slate-500">
             {`# ${room.roomNumber} `}
           </span>
           :) Room Number
@@ -68,7 +68,7 @@ function RoomListDetail() {
 
       {/* PRICE PER NIGHT */}
       <p className="flex items-center gap-2 self-start p-2 text-sm text-slate-600">
-        <span className="text-xl capitalize tracking-tighter text-slate-500">{`${room.pricePerNight} ETB `}</span>
+        <span className="text-sm capitalize tracking-tighter text-slate-500">{`${room.pricePerNight} ETB `}</span>
         ( Price / Night )
       </p>
 

@@ -1,9 +1,4 @@
-import {
-  Link,
-  Outlet,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import RoomsListItem from "../ui/RoomsListItem";
 import { useQuery } from "@tanstack/react-query";
 import QueryKey from "../constants/QueryKey";
@@ -12,11 +7,14 @@ import { useHotel } from "../features/hotels/useHotel";
 import SpinnerMini from "../ui/SpinnerMini";
 import Spinner from "../ui/Spinner";
 import toast from "react-hot-toast";
+import RoomTypeFilter from "../components/RoomTypeFilter";
+import { useState } from "react";
 
 function RoomsListPage() {
   const { hotelId } = useParams();
+  const [selectedRoomTypes, setSelectedRoomTypes] = useState([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     data: { data: { data: hotel } = {} } = {},
@@ -27,8 +25,9 @@ function RoomsListPage() {
 
   const { data: { data: { rooms } = {} } = {}, isLoading: isLoadingRooms } =
     useQuery({
-      queryKey: [QueryKey.ROOMS, hotelId],
-      queryFn: () => apiRooms.getAllRoomsOnHotel({ hotelId }),
+      queryKey: [QueryKey.ROOMS, hotelId, selectedRoomTypes],
+      queryFn: () =>
+        apiRooms.getAllRoomsOnHotel({ hotelId, selectedRoomTypes }),
       retry: false,
     });
 
@@ -40,12 +39,25 @@ function RoomsListPage() {
     return navigate(`/hotels/${hotelId}`);
   }
 
+  const handleRoomTypeChange = (e) => {
+    const selectedType = e.target.value;
+
+    setSelectedRoomTypes((prev) =>
+      e.target.checked
+        ? [...prev, selectedType]
+        : prev.filter((type) => type !== selectedType),
+    );
+  };
+
   return (
     <div className="relative flex w-full justify-between gap-4 rounded-lg border bg-slate-200 p-6 shadow-xl">
       {/* filter/sort */}
       <div className="sticky top-0 h-fit w-[20%] space-y-8 rounded-lg border-2 border-r-2 border-t-2 bg-blue-50">
         <div className="flex flex-col items-center justify-center gap-6">
-          filter/sort
+          <RoomTypeFilter
+            selectedRoomTypes={selectedRoomTypes}
+            onChange={handleRoomTypeChange}
+          />
         </div>
       </div>
 
@@ -75,8 +87,8 @@ function RoomsListPage() {
           rooms.map((room, i) => <RoomsListItem key={i} room={room} />)
         ) : (
           <div className="flex h-[200px] items-center justify-center">
-            <p className="text-2xl text-slate-600">
-              There are no rooms are add yet.
+            <p className="text-2xl text-slate-600 capitalize">
+              404 ): There are no rooms found.
             </p>
           </div>
         )}
