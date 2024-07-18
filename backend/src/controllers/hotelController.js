@@ -131,12 +131,12 @@ export const updateHotel = catchAsync(async (req, res, next) => {
   let imageCoverUrl;
   let hotelImagesUrl;
 
-  if (req.files.imageCoverFile) {
+  if (req.files?.imageCoverFile) {
     imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
     hotel.imageCover = imageCoverUrl[0];
   }
 
-  if (req.files.hotelImagesFiles) {
+  if (req.files?.hotelImagesFiles) {
     hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
     hotel.hotelImages = [
       ...(hotel?.hotelImages || []),
