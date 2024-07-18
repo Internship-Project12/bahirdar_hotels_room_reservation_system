@@ -25,6 +25,8 @@ import {
   SigninPage,
   SignupPage,
 } from "./pages";
+import RoomsListPage from "./pages/RoomsListPage";
+import RoomListDetail from "./ui/RoomListDetail";
 
 function App() {
   const { role } = useAuthContext();
@@ -35,12 +37,15 @@ function App() {
         {/* HOME ROUTES */}
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/login" element={<SigninPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/hotels" element={<HotelsListPage />} />
-          <Route path="/hotels/:id" element={<HotelDetailsPage />} />
+          <Route path="about" element={<About />} />
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="login" element={<SigninPage />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="hotels" element={<HotelsListPage />} />
+          <Route path="hotels/:id" element={<HotelDetailsPage />} />
+          <Route path="hotels/:hotelId/rooms" element={<RoomsListPage />}>
+            <Route path=":roomId" element={<RoomListDetail />} />
+          </Route>
           <Route path="/booking/:id" element={<p>Hotel booking page</p>} />
         </Route>
 
