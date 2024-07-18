@@ -10,6 +10,18 @@ const getAllRooms = async (id) => {
   return res.data;
 };
 
+const getAllRoomsOnHotel = async ({ hotelId }) => {
+  const res = await customFetch.get(`/hotels/${hotelId}/rooms`);
+
+  return res.data;
+};
+
+const getRoomOnHotel = async ({ hotelId, roomId }) => {
+  const res = await customFetch.get(`/hotels/${hotelId}/rooms/${roomId}`);
+
+  return res.data;
+};
+
 const createRoom = async ({ id, data }) => {
   let url = `/rooms`;
   if (id) {
@@ -36,6 +48,14 @@ const deleteRoom = async ({ id }) => {
   return res.data;
 };
 
-const apiRooms = { getAllRooms, createRoom, updateRoom, getRoom , deleteRoom};
+const apiRooms = {
+  getAllRooms,
+  createRoom,
+  updateRoom,
+  getRoom,
+  deleteRoom,
+  getAllRoomsOnHotel,
+  getRoomOnHotel,
+};
 
 export default apiRooms;
