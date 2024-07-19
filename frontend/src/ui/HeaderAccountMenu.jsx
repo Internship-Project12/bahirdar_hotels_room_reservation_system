@@ -15,30 +15,35 @@ function HeaderAccountMenu() {
       <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
         <Link
           onClick={() => handleOpenModal()}
-          to="/profile"
+          to="/account/profile"
           className="flex items-center justify-start gap-2 p-3 py-2"
         >
           <VscAccount size={"25px"} />
           <p>Profile</p>
         </Link>
       </li>
-      <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
+      {/* <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
         <div className="flex items-center justify-start gap-2 p-3 py-2">
           <VscAccount size="25px" />
           <p>My account</p>
         </div>
-      </li>
+      </li> */}
       <hr />
       <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
-        <div className="flex items-center justify-start gap-2 p-3 py-2">
+        <Link
+          to="/account/settings"
+          onClick={() => handleOpenModal()}
+          className="flex items-center justify-start gap-2 p-3 py-2"
+        >
           <FiSettings size="25px" />
           <p>Settings</p>
-        </div>
+        </Link>
       </li>
       {role === "admin" || role === "manager" ? (
         <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
           <Link
             to="/dashboard"
+            onClick={() => handleOpenModal()}
             className="flex items-center justify-start gap-2 p-3 py-2"
           >
             <LuLayoutDashboard size="25px" />
@@ -50,7 +55,9 @@ function HeaderAccountMenu() {
         <hr />
         <button
           disabled={isPending}
-          onClick={() => logout()}
+          onClick={() => {
+            logout();
+          }}
           className="mt-2 flex w-full items-center justify-start gap-2 px-3 py-2 font-bold transition duration-300 hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-red-500"
         >
           <IoIosLogOut size="25px" />

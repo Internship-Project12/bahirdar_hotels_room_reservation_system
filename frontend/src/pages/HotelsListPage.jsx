@@ -51,7 +51,7 @@ function HotelsListPage() {
         </div>
       </div>
 
-      <div className="flex w-full gap-4 bg-slate-100 p-6">
+      <div className="flex w-full gap-4 bg-slate-200 p-6">
         {/* filter/sort */}
         <div className="sticky top-2 h-fit w-[25%] border-r-2 border-t-2 p-2">
           <HotelListFilter isLoading={isLoading}>
@@ -69,7 +69,7 @@ function HotelsListPage() {
         ) : (
           <section className="w-[80%] rounded-md border-l-2 border-r-2 bg-slate-100 py-4 shadow-lg">
             {/* hotel cards */}
-            {hotels.length > 0 ? (
+            {hotels?.length > 0 ? (
               [...hotels, ...hotels].map((hotel) => (
                 <HotelsListItem hotel={hotel} key={hotel._id} />
               ))

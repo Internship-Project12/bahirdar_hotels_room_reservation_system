@@ -10,7 +10,7 @@ import catchAsync from '../utils/catchAsync.js';
 import { uploadImages } from '../utils/uploadImages.js';
 
 const getAllRooms = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   let filter = {};
   // filter if getting all rooms of one hotel // nested get route

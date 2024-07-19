@@ -11,6 +11,7 @@ export const getMe = (req, res, next) => {
 };
 
 export const updateMe = catchAsync(async (req, res, next) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   // make sure the user does not update his password through this route
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -45,7 +46,7 @@ export const updateMe = catchAsync(async (req, res, next) => {
   }
 
   user.photo = photo;
-  await user.save();
+  await user.save({ validateBeforeSave: false });
 
   // return response
   res.status(200).json({
@@ -123,10 +124,14 @@ export const createUser = catchAsync(async (req, res, next) => {
 export const getUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const user = await User.findById(id).populate({
-    path: 'hotel',
-    select: `name hotelStar imageCover avgRating address summary`,
-  });
+  const user = await User.findById(id)
+    .populate({
+      path: 'bookings',
+    })
+    .populate({
+      path: 'hotel',
+      select: `name hotelStar imageCover avgRating address summary`,
+    });
 
   if (!user) return next(new AppError('No user found with that ID', 404));
 

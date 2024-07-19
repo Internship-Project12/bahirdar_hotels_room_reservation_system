@@ -11,6 +11,7 @@ import Booking from '../models/bookingModel.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
   // HERE WE DESTRUCTURE POSSIBLE VALUES FROM THE QUERY
   const { search, hotelStar, sort } = req.query;
   // FILTERING
@@ -87,6 +88,7 @@ export const createHotel = catchAsync(async (req, res, next) => {
 });
 
 export const getHotel = catchAsync(async (req, res, next) => {
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const { id } = req.params;
 
   const hotel = await Hotel.findById(id)
@@ -116,7 +118,7 @@ export const getHotel = catchAsync(async (req, res, next) => {
 });
 
 export const updateHotel = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -131,12 +133,12 @@ export const updateHotel = catchAsync(async (req, res, next) => {
   let imageCoverUrl;
   let hotelImagesUrl;
 
-  if (req.files.imageCoverFile) {
+  if (req.files?.imageCoverFile) {
     imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
     hotel.imageCover = imageCoverUrl[0];
   }
 
-  if (req.files.hotelImagesFiles) {
+  if (req.files?.hotelImagesFiles) {
     hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
     hotel.hotelImages = [
       ...(hotel?.hotelImages || []),
@@ -156,7 +158,7 @@ export const updateHotel = catchAsync(async (req, res, next) => {
 });
 
 export const deleteHotel = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   const { id } = req.params;
 

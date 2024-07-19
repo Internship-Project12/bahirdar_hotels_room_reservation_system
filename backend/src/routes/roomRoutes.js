@@ -5,20 +5,29 @@ import upload from '../middlewares/multerMiddleware.js';
 
 const router = express.Router({ mergeParams: true });
 
-router.use(
-  authController.protect,
-  authController.restrictTo('admin', 'manager')
-);
-
 router
   .route('/')
   .get(roomController.getAllRooms)
-  .post(upload.array('RoomImageFiles', 10), roomController.createRoom);
+  .post(
+    authController.protect,
+    authController.restrictTo('admin', 'manager'),
+    upload.array('RoomImageFiles', 10),
+    roomController.createRoom
+  );
 
 router
   .route('/:id')
   .get(roomController.getRoom)
-  .patch(upload.array('RoomImageFiles', 10), roomController.updateRoom)
-  .delete(roomController.deleteRoom);
+  .patch(
+    authController.protect,
+    authController.restrictTo('admin', 'manager'),
+    upload.array('RoomImageFiles', 10),
+    roomController.updateRoom
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin', 'manager'),
+    roomController.deleteRoom
+  );
 
 export default router;

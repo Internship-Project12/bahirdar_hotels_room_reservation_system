@@ -10,7 +10,7 @@ import { DEFAULT_USER_AVATAR } from '../constants/constants.js';
 
 // SIGNUP A USER
 const signup = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
   const { firstName, lastName, email, password, passwordConfirm, phoneNumber } =
     req.body;
 

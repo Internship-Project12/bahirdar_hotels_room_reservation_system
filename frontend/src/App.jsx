@@ -5,7 +5,7 @@ import UpdateHotel from "./features/hotels/UpdateHotel";
 import Dashboard from "./features/dashboard/Dashboard";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
 import AllHotels from "./features/hotels/AllHotels";
-import UserProfile from "./features/profile/UserProfile";
+import Account from "./features/profile/Account";
 import About from "./ui/homepage/About";
 import ProtectRoutes from "./ui/ProtectRoutes";
 import AllBookings from "./features/bookings/AllBookings";
@@ -25,9 +25,13 @@ import {
   SigninPage,
   SignupPage,
 } from "./pages";
+import RoomsListPage from "./pages/RoomsListPage";
+import RoomListDetail from "./ui/RoomListDetail";
+import Profile from "./features/profile/Profile";
+import AccountSettings from "./features/profile/AccountSettings";
 
 function App() {
-  const { role } = useAuthContext();
+  const { role, isLoggedIn } = useAuthContext();
 
   return (
     <BrowserRouter>
@@ -35,15 +39,23 @@ function App() {
         {/* HOME ROUTES */}
         <Route element={<AppLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/login" element={<SigninPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/hotels" element={<HotelsListPage />} />
-          <Route path="/hotels/:id" element={<HotelDetailsPage />} />
-          <Route path="/booking/:id" element={<p>Hotel booking page</p>} />
-        </Route>
+          <Route path="about" element={<About />} />
+          <Route path="login" element={<SigninPage />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="hotels" element={<HotelsListPage />} />
+          <Route path="hotels/:id" element={<HotelDetailsPage />} />
+          <Route path="hotels/:hotelId/rooms" element={<RoomsListPage />}>
+            <Route path=":roomId" element={<RoomListDetail />} />
+          </Route>
 
+          <Route path="/booking/:id" element={<p>Hotel booking page</p>} />
+          {isLoggedIn && (
+            <Route path="account" element={<Account />}>
+              <Route path="profile" index element={<Profile />} />
+              <Route path="settings" element={<AccountSettings />} />
+            </Route>
+          )}
+        </Route>
         {/* DASHBOARD ROUTES */}
         <Route
           path="/dashboard"

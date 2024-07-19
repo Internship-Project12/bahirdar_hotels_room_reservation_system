@@ -13,7 +13,7 @@ function HotelListFilter({ children }) {
   };
 
   return (
-    <div className="space-y-8 gap-6 flex items-center justify-center flex-col border-r-2 bg-blue-100 p-2">
+    <div className="space-y-8 gap-6 flex items-center justify-center flex-col border-2 bg-blue-50 rounded-lg  p-2">
     
       <div>{children}</div>
       {/* OTHER SORTING   */}
