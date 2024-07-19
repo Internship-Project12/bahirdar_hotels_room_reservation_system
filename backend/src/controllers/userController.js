@@ -123,10 +123,14 @@ export const createUser = catchAsync(async (req, res, next) => {
 export const getUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const user = await User.findById(id).populate({
-    path: 'hotel',
-    select: `name hotelStar imageCover avgRating address summary`,
-  });
+  const user = await User.findById(id)
+    .populate({
+      path: 'bookings',
+    })
+    .populate({
+      path: 'hotel',
+      select: `name hotelStar imageCover avgRating address summary`,
+    });
 
   if (!user) return next(new AppError('No user found with that ID', 404));
 
