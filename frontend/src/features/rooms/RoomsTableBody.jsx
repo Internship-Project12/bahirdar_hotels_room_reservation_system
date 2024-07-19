@@ -25,8 +25,11 @@ import { MdDeleteOutline, MdEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDeleteRoom } from "./useDeleteRoom";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { useAuthContext } from "../../context/AuthContext";
 
 function RoomsTableBody({ room }) {
+  const { user } = useAuthContext();
+  const hotelId = user.hotel._id;
   const { mutate, isPending } = useDeleteRoom();
 
   const handleDelete = (id) => {
@@ -80,7 +83,10 @@ function RoomsTableBody({ room }) {
             )}
           </button>
         </div>
-        <Link className="rounded bg-blue-700 p-2 font-semibold text-white">
+        <Link
+          to={`/hotels/${hotelId}/rooms/${room._id}`}
+          className="rounded bg-blue-700 p-2 font-semibold text-white"
+        >
           Details
         </Link>
       </div>
