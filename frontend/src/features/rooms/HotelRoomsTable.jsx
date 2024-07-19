@@ -3,6 +3,10 @@ import RoomsTableHeading from "./RoomsTableHeading";
 import { useRooms } from "./useRooms";
 import Spinner from "../../ui/Spinner";
 import RoomsTableBody from "./RoomsTableBody";
+import { useQuery } from "@tanstack/react-query";
+import QueryKey from "../../constants/QueryKey";
+import apiRooms from "../../services/apiRooms";
+import { useAuthContext } from "../../context/AuthContext";
 
 /*
 {
@@ -33,7 +37,14 @@ import RoomsTableBody from "./RoomsTableBody";
  */
 
 function HotelRoomsTable() {
-  const { data: { data: { rooms } = {} } = {}, isLoading } = useRooms();
+  const { user } = useAuthContext();
+  console.log(user.hotel._id);
+  const { data: { data: { rooms } = {} } = {}, isLoading } = useQuery({
+    queryKey: [QueryKey.ROOMS, user.hotel._id],
+    queryFn: () => apiRooms.getAllRoomsOnHotel({ hotelId: user.hotel._id }),
+  });
+
+  console.log(rooms);
 
   return (
     <div className="grid w-full grid-cols-1 bg-white">
@@ -44,7 +55,7 @@ function HotelRoomsTable() {
         <div></div>
         <div></div>
         <div></div>
-         <Link
+        <Link
           to={"/dashboard/add-room"}
           className="mr-2 cursor-pointer rounded-full bg-blue-700 px-4 py-[6px] text-lg text-white transition-all duration-200 hover:scale-105"
         >

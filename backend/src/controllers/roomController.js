@@ -14,7 +14,7 @@ const getAllRooms = catchAsync(async (req, res, next) => {
 
   let filter = {};
   // filter if getting all rooms of one hotel // nested get route
-  if (req.params.tourId) filter.hotel = req.params.hotelId;
+  if (req.params.hotelId) filter.hotel = req.params.hotelId;
 
   const features = new APIFeatures(Room.find(filter), req.query)
     .filter()
@@ -91,7 +91,7 @@ const updateRoom = catchAsync(async (req, res, next) => {
   // upload room images to cloudinary
   if (req.files?.length > 0) {
     let imageUrls;
-    imageUrls = await uploadImages(req.files);
+    imageUrls = await uploadImages(req.files, next);
     room.images = [...(room.images || []), ...imageUrls];
     await room.save({ validateBeforeSave: false });
   }
