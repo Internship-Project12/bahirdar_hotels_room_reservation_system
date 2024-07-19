@@ -38,7 +38,11 @@ function App() {
       <Routes>
         {/* HOME ROUTES */}
         <Route element={<AppLayout />}>
-          <Route path="/" element={<HomePage />} />
+          {role === "manager" || role === "admin" ? (
+            <Route index element={<Navigate to="/dashboard" />} />
+          ) : (
+            <Route path="/" element={<HomePage />} />
+          )}
           <Route path="about" element={<About />} />
           <Route path="login" element={<SigninPage />} />
           <Route path="signup" element={<SignupPage />} />

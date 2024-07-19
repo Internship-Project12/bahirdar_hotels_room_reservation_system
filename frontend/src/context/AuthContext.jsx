@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import apiAuth from "../services/apiAuth";
 import QueryKey from "../constants/QueryKey";
 import { createContext, useContext, useState } from "react";
+import Spinner from "../ui/Spinner";
 
 const AuthContext = createContext();
 
@@ -12,7 +13,7 @@ function AuthContextProvider({ children }) {
   const [currentHotel, setCurrentHotel] = useState({});
 
   const {
-    data: res,
+    data: { data: { data: { user } = {} } = {} } = {},
     isLoading,
     isError,
   } = useQuery({
@@ -21,9 +22,12 @@ function AuthContextProvider({ children }) {
     retry: false,
   });
 
-  if (isLoading) return;
-
-  const user = res?.data?.data.user || null;
+  if (isLoading)
+    return (
+      <div className="flex h-[70vh] items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   const handleOpenModal = () => {
     setIsOpenModal((prev) => !prev);
