@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import RoomsTableHeading from "./RoomsTableHeading";
-import { useRooms } from "./useRooms";
 import Spinner from "../../ui/Spinner";
 import RoomsTableBody from "./RoomsTableBody";
 import { useQuery } from "@tanstack/react-query";
@@ -38,13 +37,11 @@ import { useAuthContext } from "../../context/AuthContext";
 
 function HotelRoomsTable() {
   const { user } = useAuthContext();
-  console.log(user.hotel._id);
+
   const { data: { data: { rooms } = {} } = {}, isLoading } = useQuery({
     queryKey: [QueryKey.ROOMS, user.hotel._id],
     queryFn: () => apiRooms.getAllRoomsOnHotel({ hotelId: user.hotel._id }),
   });
-
-  console.log(rooms);
 
   return (
     <div className="grid w-full grid-cols-1 bg-white">
