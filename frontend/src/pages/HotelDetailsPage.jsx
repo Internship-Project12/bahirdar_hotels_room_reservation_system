@@ -12,6 +12,7 @@ import HotelDetailSummary from "../components/HotelDetailSummary";
 import HotelDetailFacilities from "../components/HotelDetailFacilities";
 import HotelDetailImages from "../components/HotelDetailImages";
 import RoomCard from "../ui/RoomCard";
+import SpinnerMini from "../ui/SpinnerMini";
 
 function HotelDetailsPage() {
   SwiperCore.use([Navigation, Autoplay]);
@@ -27,7 +28,40 @@ function HotelDetailsPage() {
   } = useHotel({ id });
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <div
+        className="relative flex h-[95vh] flex-col items-center justify-center"
+        style={{
+          "clip-path": "polygon(0 0, 100vw 0%, 100vw 70vh, 0 90vh)",
+        }}
+      >
+        <div className="absolute -z-[-9] h-full w-full bg-blue-600 opacity-50"></div>
+        {/* <img
+        src={hotel.imageCover}
+        alt=""
+        className="absolute -z-10 h-full w-full object-cover object-center"
+      /> */}
+        <Spinner />
+        <h1
+          style={{ "backface-visibility": "hidden" }}
+          className="z-10 w-[55rem] bg-blue-600 p-4 text-center text-7xl font-bold text-slate-300 shadow-lg"
+        >
+          <SpinnerMini />
+        </h1>
+        <h2
+          style={{ "backface-visibility": "hidden" }}
+          className="z-10 flex w-[35rem] items-center justify-center whitespace-pre-line bg-blue-600 p-4 text-center text-xl font-bold text-slate-300 opacity-85 shadow-lg"
+        >
+          <SpinnerMini />
+        </h2>
+        <p
+          style={{ "backface-visibility": "hidden" }}
+          className="z-10 mt-2 flex w-[25rem] items-center justify-center whitespace-pre-line p-2 text-slate-100 opacity-85 shadow-lg"
+        >
+          <SpinnerMini />
+        </p>
+      </div>
+    );
   }
 
   if (isError) {
