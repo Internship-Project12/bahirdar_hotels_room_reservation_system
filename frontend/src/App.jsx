@@ -29,17 +29,25 @@ import RoomsListPage from "./pages/RoomsListPage";
 import RoomListDetail from "./ui/RoomListDetail";
 import Profile from "./features/profile/Profile";
 import AccountSettings from "./features/profile/AccountSettings";
+import { useEffect, useState } from "react";
 
 function App() {
   const { role, isLoggedIn } = useAuthContext();
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  useEffect(() => {
+    if (initialLoad) {
+      setInitialLoad(false);
+    }
+  }, [initialLoad]);
 
   return (
     <BrowserRouter>
       <Routes>
         {/* HOME ROUTES */}
         <Route element={<AppLayout />}>
-          {role === "manager" || role === "admin" ? (
-            <Route index element={<Navigate to="/dashboard" />} />
+          {initialLoad && (role === "manager" || role === "admin") ? (
+            <Route path="/" element={<Navigate to="/dashboard" />} />
           ) : (
             <Route path="/" element={<HomePage />} />
           )}

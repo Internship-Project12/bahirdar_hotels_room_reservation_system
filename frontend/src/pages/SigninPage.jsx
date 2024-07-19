@@ -15,9 +15,13 @@ function SigninPage() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: apiAuth.login,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const { data: { data: { user } = {} } = {} } = data;
       queryClient.invalidateQueries(QueryKey.USER);
       toast.success("Welcome to BDHotels Booking website");
+      if (user.role === ("admin" || "manager")) {
+        return navigate("/dashboard", { replace: true });
+      }
       navigate("/", { replace: true });
     },
     onError: (err) => {
@@ -37,3 +41,14 @@ function SigninPage() {
 }
 
 export default SigninPage;
+/*
+{
+    data: {
+      status: 'success',
+      token: 
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGNlMjhmYTViMTZlZDg0NmMyMWEyMiIsImlhdCI6MTcyMTM5ODA5MiwiZXhwIjoxNzI5MTc0MDkyfQ.SeWYwklXuxc1Bl2wjfZnWwTVIT-7JDTArXqQOiMAavg',
+      data: {
+        user: {
+          _id: '668ce28fa5b16ed846c21a22',
+          firstName: 'Edmealem',
+ */

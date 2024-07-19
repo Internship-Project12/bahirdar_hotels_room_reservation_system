@@ -13,7 +13,7 @@ function AuthContextProvider({ children }) {
   const [currentHotel, setCurrentHotel] = useState({});
 
   const {
-    data: { data: { data: { user } = {} } = {} } = {},
+    data: res,
     isLoading,
     isError,
   } = useQuery({
@@ -28,6 +28,8 @@ function AuthContextProvider({ children }) {
         <Spinner />
       </div>
     );
+
+  const user = res?.data?.data.user || null;
 
   const handleOpenModal = () => {
     setIsOpenModal((prev) => !prev);
