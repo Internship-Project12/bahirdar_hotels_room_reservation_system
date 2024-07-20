@@ -3,9 +3,11 @@ import apiAuth from "../../services/apiAuth";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import QueryKey from "../../constants/QueryKey";
+import { useAuthContext } from "../../context/AuthContext";
 
 function useLogout() {
   const navigate = useNavigate();
+  const { handleOpenModal } = useAuthContext();
 
   const queryClient = useQueryClient();
 
@@ -16,6 +18,7 @@ function useLogout() {
 
       toast.success("Logout successful");
       navigate("/", { replace: true });
+      handleOpenModal();
     },
     onError: (err) => {
       console.log(err);
