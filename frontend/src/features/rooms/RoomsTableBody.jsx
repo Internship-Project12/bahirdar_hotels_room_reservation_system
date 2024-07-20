@@ -84,6 +84,7 @@ function RoomsTableBody({ room }) {
           </button>
         </div>
         <Link
+          target="_blank"
           to={`/hotels/${hotelId}/rooms/${room._id}`}
           className="rounded bg-blue-700 p-2 font-semibold text-white"
         >

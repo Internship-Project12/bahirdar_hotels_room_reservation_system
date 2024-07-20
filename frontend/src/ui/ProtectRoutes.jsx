@@ -10,7 +10,7 @@ function ProtectRoutes({ children }) {
 
   useEffect(() => {
     // IF NOT LOGGED IN NAVIGATE TO THE SIGN IN PAGE
-    if (!isLoggedIn) navigate("/");
+    if (!isLoggedIn) return navigate("/login", { replace: true });
 
     // IF IT IS LOGGED IN AND ROLE == USER, NAVIGATE THE HOME PAGE // BAD REQUEST
     if (isLoggedIn && role === "user") {

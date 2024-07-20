@@ -84,9 +84,16 @@ bookingSchema.pre('save', function (next) {
   const checkInDate = new Date(this.checkInDate);
   const checkOutDate = new Date(this.checkOutDate);
 
-  const numOfNights = Math.ceil(
-    (checkOutDate.getTime() - checkInDate.getTime()) / (24 * 60 * 60 * 1000)
-  );
+  // if check in date and check out date are the same, i.e. the number of nights that the guest will stay wil be one night only
+  // otherwise if the user selects today and next day the difference will be one but we need to add one to make it 2 nights  or days
+  const numOfNights =
+    checkOutDate.getTime() === checkInDate.getTime()
+      ? 1
+      : Math.ceil(
+          (checkOutDate.getTime() - checkInDate.getTime()) /
+            (24 * 60 * 60 * 1000) +
+            1
+        );
 
   if (numOfNights < 1) {
     next(new AppError('number of nights must be at least one night', 401));
