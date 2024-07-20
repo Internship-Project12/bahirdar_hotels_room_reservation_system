@@ -8,8 +8,15 @@ const getAllBookings = async ({ filter }) => {
   return res.data;
 };
 
+const createBooking = async (data) => {
+  const res = await customFetch.post('/bookings', data)
+
+  return res.data
+}
+
 const apiBookings = {
   getAllBookings,
+  createBooking,
 };
 
 export default apiBookings;
