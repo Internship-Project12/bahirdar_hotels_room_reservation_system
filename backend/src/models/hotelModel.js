@@ -117,15 +117,20 @@ hotelSchema.virtual('bookings', {
   localField: '_id',
 });
 
-hotelSchema.pre(/^find/, function (next) {
-  if (!this.user || this.user?.role !== 'admin') {
-    this.find({ numOfRooms: { $gt: 0 } });
-  }
+// hotelSchema.pre(/^find/, function (next) {
+//   if (
+//     !this.user 
+//     // ||
+//     // this.user?.role === 'user' ||
+//     // this.user?.role === 'manager'
+//   ) {
+//     this.find({ numOfRooms: { $gt: 0 } });
+//   }
 
-  console.log(this.user);
+//   console.log(this.user)
 
-  next();
-});
+//   next();
+// });
 
 const Hotel = mongoose.model('Hotel', hotelSchema);
 
