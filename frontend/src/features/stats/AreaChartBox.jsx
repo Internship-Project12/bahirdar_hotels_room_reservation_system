@@ -101,27 +101,38 @@ function AreaChartBox() {
           >
             <XAxis dataKey="month" />
             <YAxis />
-            <Tooltip />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "purple",
+                borderRadius: "5px",
+                fontSize: "20px",
+                color: "orange",
+              }}
+              itemStyle={{
+                color: "white",
+                fontSize: "20px",
+              }}
+            />
             <Area
               type="monotone"
               dataKey="bookings"
               stackId="1"
-              stroke="#ffc658"
-              fill="#ffc658"
+              stroke="#ffab03"
+              fill="#ffab03"
             />
             <Area
               type="monotone"
               dataKey="users"
               stackId="1"
-              stroke="#8884d8"
-              fill="#8884d8"
+              stroke="#160ce4"
+              fill="#160ce4"
             />
             <Area
               type="monotone"
               dataKey="hotels"
               stackId="1"
-              stroke="#82ca9d"
-              fill="#82ca9d"
+              stroke="#15c458"
+              fill="#15c458"
             />
           </AreaChart>
         </ResponsiveContainer>

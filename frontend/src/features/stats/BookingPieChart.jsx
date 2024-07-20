@@ -48,11 +48,13 @@ function PieChartBox() {
       <PieChart>
         <Tooltip
           contentStyle={{
-            backgroundColor: "blue",
+            backgroundColor: "purple",
             borderRadius: "5px",
+            fontSize: "20px",
           }}
           itemStyle={{
             color: "white",
+            fontSize: "20px",
           }}
         />
         <Pie
