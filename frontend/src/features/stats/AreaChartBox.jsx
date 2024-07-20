@@ -9,7 +9,7 @@ import {
 
 const data = [
   {
-    month: "Jananuary",
+    month: "January",
     hotels: 250,
     users: 500,
     bookings: 260,
@@ -57,7 +57,7 @@ const data = [
     bookings: 140,
   },
   {
-    month: "Septemper",
+    month: "September",
     hotels: 198,
     users: 300,
     bookings: 286,
@@ -69,13 +69,13 @@ const data = [
     bookings: 417,
   },
   {
-    month: "Novemper",
+    month: "November",
     hotels: 374,
     users: 94,
     bookings: 214,
   },
   {
-    month: "Dececember",
+    month: "December",
     hotels: 649,
     users: 107,
     bookings: 260,
