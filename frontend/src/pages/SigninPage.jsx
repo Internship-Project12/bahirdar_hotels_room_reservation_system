@@ -15,16 +15,20 @@ function SigninPage() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: apiAuth.login,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       const { data: { data: { user } = {} } = {} } = data;
-      queryClient.invalidateQueries(QueryKey.USER);
       toast.success("Welcome to BDHotels Booking website");
-      setTimeout(() => {
-        if (user.role === "admin" || user.role === "manager") {
-          return navigate("/dashboard", { replace: true });
+
+      await queryClient.invalidateQueries(QueryKey.USER);
+
+      if (user.role === "admin" || user.role === "manager") {
+        if (location.state?.from?.pathname) {
+          return navigate(location.state.from.pathname, { replace: true });
         }
-      }, 300);
-      navigate("/", { replace: true });
+        return navigate("/dashboard", { replace: true });
+      }
+
+      navigate(location.state?.from?.pathname || "/", { replace: true });
     },
     onError: (err) => {
       toast.error(err?.response?.data.message);
