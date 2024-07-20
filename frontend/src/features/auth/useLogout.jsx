@@ -11,9 +11,8 @@ function useLogout() {
 
   const { mutate: logout, isPending } = useMutation({
     mutationFn: apiAuth.logout,
-    onSuccess: () => {
-      queryClient.invalidateQueries(QueryKey.USER);
-      queryClient.setQueryData([QueryKey.USER], null);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(QueryKey.USER);
 
       toast.success("Logout successful");
       navigate("/", { replace: true });

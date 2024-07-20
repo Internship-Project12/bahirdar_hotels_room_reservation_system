@@ -28,6 +28,8 @@ function SigninPage() {
         return navigate("/dashboard", { replace: true });
       }
 
+      console.log(location.state?.from?.pathname);
+
       navigate(location.state?.from?.pathname || "/", { replace: true });
     },
     onError: (err) => {

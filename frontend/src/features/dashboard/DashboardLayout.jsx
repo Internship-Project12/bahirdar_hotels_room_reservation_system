@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 import DashboardHeader from "./DashboardHeader";
 
@@ -64,7 +64,11 @@ const managerMenus = [
 ];
 
 function DashboardLayout() {
-  const { role } = useAuthContext();
+  const navigate = useNavigate();
+  const { role, isLoggedIn } = useAuthContext();
+
+  // IF NOT LOGGED IN NAVIGATE TO THE SIGN IN PAGE
+  if (!isLoggedIn) return navigate("/login", { replace: true });
 
   return (
     <div className="mx-auto flex max-w-[120rem] bg-black font-lato">
