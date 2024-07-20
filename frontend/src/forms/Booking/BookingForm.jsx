@@ -9,6 +9,7 @@ import apiBookings from "../../services/apiBookings";
 import toast from "react-hot-toast";
 import QueryKey from "../../constants/QueryKey";
 import Spinner from "../../ui/Spinner";
+import isDateRangeAvailable from "../../utils/isDateRangeAvailable";
 
 function BookingForm({ roomId }) {
   const { user } = useAuthContext();
@@ -18,7 +19,8 @@ function BookingForm({ roomId }) {
   const queryClient = useQueryClient();
   const [isValidCheckOutDate, setIsValidCheckOutDate] = useState(false);
   const [activeBooking, setActiveBooking] = useState({});
-  const [currentBooKOnRoom, setCurrentBookOnRoom] = useState({});
+  const [currentBookOnRoom, setCurrentBookOnRoom] = useState({});
+  const [isValidDateRange, setIsValidDateRange] = useState(true);
 
   const [showForm, setShowForm] = useState(true);
 
@@ -30,7 +32,7 @@ function BookingForm({ roomId }) {
   });
 
   const {
-    data: { data: { bookings: allBookingsOnThisRoom } = {} } = {},
+    data: { data: { bookings: allBookingsOnThisRoom = [] } = {} } = {},
     isLoading,
   } = useQuery({
     queryKey: [QueryKey.BOOKINGS, roomId],
@@ -117,8 +119,38 @@ function BookingForm({ roomId }) {
       setCurrentBookOnRoom(activeBookings[0]);
       setShowForm(false);
     }
-
   }, [allBookingsOnThisRoom, isLoading]);
+
+  // check the date in case the user books a room that is already in book
+  useEffect(() => {
+    // allBookingsOnThisRoom?.filter((book) => {
+    //   const currentCheckIn =
+    //     activeBooking.checkInDate || currentBookOnRoom.checkInDate;
+    //   const currentCheckOut =
+    //     activeBooking.checkOutDate || currentBookOnRoom.checkOutDate;
+
+    //   console.log(currentCheckIn, currentCheckOut);
+    // });
+
+    const bookingDates = allBookingsOnThisRoom
+      .filter((book) => new Date(book.checkOutDate).getTime() > Date.now())
+      .map((book) => {
+        return {
+          checkInDate: book.checkInDate,
+          checkOutDate: book.checkOutDate,
+        };
+      });
+
+    if (checkInDate && checkOutDate) {
+      const isValidDateRange = isDateRangeAvailable({
+        bookingDates,
+        newCheckInDate: checkInDate,
+        newCheckOutDate: checkOutDate,
+      });
+
+      if (!isValidDateRange) return setIsValidDateRange(false);
+    }
+  }, [allBookingsOnThisRoom, checkInDate, checkOutDate]);
 
   if (isPending || isLoading) {
     return <Spinner />;
@@ -152,12 +184,12 @@ function BookingForm({ roomId }) {
           </div>
         </div>
       )}
-      {currentBooKOnRoom.checkInDate && currentBooKOnRoom.checkOutDate && (
+      {currentBookOnRoom.checkInDate && currentBookOnRoom.checkOutDate && (
         <div className="m-2">
           <p className="w-full rounded-xl bg-blue-600 p-4 text-center text-xl text-slate-200">
             This Room is booked from{" "}
-            {new Date(currentBooKOnRoom?.checkInDate).toLocaleDateString()} to{" "}
-            {new Date(currentBooKOnRoom?.checkOutDate).toLocaleDateString()} by
+            {new Date(currentBookOnRoom?.checkInDate).toLocaleDateString()} to{" "}
+            {new Date(currentBookOnRoom?.checkOutDate).toLocaleDateString()} by
             other user.
           </p>
 
@@ -217,7 +249,7 @@ function BookingForm({ roomId }) {
             </div>
 
             <button
-              disabled={!isValidCheckOutDate}
+              disabled={!isValidCheckOutDate || !isValidDateRange}
               className="w-full rounded bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-xl disabled:cursor-not-allowed disabled:bg-blue-500"
             >
               Book Room Now
@@ -226,6 +258,12 @@ function BookingForm({ roomId }) {
           {!isValidCheckOutDate && (
             <p className="pt-3 text-center text-sm text-red-900 underline">
               select a valid check in and checkout date before submitting a form
+            </p>
+          )}
+          {!isValidDateRange && (
+            <p className="pt-3 text-center text-sm tracking-wide text-slate-900 underline">
+              there is already a user who booked on the same day before you.
+              please change another free room or adjust your date. thank you!
             </p>
           )}
         </>
