@@ -184,29 +184,31 @@ function BookingForm({ roomId }) {
           </div>
         </div>
       )}
-      {currentBookOnRoom.checkInDate && currentBookOnRoom.checkOutDate && (
-        <div className="m-2">
-          <p className="w-full rounded-xl bg-blue-600 p-4 text-center text-xl text-slate-200">
-            This Room is booked from{" "}
-            {new Date(currentBookOnRoom?.checkInDate).toLocaleDateString()} to{" "}
-            {new Date(currentBookOnRoom?.checkOutDate).toLocaleDateString()} by
-            other user.
-          </p>
+      {currentBookOnRoom.checkInDate &&
+        currentBookOnRoom.checkOutDate &&
+        !activeBooking?.checkInDate && (
+          <div className="m-2">
+            <p className="w-full rounded-xl bg-blue-600 p-4 text-center text-xl text-slate-200">
+              This Room is booked from{" "}
+              {new Date(currentBookOnRoom?.checkInDate).toLocaleDateString()} to{" "}
+              {new Date(currentBookOnRoom?.checkOutDate).toLocaleDateString()}{" "}
+              by other user.
+            </p>
 
-          <p className="m-2 mb-4 rounded-xl bg-white p-3 text-center text-xs text-slate-500">
-            if you want to reserve this room for an other time feel free to book
-            it.
-          </p>
-          <div className="mb-4 flex items-center justify-center">
-            <button
-              onClick={() => setShowForm(!showForm)}
-              className="w-full rounded-full bg-blue-600 px-3 py-2 text-xs text-white transition-all duration-200 hover:scale-105"
-            >
-              {showForm ? "close form" : "Book Room for other time"}
-            </button>
+            <p className="m-2 mb-4 rounded-xl bg-white p-3 text-center text-xs text-slate-500">
+              if you want to reserve this room for an other time feel free to
+              book it.
+            </p>
+            <div className="mb-4 flex items-center justify-center">
+              <button
+                onClick={() => setShowForm(!showForm)}
+                className="w-full rounded-full bg-blue-600 px-3 py-2 text-xs text-white transition-all duration-200 hover:scale-105"
+              >
+                {showForm ? "close form" : "Book Room for other time"}
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
       {showForm && (
         <>
