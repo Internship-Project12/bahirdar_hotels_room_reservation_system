@@ -19,9 +19,11 @@ function SigninPage() {
       const { data: { data: { user } = {} } = {} } = data;
       queryClient.invalidateQueries(QueryKey.USER);
       toast.success("Welcome to BDHotels Booking website");
-      if (user.role === ("admin" || "manager")) {
-        return navigate("/dashboard", { replace: true });
-      }
+      setTimeout(() => {
+        if (user.role === "admin" || user.role === "manager") {
+          return navigate("/dashboard", { replace: true });
+        }
+      }, 300);
       navigate("/", { replace: true });
     },
     onError: (err) => {

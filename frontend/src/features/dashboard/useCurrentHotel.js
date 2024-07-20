@@ -10,5 +10,5 @@ export const useCurrentHotel = () => {
     isError,
   } = useHotel({ id: user.hotel._id });
 
-  return {hotel,isLoading, isError};
+  return { hotel, isLoading, isError };
 };

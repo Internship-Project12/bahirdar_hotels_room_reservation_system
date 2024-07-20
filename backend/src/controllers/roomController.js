@@ -64,6 +64,11 @@ const createRoom = catchAsync(async (req, res, next) => {
   let imageUrls;
   if (req.files) imageUrls = await uploadImages(req.files, next);
 
+  if (!imageUrls)
+    return next(
+      new AppError('unable to upload images | please try again', 400)
+    );
+
   // create room
   const room = await Room.create({ ...req.body, images: imageUrls });
 
