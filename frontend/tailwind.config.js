@@ -7,6 +7,7 @@ export default {
         // Simple 8 column grid
         8: "repeat(2, minmax(10%, 1fr)) 15% 8% 8% 8% 20% 15% ",
         2: "minmax(max-content, 1fr) 149px",
+        "2-nv": "repeat(2, minmax(max-content, 1fr))",
         7: "repeat(7,minmax(10%, 1fr))",
       },
       fontFamily: {
