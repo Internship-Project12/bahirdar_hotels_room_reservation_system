@@ -13,6 +13,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
   // await new Promise((resolve) => setTimeout(resolve, 1000));
   // HERE WE DESTRUCTURE POSSIBLE VALUES FROM THE QUERY
+  console.log(req.user);
   const { search, hotelStar, sort } = req.query;
   // FILTERING
   const queryObj = {};
@@ -49,7 +50,11 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
     .limitFields()
     .paginate();
 
-  const hotels = await features.query.find(queryObj);
+  let query = features.query.find(queryObj);
+
+  query.user = req.user;
+
+  const hotels = await query;
 
   res.status(StatusCodes.OK).json({
     status: 'success',

@@ -62,9 +62,11 @@ const hotelSchema = new mongoose.Schema(
     minPricePerNight: {
       type: Number,
       min: 0,
+      default: 0,
     },
     numOfRooms: {
       type: Number,
+      default: 0,
     },
 
     // this two will be calculated on the creation of a review
@@ -113,6 +115,16 @@ hotelSchema.virtual('bookings', {
   ref: 'Booking',
   foreignField: 'hotel',
   localField: '_id',
+});
+
+hotelSchema.pre(/^find/, function (next) {
+  if (!this.user || this.user?.role !== 'admin') {
+    this.find({ numOfRooms: { $gt: 0 } });
+  }
+
+  console.log(this.user);
+
+  next();
 });
 
 const Hotel = mongoose.model('Hotel', hotelSchema);
