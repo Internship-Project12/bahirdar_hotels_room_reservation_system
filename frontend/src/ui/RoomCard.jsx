@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function RoomCard({ room }) {
+  const navigate = useNavigate();
+
   return (
-    <div
-      className="relative h-full w-full border p-3 shadow-xl transition-all duration-300 hover:scale-105 hover:cursor-grab"
-    >
+    <div className="relative h-full w-full border p-3 shadow-xl transition-all duration-300 hover:scale-105 hover:cursor-grab">
       <div className="flex flex-col">
         <div className="h-[200px] overflow-hidden rounded">
           <img
@@ -37,7 +37,10 @@ function RoomCard({ room }) {
             </p>
           </div>
         </div>
-        <button className="rounded bg-gradient-to-r from-blue-700 via-blue-600 to-blue-400 px-4 py-2 text-slate-200">
+        <button
+          onClick={() => navigate(`rooms/${room._id}`)}
+          className="rounded bg-gradient-to-r from-blue-700 via-blue-600 to-blue-400 px-4 py-2 text-slate-200"
+        >
           Book Room Now
         </button>
 
