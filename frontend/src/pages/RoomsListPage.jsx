@@ -50,7 +50,7 @@ function RoomsListPage() {
   };
 
   return (
-    <div className="relative flex w-full justify-between gap-4 rounded-lg border bg-slate-200 p-6 shadow-xl">
+    <div className="relative  flex w-full justify-between gap-4 rounded-lg border bg-slate-200 p-6 shadow-xl">
       {/* filter/sort */}
       <div className="sticky top-0 h-fit w-[20%] space-y-8 rounded-lg border-2 border-r-2 border-t-2 bg-blue-50">
         <div className="flex flex-col items-center justify-center gap-6">
@@ -62,7 +62,7 @@ function RoomsListPage() {
       </div>
 
       {/* rooms list  */}
-      <div className="absolute -top-[2rem] left-[50%] z-30 flex -translate-x-[50%] flex-col items-center justify-center gap-2 p-4 text-blue-600">
+      <div className="absolute -top-[1rem] left-[50%] z-30 flex -translate-x-[50%] flex-col items-center justify-center gap-2 p-4 text-blue-600">
         <Link
           to={`/hotels/${hotelId}`}
           style={{ "backface-visibility": "hidden" }}
@@ -80,7 +80,7 @@ function RoomsListPage() {
         </h2>
       </div>
 
-      <section className="mt-[6rem] w-[50%] rounded-md border-l-2 border-r-2 bg-slate-100 py-4 shadow-lg">
+      <section className="mt-[7.5rem] w-[50%] rounded-md border-l-2 border-r-2 bg-slate-100 py-4 shadow-lg">
         {isLoadingRooms ? (
           <Spinner />
         ) : rooms.length > 0 ? (
