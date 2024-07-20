@@ -3,13 +3,22 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
+import { useAuthContext } from "../../context/AuthContext";
 
-function BookingForm() {
-  const { handleSubmit, watch, setValue } = useForm();
+function BookingForm({ roomId }) {
+  const { user } = useAuthContext();
+  console.log(user)
+
+  const { handleSubmit, watch, setValue } = useForm({
+    defaultValues: {
+      user: user._id,
+      room: roomId,
+    },
+  });
   const [isValidCheckOutDate, setIsValidCheckOutDate] = useState(false);
 
   const minCheckInDate = new Date();
-  const minCheckOutDate = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  const minCheckOutDate = new Date();
 
   const checkInDate = watch("checkInDate");
   const checkOutDate = watch("checkOutDate");

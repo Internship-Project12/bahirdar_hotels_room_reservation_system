@@ -136,7 +136,7 @@ function RoomListDetail() {
       {/* BOOK NOW */}
       <div className="flex w-full items-center justify-center p-4">
         {isLoggedIn ? (
-          <BookingForm />
+          <BookingForm roomId={room._id}/>
         ) : (
           <button
             className="w-full rounded border-b-2 bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-lg"
