@@ -4,78 +4,37 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../../context/AuthContext";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiBookings from "../../services/apiBookings";
 import toast from "react-hot-toast";
 import QueryKey from "../../constants/QueryKey";
 import Spinner from "../../ui/Spinner";
 
-/*
-:54:39.563	      
-  [
-    {
-      _id: '669ba54027a554b880583560',
-      user: {
-        _id: '668ce28fa5b16ed846c21a22',
-        firstName: 'Edmealem',
-        lastName: 'Kassahun',
-        email: 'test@test.com',
-        role: 'user',
-        phoneNumber: '0908005801',
-        photo: 
-          'https://res.cloudinary.com/dvp1mjhd9/image/upload/v1714759095/gsqg5uwxwtzc744wy6j5.png',
-        hotel: '669a212258bd030819d82b8a',
-        id: '668ce28fa5b16ed846c21a22'
-      },
-      room: {
-        _id: '6696b7a3a5b4af65992602bc',
-        roomNumber: '285',
-        roomType: 'single',
-        pricePerNight: 350,
-        images: [
-          
-            'http://res.cloudinary.com/dvp1mjhd9/image/upload/v1721153443/nqbndwsiqqcfjtsvqk5a.jpg', 
-            'http://res.cloudinary.com/dvp1mjhd9/image/upload/v1721153443/pv3qxsmtm6d8ehmzh6b0.jpg'
-        ],
-        id: '6696b7a3a5b4af65992602bc'
-      },
-      checkInDate: '2024-07-19T21:00:00.000Z',
-      checkOutDate: '2024-07-19T21:00:00.000Z',
-      status: 'pending',
-      createdAt: '2024-07-20T11:53:36.431Z',
-      updatedAt: '2024-07-20T11:53:36.431Z',
-      hotel: '668ced40c8a56b00ec4b58da',
-      numOfNights: 1,
-      pricePerNight: 350,
-      totalPrice: 350,
-      __v: 0,
-      id: '669ba54027a554b880583560'
-    }
-  ] 
-  */
-
 function BookingForm({ roomId }) {
   const { user } = useAuthContext();
+  // BOOKING LOGIC
+  const currentUserBookings = user?.bookings;
+
   const queryClient = useQueryClient();
   const [isValidCheckOutDate, setIsValidCheckOutDate] = useState(false);
   const [activeBooking, setActiveBooking] = useState({});
-  const [showForm, setShowForm] = useState(true);
+  const [currentBooKOnRoom, setCurrentBookOnRoom] = useState({});
 
-  // const [booked, setBooked] = useState(false);
-  // const [isThisRoomCurrentlyBookedByUser, setIsThisRoomCurrentlyBookedByUser] = useState(false);
-  // const [
-  //   isThisRoomCurrentlyBookedByCurrentUser,
-  //   setIsThisRoomCurrentlyBookedByCurrentUser,
-  // ] = useState(false);
-  // const [isAllowedToBook, setIsAllowedToBook] = useState(
-  //   !isThisRoomCurrentlyBookedByCurrentUser,
-  // );
+  const [showForm, setShowForm] = useState(true);
 
   const { handleSubmit, watch, setValue, reset } = useForm({
     defaultValues: {
       user: user._id,
       room: roomId,
     },
+  });
+
+  const {
+    data: { data: { bookings: allBookingsOnThisRoom } = {} } = {},
+    isLoading,
+  } = useQuery({
+    queryKey: [QueryKey.BOOKINGS, roomId],
+    queryFn: () => apiBookings.getAllBookingsOnRoom({ roomId }),
   });
 
   const { mutate, isPending } = useMutation({
@@ -106,6 +65,7 @@ function BookingForm({ roomId }) {
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() + 1);
 
+  // CHECK FOR THE IMPUTED DATE VALUES
   useEffect(() => {
     const isValid =
       checkInDate &&
@@ -115,9 +75,7 @@ function BookingForm({ roomId }) {
     setIsValidCheckOutDate(!!isValid);
   }, [checkInDate, checkOutDate]);
 
-  // BOOKING LOGIC
-  const currentUserBookings = user?.bookings;
-
+  // CHECK IF THE CURRENT USER BOOKED THE ROOM ALREADY OR NOT
   useEffect(() => {
     if (!currentUserBookings || currentUserBookings?.length < 1) return;
 
@@ -145,7 +103,24 @@ function BookingForm({ roomId }) {
     user,
   ]);
 
-  if (isPending) {
+  // CHECK IF THE ROOM IS BOOKED BY OTHER USERS
+  useEffect(() => {
+    if (isLoading) return;
+
+    const activeBookings = allBookingsOnThisRoom?.filter(
+      (book) =>
+        new Date(book.checkOutDate).getTime() > Date.now() &&
+        new Date(book.checkInDate).getTime() < Date.now(),
+    );
+
+    if (activeBookings.length > 0) {
+      setCurrentBookOnRoom(activeBookings[0]);
+      setShowForm(false);
+    }
+
+  }, [allBookingsOnThisRoom, isLoading]);
+
+  if (isPending || isLoading) {
     return <Spinner />;
   }
 
@@ -170,14 +145,37 @@ function BookingForm({ roomId }) {
           <div className="mb-4 flex items-center justify-center">
             <button
               onClick={() => setShowForm(!showForm)}
-              className="rounded-full bg-blue-600 px-3 py-2 w-full text-xs text-white transition-all duration-200 hover:scale-105"
+              className="w-full rounded-full bg-blue-600 px-3 py-2 text-xs text-white transition-all duration-200 hover:scale-105"
             >
               {showForm ? "close form" : "Book Room for other time"}
             </button>
           </div>
         </div>
       )}
-      {/* {activeBooking.checkInDate && !isFormvisible && <p>Add a booking for an other time</p> } */}
+      {currentBooKOnRoom.checkInDate && currentBooKOnRoom.checkOutDate && (
+        <div className="m-2">
+          <p className="w-full rounded-xl bg-blue-600 p-4 text-center text-xl text-slate-200">
+            This Room is booked from{" "}
+            {new Date(currentBooKOnRoom?.checkInDate).toLocaleDateString()} to{" "}
+            {new Date(currentBooKOnRoom?.checkOutDate).toLocaleDateString()} by
+            other user.
+          </p>
+
+          <p className="m-2 mb-4 rounded-xl bg-white p-3 text-center text-xs text-slate-500">
+            if you want to reserve this room for an other time feel free to book
+            it.
+          </p>
+          <div className="mb-4 flex items-center justify-center">
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="w-full rounded-full bg-blue-600 px-3 py-2 text-xs text-white transition-all duration-200 hover:scale-105"
+            >
+              {showForm ? "close form" : "Book Room for other time"}
+            </button>
+          </div>
+        </div>
+      )}
+
       {showForm && (
         <>
           <h2 className="mb-4 border-b-2 border-slate-400 pb-4 text-center uppercase text-slate-600">
