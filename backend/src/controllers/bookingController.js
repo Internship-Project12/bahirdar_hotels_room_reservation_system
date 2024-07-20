@@ -4,7 +4,17 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 
 const getAllBookings = catchAsync(async (req, res, next) => {
-  const { status, hotel } = req.query;
+  const { status, hotel, user } = req.query;
+
+  let filter = {};
+  // this case will happen on nested route of get all bookings on one room
+  if (req.params.roomId) {
+    filter.room = req.params.roomId;
+  }
+
+  if (req.query.user) {
+    filter.user = req.query.user;
+  }
 
   // FILTERING
   const queryObj = {};
@@ -13,11 +23,11 @@ const getAllBookings = catchAsync(async (req, res, next) => {
   }
 
   // get all bookings of one hotel
-  if(hotel) {
-    queryObj.hotel = hotel
+  if (hotel) {
+    queryObj.hotel = hotel;
   }
 
-  const features = new APIFeatures(Booking.find(), req.query)
+  const features = new APIFeatures(Booking.find(filter), req.query)
     // .filter()
     .sort()
     .limitFields()
