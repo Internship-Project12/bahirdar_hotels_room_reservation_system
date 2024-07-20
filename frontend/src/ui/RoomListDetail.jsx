@@ -5,6 +5,8 @@ import apiRooms from "../services/apiRooms";
 import Spinner from "./Spinner";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext";
+// import { useState } from "react";
+import BookingForm from "../forms/Booking/BookingForm";
 
 function RoomListDetail() {
   const { isLoggedIn } = useAuthContext();
@@ -12,10 +14,14 @@ function RoomListDetail() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // const [openBookingForm, setOpenBookingForm] = useState(false);
+
   const { data: { data: { room } = {} } = {}, isLoading } = useQuery({
     queryKey: [QueryKey.ROOM, roomId],
     queryFn: () => apiRooms.getRoomOnHotel({ roomId, hotelId }),
   });
+
+  // const handleOpeningBookingForm = () => setOpenBookingForm(!openBookingForm);
 
   if (isLoading) {
     return (
@@ -125,12 +131,12 @@ function RoomListDetail() {
         ))}
       </div>
 
+      {/* BOOING FORM */}
+
       {/* BOOK NOW */}
       <div className="flex w-full items-center justify-center p-4">
         {isLoggedIn ? (
-          <button className="w-full rounded border-b-2 bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-lg">
-            Book Now
-          </button>
+          <BookingForm />
         ) : (
           <button
             className="w-full rounded border-b-2 bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-lg"
