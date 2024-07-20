@@ -10,7 +10,7 @@ import HotelCard from "../hotels/HotelCard";
 // import BookingTable from "../bookings/BookingTable";
 import { Link } from "react-router-dom";
 import RecentUsers from "../users/RecentUsers";
-import BookingPieChart from "../bookings/BookingPieChart";
+import BookingPieChart from "../stats/BookingPieChart";
 import AreaChartBox from "../stats/AreaChartBox";
 
 const bookingHeaders = [
