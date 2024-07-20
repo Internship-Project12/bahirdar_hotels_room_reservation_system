@@ -1,7 +1,3 @@
-import {
-  DEFAULT_ROOM_IMAGE,
-  DEFAULT_ROOM_IMAGE_2,
-} from '../constants/constants.js';
 import Booking from '../models/bookingModel.js';
 import Room from '../models/roomModel.js';
 import APIFeatures from '../utils/apiFeatures.js';
@@ -33,6 +29,22 @@ const getAllRooms = catchAsync(async (req, res, next) => {
     data: {
       rooms,
     },
+  });
+});
+
+const getAvailableRoomsOnHotel = catchAsync(async (req, res, next) => {
+  console.log(req.params);
+  let filter = {};
+  // filter if getting all rooms of one hotel // nested get route
+  if (req.params.hotelId) filter.hotel = req.params.hotelId;
+
+  const rooms = await Room.find(filter);
+
+  return res.status(200).json({
+    status: 'success',
+    message: 'available rooms of a hotel',
+    numOfRooms: rooms.length,
+    data: { rooms },
   });
 });
 
@@ -149,6 +161,7 @@ const roomController = {
   createRoom,
   updateRoom,
   deleteRoom,
+  getAvailableRoomsOnHotel,
 };
 
 export default roomController;
