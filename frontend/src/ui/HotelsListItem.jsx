@@ -36,10 +36,10 @@ import { Link } from "react-router-dom";
 function HotelsListItem({ hotel }) {
   return (
     <div>
-      <div className="mx-auto mb-4 flex max-h-[300px] w-[90%] justify-between overflow-hidden rounded border p-3 shadow-xl transition-all duration-300 hover:translate-x-1 hover:scale-[1.02] hover:cursor-grab">
-        <div className="flex w-[75%] gap-3">
+      <div className="mx-auto mb-4 flex max-h-[300px] w-[90%] overflow-hidden rounded border p-3 shadow-xl transition-all duration-300 hover:translate-x-1 hover:scale-[1.02]">
+        <div className="flex flex-1 gap-4">
           {/* HOTEL IMAGE */}
-          <div className="h-[250px] overflow-hidden rounded shadow-xl">
+          <div className="h-[200px] w-[250px] overflow-hidden rounded shadow-xl">
             <img
               src={hotel.imageCover}
               alt="hotel cover image"
@@ -47,7 +47,7 @@ function HotelsListItem({ hotel }) {
             />
           </div>
 
-          <div className="flex flex-col justify-around">
+          <div className="flex flex-1 flex-col justify-around">
             <div className="flex flex-col gap-2">
               {/* HOTEL NAME */}
               <Link
