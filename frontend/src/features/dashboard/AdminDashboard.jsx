@@ -11,6 +11,7 @@ import HotelCard from "../hotels/HotelCard";
 import { Link } from "react-router-dom";
 import RecentUsers from "../users/RecentUsers";
 import BookingPieChart from "../bookings/BookingPieChart";
+import AreaChartBox from "../stats/AreaChartBox";
 
 const bookingHeaders = [
   { label: "User", key: "user" },
@@ -96,6 +97,10 @@ function AdminDashboard() {
       <section className="m-3 my-6 flex justify-between bg-white p-4">
         <RecentUsers />
         <BookingPieChart />
+      </section>
+
+      <section className="m-3 my-6 flex h-[500px] bg-white p-6 py-8">
+        <AreaChartBox />
       </section>
 
       <section className="mb-8 flex flex-col">
