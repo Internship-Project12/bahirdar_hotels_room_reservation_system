@@ -1,13 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import QueryKey from "../constants/QueryKey";
 import apiRooms from "../services/apiRooms";
 import Spinner from "./Spinner";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 function RoomListDetail() {
+  const { isLoggedIn } = useAuthContext();
   const { roomId, hotelId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { data: { data: { room } = {} } = {}, isLoading } = useQuery({
     queryKey: [QueryKey.ROOM, roomId],
@@ -124,12 +127,52 @@ function RoomListDetail() {
 
       {/* BOOK NOW */}
       <div className="flex w-full items-center justify-center p-4">
-        <button className="w-full rounded border-b-2 bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-lg">
-          Book Now
-        </button>
+        {isLoggedIn ? (
+          <button className="w-full rounded border-b-2 bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-lg">
+            Book Now
+          </button>
+        ) : (
+          <button
+            className="w-full rounded border-b-2 bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-lg"
+            onClick={() =>
+              navigate("/login", { state: { from: location.pathname } })
+            }
+          >
+            Login to Book
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
 export default RoomListDetail;
+
+/*
+  
+  {
+    _id: '6696b7a3a5b4af65992602bc',
+    roomNumber: '285',
+    roomType: 'single',
+    pricePerNight: 350,
+    isAvailable: true,
+    amenities: Array(8) [
+      'Wi-Fi', 'Air Conditioning', 'Television', 'Coffee Maker', 'Room Service', 'Hair Dryer',
+      'Iron and Ironing Board', 'Desk and Chair'
+    ],
+    capacity: 3,
+    description: 
+      'The room is cozy, with a comfortable bed and a view of the city skyline.',
+    images: [
+      
+        'http://res.cloudinary.com/dvp1mjhd9/image/upload/v1721153443/nqbndwsiqqcfjtsvqk5a.jpg', 
+        'http://res.cloudinary.com/dvp1mjhd9/image/upload/v1721153443/pv3qxsmtm6d8ehmzh6b0.jpg'
+    ],
+    hotel: '668ced40c8a56b00ec4b58da',
+    createdAt: '2024-07-16T18:10:43.886Z',
+    updatedAt: '2024-07-16T18:29:16.421Z',
+    __v: 0,
+    bookings: [],
+    id: '6696b7a3a5b4af65992602bc'
+  }
+   */

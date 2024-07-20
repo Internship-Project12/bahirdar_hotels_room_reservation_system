@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiAuth from "../services/apiAuth";
@@ -9,6 +9,7 @@ import SignInForm from "../forms/auth/SignInForm";
 function SigninPage() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const formMethods = useForm();
   const { handleSubmit } = formMethods;
@@ -22,15 +23,13 @@ function SigninPage() {
       await queryClient.invalidateQueries(QueryKey.USER);
 
       if (user.role === "admin" || user.role === "manager") {
-        if (location.state?.from?.pathname) {
-          return navigate(location.state.from.pathname, { replace: true });
+        if (location.state?.from) {
+          return navigate(location.state.from, { replace: true });
         }
         return navigate("/dashboard", { replace: true });
       }
 
-      console.log(location.state?.from?.pathname);
-
-      navigate(location.state?.from?.pathname || "/", { replace: true });
+      navigate(location.state?.from || "/", { replace: true });
     },
     onError: (err) => {
       toast.error(err?.response?.data.message);
