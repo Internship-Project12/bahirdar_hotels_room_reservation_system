@@ -19,7 +19,7 @@ const BarChartBox = ({ data }) => {
             <YAxis />
             <Tooltip
               cursor={{ fill: "none" }}
-              formatter={(value) => [`Visit: ${value}`]}
+              formatter={(value) => [`${data.dataKey}: ${value}`]}
               contentStyle={{
                 background: "purple",
                 borderRadius: "5px",

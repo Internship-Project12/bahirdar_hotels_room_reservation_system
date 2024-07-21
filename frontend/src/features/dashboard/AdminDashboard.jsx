@@ -14,6 +14,7 @@ import BookingPieChart from "../stats/BookingPieChart";
 import AreaChartBox from "../stats/AreaChartBox";
 import BarChartBox from "../stats/BarChartBox";
 import {
+  barChartBookingData,
   barChartBoxVisit,
   bookingRevenueData,
   hotelUserBookingmonthlyStatusData,
@@ -107,10 +108,10 @@ function AdminDashboard() {
 
       <section className="m-3 my-6 flex h-[500px] bg-white p-8">
         <AreaChartBox
-          title="Hotels, Users and Bookings Monthly Status"
+          title="Number of Registered Hotels and Users Monthly"
           data={hotelUserBookingmonthlyStatusData}
-          dataKeys={["bookings", "users", "hotels"]}
-          colors={["#ffab03", "#160ce4", "#15c458"]}
+          dataKeys={["users", "hotels"]}
+          colors={["#160ce4", "#15c458"]}
         />
       </section>
 
@@ -118,7 +119,9 @@ function AdminDashboard() {
         <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6">
           <BarChartBox data={barChartBoxVisit} />
         </div>
-        <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6"></div>
+        <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6">
+          <BarChartBox data={barChartBookingData} />
+        </div>
       </section>
       <section className="m-3 my-6 flex h-[500px] bg-white p-6">
         <AreaChartBox
@@ -128,7 +131,7 @@ function AdminDashboard() {
           colors={["#15c458"]}
         />
       </section>
-      <section className="mb-8 flex flex-col">
+      <section className="mb-8 flex flex-col bg-['#241352']">
         <div className="flex justify-between bg-white p-4">
           <h2 className="text-2xl font-bold uppercase">
             Recently added Hotels

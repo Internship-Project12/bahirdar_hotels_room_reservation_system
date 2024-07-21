@@ -1,35 +1,73 @@
+import { bookings } from "./bookings";
+
 export const barChartBoxVisit = {
-  title: "Total Visit",
+  title: "Total Visits Per Day",
   color: "#FF8042",
-  dataKey: "visit",
+  dataKey: "visited",
   chartData: [
     {
       name: "Sun",
-      visit: 4000,
+      visited: 4000,
     },
     {
       name: "Mon",
-      visit: 3000,
+      visited: 3000,
     },
     {
       name: "Tue",
-      visit: 2000,
+      visited: 2000,
     },
     {
       name: "Wed",
-      visit: 2780,
+      visited: 2780,
     },
     {
       name: "Thu",
-      visit: 1890,
+      visited: 1890,
     },
     {
       name: "Fri",
-      visit: 2390,
+      visited: 2390,
     },
     {
       name: "Sat",
-      visit: 3490,
+      visited: 3490,
+    },
+  ],
+};
+
+export const barChartBookingData = {
+  title: "Total Bookings Per Day",
+  color: "#238042",
+  dataKey: "booked",
+  chartData: [
+    {
+      name: "Sun",
+      booked: 657,
+    },
+    {
+      name: "Mon",
+      booked: 450,
+    },
+    {
+      name: "Tue",
+      booked: 700,
+    },
+    {
+      name: "Wed",
+      booked: 500,
+    },
+    {
+      name: "Thu",
+      booked: 600,
+    },
+    {
+      name: "Fri",
+      booked: 400,
+    },
+    {
+      name: "Sat",
+      booked: 800,
     },
   ],
 };
@@ -37,75 +75,63 @@ export const barChartBoxVisit = {
 export const hotelUserBookingmonthlyStatusData = [
   {
     month: "Jan",
-    hotels: 250,
-    users: 500,
-    bookings: 260,
+    hotels: 120,
+    users: 97,
   },
   {
     month: "Feb",
     hotels: 250,
     users: 300,
-    bookings: 102,
   },
   {
     month: "Mar",
     hotels: 230,
     users: 201,
-    bookings: 150,
   },
   {
     month: "Apr",
     hotels: 294,
     users: 240,
-    bookings: 287,
   },
   {
     month: "May",
     hotels: 200,
     users: 220,
-    bookings: 330,
   },
   {
     month: "Jun",
     hotels: 149,
     users: 290,
-    bookings: 400,
   },
   {
     month: "Jul",
     hotels: 204,
     users: 302,
-    bookings: 500,
   },
   {
     month: "Aug",
     hotels: 270,
     users: 300,
-    bookings: 140,
   },
   {
     month: "Sep",
     hotels: 198,
     users: 300,
-    bookings: 286,
   },
   {
     month: "Oct",
     hotels: 140,
     users: 392,
-    bookings: 417,
   },
   {
     month: "Nov",
     hotels: 374,
-    users: 94,
-    bookings: 214,
+    users: 200,
   },
   {
     month: "Dec",
-    hotels: 649,
-    users: 107,
-    bookings: 260,
+    hotels: 534,
+    users: 358,
   },
 ];
 
