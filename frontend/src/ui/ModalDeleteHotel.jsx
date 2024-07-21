@@ -7,8 +7,6 @@ import { useAuthContext } from "../context/AuthContext";
 function ModalDeleteHotel({ hotel }) {
   const { handleOpenModalWindow } = useAuthContext();
 
-  console.log(hotel.name);
-
   const {
     register,
     handleSubmit,
@@ -43,7 +41,8 @@ function ModalDeleteHotel({ hotel }) {
         hotel on the input
       </p>
       <p className="mx-auto w-[50%] py-3 text-center text-xs text-slate-700">
-        Write ({hotel.name}) on the input and confirm if you want to delete
+        Write (delete hotel {hotel.name}) on the input and confirm if you want
+        to delete
       </p>
       <form
         onSubmit={handleDelete}

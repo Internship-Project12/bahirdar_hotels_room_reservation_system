@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { GrUserManager } from "react-icons/gr";
 import UsersListModal from "../../ui/UsersListModal";
 import { useState } from "react";
@@ -5,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import UsersListItem from "../../ui/UsersListItem";
 // import SpinnerMini from "../../ui/SpinnerMini";
 
-function AddHotelManager() {
+function AddHotelManager({handleSelectedManager}) {
   const [showModal, setShowModal] = useState(false);
   const [selectedManager, setSelectedManager] = useState();
 
@@ -27,14 +28,17 @@ function AddHotelManager() {
     setValue("manager", user._id);
     setShowModal(!showModal);
     setSelectedManager(user);
+
+    // from the upper comp to check if the manager is selected or not | because of the two ways of adding a manger to the hotel
+    handleSelectedManager(user)
   };
 
   return (
     <div className="relative w-full">
-      <div className="flex items-center justify-around gap-3">
+      <div className="flex items-center justify-between gap-3">
         <button
           onClick={handleShowModal}
-          className="flex items-center gap-2 rounded-full bg-blue-700 px-3 py-2 text-xl text-slate-200 transition-all duration-300 hover:scale-105"
+          className="flex items-center gap-2 rounded-full bg-blue-700 px-6 py-2 text-xl text-slate-200 transition-all duration-300 hover:scale-105"
         >
           {/* <SpinnerMini/> */}
           <GrUserManager size={30} />
