@@ -19,7 +19,12 @@ export const useCreateRoom = () => {
     mutationFn: (data) => apiRooms.createRoom({ id, data }),
     onSuccess: () => {
       toast.success("Room added successfully");
-      queryClient.invalidateQueries(QueryKey.ROOMS);
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.ROOMS]
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKey.HOTELS],
+      });
 
       navigate("/dashboard/rooms");
     },

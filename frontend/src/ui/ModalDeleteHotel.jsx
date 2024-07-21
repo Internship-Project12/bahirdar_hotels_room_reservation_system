@@ -33,7 +33,7 @@ function ModalDeleteHotel({ hotel }) {
   });
 
   return (
-    <div>
+    <div className="w-[30rem]">
       <h2 className="mx-5 mb-5 p-3 text-center text-xl font-bold text-red-500">
         Delete Hotel
       </h2>
