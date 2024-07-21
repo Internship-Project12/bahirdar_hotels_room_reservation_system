@@ -78,7 +78,7 @@ const createRoom = catchAsync(async (req, res, next) => {
 
   if (!imageUrls)
     return next(
-      new AppError('unable to upload images | please try again', 400)
+      new AppError('unable to upload images | please try again or check you connection', 400)
     );
 
   // create room

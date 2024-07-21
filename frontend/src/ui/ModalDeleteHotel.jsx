@@ -19,7 +19,7 @@ function ModalDeleteHotel({ hotel }) {
   let { mutate, isPending } = useDeleteHotel();
 
   const handleDelete = handleSubmit((data) => {
-    if (data?.name.trim() !== hotel.name.trim()) {
+    if (data?.name.trim() !== `delete hotel ${hotel.name.trim()}`) {
       return setError("name", {
         type: "custom",
         message: "Please write the correct name of the hotel",

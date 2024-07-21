@@ -27,7 +27,10 @@ function HotelUsers() {
     // FIXME: ADD IGNORE CASE
     users = users.filter(
       (user) =>
-        user.firstName.includes(search) || user.lastName.includes(search),
+        user.firstName.toLowerCase().includes(search.toLowerCase()) ||
+        user.lastName.toLowerCase().includes(search.toLowerCase()) ||
+        user.email.toLowerCase().includes(search.toLowerCase()) ||
+        user.phoneNumber.toString().includes(search.toString()),
     );
   }
 
