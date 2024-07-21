@@ -28,7 +28,7 @@ function HotelDetailImages({ hotel }) {
                     <img
                       src={image}
                       alt={`hotel-image-[${i + 1}]`}
-                      className="h-[300px] object-cover object-center"
+                      className="h-[300px] w-[452px] object-cover object-center"
                     />
                   </div>
                 </SwiperSlide>
@@ -42,7 +42,7 @@ function HotelDetailImages({ hotel }) {
                 <img
                   src={image}
                   alt={`hotel-image-[${i + 1}]`}
-                  className="h-[300px] object-cover object-center"
+                  className="h-[300px] w-[400px] object-cover object-center"
                 />
               </div>
             ))}
