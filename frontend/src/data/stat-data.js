@@ -1,5 +1,3 @@
-import { bookings } from "./bookings";
-
 export const barChartBoxVisit = {
   title: "Total Visits Per Day",
   color: "#FF8042",

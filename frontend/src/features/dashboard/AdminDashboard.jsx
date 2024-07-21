@@ -131,7 +131,7 @@ function AdminDashboard() {
           colors={["#15c458"]}
         />
       </section>
-      <section className="mb-8 flex flex-col bg-['#241352']">
+      <section className="mb-8 flex flex-col">
         <div className="flex justify-between bg-white p-4">
           <h2 className="text-2xl font-bold uppercase">
             Recently added Hotels
