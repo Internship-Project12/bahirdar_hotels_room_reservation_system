@@ -9,7 +9,7 @@ function RoomsListItem({ room }) {
           {/* ROOM IMAGE */}
           <div className="h-[200px] w-[250px] overflow-hidden rounded shadow-xl">
             <img
-              src={room.images[1]}
+              src={room.images[0]}
               alt="hotel cover image"
               className="h-full w-full object-cover object-center"
             />

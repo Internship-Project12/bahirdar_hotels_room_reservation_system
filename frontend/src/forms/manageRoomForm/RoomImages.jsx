@@ -53,7 +53,7 @@ function RoomImages() {
       <div className="flex justify-center gap-3">
         <div className="flex-1 p-3">
           <label className="mx-auto flex w-[40%] flex-col rounded-md border-2 bg-slate-200 p-2 hover:cursor-pointer">
-            upload room images - at-least 2 images
+            upload room images - at-least 1 images
             {existingImageUrls?.length && (
               <span>
                 ( you can add {10 - existingImageUrls?.length} additional images
@@ -72,8 +72,8 @@ function RoomImages() {
                     (RoomImageFiles?.length || 0) +
                     (existingImageUrls?.length || 0);
 
-                  if (numOfTotalImages < 2) {
-                    return "A room must have at least 2 additional images";
+                  if (numOfTotalImages < 1) {
+                    return "A room must have at least 1 additional images";
                   }
 
                   if (numOfTotalImages > 10) {

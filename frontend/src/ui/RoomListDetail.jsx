@@ -49,7 +49,7 @@ function RoomListDetail() {
       {/* ROOM IMAGE */}
       <div className="mb-4 h-[200px] w-full overflow-hidden rounded-md shadow-lg">
         <img
-          src={room.images[1]}
+          src={room.images[0]}
           alt=""
           className="h-full w-full object-cover object-center"
         />
