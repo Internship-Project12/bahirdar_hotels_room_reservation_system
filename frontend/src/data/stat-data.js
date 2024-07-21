@@ -183,3 +183,78 @@ export const bookingRevenueData = [
     revenue: 65436,
   },
 ];
+
+export const lineChartData = [
+  {
+    day: "Jan",
+    hotels: 150,
+    users: 300,
+    bookings: 50,
+  },
+  {
+    day: "Feb",
+    hotels: 250,
+    users: 430,
+    bookings: 250,
+  },
+  {
+    day: "Mar",
+    hotels: 340,
+    users: 480,
+    bookings: 600,
+  },
+  {
+    day: "Apr",
+    hotels: 400,
+    users: 600,
+    bookings: 900,
+  },
+  {
+    day: "May",
+    hotels: 580,
+    users: 630,
+    bookings: 1300,
+  },
+  {
+    day: "Jun",
+    hotels: 600,
+    users: 712,
+    bookings: 1870,
+  },
+  {
+    day: "Jul",
+    hotels: 640,
+    users: 850,
+    bookings: 2202,
+  },
+  {
+    day: "Aug",
+    hotels: 730,
+    users: 890,
+    bookings: 2400,
+  },
+  {
+    day: "Sep",
+    hotels: 900,
+    users: 1150,
+    bookings: 2550,
+  },
+  {
+    day: "Oct",
+    hotels: 1034,
+    users: 1400,
+    bookings: 3110,
+  },
+  {
+    day: "Nov",
+    hotels: 1200,
+    users: 1850,
+    bookings: 3700,
+  },
+  {
+    day: "Dec",
+    hotels: 1370,
+    users: 2000,
+    bookings: 4000,
+  },
+];

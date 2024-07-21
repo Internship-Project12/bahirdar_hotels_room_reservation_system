@@ -13,11 +13,13 @@ import RecentUsers from "../users/RecentUsers";
 import BookingPieChart from "../stats/BookingPieChart";
 import AreaChartBox from "../stats/AreaChartBox";
 import BarChartBox from "../stats/BarChartBox";
+import LineChartBox from "../stats/LineChartBox";
 import {
   barChartBookingData,
   barChartBoxVisit,
   bookingRevenueData,
   hotelUserBookingmonthlyStatusData,
+  lineChartData,
 } from "../../data/stat-data";
 
 const bookingHeaders = [
@@ -131,8 +133,8 @@ function AdminDashboard() {
           colors={["#15c458"]}
         />
       </section>
-      <section className="h-96 w-full">
-        {/* <ChartBox props={chartBoxData} /> */}
+      <section className="mx-3 my-6 flex h-[400px] bg-white p-6">
+        <LineChartBox data={lineChartData} />
       </section>
       <section className="my-6 flex flex-col">
         <div className="flex justify-between bg-white p-4">
