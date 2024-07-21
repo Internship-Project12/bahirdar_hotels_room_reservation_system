@@ -17,6 +17,14 @@ import Spinner from "../../ui/Spinner";
 import ModalWindow from "../../ui/ModalWindow";
 import AddRoom from "../rooms/AddRoom";
 import CustomLabeledPieChart from "../stats/CustomLabeledPieChart";
+import AreaChartBox from "../stats/AreaChartBox";
+import {
+  barChartBookingData,
+  barChartBoxVisit,
+  bookingRevenueData,
+  hotelUserBookingmonthlyStatusData,
+} from "../../data/stat-data";
+import BarChartBox from "../stats/BarChartBox";
 
 const managerStats = [
   {
@@ -107,7 +115,33 @@ function ManagerDashboard() {
         </section>
         <section className="m-3 my-6 h-96 w-full bg-white p-8">
           <CustomLabeledPieChart />
-          {/* <div className="w-full">graph</div> */}
+        </section>
+
+        <section className="flex justify-between">
+          <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6">
+            <BarChartBox data={barChartBoxVisit} />
+          </div>
+          <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6">
+            <BarChartBox data={barChartBookingData} />
+          </div>
+        </section>
+
+        <section className="m-3 my-6 flex h-[500px] bg-white p-8">
+          <AreaChartBox
+            title="Monthly Registered Number of Hotels and Users "
+            data={hotelUserBookingmonthlyStatusData}
+            dataKeys={["users", "hotels"]}
+            colors={["#160ce4", "#15c458"]}
+          />
+        </section>
+
+        <section className="m-3 my-6 flex h-[500px] bg-white p-6">
+          <AreaChartBox
+            title="Revenue Analysis"
+            data={bookingRevenueData}
+            dataKeys={["revenue"]}
+            colors={["#15c458"]}
+          />
         </section>
 
         <section className="my-6 flex flex-col">

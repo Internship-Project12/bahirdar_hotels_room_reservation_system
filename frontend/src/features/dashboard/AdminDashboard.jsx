@@ -110,7 +110,7 @@ function AdminDashboard() {
 
       <section className="m-3 my-6 flex h-[500px] bg-white p-8">
         <AreaChartBox
-          title="Number of Registered Hotels and Users Monthly"
+          title="Monthly Registered Number of Hotels and Users "
           data={hotelUserBookingmonthlyStatusData}
           dataKeys={["users", "hotels"]}
           colors={["#160ce4", "#15c458"]}
@@ -127,7 +127,7 @@ function AdminDashboard() {
       </section>
       <section className="m-3 my-6 flex h-[500px] bg-white p-6">
         <AreaChartBox
-          title="Revenue Analysis"
+          title="All Hotels Revenue Analysis"
           data={bookingRevenueData}
           dataKeys={["revenue"]}
           colors={["#15c458"]}

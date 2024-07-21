@@ -1,5 +1,5 @@
 export const barChartBoxVisit = {
-  title: "Total Visits Per Day",
+  title: "Total Visits per Day",
   color: "#FF8042",
   dataKey: "visited",
   chartData: [
@@ -35,7 +35,7 @@ export const barChartBoxVisit = {
 };
 
 export const barChartBookingData = {
-  title: "Total Bookings Per Day",
+  title: "Total Bookings per Day",
   color: "#238042",
   dataKey: "booked",
   chartData: [
