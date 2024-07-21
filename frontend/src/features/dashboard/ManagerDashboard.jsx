@@ -16,6 +16,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import Spinner from "../../ui/Spinner";
 import ModalWindow from "../../ui/ModalWindow";
 import AddRoom from "../rooms/AddRoom";
+import CustomLabeledPieChart from "../stats/CustomLabeledPieChart";
 
 const managerStats = [
   {
@@ -47,25 +48,25 @@ const managerStats = [
 
 const RecentlyBookedRooms = [
   {
-    photo: "/hotel-images/img-2.jpg",
+    photo: "/rooms/room1.jpeg",
     roomNumber: "001 ",
     pricePerNight: 542,
     type: "single",
   },
   {
-    photo: "/hotel-images/img-2.jpg",
+    photo: "/rooms/room2.jpeg",
     roomNumber: "002",
     pricePerNight: 542,
     type: "double",
   },
   {
-    photo: "/hotel-images/img-2.jpg",
+    photo: "/rooms/room3.jpeg",
     roomNumber: "003",
     pricePerNight: 542,
     type: "single",
   },
   {
-    photo: "/hotel-images/img-2.jpg",
+    photo: "/rooms/room4.jpeg",
     roomNumber: "004",
     pricePerNight: 542,
     type: "triple",
@@ -93,7 +94,7 @@ function ManagerDashboard() {
 
   return (
     <>
-      <div className="flex w-full flex-col">
+      <div className="flex w-full flex-col overflow-hidden">
         <section className="m-3 mb-8 grid grid-cols-5 justify-between">
           {managerStats.map((stat, i) => (
             <Stats
@@ -104,8 +105,12 @@ function ManagerDashboard() {
             />
           ))}
         </section>
+        <section className="m-3 my-6 h-96 w-full bg-white p-8">
+          <CustomLabeledPieChart />
+          {/* <div className="w-full">graph</div> */}
+        </section>
 
-        <section className="mb-8 flex flex-col">
+        <section className="my-6 flex flex-col">
           <div className="flex justify-between bg-white p-4">
             <h2 className="text-2xl font-bold uppercase">
               Recently Booked Rooms
@@ -141,7 +146,10 @@ function ManagerDashboard() {
       {hotel.rooms.length < 1 && (
         <ModalWindow>
           <div className="relative flex flex-col items-center justify-center gap-4 bg-slate-300">
-            <Link to="/" className="absolute left-[50%] text-slate-500 underline  top-1 -translate-x-[50%]">
+            <Link
+              to="/"
+              className="absolute left-[50%] top-1 -translate-x-[50%] text-slate-500 underline"
+            >
               go to home
             </Link>
             <Link
