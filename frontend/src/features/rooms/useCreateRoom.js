@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiRooms from "../../services/apiRooms";
 import { useAuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
-import QueryKey from "../../constants/QueryKey";
 import { useNavigate } from "react-router-dom";
 
 export const useCreateRoom = () => {
@@ -17,14 +16,9 @@ export const useCreateRoom = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data) => apiRooms.createRoom({ id, data }),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Room added successfully");
-      queryClient.invalidateQueries({
-        queryKey: [QueryKey.ROOMS]
-      });
-      queryClient.invalidateQueries({
-        queryKey: [QueryKey.HOTELS],
-      });
+      await queryClient.invalidateQueries();
 
       navigate("/dashboard/rooms");
     },

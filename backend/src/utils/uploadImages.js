@@ -14,7 +14,12 @@ export async function uploadImages(imageFiles, next) {
     return imageUrls;
   } catch (error) {
     console.error('🔥', error);
-    return next(new AppError('Unable to upload images, try again', 500));
+    return next(
+      new AppError(
+        'Unable to upload images, try again or check you connection',
+        500
+      )
+    );
   }
 }
 
