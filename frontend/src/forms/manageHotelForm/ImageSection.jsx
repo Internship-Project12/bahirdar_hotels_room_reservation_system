@@ -41,7 +41,12 @@ function ImageSection() {
             <div className="grid grid-cols-4 gap-3">
               {existingHotelImagesUrl.map((image, i) => (
                 <div key={i} className="group relative bg-gray-200">
-                  <img key={i} src={image} alt="" className="w-[200px]" />
+                  <img
+                    key={i}
+                    src={image}
+                    alt=""
+                    className="h-[150px] w-full bg-cover bg-center"
+                  />
                   <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition duration-300 group-hover:opacity-100">
                     <button
                       onClick={(e) => handleDeleteHotelImages(e, image)}
@@ -58,9 +63,9 @@ function ImageSection() {
         ) : null}
       </div>
 
-      <div className="flex justify-center gap-3 ">
+      <div className="flex justify-center gap-3">
         <div className="flex-1 bg-slate-200 p-3">
-          <label className="flex flex-col border  hover:cursor-pointer">
+          <label className="flex flex-col border hover:cursor-pointer">
             {isInUpdateMode ? (
               <h3>Change Hotel Cover Image</h3>
             ) : (
@@ -86,11 +91,12 @@ function ImageSection() {
         </div>
 
         <div className="flex-1 bg-slate-200 p-3">
-          <label className="flex flex-col border  hover:cursor-pointer">
-            upload hotel images - at-least 3 images
+          <label className="flex flex-col border hover:cursor-pointer">
+            upload hotel images - at-least 2 images
             {existingHotelImagesUrl && (
               <span>
-                ( you can add {10 - existingHotelImagesUrl?.length} additional images )
+                ( you can add {10 - existingHotelImagesUrl?.length} additional
+                images )
               </span>
             )}
             <input
@@ -105,8 +111,8 @@ function ImageSection() {
                     (hotelImagesFiles?.length || 0) +
                     (existingHotelImagesUrl?.length || 0);
 
-                  if (numOfTotalImages < 3) {
-                    return "A hotel must have at least 3 additional images";
+                  if (numOfTotalImages < 2) {
+                    return "A hotel must have at least 2 additional images";
                   }
 
                   if (numOfTotalImages > 10) {
