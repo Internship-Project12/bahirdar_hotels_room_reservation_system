@@ -20,8 +20,8 @@ function HotelTable({ hotel }) {
   return (
     <>
       <div className="m-2 grid scale-y-90 grid-cols-10 items-center gap-3 overflow-hidden border-b border-r border-slate-200 text-sm shadow">
-        <div className="col-span-1 col-start-1 h-full w-full">
-          <img className="h-16 object-cover" src={hotel.imageCover} alt="" />
+        <div className="col-span-1 col-start-1 h-24 w-32">
+          <img className="object-cover h-full w-full" src={hotel.imageCover} alt="" />
         </div>
         <div className="col-span-1 col-start-2">{hotel.name}</div>
         <div className="col-span-1 col-start-3">{`${hotel.hotelStar} ⭐ Hotel`}</div>
