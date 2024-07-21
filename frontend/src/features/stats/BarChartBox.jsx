@@ -11,7 +11,7 @@ import {
 const BarChartBox = ({ data }) => {
   return (
     <div className="h-full w-full">
-      <h1 className="mb-5 text-xl font-bold">{data.title}</h1>
+      <h2 className="mb-5 text-2xl font-bold">{data.title}</h2>
       <div className="h-4/5 w-full">
         <ResponsiveContainer width="99%" height="100%">
           <BarChart data={data.chartData}>

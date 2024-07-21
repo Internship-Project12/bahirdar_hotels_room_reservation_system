@@ -16,6 +16,17 @@ import { useAuthContext } from "../../context/AuthContext";
 import Spinner from "../../ui/Spinner";
 import ModalWindow from "../../ui/ModalWindow";
 import AddRoom from "../rooms/AddRoom";
+import CustomLabeledPieChart from "../stats/CustomLabeledPieChart";
+import AreaChartBox from "../stats/AreaChartBox";
+import {
+  barChartBookingData,
+  barChartBoxVisit,
+  bookingRevenueData,
+  hotelUserBookingmonthlyStatusData,
+  lineChartData,
+} from "../../data/stat-data";
+import BarChartBox from "../stats/BarChartBox";
+import LineChartBox from "../stats/LineChartBox";
 
 const managerStats = [
   {
@@ -47,25 +58,25 @@ const managerStats = [
 
 const RecentlyBookedRooms = [
   {
-    photo: "/hotel-images/img-2.jpg",
+    photo: "/rooms/room1.jpeg",
     roomNumber: "001 ",
     pricePerNight: 542,
     type: "single",
   },
   {
-    photo: "/hotel-images/img-2.jpg",
+    photo: "/rooms/room2.jpeg",
     roomNumber: "002",
     pricePerNight: 542,
     type: "double",
   },
   {
-    photo: "/hotel-images/img-2.jpg",
+    photo: "/rooms/room3.jpeg",
     roomNumber: "003",
     pricePerNight: 542,
     type: "single",
   },
   {
-    photo: "/hotel-images/img-2.jpg",
+    photo: "/rooms/room4.jpeg",
     roomNumber: "004",
     pricePerNight: 542,
     type: "triple",
@@ -93,7 +104,7 @@ function ManagerDashboard() {
 
   return (
     <>
-      <div className="flex w-full flex-col">
+      <div className="flex w-full flex-col overflow-hidden">
         <section className="m-3 mb-8 grid grid-cols-5 justify-between">
           {managerStats.map((stat, i) => (
             <Stats
@@ -104,8 +115,45 @@ function ManagerDashboard() {
             />
           ))}
         </section>
+        <section className="m-3 my-6 h-96 w-full bg-white p-8">
+          <CustomLabeledPieChart />
+        </section>
 
-        <section className="mb-8 flex flex-col">
+        <section className="flex justify-between">
+          <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6">
+            <BarChartBox data={barChartBoxVisit} />
+          </div>
+          <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6">
+            <BarChartBox data={barChartBookingData} />
+          </div>
+        </section>
+
+        <section className="m-3 my-6 flex h-[500px] bg-white p-8">
+          <AreaChartBox
+            title="Monthly Registered Number of Hotels and Users "
+            data={hotelUserBookingmonthlyStatusData}
+            dataKeys={["users", "hotels"]}
+            colors={["#160ce4", "#15c458"]}
+          />
+        </section>
+
+        <section className="m-3 my-6 flex h-[500px] bg-white p-6">
+          <AreaChartBox
+            title="Revenue Analysis"
+            data={bookingRevenueData}
+            dataKeys={["revenue"]}
+            colors={["#15c458"]}
+          />
+        </section>
+
+        <section className="mx-3 my-6 flex h-[400px] bg-white p-6">
+          <LineChartBox
+            data={lineChartData}
+            title={"Total Number of Registered Users and Bookings over Time"}
+          />
+        </section>
+
+        <section className="my-6 flex flex-col">
           <div className="flex justify-between bg-white p-4">
             <h2 className="text-2xl font-bold uppercase">
               Recently Booked Rooms
@@ -141,7 +189,10 @@ function ManagerDashboard() {
       {hotel.rooms.length < 1 && (
         <ModalWindow>
           <div className="relative flex flex-col items-center justify-center gap-4 bg-slate-300">
-            <Link to="/" className="absolute left-[50%] text-slate-500 underline  top-1 -translate-x-[50%]">
+            <Link
+              to="/"
+              className="absolute left-[50%] top-1 -translate-x-[50%] text-slate-500 underline"
+            >
               go to home
             </Link>
             <Link

@@ -13,11 +13,13 @@ import RecentUsers from "../users/RecentUsers";
 import BookingPieChart from "../stats/BookingPieChart";
 import AreaChartBox from "../stats/AreaChartBox";
 import BarChartBox from "../stats/BarChartBox";
+import LineChartBox from "../stats/LineChartBox";
 import {
   barChartBookingData,
   barChartBoxVisit,
   bookingRevenueData,
   hotelUserBookingmonthlyStatusData,
+  lineChartData,
 } from "../../data/stat-data";
 
 const bookingHeaders = [
@@ -108,7 +110,7 @@ function AdminDashboard() {
 
       <section className="m-3 my-6 flex h-[500px] bg-white p-8">
         <AreaChartBox
-          title="Number of Registered Hotels and Users Monthly"
+          title="Monthly Registered Number of Hotels and Users "
           data={hotelUserBookingmonthlyStatusData}
           dataKeys={["users", "hotels"]}
           colors={["#160ce4", "#15c458"]}
@@ -125,13 +127,16 @@ function AdminDashboard() {
       </section>
       <section className="m-3 my-6 flex h-[500px] bg-white p-6">
         <AreaChartBox
-          title="Revenue Analysis"
+          title="All Hotels Revenue Analysis"
           data={bookingRevenueData}
           dataKeys={["revenue"]}
           colors={["#15c458"]}
         />
       </section>
-      <section className="mb-8 flex flex-col">
+      <section className="mx-3 my-6 flex h-[400px] bg-white p-6">
+        <LineChartBox data={lineChartData} />
+      </section>
+      <section className="my-6 flex flex-col">
         <div className="flex justify-between bg-white p-4">
           <h2 className="text-2xl font-bold uppercase">
             Recently added Hotels
@@ -157,16 +162,6 @@ function AdminDashboard() {
       </section>
 
       <section>
-        <div className="flex justify-between bg-white p-4">
-          <h2 className="text-2xl font-bold uppercase">Recent Users</h2>
-          <Link
-            to="/dashboard/users"
-            className="flex items-center rounded-full bg-blue-500 px-2 py-1 text-sm text-white transition-all duration-200 hover:scale-105"
-          >
-            See more &gt;&gt;
-          </Link>
-        </div>
-
         {/* <BookingTable bookings={RecentBooks} bookingHeaders={bookingHeaders} /> */}
       </section>
     </div>
