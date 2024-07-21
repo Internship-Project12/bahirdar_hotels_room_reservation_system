@@ -37,19 +37,19 @@ function RoomsTableBody({ room }) {
   };
 
   return (
-    <div className="mb-1 grid grid-cols-9 items-center gap-3 border-b border-slate-200 p-3 text-sm shadow">
+    <div className="mb-1 grid grid-cols-10 items-center gap-3 border-b border-slate-200 p-3 text-sm shadow">
       {/* HOTEL NAME */}
-      <div className="col-span-2 col-start-1 flex items-center gap-2">
+      <div className="col-span-1 col-start-1 flex items-center gap-2">
         <img
-          className="h-16 object-cover"
+          className="h-16 w-full object-cover"
           src={room.images[0]}
           alt="room image"
         />
       </div>
-      <div className="col-span-1 col-start-3">{`# ${room.roomNumber}`}</div>
-      <div className="col-span-1 col-start-4">{`${room.roomType}`}</div>
+      <div className="col-span-1 col-start-2">{`# ${room.roomNumber}`}</div>
+      <div className="col-span-1 col-start-3">{`${room.roomType}`}</div>
       {/* PRICE PER NIGHT */}
-      <div className="col-span-1 col-start-5 flex flex-col">
+      <div className="col-span-2 col-start-4 flex items-center gap-1">
         <p className="">{`${room.pricePerNight}`}</p>
         <span className="">ETB / Night</span>
       </div>
@@ -58,11 +58,11 @@ function RoomsTableBody({ room }) {
       {/* DESCRIPTION */}
       {/* <div className="col-span-1 col-start-7">{`${room.description} person`}</div> */}
       {/* AMENITIES */}
-      <div className="col-span-1 col-start-7 flex">
+      <div className="col-span-2 col-start-7 flex">
         {room.amenities && room.amenities.slice(0, 3).join(", ")}
       </div>
-      <div className="col-span-1 col-start-8">{`${room.isAvailable}`}</div>
-      <div className="col-span-1 col-start-9 flex flex-col items-center gap-1">
+      <div className="col-span-1 col-start-9">{`${room.isAvailable}`}</div>
+      <div className="col-span-1 col-start-10 flex flex-col items-center gap-1">
         <div className="flex gap-2">
           <Link to={`/dashboard/update-room/${room._id}`}>
             <MdEdit size={24} className="fill-blue-700" />
