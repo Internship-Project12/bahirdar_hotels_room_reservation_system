@@ -131,7 +131,10 @@ function AdminDashboard() {
           colors={["#15c458"]}
         />
       </section>
-      <section className="mb-8 flex flex-col">
+      <section className="h-96 w-full">
+        {/* <ChartBox props={chartBoxData} /> */}
+      </section>
+      <section className="my-6 flex flex-col">
         <div className="flex justify-between bg-white p-4">
           <h2 className="text-2xl font-bold uppercase">
             Recently added Hotels
@@ -157,16 +160,6 @@ function AdminDashboard() {
       </section>
 
       <section>
-        <div className="flex justify-between bg-white p-4">
-          <h2 className="text-2xl font-bold uppercase">Recent Users</h2>
-          <Link
-            to="/dashboard/users"
-            className="flex items-center rounded-full bg-blue-500 px-2 py-1 text-sm text-white transition-all duration-200 hover:scale-105"
-          >
-            See more &gt;&gt;
-          </Link>
-        </div>
-
         {/* <BookingTable bookings={RecentBooks} bookingHeaders={bookingHeaders} /> */}
       </section>
     </div>
