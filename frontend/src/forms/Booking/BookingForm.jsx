@@ -72,7 +72,9 @@ function BookingForm({ roomId }) {
       checkOutDate &&
       new Date(checkInDate).getTime() <= new Date(checkOutDate).getTime();
 
-    setIsValidCheckOutDate(!!isValid);
+    if (isValid) {
+      setIsValidCheckOutDate(!!isValid);
+    } else setIsValidCheckOutDate(!isValid);
   }, [checkInDate, checkOutDate]);
 
   // CHECK IF THE CURRENT USER BOOKED THE ROOM ALREADY OR NOT
@@ -146,7 +148,9 @@ function BookingForm({ roomId }) {
         newCheckOutDate: checkOutDate,
       });
 
-      if (!isValidDateRange) return setIsValidDateRange(false);
+      if (!isValidDateRange) {
+        return setIsValidDateRange(false);
+      } else setIsValidDateRange(true);
     }
   }, [allBookingsOnThisRoom, checkInDate, checkOutDate]);
 
