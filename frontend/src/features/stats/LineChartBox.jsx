@@ -9,11 +9,12 @@ import {
   YAxis,
 } from "recharts";
 
-function LineChartBox({ data }) {
+function LineChartBox({ data, title }) {
   return (
     <div className="flex h-full w-full flex-col justify-between pb-6 pr-6">
       <h2 className="mb-2 text-2xl font-bold">
-        Total Number of Registered Hotels, Users and Bookings over Time
+        {title ||
+          "Total Number of Registered Hotels, Users and Bookings over Time"}
       </h2>
       <div className="h-full w-full">
         <ResponsiveContainer>

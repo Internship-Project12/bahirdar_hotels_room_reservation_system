@@ -23,8 +23,10 @@ import {
   barChartBoxVisit,
   bookingRevenueData,
   hotelUserBookingmonthlyStatusData,
+  lineChartData,
 } from "../../data/stat-data";
 import BarChartBox from "../stats/BarChartBox";
+import LineChartBox from "../stats/LineChartBox";
 
 const managerStats = [
   {
@@ -141,6 +143,13 @@ function ManagerDashboard() {
             data={bookingRevenueData}
             dataKeys={["revenue"]}
             colors={["#15c458"]}
+          />
+        </section>
+
+        <section className="mx-3 my-6 flex h-[400px] bg-white p-6">
+          <LineChartBox
+            data={lineChartData}
+            title={"Total Number of Registered Users and Bookings over Time"}
           />
         </section>
 
