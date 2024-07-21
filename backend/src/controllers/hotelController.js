@@ -52,7 +52,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 
   let query = features.query.find(queryObj);
 
-  query.user = req.user;
+  // query.user = req.user;
 
   const hotels = await query;
 

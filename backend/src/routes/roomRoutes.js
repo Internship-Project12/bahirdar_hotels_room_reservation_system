@@ -8,6 +8,8 @@ const router = express.Router({ mergeParams: true });
 
 router.use('/:roomId/bookings', bookingRouter);
 
+router.get('/availableRooms', roomController.getAvailableRoomsOnHotel)
+
 router
   .route('/')
   .get(roomController.getAllRooms)
