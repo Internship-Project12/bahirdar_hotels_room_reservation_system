@@ -4,12 +4,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../../context/AuthContext";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiBookings from "../../services/apiBookings";
 import toast from "react-hot-toast";
 import QueryKey from "../../constants/QueryKey";
 import Spinner from "../../ui/Spinner";
 import isDateRangeAvailable from "../../utils/isDateRangeAvailable";
+import { useBookingsOnRoom } from "../../features/bookings/useBookingsOnRoom";
 
 function BookingForm({ roomId }) {
   const { user } = useAuthContext();
@@ -34,10 +35,7 @@ function BookingForm({ roomId }) {
   const {
     data: { data: { bookings: allBookingsOnThisRoom = [] } = {} } = {},
     isLoading,
-  } = useQuery({
-    queryKey: [QueryKey.BOOKINGS, roomId],
-    queryFn: () => apiBookings.getAllBookingsOnRoom({ roomId }),
-  });
+  } = useBookingsOnRoom({ roomId });
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data) => apiBookings.createBooking(data),
