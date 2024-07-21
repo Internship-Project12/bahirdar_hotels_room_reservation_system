@@ -16,7 +16,6 @@ import { useAuthContext } from "../../context/AuthContext";
 import Spinner from "../../ui/Spinner";
 import ModalWindow from "../../ui/ModalWindow";
 import AddRoom from "../rooms/AddRoom";
-import { useState } from "react";
 
 const managerStats = [
   {
@@ -76,8 +75,6 @@ const RecentlyBookedRooms = [
 function ManagerDashboard() {
   const navigate = useNavigate();
   const { setCurrentHotelHandler } = useAuthContext();
-  const [wantToAddMoreRoomsToHotel, setWantToAddMoreRoomsToHotel] =
-    useState(false);
 
   const { hotel, isLoading, isError } = useCurrentHotel();
 

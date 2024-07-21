@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUsers } from "../features/users/useUsers";
 import Spinner from "./Spinner";
 import UsersListItem from "./UsersListItem";
@@ -8,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 function UsersListModal({ handleSelectManager }) {
   const { data: { data: { users } = {} } = {}, isLoading } = useUsers();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchValue, setSearchValue] = useState("");
 
   const ref = useRef();
 
@@ -16,12 +17,18 @@ function UsersListModal({ handleSelectManager }) {
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      searchParams.set("search", searchValue);
+      setSearchParams(searchParams);
+    }, 500);
+
+    return () => clearTimeout(timer)
+  }, [searchParams, searchValue, setSearchParams])
+
   const onSearchHandler = (e) => {
     e.preventDefault();
-
-    searchParams.set("search", e.target.value);
-    // searchParams.set("role", "user");
-    setSearchParams(searchParams);
+    setSearchValue(e.target.value);
   };
 
   return (
