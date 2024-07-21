@@ -14,9 +14,16 @@ const updateMe = async ({ data }) => {
   return res.data;
 };
 
+const createUser = async ({ data }) => {
+  const res = await customFetch.post("/users", data);
+
+  return res.data;
+};
+
 const apiUsers = {
   getAllUsers,
   updateMe,
+  createUser,
 };
 
 export default apiUsers;
