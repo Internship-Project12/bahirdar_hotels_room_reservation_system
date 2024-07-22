@@ -30,6 +30,7 @@ import RoomListDetail from "./ui/RoomListDetail";
 import Profile from "./features/profile/Profile";
 import AccountSettings from "./features/profile/AccountSettings";
 import { useEffect, useState } from "react";
+import MyBookings from "./features/profile/MyBookings";
 
 function App() {
   const { role, isLoggedIn } = useAuthContext();
@@ -65,6 +66,7 @@ function App() {
             <Route path="account" element={<Account />}>
               <Route path="profile" index element={<Profile />} />
               <Route path="settings" element={<AccountSettings />} />
+              <Route path="bookings" element={<MyBookings />} />
             </Route>
           )}
         </Route>

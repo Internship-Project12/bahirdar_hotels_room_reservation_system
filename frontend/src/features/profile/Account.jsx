@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 // import { useAuthContext } from "../../context/AuthContext";
 import { VscAccount } from "react-icons/vsc";
 import { FiSettings } from "react-icons/fi";
+import { MdOutlineBookmarkAdded } from "react-icons/md";
 
 const user = {
   _id: "668ce22aa5b16ed846c21a18",
@@ -54,10 +55,19 @@ const Account = () => {
             Settings
           </Link>
         </li>
+        <li>
+          <Link
+            to="bookings"
+            className={`flex mb-5 w-full items-center gap-4 rounded-full bg-blue-800 px-4 py-2 text-xl shadow-lg transition-all duration-200 ${pathname === "/account/settings" ? "translate-x-4" : "hover:translate-x-4"}`}
+          >
+            <MdOutlineBookmarkAdded size="35px" />
+            My Bookings
+          </Link>
+        </li>
       </ul>
 
       {/* BODY | OUTLET */}
-      <div className='flex-1 bg-slate-200 rounded-lg shadow-xl p-2'>
+      <div className="flex-1 rounded-lg bg-slate-200 p-2 shadow-xl">
         <Outlet />
       </div>
     </div>
