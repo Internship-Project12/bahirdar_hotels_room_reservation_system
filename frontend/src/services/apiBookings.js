@@ -10,6 +10,12 @@ const getAllBookings = async ({ filter }) => {
   return res.data;
 };
 
+const getAllMyBookings = async ({ userId }) => {
+  const res = await customFetch.get(`/bookings?user=${userId}`);
+
+  return res.data;
+};
+
 const getAllBookingsOnRoom = async ({ roomId }) => {
   const res = await customFetch.get(`/rooms/${roomId}/bookings`);
 
@@ -26,6 +32,7 @@ const apiBookings = {
   getAllBookings,
   createBooking,
   getAllBookingsOnRoom,
+  getAllMyBookings,
 };
 
 export default apiBookings;
