@@ -148,9 +148,7 @@ function BookingForm({ roomId }) {
         newCheckOutDate: checkOutDate,
       });
 
-      if (!isValidDateRange) {
-        return setIsValidDateRange(false);
-      } else setIsValidDateRange(true);
+      setIsValidDateRange(isValidDateRange);
     }
   }, [allBookingsOnThisRoom, checkInDate, checkOutDate]);
 

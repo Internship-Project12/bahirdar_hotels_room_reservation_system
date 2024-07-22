@@ -107,7 +107,7 @@ function SignUpForm({ onSubmitHandler, isPending }) {
       <label className="flex-1 text-sm font-bold text-gray-700">
         Phone Number
         <input
-          type="number"
+          type="text"
           className="w-full rounded border border-gray-400 px-3 py-2"
           placeholder=""
           // required
