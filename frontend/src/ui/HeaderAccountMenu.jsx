@@ -5,6 +5,7 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { IoIosLogOut } from "react-icons/io";
 import { useAuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { MdOutlineBookmarkAdded } from "react-icons/md";
 
 function HeaderAccountMenu() {
   const { logout, isPending } = useLogout();
@@ -28,7 +29,6 @@ function HeaderAccountMenu() {
           <p>My account</p>
         </div>
       </li> */}
-      <hr />
       <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
         <Link
           to="/account/settings"
@@ -39,6 +39,17 @@ function HeaderAccountMenu() {
           <p>Settings</p>
         </Link>
       </li>
+      <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
+        <Link
+          to="/account/bookings"
+          onClick={() => handleOpenModal()}
+          className="flex items-center justify-start gap-2 p-3 py-2"
+        >
+          <MdOutlineBookmarkAdded size="25px" />
+          <p>My Bookings</p>
+        </Link>
+      </li>
+      <hr />
       {role === "admin" || role === "manager" ? (
         <li className="transition duration-300 hover:cursor-pointer hover:bg-slate-700">
           <Link
