@@ -34,9 +34,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// if (process.env.NODE_ENV === 'development') {
-// }
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // Limit requests from same API
 const limiter = rateLimit({
@@ -52,7 +52,7 @@ app.use(express.urlencoded({ extended: true })); //  is used for parsing x-www-f
 
 app.use(cookieParser());
 
-app.use(express.static(path.resolve(__dirname, './../frontend/dist')));
+app.use(express.static(path.resolve(__dirname, '../../frontend/dist')));
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
@@ -74,12 +74,8 @@ app.use('/api/v1/bookings', bookingRouter);
 app.use('/api/v1/reviews', reviewRouter);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './../frontend/dist', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../../frontend/dist', 'index.html'));
 });
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
-// });
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
