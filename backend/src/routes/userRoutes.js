@@ -7,7 +7,7 @@ import upload from '../middlewares/multerMiddleware.js';
 const router = Router();
 
 // SIGNUP AND LOGIN
-router.post('/signup', upload.single('photo'), authController.signup);
+router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
 router.post('/forgotPassword', authController.forgotPassword);
