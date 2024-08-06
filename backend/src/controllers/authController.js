@@ -5,7 +5,7 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import sendEmail from '../utils/email.js';
 import { createJWT, verifyJWT } from '../utils/tokenUtils.js';
-import { uploadSingleImage } from '../utils/uploadImages.js';
+import { uploadSingleImage } from '../utils/images.js';
 import { DEFAULT_USER_AVATAR } from '../constants/constants.js';
 
 // SIGNUP A USER
@@ -17,7 +17,8 @@ const signup = catchAsync(async (req, res, next) => {
   // upload images
   let photo = DEFAULT_USER_AVATAR;
   if (req.file) {
-    photo = await uploadSingleImage(req.file);
+    // TODO:
+    // photo = await uploadSingleImage(req.file);
   }
 
   const newUser = await User.create({

@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import filterObject from '../utils/filterObject.js';
-import { uploadSingleImage } from '../utils/uploadImages.js';
+import { uploadSingleImage } from '../utils/images.js';
 
 export const getMe = (req, res, next) => {
   req.params.id = req.user._id;
@@ -42,7 +42,8 @@ export const updateMe = catchAsync(async (req, res, next) => {
   // upload images if the user updates his avatar
   let photo = DEFAULT_USER_AVATAR;
   if (req.file) {
-    photo = await uploadSingleImage(req.file);
+    // TODO:
+    // photo = await uploadSingleImage(req.file);
   }
 
   user.photo = photo;
@@ -105,7 +106,8 @@ export const createUser = catchAsync(async (req, res, next) => {
   // check if file and upload it
   let photo = DEFAULT_USER_AVATAR;
   if (req.file) {
-    photo = await uploadSingleImage(req.file);
+    // TODO:
+    // photo = await uploadSingleImage(req.file);
   }
 
   // create a user
@@ -157,7 +159,8 @@ export const updateUser = catchAsync(async (req, res, next) => {
   // upload images if the user updates his avatar
   let photo = DEFAULT_USER_AVATAR;
   if (req.file) {
-    photo = await uploadSingleImage(req.file);
+    // TODO:
+    // photo = await uploadSingleImage(req.file);
   }
 
   user.photo = photo;

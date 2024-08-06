@@ -11,10 +11,7 @@ import Booking from '../models/bookingModel.js';
 import { CLOUDINARY_FOLDER_HOTELS } from '../constants/cloudinary_folders.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
   // HERE WE DESTRUCTURE POSSIBLE VALUES FROM THE QUERY
-  console.log(req.user);
   const { search, hotelStar, sort } = req.query;
   // FILTERING
   const queryObj = {};
@@ -132,28 +129,53 @@ export const getHotel = catchAsync(async (req, res, next) => {
 });
 
 export const updateHotel = catchAsync(async (req, res, next) => {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  // get hotel and get images from hotel before update
+  const hotelBeforeUpdate = await Hotel.findById(req.params.id);
 
+  if (!hotelBeforeUpdate) {
+    return next(new AppError('No hotel found with that ID', 404));
+  }
+
+  // hotel has one image cover file. if there is a new image cover file, delete the old one
+  if (req.files?.imageCoverFile) {
+    await deleteImages(hotelBeforeUpdate.imageCover);
+  }
+
+  // filter images urls that are excluded or deleted on the updated doc
+  const deletedImageUrls = hotelBeforeUpdate.hotelImages.filter(
+    (url) => !req.body.hotelImages.includes(url)
+  );
+
+  // delete images
+  if (deletedImageUrls.length > 0) {
+    await deleteImages(...deletedImageUrls);
+  }
+
+  // find and update
   const hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
-
-  if (!hotel) {
-    return next(new AppError('No hotel found with that ID', 404));
-  }
 
   // IF THERE ARE IMAGE TO UPDATE
   let imageCoverUrl;
   let hotelImagesUrl;
 
   if (req.files?.imageCoverFile) {
-    imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
+    imageCoverUrl = await uploadImages(
+      req.files.imageCoverFile,
+      CLOUDINARY_FOLDER_HOTELS,
+      next
+    );
     hotel.imageCover = imageCoverUrl[0];
   }
 
   if (req.files?.hotelImagesFiles) {
-    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
+    hotelImagesUrl = await uploadImages(
+      req.files.hotelImagesFiles,
+      CLOUDINARY_FOLDER_HOTELS,
+      next
+    );
     hotel.hotelImages = [
       ...(hotel?.hotelImages || []),
       ...(hotelImagesUrl || []),
@@ -216,7 +238,6 @@ export const deleteHotel = catchAsync(async (req, res, next) => {
 
   // DELETE ALL IMAGES OF ROOMS
   const imgUrls = hotel.rooms?.flatMap((room) => room.images);
-  console.log(imgUrls);
   await deleteImages(...imgUrls);
 
   // DELETE ALL REVIEWS
