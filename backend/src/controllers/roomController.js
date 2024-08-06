@@ -1,9 +1,10 @@
+import { CLOUDINARY_FOLDER_ROOMS } from '../constants/cloudinary_folders.js';
 import Booking from '../models/bookingModel.js';
 import Room from '../models/roomModel.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
-import { uploadImages } from '../utils/uploadImages.js';
+import { deleteImages, uploadImages } from '../utils/images.js';
 
 const getAllRooms = catchAsync(async (req, res, next) => {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -74,11 +75,16 @@ const createRoom = catchAsync(async (req, res, next) => {
 
   // upload room images to cloudinary
   let imageUrls;
-  if (req.files) imageUrls = await uploadImages(req.files, next);
+  if (req.files) {
+    imageUrls = await uploadImages(req.files, CLOUDINARY_FOLDER_ROOMS, next);
+  }
 
   if (!imageUrls)
     return next(
-      new AppError('unable to upload images | please try again or check you connection', 400)
+      new AppError(
+        'unable to upload images | please try again or check you connection',
+        400
+      )
     );
 
   // create room
@@ -95,20 +101,30 @@ const createRoom = catchAsync(async (req, res, next) => {
 });
 
 const updateRoom = catchAsync(async (req, res, next) => {
+  const roomBeforeUpdate = await Room.findById(req.params.id);
+
+  if (!roomBeforeUpdate) {
+    return next(new AppError('There is no room found with that id', 404));
+  }
+
+  // deleted images of rooms
+  const deletedImageUrls = roomBeforeUpdate.images.filter(
+    (url) => !req.body.images.includes(url)
+  );
+
+  // delete images
+  await deleteImages(...deletedImageUrls);
+
   // find and update
   const room = await Room.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
 
-  if (!room) {
-    return next(new AppError('There is no room found with that id', 404));
-  }
-
   // upload room images to cloudinary
   if (req.files?.length > 0) {
     let imageUrls;
-    imageUrls = await uploadImages(req.files, next);
+    imageUrls = await uploadImages(req.files, CLOUDINARY_FOLDER_ROOMS, next);
     room.images = [...(room.images || []), ...imageUrls];
     await room.save({ validateBeforeSave: false });
   }
@@ -135,6 +151,11 @@ const deleteRoom = catchAsync(async (req, res, next) => {
   if (!room) {
     return next(new AppError('There is no room found with that id', 404));
   }
+
+  // delete all images of the room
+  await deleteImages(...room.images);
+
+  // delete all bookings of the room
   const bookingPromises = room.bookings?.map(
     async (booking) => await Booking.findByIdAndDelete(booking._id)
   );

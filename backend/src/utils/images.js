@@ -44,6 +44,8 @@ export async function uploadSingleImage(image) {
 // 'http://res.cloudinary.com/*********/image/upload/*******/bookingAppMern/gsuw7y0362jshryvvwhu.png'.split('/').slice(-2).join('/').split('.')[0]; => bookingAppMern/gsuw7y0362jshryvvwhu
 export async function deleteImages(...imageUrls) {
   try {
+    if (imageUrls.length < 1) return;
+
     const publicIds = imageUrls.map((url) => {
       const publicId = url.split('/').slice(-3).join('/').split('.')[0];
       return publicId;
