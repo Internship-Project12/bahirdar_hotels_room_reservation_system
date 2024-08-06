@@ -3,11 +3,12 @@ import Hotel from '../models/hotelModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import AppError from '../utils/appError.js';
-import { uploadImages } from '../utils/uploadImages.js';
+import { deleteImages, uploadImages } from '../utils/images.js';
 import User from '../models/userModel.js';
 import Room from '../models/roomModel.js';
 import Review from '../models/reviewModel.js';
 import Booking from '../models/bookingModel.js';
+import { CLOUDINARY_FOLDER_HOTELS } from '../constants/cloudinary_folders.js';
 
 export const getAllHotels = catchAsync(async (req, res, next) => {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -75,8 +76,16 @@ export const createHotel = catchAsync(async (req, res, next) => {
   let hotelImagesUrl;
 
   if (req.files?.imageCoverFile || req.files?.hotelImagesFiles) {
-    imageCoverUrl = await uploadImages(req.files.imageCoverFile, next);
-    hotelImagesUrl = await uploadImages(req.files.hotelImagesFiles, next);
+    imageCoverUrl = await uploadImages(
+      req.files.imageCoverFile,
+      CLOUDINARY_FOLDER_HOTELS,
+      next
+    );
+    hotelImagesUrl = await uploadImages(
+      req.files.hotelImagesFiles,
+      CLOUDINARY_FOLDER_HOTELS,
+      next
+    );
   }
 
   const hotel = await Hotel.create({
@@ -190,6 +199,9 @@ export const deleteHotel = catchAsync(async (req, res, next) => {
     return next(new AppError('No hotel found with that ID', 404));
   }
 
+  // DELETE ALL IMAGES OF THE HOTEL FROM CLOUDINARY STORAGE
+  await deleteImages(hotel.imageCover, ...hotel.hotelImages);
+
   // WE UPDATE THE MANAGER TO A USER AND DELETE THE LINKED HOTEL
   await User.findByIdAndUpdate(hotel.manager._id, {
     role: 'user',
@@ -201,6 +213,11 @@ export const deleteHotel = catchAsync(async (req, res, next) => {
     async (room) => await Room.findByIdAndDelete(room._id)
   );
   await Promise.all(roomPromises);
+
+  // DELETE ALL IMAGES OF ROOMS
+  const imgUrls = hotel.rooms?.flatMap((room) => room.images);
+  console.log(imgUrls);
+  await deleteImages(...imgUrls);
 
   // DELETE ALL REVIEWS
   const reviewPromises = hotel.reviews?.map(
