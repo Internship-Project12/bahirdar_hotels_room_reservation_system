@@ -25,22 +25,6 @@ export async function uploadImages(imageFiles, CLOUDINARY_FOLDER, next) {
   }
 }
 
-// TODO:
-export async function uploadSingleImage(image) {
-  try {
-    const b64 = Buffer.from(image.buffer).toString('base64');
-    let dataURI = `data:${image.mimetype};base64,${b64}`;
-    const res = await cloudinary.v2.uploader.upload(dataURI, {
-      // there is a folder called 'hotels' inside of the folder 'HotelBookingApp_Intern
-      folder: 'HotelBookingApp_Intern/hotels',
-    });
-    return res.url;
-  } catch (error) {
-    console.error('🔥', error);
-    return next(new AppError('Unable to upload photo, Please try again', 500));
-  }
-}
-
 // 'http://res.cloudinary.com/*********/image/upload/*******/bookingAppMern/gsuw7y0362jshryvvwhu.png'.split('/').slice(-2).join('/').split('.')[0]; => bookingAppMern/gsuw7y0362jshryvvwhu
 export async function deleteImages(...imageUrls) {
   try {

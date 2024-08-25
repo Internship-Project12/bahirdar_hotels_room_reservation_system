@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import filterObject from '../utils/filterObject.js';
-import { uploadSingleImage } from '../utils/images.js';
+import { deleteImages, uploadImages } from '../utils/images.js';
 
 export const getMe = (req, res, next) => {
   req.params.id = req.user._id;
@@ -11,7 +11,6 @@ export const getMe = (req, res, next) => {
 };
 
 export const updateMe = catchAsync(async (req, res, next) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   // make sure the user does not update his password through this route
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -40,13 +39,18 @@ export const updateMe = catchAsync(async (req, res, next) => {
   if (!user) return next(new AppError('No user found with that ID', 404));
 
   // upload images if the user updates his avatar
-  let photo = DEFAULT_USER_AVATAR;
+  let photo;
   if (req.file) {
     // TODO:
-    // photo = await uploadSingleImage(req.file);
+    // upload images fns accepts an array of files and return an array of image urls
+    photo = await uploadImages([req.file], CLOUDINARY_FOLDER_USERS, next);
+
+    if (user.photo !== DEFAULT_USER_AVATAR) {
+      await deleteImages(user.photo);
+    }
   }
 
-  user.photo = photo;
+  user.photo = photo[0];
   await user.save({ validateBeforeSave: false });
 
   // return response
