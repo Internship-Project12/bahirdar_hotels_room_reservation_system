@@ -71,7 +71,7 @@ function DashboardLayout() {
   if (!isLoggedIn) return navigate("/login", { replace: true });
 
   return (
-    <div className="mx-auto flex max-w-[120rem] bg-black font-lato">
+    <div className="mx-auto flex max-w-[120rem] bg-black">
       {role === "admin" ? (
         <SideBar menus={adminMenus} />
       ) : role === "manager" ? (

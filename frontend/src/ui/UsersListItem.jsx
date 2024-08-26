@@ -15,11 +15,11 @@ function UsersListItem({ user, onClick }) {
         />
       </div>
       <div className="flex flex-col items-start">
-        <h2 className="font-lato">
+        <h2 className="">
           {user.firstName} {user.lastName}{" "}
           <span className="text-xs text-slate-500">({user.email})</span>
         </h2>
-        <p className="font-lato text-slate-500">
+        <p className=" text-slate-500">
           {user.phoneNumber}{" "}
           <span className="text-xs text-slate-500">({user.role})</span>
         </p>
