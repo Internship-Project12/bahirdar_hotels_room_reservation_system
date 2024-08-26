@@ -5,6 +5,7 @@ import HeaderAccountMenu from "./HeaderAccountMenu";
 import { useAuthContext } from "../context/AuthContext";
 import { useRef } from "react";
 import { useOnClickOutside } from "../hooks/useOnClickOutside";
+import { createPortal } from "react-dom";
 
 function HeaderAccount() {
   const { user, isOpenModal, handleOpenModal } = useAuthContext();
@@ -28,16 +29,19 @@ function HeaderAccount() {
           />
         </div>
       </div>
-      {isOpenModal ? (
-        <>
-          <div
-            ref={menuRef}
-            className="top-15 absolute right-[20px] z-50 mt-2 w-[13rem] rounded-md bg-slate-900 text-slate-50"
-          >
-            <HeaderAccountMenu />
-          </div>
-        </>
-      ) : null}
+      {isOpenModal
+        ? createPortal(
+            <>
+              <div
+                ref={menuRef}
+                className="top-14 absolute right-[20px] z-[998] mt-2 w-[13rem] rounded-md bg-slate-900 text-slate-50"
+              >
+                <HeaderAccountMenu />
+              </div>
+            </>,
+            document.querySelector("#modal"),
+          )
+        : null}
     </div>
   );
 }
