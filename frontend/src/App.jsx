@@ -53,8 +53,6 @@ function App() {
             <Route path="/" element={<HomePage />} />
           )}
           <Route path="about" element={<About />} />
-          <Route path="login" element={<SigninPage />} />
-          <Route path="signup" element={<SignupPage />} />
           <Route path="hotels" element={<HotelsListPage />} />
           <Route path="hotels/:id" element={<HotelDetailsPage />} />
           <Route path="hotels/:hotelId/rooms" element={<RoomsListPage />}>
@@ -99,6 +97,8 @@ function App() {
             </>
           ) : null}
         </Route>
+        <Route path="/login" element={<SigninPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
         {/* NOT FOUND ROUTES */}
         <Route path="/*" element={<Navigate to="/" />} />
