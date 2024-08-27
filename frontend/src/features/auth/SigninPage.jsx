@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiAuth from "../services/apiAuth";
+import apiAuth from "../../services/apiAuth";
 import toast from "react-hot-toast";
-import QueryKey from "../constants/QueryKey";
-import SignInForm from "../forms/auth/SignInForm";
+import QueryKey from "../../constants/QueryKey";
+import SignInForm from "../../forms/auth/SignInForm";
 
 function SigninPage() {
   const queryClient = useQueryClient();

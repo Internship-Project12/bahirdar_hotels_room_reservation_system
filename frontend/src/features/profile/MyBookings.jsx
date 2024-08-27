@@ -17,7 +17,15 @@ function MyBookings() {
   // console.log(user.bookings.length);
 
   if (bookings?.length < 1) {
-    return <div>you have no bookings yet.</div>;
+    return (
+      <div className="flex h-full items-center justify-center">
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-4xl font-medium text-gray-500 uppercase">You have no bookings yet.</span>
+          <span className="border-4 rounded-full border-slate-500 w-1/2"></span>
+          {/* <span className="text-9xl text-white">🤷</span> */}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -26,12 +34,10 @@ function MyBookings() {
         <div className="col-span-2 col-start-1">Hotel</div>
         <div className="col-span-1 col-start-3">Room</div>
         <div className="col-span-2 col-start-5">checkInDate</div>
-        {/* <div className="col-span-1 col-start-6">numOfNights</div> */}
         <div className="col-span-2 col-start-7">pricePerNight</div>
         <div className="col-span-1 col-start-9">totalPrice</div>
         <div className="col-span-1 col-start-10"></div>
       </div>
-      {/* <Table headers={headers} data={bookings} /> */}
 
       {bookings.map((booking, i) => (
         <div

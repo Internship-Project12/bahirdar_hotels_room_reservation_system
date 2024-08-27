@@ -29,7 +29,7 @@ function AllUsers() {
   }, [searchParams]);
 
   return (
-    <div className="w-full bg-white font-lato text-gray-600 shadow-md">
+    <div className="w-full bg-white  text-gray-600 shadow-md">
       <div className="flex items-center justify-between p-6">
         <h1 className="p-4 uppercase">
           <Link to="/dashboard/users">All Users</Link>
