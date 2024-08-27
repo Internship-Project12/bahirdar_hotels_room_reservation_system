@@ -10,8 +10,8 @@ function PhoneInput() {
   } = useFormContext();
 
   return (
-    <label className="flex-1 text-sm font-bold text-gray-700">
-      Phone Number
+    <label className="flex flex-1 flex-col tracking-wider text-gray-900">
+      <span className="ml-2 font-normal md:text-xl">Phone Number</span>
       <PhoneInputWithCountry
         name="phoneNumber"
         control={control}
@@ -28,7 +28,7 @@ function PhoneInput() {
             );
           },
         }}
-        className="w-full rounded border border-gray-400 bg-white px-3 py-2 focus:outline-none"
+        className="w-full rounded-xl p-2 focus:outline-none"
       />
       {errors.phoneNumber && (
         <p className="text-sm font-light tracking-wide text-red-500">
