@@ -21,7 +21,7 @@ router.post('/logout', authController.logout);
 
 // CURRENT USER
 router.get('/me', userController.getMe, userController.getUser);
-router.patch('/updateMe', upload.single('photo'), userController.updateMe);
+router.patch('/updateMe', upload.single('photoFile'), userController.updateMe);
 router.patch('/updateMyPassword', authController.updateMyPassword);
 router.delete('/deleteMe', userController.deleteMe);
 
