@@ -6,9 +6,10 @@ function SignupPage() {
   const formMethods = useForm();
   const { handleSubmit } = formMethods;
 
-  const { mutate, isPending } = useSignUp;
+  const { mutate, isPending } = useSignUp();
 
   const onSubmitHandler = handleSubmit((data) => {
+    console.log(data);
     mutate(data);
   });
 

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
+import PhoneInput from "./PhoneInput";
 
 function SignUpForm({ onSubmitHandler, isPending }) {
   const {
@@ -104,7 +105,7 @@ function SignUpForm({ onSubmitHandler, isPending }) {
           </p>
         )}
       </label>
-      <label className="flex-1 text-sm font-bold text-gray-700">
+      {/* <label className="flex-1 text-sm font-bold text-gray-700">
         Phone Number
         <input
           type="text"
@@ -120,7 +121,8 @@ function SignUpForm({ onSubmitHandler, isPending }) {
             {errors.phoneNumber.message}
           </p>
         )}
-      </label>
+      </label> */}
+      <PhoneInput />
 
       <button
         disabled={isPending}
