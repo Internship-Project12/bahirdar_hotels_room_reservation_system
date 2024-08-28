@@ -8,6 +8,7 @@ function SignUpForm({ onSubmitHandler, isPending }) {
   const {
     register,
     formState: { errors },
+    getValues,
   } = useFormContext();
 
   return (
@@ -100,7 +101,12 @@ function SignUpForm({ onSubmitHandler, isPending }) {
           placeholder="**********"
           // required
           {...register("passwordConfirm", {
-            required: "password confirm is a required field",
+            validate: (val) => {
+              if (!val) return "password confirm is required.";
+              else if (val !== getValues('password'))
+                return "password confirm must match password.";
+              return true;
+            },
           })}
         />
         {errors.passwordConfirm && (

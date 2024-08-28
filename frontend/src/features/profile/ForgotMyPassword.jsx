@@ -7,7 +7,7 @@ function ForgotMyPassword() {
   const { user } = useAuthContext();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: apiUsers.forgotMyPassword,
+    mutationFn: apiUsers.forgotPassword,
     onSuccess: () => {
       toast.success("password reset token send to your email");
     },
@@ -15,7 +15,7 @@ function ForgotMyPassword() {
       toast.error("unable to send password reset token, please try again");
       console.log(err);
     },
-    retry: false
+    retry: false,
   });
 
   const onClickHandler = () => {

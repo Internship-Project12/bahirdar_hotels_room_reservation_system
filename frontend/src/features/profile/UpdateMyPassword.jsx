@@ -8,6 +8,7 @@ function UpdateMyPassword() {
     register,
     formState: { errors },
     handleSubmit,
+    getValues,
   } = formMethods;
 
   const { mutate, isPending } = useUpdateMyPassword();
@@ -76,11 +77,10 @@ function UpdateMyPassword() {
                   Password Confirm
                   <input
                     type="password"
-
                     {...register("passwordConfirm", {
                       validate: (val) => {
                         if (!val) return "password confirm is required.";
-                        else if (val !== formMethods.getValues("password"))
+                        else if (val !== getValues("password"))
                           return "password confirm must match the password.";
 
                         return true;

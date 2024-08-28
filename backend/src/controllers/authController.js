@@ -160,7 +160,6 @@ const restrictTo = (...roles) => {
 
 export const forgotPassword = catchAsync(async (req, res, next) => {
   const { email } = req.body;
-  console.log(email);
 
   if (!email) {
     return next(new AppError('Please provide your email add', 401));
@@ -175,7 +174,6 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   }
 
   const resetToken = user.createPasswordResetToken();
-  console.log(resetToken)
   await user.save({ validateBeforeSave: false });
 
   try {
@@ -185,7 +183,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 
     const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
 
-    const html = `<h1>Forgot your password?</h1><p>Submit a PATCH request with your new password and passwordConfirm to: <a href="${resetURL}" target='_blank'>${resetURL}</a></p>`;
+    const html = `<h1>Forgot your password?</h1><p>Submit a PATCH request with your new password and passwordConfirm to: <a href="${process.env.FRONT_END_URL}/settings/${resetToken}" target='_blank'>${resetURL}</a></p>`;
 
     await sendEmail({
       email: user.email,
