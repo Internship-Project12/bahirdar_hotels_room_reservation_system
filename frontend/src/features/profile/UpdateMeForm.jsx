@@ -1,7 +1,8 @@
+import "react-phone-number-input/style.css";
+import flags from "react-phone-number-input/flags";
 import SpinnerMini from "../../ui/SpinnerMini";
 import { useUpdateMe } from "./useUpdateMe";
 import { FormProvider, useForm } from "react-hook-form";
-import "react-phone-number-input/style.css";
 import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import parsePhoneNumberFromString from "libphonenumber-js";
 import { useAuthContext } from "../../context/AuthContext";
@@ -24,6 +25,7 @@ function UpdateMeForm() {
     formData.append("lastName", data.lastName);
     formData.append("phone", data.phone);
     formData.append("email", data.email);
+    formData.append("phoneNumber", data.phoneNumber);
     Array.from(data.photo).forEach((image) => {
       formData.append("photoFile", image);
     });
@@ -78,6 +80,7 @@ function UpdateMeForm() {
                 <PhoneInputWithCountry
                   name="phoneNumber"
                   control={control}
+                  flags={flags}
                   international
                   placeholder="Enter phone number"
                   defaultValue={user.phoneNumber}
