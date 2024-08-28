@@ -1,3 +1,4 @@
+import ForgotMyPassword from "./ForgotMyPassword";
 import UpdateMeForm from "./UpdateMeForm";
 import UpdateMyPassword from "./UpdateMyPassword";
 
@@ -6,6 +7,7 @@ const AccountSettings = () => {
     <div>
       <UpdateMeForm />
       <UpdateMyPassword />
+      <ForgotMyPassword />
     </div>
   );
 };

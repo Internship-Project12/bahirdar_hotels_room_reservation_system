@@ -31,6 +31,7 @@ import Profile from "./features/profile/Profile";
 import AccountSettings from "./features/profile/AccountSettings";
 import { useEffect, useState } from "react";
 import MyBookings from "./features/profile/MyBookings";
+import ResetMyPassword from "./features/profile/ResetMyPassword";
 
 function App() {
   const { role, isLoggedIn } = useAuthContext();
@@ -97,6 +98,7 @@ function App() {
             </>
           ) : null}
         </Route>
+        <Route path="/settings/:resetToken" element={<ResetMyPassword />} />
         <Route path="/login" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
 

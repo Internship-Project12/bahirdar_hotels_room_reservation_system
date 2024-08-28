@@ -26,11 +26,28 @@ const updateMyPassword = async ({ data }) => {
   return res.data;
 };
 
+const forgotPassword = async (email) => {
+  const res = await customFetch.post("/users/forgotPassword", { email });
+
+  return res.data;
+};
+
+const resetPassword = async ({ resetToken, data }) => {
+  const res = await customFetch.post(
+    `/users/resetPassword/${resetToken}`,
+    data,
+  );
+
+  return res.data;
+};
+
 const apiUsers = {
   getAllUsers,
   updateMe,
   createUser,
   updateMyPassword,
+  forgotPassword,
+  resetPassword,
 };
 
 export default apiUsers;
