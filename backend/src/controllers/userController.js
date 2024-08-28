@@ -49,10 +49,9 @@ export const updateMe = catchAsync(async (req, res, next) => {
     if (user.photo !== DEFAULT_USER_AVATAR) {
       await deleteImages(user.photo);
     }
+    user.photo = photo[0];
+    await user.save({ validateBeforeSave: false });
   }
-
-  user.photo = photo[0];
-  await user.save({ validateBeforeSave: false });
 
   // return response
   res.status(200).json({
