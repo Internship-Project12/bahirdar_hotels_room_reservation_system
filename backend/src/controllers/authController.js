@@ -160,6 +160,7 @@ const restrictTo = (...roles) => {
 
 export const forgotPassword = catchAsync(async (req, res, next) => {
   const { email } = req.body;
+  console.log(email);
 
   if (!email) {
     return next(new AppError('Please provide your email add', 401));
@@ -174,14 +175,10 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   }
 
   const resetToken = user.createPasswordResetToken();
+  console.log(resetToken)
   await user.save({ validateBeforeSave: false });
 
   try {
-    // 3) Send it to user's email
-    // const resetURL = `${req.protocol}://${req.get(
-    //   'host'
-    // )}/api/v1/users/resetPassword/${resetToken}`;
-
     const resetURL = `${req.protocol}://${req.get(
       'host'
     )}/api/v1/users/resetPassword/${resetToken}`;
