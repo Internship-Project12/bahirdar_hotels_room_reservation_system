@@ -20,10 +20,17 @@ const createUser = async ({ data }) => {
   return res.data;
 };
 
+const updateMyPassword = async ({ data }) => {
+  const res = await customFetch.patch("/users/updateMyPassword", data);
+
+  return res.data;
+};
+
 const apiUsers = {
   getAllUsers,
   updateMe,
   createUser,
+  updateMyPassword,
 };
 
 export default apiUsers;

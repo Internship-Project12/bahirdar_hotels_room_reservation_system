@@ -1,3 +1,4 @@
+import { CLOUDINARY_FOLDER_USERS } from '../constants/cloudinary_folders.js';
 import { DEFAULT_USER_AVATAR } from '../constants/constants.js';
 import User from '../models/userModel.js';
 import AppError from '../utils/appError.js';
@@ -27,7 +28,8 @@ export const updateMe = catchAsync(async (req, res, next) => {
     'firstName',
     'lastName',
     'email',
-    'phoneNumber'
+    'phoneNumber',
+    'photo'
   );
 
   // update user
@@ -41,17 +43,15 @@ export const updateMe = catchAsync(async (req, res, next) => {
   // upload images if the user updates his avatar
   let photo;
   if (req.file) {
-    // TODO:
     // upload images fns accepts an array of files and return an array of image urls
     photo = await uploadImages([req.file], CLOUDINARY_FOLDER_USERS, next);
 
     if (user.photo !== DEFAULT_USER_AVATAR) {
       await deleteImages(user.photo);
     }
+    user.photo = photo[0];
+    await user.save({ validateBeforeSave: false });
   }
-
-  user.photo = photo[0];
-  await user.save({ validateBeforeSave: false });
 
   // return response
   res.status(200).json({
