@@ -12,7 +12,7 @@ function PhoneInput() {
 
   return (
     <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-      <span className="ml-2 font-normal md:text-xl">Phone Number</span>
+      <span className="ml-2 font-normal">Phone Number</span>
       <PhoneInputWithCountry
         flags={flags}
         name="phoneNumber"
@@ -30,7 +30,6 @@ function PhoneInput() {
             );
           },
         }}
-        className="w-full rounded-xl p-2 focus:outline-none"
       />
       {errors.phoneNumber && (
         <p className="text-sm font-light tracking-wide text-red-500">

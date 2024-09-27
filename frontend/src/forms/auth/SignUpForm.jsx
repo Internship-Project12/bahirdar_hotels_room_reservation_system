@@ -16,16 +16,14 @@ function SignUpForm({ onSubmitHandler, isPending }) {
       onSubmit={onSubmitHandler}
       className="mt-2 flex w-full flex-col gap-6"
     >
-      <h1 className="text-center text-2xl font-bold tracking-wider text-gray-800 lg:text-3xl">
-        Sign Up
-      </h1>
+      <h1 className="text-center text-blue-800 underline">Create an Account</h1>
 
       <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal md:text-xl">First Name</span>
+        <span className="ml-2 font-normal">First Name</span>
         <input
           type="text"
           defaultValue="John"
-          className="w-full rounded-xl p-2 shadow-md focus:outline-none"
+          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
           placeholder="John"
           required
           {...register("firstName", {
@@ -39,11 +37,11 @@ function SignUpForm({ onSubmitHandler, isPending }) {
         )}
       </label>
       <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal md:text-xl">Last Name</span>
+        <span className="ml-2 font-normal">Last Name</span>
         <input
           type="text"
           defaultValue="A."
-          className="w-full rounded-xl p-2 shadow-md focus:outline-none"
+          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
           placeholder="Doe"
           // required
           {...register("lastName", {
@@ -57,11 +55,11 @@ function SignUpForm({ onSubmitHandler, isPending }) {
         )}
       </label>
       <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal md:text-xl">Email</span>
+        <span className="ml-2 font-normal">Email</span>
         <input
           type="email"
           defaultValue="test@test.com"
-          className="w-full rounded-xl p-2 shadow-md focus:outline-none"
+          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
           placeholder="test@test.com"
           // required
           {...register("email", {
@@ -75,11 +73,11 @@ function SignUpForm({ onSubmitHandler, isPending }) {
         )}
       </label>
       <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal md:text-xl">Password</span>
+        <span className="ml-2 font-normal">Password</span>
         <input
           type="password"
           defaultValue="test1234"
-          className="w-full rounded-xl p-2 shadow-md focus:outline-none"
+          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
           placeholder="**********"
           // required
           {...register("password", {
@@ -93,17 +91,17 @@ function SignUpForm({ onSubmitHandler, isPending }) {
         )}
       </label>
       <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal md:text-xl">Password Confirm</span>
+        <span className="ml-2 font-normal">Password Confirm</span>
         <input
           type="password"
           defaultValue="test1234"
-          className="w-full rounded-xl p-2 shadow-md focus:outline-none"
+          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
           placeholder="**********"
           // required
           {...register("passwordConfirm", {
             validate: (val) => {
               if (!val) return "password confirm is required.";
-              else if (val !== getValues('password'))
+              else if (val !== getValues("password"))
                 return "password confirm must match password.";
               return true;
             },
@@ -119,7 +117,7 @@ function SignUpForm({ onSubmitHandler, isPending }) {
 
       <button
         disabled={isPending}
-        className="rounded bg-blue-600 px-3 py-2 text-xl text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-400"
+        className="rounded-xl bg-blue-600 px-3 py-1 text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-400"
         type="submit"
       >
         {isPending ? <SpinnerMini /> : "Sign Up"}
