@@ -18,42 +18,45 @@ function SignUpForm({ onSubmitHandler, isPending }) {
     >
       <h1 className="text-center text-blue-800 underline">Create an Account</h1>
 
-      <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal">First Name</span>
-        <input
-          type="text"
-          defaultValue="John"
-          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
-          placeholder="John"
-          required
-          {...register("firstName", {
-            required: "first name is a required field",
-          })}
-        />
-        {errors.firstName && (
-          <p className="text-sm font-normal text-red-700">
-            {errors.firstName.message}
-          </p>
-        )}
-      </label>
-      <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal">Last Name</span>
-        <input
-          type="text"
-          defaultValue="A."
-          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
-          placeholder="Doe"
-          // required
-          {...register("lastName", {
-            required: "last name is a required field",
-          })}
-        />
-        {errors.lastName && (
-          <p className="text-sm font-normal text-red-700">
-            {errors.lastName.message}
-          </p>
-        )}
-      </label>
+      <div className="gap-2 sm:flex">
+        <label className="flex flex-1 flex-col tracking-wider text-gray-900">
+          <span className="ml-2 font-normal">First Name</span>
+          <input
+            type="text"
+            defaultValue="John"
+            className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
+            placeholder="John"
+            required
+            {...register("firstName", {
+              required: "first name is a required field",
+            })}
+          />
+          {errors.firstName && (
+            <p className="text-sm font-normal text-red-700">
+              {errors.firstName.message}
+            </p>
+          )}
+        </label>
+        <label className="flex flex-1 flex-col tracking-wider text-gray-900">
+          <span className="ml-2 font-normal">Last Name</span>
+          <input
+            type="text"
+            defaultValue="A."
+            className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
+            placeholder="Doe"
+            // required
+            {...register("lastName", {
+              required: "last name is a required field",
+            })}
+          />
+          {errors.lastName && (
+            <p className="text-sm font-normal text-red-700">
+              {errors.lastName.message}
+            </p>
+          )}
+        </label>
+      </div>
+
       <label className="flex flex-1 flex-col tracking-wider text-gray-900">
         <span className="ml-2 font-normal">Email</span>
         <input
@@ -72,47 +75,50 @@ function SignUpForm({ onSubmitHandler, isPending }) {
           </p>
         )}
       </label>
-      <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal">Password</span>
-        <input
-          type="password"
-          defaultValue="test1234"
-          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
-          placeholder="**********"
-          // required
-          {...register("password", {
-            required: "password is a required field",
-          })}
-        />
-        {errors.password && (
-          <p className="text-sm font-normal text-red-700">
-            {errors.password.message}
-          </p>
-        )}
-      </label>
-      <label className="flex flex-1 flex-col tracking-wider text-gray-900">
-        <span className="ml-2 font-normal">Password Confirm</span>
-        <input
-          type="password"
-          defaultValue="test1234"
-          className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
-          placeholder="**********"
-          // required
-          {...register("passwordConfirm", {
-            validate: (val) => {
-              if (!val) return "password confirm is required.";
-              else if (val !== getValues("password"))
-                return "password confirm must match password.";
-              return true;
-            },
-          })}
-        />
-        {errors.passwordConfirm && (
-          <p className="text-sm font-normal text-red-700">
-            {errors.passwordConfirm.message}
-          </p>
-        )}
-      </label>
+
+      <div className="gap-2 sm:flex">
+        <label className="flex flex-1 flex-col tracking-wider text-gray-900">
+          <span className="ml-2 font-normal">Password</span>
+          <input
+            type="password"
+            defaultValue="test1234"
+            className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
+            placeholder="**********"
+            // required
+            {...register("password", {
+              required: "password is a required field",
+            })}
+          />
+          {errors.password && (
+            <p className="text-sm font-normal text-red-700">
+              {errors.password.message}
+            </p>
+          )}
+        </label>
+        <label className="flex flex-1 flex-col tracking-wider text-gray-900">
+          <span className="ml-2 font-normal">Password Confirm</span>
+          <input
+            type="password"
+            defaultValue="test1234"
+            className="mt-2 w-full rounded-xl bg-slate-200 p-1 px-3 outline-1 outline-blue-500 focus:outline"
+            placeholder="**********"
+            // required
+            {...register("passwordConfirm", {
+              validate: (val) => {
+                if (!val) return "password confirm is required.";
+                else if (val !== getValues("password"))
+                  return "password confirm must match password.";
+                return true;
+              },
+            })}
+          />
+          {errors.passwordConfirm && (
+            <p className="text-sm font-normal text-red-700">
+              {errors.passwordConfirm.message}
+            </p>
+          )}
+        </label>
+      </div>
       <PhoneInput />
 
       <button

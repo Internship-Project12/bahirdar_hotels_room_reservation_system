@@ -16,7 +16,7 @@ body {
 
 /* the below two styles are for the react phone number input component - an npm package */
 .PhoneInputInput {
-  padding: 0.25rem 0.75rem ;
+  padding: 0.25rem 0.75rem;
   font-size: 17px;
   color: gray;
   ontline: none !important;
@@ -30,4 +30,8 @@ body {
 
 .PhoneInputInput:focus {
   outline-style: solid;
+}
+
+.sign-shadow {
+  box-shadow: 0 2px 8px 2px rgb(0, 0, 0, .26);
 }
