@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { DEFAULT_USER_AVATAR } from '../constants/constants';
+import { DEFAULT_USER_AVATAR } from '../constants/constants.js';
 
 const userSchema = new mongoose.Schema(
   {
