@@ -5,15 +5,11 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import sendEmail from '../utils/email.js';
 import { createJWT, verifyJWT } from '../utils/tokenUtils.js';
-import { DEFAULT_USER_AVATAR } from '../constants/constants.js';
 
 // SIGNUP A USER
 const signup = catchAsync(async (req, res, next) => {
   const { firstName, lastName, email, password, passwordConfirm, phoneNumber } =
     req.body;
-
-  // upload images
-  let photo = DEFAULT_USER_AVATAR;
 
   const newUser = await User.create({
     firstName,
@@ -22,7 +18,6 @@ const signup = catchAsync(async (req, res, next) => {
     password,
     passwordConfirm,
     phoneNumber,
-    photo,
   });
 
   const token = createJWT({ id: newUser._id });
