@@ -301,6 +301,14 @@ const updateMyPassword = catchAsync(async (req, res, next) => {
   });
 });
 
+const validateToken = (req, res) => {
+  return res.status(200).json({
+    status: 'success',
+    message: 'user logged in success',
+    user: req.user,
+  });
+};
+
 const authController = {
   signup,
   login,
@@ -310,6 +318,7 @@ const authController = {
   updateMyPassword,
   forgotPassword,
   resetPassword,
+  validateToken,
 };
 
 export default authController;
