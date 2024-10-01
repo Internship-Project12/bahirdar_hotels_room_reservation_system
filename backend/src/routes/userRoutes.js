@@ -16,6 +16,10 @@ router.post('/resetPassword/:resetToken', authController.resetPassword);
 // PROTECT ROUTES
 router.use(authController.protect);
 
+// VALIDATE TOKEN
+// TODO:
+router.get('validateToken', authController.validateToken);
+
 // LOGOUT
 router.post('/logout', authController.logout);
 

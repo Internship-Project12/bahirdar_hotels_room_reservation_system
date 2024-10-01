@@ -11,7 +11,7 @@ function HeaderAccount() {
   const { user, isOpenModal, handleOpenModal } = useAuthContext();
   const menuRef = useRef(null);
   const iconRef = useRef(null);
-
+  console.log(user);
   useOnClickOutside({ handler: handleOpenModal, refs: [menuRef, iconRef] });
 
   return (
@@ -21,12 +21,18 @@ function HeaderAccount() {
         onClick={handleOpenModal}
         className="flex items-center justify-center gap-2 hover:cursor-pointer"
       >
-        <div>
-          <img
-            className="h-10 w-10 rounded-full object-cover"
-            src={user?.photo}
-            alt="user photo"
-          />
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50">
+          {user?.photo ? (
+            <img
+              className="h-full w-full object-cover object-center"
+              src={user?.photo}
+              alt=""
+            />
+          ) : (
+            <span className="text-black">
+              {`${user?.firstName.charAt(0).toUpperCase()}${user?.lastName.charAt(0).toUpperCase()}`}
+            </span>
+          )}
         </div>
       </div>
       {isOpenModal
@@ -34,7 +40,7 @@ function HeaderAccount() {
             <>
               <div
                 ref={menuRef}
-                className="top-14 absolute right-[20px] z-[998] mt-2 w-[13rem] rounded-md bg-slate-900 text-slate-50"
+                className="absolute right-[20px] top-14 z-[998] mt-2 w-[13rem] rounded-md bg-slate-900 text-slate-50"
               >
                 <HeaderAccountMenu />
               </div>

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
+import { DEFAULT_USER_AVATAR } from '../constants/constants.js';
 
 const userSchema = new mongoose.Schema(
   {
@@ -22,7 +23,10 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, 'Please provide a valid email'],
     },
-    photo: String,
+    photo: {
+      type: String,
+      default: DEFAULT_USER_AVATAR,
+    },
     phoneNumber: {
       type: String,
       required: [true, 'Please provide your phone number'],

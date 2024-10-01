@@ -13,6 +13,8 @@ function AuthContextProvider({ children }) {
   const [currentHotel, setCurrentHotel] = useState({});
   const [openModalWindow, setOpenModalWindow] = useState(false);
 
+  // TODO: send request to the '/auth/validateToken' route to check if user is loggedIn or not.
+  // and then get user
   const {
     data: res,
     isLoading,
