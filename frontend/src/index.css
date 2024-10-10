@@ -33,5 +33,9 @@ body {
 }
 
 .sign-shadow {
-  box-shadow: 0 2px 8px 2px rgb(0, 0, 0, .26);
+  box-shadow: 0 2px 8px 2px rgb(0, 0, 0, 0.26);
+}
+
+.modal-shadow {
+  box-shadow: 0 0 5rem 8px rgb(0, 0, 0, 0.46);
 }

@@ -10,10 +10,10 @@ function ModalWindow({ children }) {
     <>
       <div
         onClick={handleOpenModalWindow}
-        className="fixed left-0 top-0 z-[999] min-h-screen w-full backdrop-blur-[2px] transition-all duration-300 hover:cursor-pointer"
+        className="fixed left-0 top-0 z-[999] min-h-screen w-full backdrop-blur-[1px] transition-all duration-300 hover:cursor-pointer"
       ></div>
 
-      <div className="fixed max-h-[80vh] rounded-3xl overflow-auto left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2 border bg-white shadow-2xl">
+      <div className="modal-shadow fixed max-h-[80vh] rounded-3xl overflow-auto left-1/2 top-1/2 z-[1000] -translate-x-1/2 -translate-y-1/2 border bg-white shadow-2xl">
         <button
           className="absolute right-3 top-2 rounded-full shadow"
           onClick={handleOpenModalWindow}
