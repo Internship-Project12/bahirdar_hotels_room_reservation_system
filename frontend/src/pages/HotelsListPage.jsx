@@ -42,7 +42,7 @@ function HotelsListPage() {
     <div>
       <div className="z-10 h-24 overflow-hidden bg-blue-900 opacity-85">
         {/* SEARCH */}
-        <div className="scale-150  rounded p-3 w-[50vw]  mx-auto">
+        <div className="mx-auto w-[50vw] scale-150 rounded p-3">
           <Search
             onSearchHandler={onSearchHandler}
             register={register}
@@ -51,7 +51,7 @@ function HotelsListPage() {
         </div>
       </div>
 
-      <div className="flex w-full gap-4 bg-slate-200 p-6">
+      <div className="flex w-full gap-4 p-6">
         {/* filter/sort */}
         <div className="sticky top-2 h-fit w-[25%] border-r-2 border-t-2 p-2">
           <HotelListFilter isLoading={isLoading}>
@@ -67,7 +67,7 @@ function HotelsListPage() {
             <Spinner />
           </div>
         ) : (
-          <section className="w-[80%] rounded-md border-l-2 border-r-2 bg-slate-100 py-4 shadow-lg">
+          <section className="w-[80%] rounded-md border-l-2 border-r-2 py-4 shadow-lg">
             {/* hotel cards */}
             {hotels?.length > 0 ? (
               [...hotels, ...hotels].map((hotel) => (

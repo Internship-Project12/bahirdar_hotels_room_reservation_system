@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="flex flex-col justify-start bg-blue-800 px-10 py-6 text-sm font-light capitalize tracking-tighter text-slate-200">
+    <footer className="my-10 flex flex-col items-center justify-start px-10 py-6 capitalize tracking-tighter">
       <p>&copy; 2024 Copyright: BDHotels.com</p>
       <span className="mt-2">all rights are reserved</span>
     </footer>

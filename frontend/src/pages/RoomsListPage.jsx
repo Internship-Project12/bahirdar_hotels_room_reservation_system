@@ -50,7 +50,7 @@ function RoomsListPage() {
   };
 
   return (
-    <div className="relative  flex w-full justify-between gap-4 rounded-lg border bg-slate-200 p-6 shadow-xl">
+    <div className="relative flex w-full justify-between gap-4 p-6">
       {/* filter/sort */}
       <div className="sticky top-0 h-fit w-[20%] space-y-8 rounded-lg border-2 border-r-2 border-t-2 bg-blue-50">
         <div className="flex flex-col items-center justify-center gap-6">
