@@ -89,7 +89,7 @@ bookingSchema.pre('save', function (next) {
   const numOfNights =
     checkOutDate.getTime() === checkInDate.getTime()
       ? 1
-      : Math.ceil(
+      : Math.floor(
           (checkOutDate.getTime() - checkInDate.getTime()) /
             (24 * 60 * 60 * 1000) +
             1
