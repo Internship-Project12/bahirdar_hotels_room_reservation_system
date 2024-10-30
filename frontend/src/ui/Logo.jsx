@@ -4,7 +4,7 @@ function Logo() {
   return (
     <Link
       to="/"
-      className="flex items-center text-2xl gap-2 font-extrabold tracking-tighter text-gray-200"
+      className="flex items-center gap-2 text-2xl font-extrabold tracking-tighter"
     >
       <img src="/favicon.ico" width="50px" />
       BDHotels.com

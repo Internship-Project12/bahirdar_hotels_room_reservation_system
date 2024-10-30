@@ -40,13 +40,14 @@ function HotelsListPage() {
 
   return (
     <div>
-      <div className="z-10 h-24 overflow-hidden bg-blue-900 opacity-85">
+      <div className="z-10 h-24 overflow-hidden opacity-85">
         {/* SEARCH */}
         <div className="mx-auto w-[50vw] scale-150 rounded p-3">
           <Search
             onSearchHandler={onSearchHandler}
             register={register}
             isLoading={isLoading}
+            className="mt-4"
           />
         </div>
       </div>

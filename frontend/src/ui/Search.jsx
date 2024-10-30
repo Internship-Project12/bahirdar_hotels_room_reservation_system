@@ -1,8 +1,18 @@
+import { cn } from "../utils/cn";
+
 /* eslint-disable react/prop-types */
-function Search({ onSearchHandler, isLoading = false, register }) {
+function Search({
+  onSearchHandler,
+  isLoading = false,
+  register,
+  className = "",
+}) {
   return (
     <form
-      className="group flex items-center justify-center"
+      className={cn(
+        "group relative flex items-center justify-center",
+        className,
+      )}
       onSubmit={onSearchHandler}
     >
       <div className="flex flex-row rounded-full shadow-lg">
@@ -10,7 +20,7 @@ function Search({ onSearchHandler, isLoading = false, register }) {
           type="search"
           disabled={isLoading}
           autoFocus
-          className={`rounded-full bg-slate-200 px-3 py-2 focus:outline-none disabled:cursor-not-allowed`}
+          className="rounded-full bg-slate-200 px-3 py-2 focus:outline-none disabled:cursor-not-allowed"
           placeholder="Search"
           {...register("search")}
         />
