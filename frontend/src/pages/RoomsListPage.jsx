@@ -63,21 +63,23 @@ function RoomsListPage() {
 
       {/* rooms list  */}
       <section className="w-[50%] rounded-md border-l-2 border-r-2 bg-slate-100 shadow-lg lg:-mt-7">
-        <div className="flex flex-col items-center justify-center gap-2 p-4 text-blue-600">
-          <Link
-            to={`/hotels/${hotelId}`}
-            className="z-10 w-full text-center font-mono text-4xl font-semibold tracking-tighter opacity-95"
-          >
-            {isLoadingHotel ? <SpinnerMini /> : hotel?.name}
-          </Link>
-          <h2 className="z-10 text-center font-mono font-semibold capitalize tracking-tighter shadow-lg">
-            There are a total of{" "}
-            {isLoadingHotel ? " - " : hotel?.numOfRooms + 1} rooms found In this
-            hotel 🏨
-          </h2>
-        </div>
+        {isLoadingHotel || isLoadingRooms ? null : (
+          <div className="flex flex-col items-center justify-center gap-2 p-4 text-blue-600">
+            <Link
+              to={`/hotels/${hotelId}`}
+              className="z-10 w-full text-center font-mono text-4xl font-semibold tracking-tighter opacity-95"
+            >
+              {isLoadingHotel ? <SpinnerMini /> : hotel?.name}
+            </Link>
+            <h2 className="z-10 text-center font-mono font-semibold capitalize tracking-tighter shadow-lg">
+              There are a total of{" "}
+              {isLoadingHotel ? " - " : hotel?.numOfRooms + 1} rooms found In
+              this hotel 🏨
+            </h2>
+          </div>
+        )}
 
-        {isLoadingRooms ? (
+        {isLoadingRooms || isLoadingHotel ? (
           <Spinner />
         ) : rooms.length > 0 ? (
           rooms.map((room, i) => <RoomsListItem key={i} room={room} />)
