@@ -1,25 +1,75 @@
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 import MaxWidthWrapper from "../ui/MaxWidthWrapper";
+import { useNavigate, useParams } from "react-router-dom";
+import Spinner from "../ui/Spinner";
+import { useBookingContext } from "../context/BookingContext";
+import { useEffect, useState } from "react";
+import apiBookings from "../services/apiBookings";
 
-const hotel = {
-  name: "Addis International Hotel",
-  summary:
-    "Addis International Hotel is a luxurious hotel located in the heart of Addis Ababa, Ethiopia.",
-  address: "Bole Medhanealem, Addis Ababa, Ethiopia",
-  roomNumber: 101,
-  price: 150,
-  numOfNights: 3,
-  numOfPeople: 4,
-  checkIn: "2022-12-01",
-  checkOut: "2022-12-04",
-  roomImages: [
-    "/rooms/room1.jpeg",
-    "/rooms/room2.jpeg",
-    "/rooms/room1.jpeg",
-    "/rooms/room2.jpeg",
-    "/rooms/room3.jpeg",
-  ],
-};
 function BookRoomPage() {
+  const { checkIn, checkOut } = useBookingContext();
+  const [paymentData, setPaymentData] = useState();
+  const navigate = useNavigate();
+
+  const { roomId } = useParams();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: () =>
+      apiBookings.acceptPaymentChapa({
+        roomId,
+        checkIn,
+        checkOut,
+      }),
+    onSuccess: (data) => {
+      console.log("paymentData: ", data);
+      setPaymentData(data);
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("An error occurred when proceeding to payment");
+      navigate(-1);
+    },
+  });
+
+  useEffect(() => {
+    if (!checkIn || !checkOut) {
+      return navigate(-1);
+    }
+
+    if (checkIn && checkOut) {
+      mutate();
+    }
+  }, [checkIn, checkOut, mutate, navigate]);
+
+  if (isPending) return <Spinner />;
+
+  if (!paymentData) return null;
+
+  const {
+    checkInDate,
+    checkOutDate,
+    numOfNights,
+    totalPrice,
+    chapa,
+    room,
+    hotel,
+  } = paymentData;
+
+  if (!chapa || !room || !hotel) return null;
+
+  const {
+    roomNumber,
+    roomType,
+    pricePerNight,
+    capacity,
+    images: roomImages,
+  } = room;
+  const { name, imageCover, address, summary } = hotel;
+  const {
+    data: { checkout_url },
+  } = chapa;
+
   return (
     <section className="min-h-screen">
       <MaxWidthWrapper>
