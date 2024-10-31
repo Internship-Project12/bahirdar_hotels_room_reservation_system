@@ -23,55 +23,66 @@ const verifyPaymentChapa = catchAsync(async (req, res, next) => {
 });
 
 const acceptPaymentChapa = catchAsync(async (req, res, next) => {
+  const { roomId } = req.params;
+  const room = await Room.findById(roomId).populate({
+    path: 'hotel',
+    select: 'name address imageCover address summary',
+  });
+
+  if (!room) {
+    return next(new AppError('There is no room found with that id', 404));
+  }
+
+  const { checkInDate, checkOutDate } = req.body;
+
+  if (!checkInDate || !checkOutDate) {
+    return next(new AppError('Check in and check out dates are required', 400));
+  }
+
+  const {
+    roomNumber,
+    roomType,
+    pricePerNight,
+    capacity,
+    description,
+    images,
+    hotel,
+  } = room;
+  const { firstName, lastName, email, phoneNumber } = req.user;
+
+  const checkIn = new Date(checkInDate);
+  const checkOut = new Date(checkOutDate);
+
+  const numOfNights = Math.floor(
+    (checkOut.getTime() - checkIn.getTime()) / (24 * 60 * 60 * 1000) + 1
+  );
+
+  if (numOfNights < 1) {
+    return next(
+      new AppError('number of nights must be at least one night', 401)
+    );
+  }
+
+  const totalPrice = pricePerNight * numOfNights;
+
+  const tx_ref = `${firstName}-${lastName}` + Date.now();
+
+  const return_url = `http://localhost:5173/payment-successful/${roomId}?tx_ref=${tx_ref}&checkIn=${checkIn.getTime()}&checkOut=${checkOut.getTime()}`;
+
+  // console.log(return_url);
+
+  const body = {
+    amount: totalPrice,
+    currency: 'ETB',
+    email,
+    first_name: firstName,
+    last_name: lastName,
+    phone_number: phoneNumber,
+    tx_ref,
+    return_url,
+  };
+
   try {
-    const { roomId } = req.params;
-    const room = await Room.findById(roomId);
-
-    if (!room) {
-      return next(new AppError('There is no room found with that id', 404));
-    }
-
-    const { checkInDate, checkOutDate } = req.body;
-    const {
-      roomNumber,
-      roomType,
-      pricePerNight,
-      capacity,
-      description,
-      hotel,
-    } = room;
-    const { _id, firstName, lastName, email, phoneNumber } = req.user;
-
-    const checkIn = new Date(checkInDate);
-    const checkOut = new Date(checkOutDate);
-
-    const numOfNights =
-      checkOut.getTime() === checkIn.getTime()
-        ? 1
-        : Math.floor(
-            (checkOut.getTime() - checkIn.getTime()) / (24 * 60 * 60 * 1000) + 1
-          );
-
-    if (numOfNights < 1) {
-      return next(
-        new AppError('number of nights must be at least one night', 401)
-      );
-    }
-
-    const totalPrice = pricePerNight * numOfNights;
-
-    const tx_ref = `${firstName}-${lastName}` + Date.now();
-    const body = {
-      amount: totalPrice,
-      currency: 'ETB',
-      email,
-      first_name: firstName,
-      last_name: lastName,
-      phone_number: phoneNumber,
-      tx_ref,
-      return_url: `http://localhost:5173/hotels/${hotel}/rooms/${roomId}/booking?tx_ref=${tx_ref}`,
-    };
-
     const chapaRes = await axios.post(
       'https://api.chapa.co/v1/transaction/initialize',
       JSON.stringify(body),
@@ -82,8 +93,24 @@ const acceptPaymentChapa = catchAsync(async (req, res, next) => {
         },
       }
     );
+    const data = {
+      checkInDate,
+      checkOutDate,
+      numOfNights,
+      totalPrice,
+      chapa: chapaRes.data,
+      room: {
+        roomNumber,
+        roomType,
+        pricePerNight,
+        capacity,
+        description,
+        images,
+      },
+      hotel,
+    };
 
-    res.status(200).json({ chapaRes: chapaRes.data, tx_ref });
+    res.status(200).json(data);
   } catch (error) {
     console.log(error);
     return next(
