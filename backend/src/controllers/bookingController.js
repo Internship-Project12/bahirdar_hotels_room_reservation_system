@@ -7,19 +7,46 @@ import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 
 const verifyPaymentChapa = catchAsync(async (req, res, next) => {
-  const { tx_ref } = req.body;
-  // try {
-  const response = await axios.get(
-    `https://api.chapa.co/v1/transaction/verify/${tx_ref}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.CHAPA_SECRET_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  const { tx_ref, roomId, checkInDate, checkOutDate } = req.body;
+  const user = req.user.id;
 
-  res.status(200).json(response.data);
+  console.log(user, roomId, tx_ref, checkInDate, checkOutDate);
+
+  if (!tx_ref) {
+    return next(new AppError('tx_ref is not provided', 400));
+  }
+
+  try {
+    const response = await axios.get(
+      `https://api.chapa.co/v1/transaction/verify/${tx_ref}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.CHAPA_SECRET_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    const booking = await Booking.create({
+      user,
+      room: roomId,
+      checkInDate,
+      checkOutDate,
+      status: 'confirmed',
+    });
+
+    const verifiedData = response.data.data;
+
+    console.log(booking);
+    console.log(verifiedData);
+
+    res.status(200).json(booking);
+  } catch (error) {
+    console.log(error);
+    return next(
+      new AppError('There is an error with chapa payment gateway', 500)
+    );
+  }
 });
 
 const acceptPaymentChapa = catchAsync(async (req, res, next) => {
