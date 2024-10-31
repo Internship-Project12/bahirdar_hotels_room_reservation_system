@@ -34,6 +34,7 @@ import MyBookings from "./features/profile/MyBookings";
 import ResetMyPassword from "./features/profile/ResetMyPassword";
 import ProtectAdminRoutes from "./ui/ProtectAdminRoutes";
 import BookRoomPage from "./pages/BookRoomPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 
 function App() {
   const { role, isLoggedIn } = useAuthContext();
@@ -67,6 +68,14 @@ function App() {
             element={
               <ProtectRoutes>
                 <BookRoomPage />
+              </ProtectRoutes>
+            }
+          />
+          <Route
+            path={`payment-successful/:roomId`}
+            element={
+              <ProtectRoutes>
+                <PaymentSuccessPage />
               </ProtectRoutes>
             }
           />
