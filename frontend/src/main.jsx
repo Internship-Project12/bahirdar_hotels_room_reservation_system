@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import App from "./App.jsx";
 import "./index.css";
 import { AuthContextProvider } from "./context/AuthContext";
+import { BookingContextProvider } from "./context/BookingContext.jsx";
 // import customFetch from "./utils/customFetch.js";
 
 // const res = await customFetch.get("/api/v1/hotels");
@@ -37,7 +38,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         }}
       />
       <AuthContextProvider>
-        <App />
+        <BookingContextProvider>
+          <App />
+        </BookingContextProvider>
       </AuthContextProvider>
     </QueryClientProvider>
   </>,
