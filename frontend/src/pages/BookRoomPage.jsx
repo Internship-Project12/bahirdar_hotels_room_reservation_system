@@ -23,63 +23,91 @@ function BookRoomPage() {
   return (
     <section className="min-h-screen">
       <MaxWidthWrapper>
-        <div className="flex h-full flex-col items-center justify-center rounded border p-5">
-          <h1 className="mb-4 text-3xl font-bold text-gray-800">
-            Book a Room In {hotel.name}{" "}
-          </h1>
+        <div className="mx-auto min-h-screen w-3/4 space-y-10 rounded border p-5 text-center lg:text-left">
+          <div className="flex flex-col text-center md:flex-row md:text-left">
+            <div>
+              <img
+                src={imageCover}
+                alt="hotel image"
+                className="mx-auto h-[14rem] w-[16rem] object-cover"
+              />
+            </div>
+            <div className="space-3 ml-5 md:mt-4">
+              <h1 className="text-xl font-semibold">Book a Room In {name}</h1>
+              <p className="text-sm">{summary}</p>
+              <p className="text-sm"> {address}</p>
+            </div>
+          </div>
 
-          <div className="space-y-2">
-            <p className="text-sm">{hotel.summary}</p>
-            <p>
-              Hotel Address: <span className="text-sm"> {hotel.address}</span>
-            </p>
-            <p>
-              Room Number: <span className="text-sm">{hotel.roomNumber}</span>
-            </p>
-            <p>
-              Price: <span className="text-sm">${hotel.price}</span>
-            </p>
-            <p>
-              Number of People:{" "}
-              <span className="text-sm">{hotel.numOfPeople}</span>
-            </p>
-            <p>
-              Check In: <span className="text-sm">{hotel.checkIn}</span>
-            </p>
-            <p>
-              Check Out: <span className="text-sm">{hotel.checkOut}</span>
-            </p>
-            <p>
-              Number of Nights:{" "}
-              <span className="text-sm">{hotel.numOfNights}</span>
-            </p>
-            <div className="my-5 grid grid-cols-3 gap-5">
-              {hotel.roomImages.map((img, index) => (
+          <div>
+            <div className="mx-auto mt-5 grid flex-1 grid-cols-1 items-center justify-start gap-4 lg:grid-cols-2">
+              <p className="w-full space-x-3 rounded bg-slate-200 px-5 py-1 text-sm">
+                Room Number: <span className="text-sm">{roomNumber}</span>
+              </p>
+              <p className="w-full space-x-3 rounded bg-slate-200 px-5 py-1 text-sm">
+                Room Type: <span className="ml-2 text-sm">{roomType}</span>
+              </p>
+              <p className="w-full space-x-3 rounded bg-slate-200 px-5 py-1 text-sm">
+                Price Per Night:{" "}
+                <span className="ml-2 text-sm">${pricePerNight}</span>
+              </p>
+              <p className="w-full space-x-3 rounded bg-slate-200 px-5 py-1 text-sm">
+                Number of nights:{" "}
+                <span className="ml-2 text-sm">{numOfNights}</span>
+              </p>
+              <p className="w-full space-x-3 rounded bg-slate-200 px-5 py-1 text-sm">
+                total price: <span className="ml-2 text-sm">${totalPrice}</span>
+              </p>
+              <p className="w-full space-x-3 rounded bg-slate-200 px-5 py-1 text-sm">
+                Number of People:{" "}
+                <span className="ml-2 text-sm">{capacity}</span>
+              </p>
+              <p className="w-full space-x-3 rounded bg-slate-200 px-5 py-1 text-sm">
+                Check In Date:{" "}
+                <span className="ml-2 text-sm">
+                  {new Date(checkInDate).toDateString()}
+                </span>
+              </p>
+              <p className="w-full space-x-3 rounded bg-slate-200 px-5 py-1 text-sm">
+                Check Out Date:{" "}
+                <span className="ml-2 text-sm">
+                  {new Date(checkOutDate).toDateString()}
+                </span>
+              </p>
+            </div>
+
+            <div className="my-5 grid grid-cols-1 place-items-center gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {[...roomImages, ...roomImages].map((img, index) => (
                 <img
                   key={index}
                   src={img}
                   alt="room"
-                  className="h-[10rem] w-[12rem] object-cover"
+                  className="h-[13rem] w-[16rem] object-cover"
                 />
               ))}
             </div>
 
             {/* PAYMENT METHODS TO BOOK A ROOM */}
             <div>
-              <h2 className="text-xl font-semibold text-gray-800">
+              <h2 className="my-3 text-center text-xl font-semibold">
                 Payment Methods
               </h2>
-              <div className="flex items-center">
+              <div className="flex items-center justify-center">
                 <div>
-                  <img
-                    src="/chapa.png"
-                    alt="chapa image"
-                    className="h-16 w-36"
-                  />
+                  <a href="https://chapa.co/" target="_blank">
+                    <img
+                      src="/chapa.png"
+                      alt="chapa image"
+                      className="h-16 w-36"
+                    />
+                  </a>
                 </div>
-                <button className="rounded bg-green-600 px-5 py-3 text-white transition hover:bg-green-500">
+                <a
+                  href={checkout_url}
+                  className="rounded bg-lime-500 px-5 py-3 text-white transition duration-300 hover:bg-lime-600"
+                >
                   continue paying with chapa
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -92,4 +120,3 @@ function BookRoomPage() {
 export default BookRoomPage;
 
 // TODO: Add a button to continue paying with stripe
-/* <label>continue paying with stripe</label> */
