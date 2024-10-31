@@ -32,6 +32,9 @@ import AccountSettings from "./features/profile/AccountSettings";
 import { useEffect, useState } from "react";
 import MyBookings from "./features/profile/MyBookings";
 import ResetMyPassword from "./features/profile/ResetMyPassword";
+import ProtectAdminRoutes from "./ui/ProtectAdminRoutes";
+import BookRoomPage from "./pages/BookRoomPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 
 function App() {
   const { role, isLoggedIn } = useAuthContext();
@@ -60,7 +63,22 @@ function App() {
             <Route path=":roomId" element={<RoomListDetail />} />
           </Route>
 
-          <Route path="/booking/:id" element={<p>Hotel booking page</p>} />
+          <Route
+            path="hotels/:hotelId/rooms/:roomId/booking"
+            element={
+              <ProtectRoutes>
+                <BookRoomPage />
+              </ProtectRoutes>
+            }
+          />
+          <Route
+            path={`payment-successful/:roomId`}
+            element={
+              <ProtectRoutes>
+                <PaymentSuccessPage />
+              </ProtectRoutes>
+            }
+          />
           {isLoggedIn && (
             <Route path="account" element={<Account />}>
               <Route path="profile" index element={<Profile />} />
@@ -73,9 +91,9 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectRoutes>
+            <ProtectAdminRoutes>
               <DashboardLayout />
-            </ProtectRoutes>
+            </ProtectAdminRoutes>
           }
         >
           <Route index element={<Dashboard />} />

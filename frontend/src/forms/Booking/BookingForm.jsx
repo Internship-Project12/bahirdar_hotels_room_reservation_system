@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../../context/AuthContext";
+import { useBookingContext } from "../../context/BookingContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiBookings from "../../services/apiBookings";
 import toast from "react-hot-toast";
@@ -11,9 +12,13 @@ import QueryKey from "../../constants/QueryKey";
 import Spinner from "../../ui/Spinner";
 import isDateRangeAvailable from "../../utils/isDateRangeAvailable";
 import { useBookingsOnRoom } from "../../features/bookings/useBookingsOnRoom";
+import { useNavigate } from "react-router-dom";
 
 function BookingForm({ roomId }) {
+  const { handleCheckIn, handleCheckOut } = useBookingContext();
   const { user } = useAuthContext();
+
+  const navigate = useNavigate();
   // BOOKING LOGIC
   const currentUserBookings = user?.bookings;
 
@@ -25,12 +30,7 @@ function BookingForm({ roomId }) {
 
   const [showForm, setShowForm] = useState(true);
 
-  const { handleSubmit, watch, setValue, reset } = useForm({
-    defaultValues: {
-      user: user._id,
-      room: roomId,
-    },
-  });
+  const { handleSubmit, watch, setValue, reset } = useForm();
 
   const {
     data: { data: { bookings: allBookingsOnThisRoom = [] } = {} } = {},
@@ -55,15 +55,19 @@ function BookingForm({ roomId }) {
   });
 
   const onSubmitHandler = handleSubmit((data) => {
-    mutate(data);
+    console.log(data.checkInDate, data.checkOutDate);
+    handleCheckIn(new Date(data.checkInDate));
+    handleCheckOut(new Date(data.checkOutDate));
+    // mutate(data);
+    navigate("booking");
   });
 
   const checkInDate = watch("checkInDate");
   const checkOutDate = watch("checkOutDate");
 
   const minDate = new Date();
-  const maxDate = new Date();
-  maxDate.setFullYear(maxDate.getFullYear() + 1);
+  const maxDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 15);
+  // maxDate.setFullYear(maxDate.getFullYear() + 1);
 
   // CHECK FOR THE IMPUTED DATE VALUES
   useEffect(() => {
@@ -250,10 +254,7 @@ function BookingForm({ roomId }) {
               />
             </div>
 
-            <button
-              disabled={!isValidCheckOutDate || !isValidDateRange}
-              className="w-full rounded bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-xl disabled:cursor-not-allowed disabled:bg-blue-500"
-            >
+            <button className="w-full rounded bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-xl disabled:cursor-not-allowed disabled:bg-blue-500">
               Book Room Now
             </button>
           </form>

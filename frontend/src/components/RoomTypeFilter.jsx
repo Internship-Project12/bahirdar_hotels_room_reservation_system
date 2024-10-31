@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 function RoomTypeFilter({ selectedRoomTypes, onChange }) {
   return (
-    <div className="border-b border-slate-300 pb-5">
+    <div className="pb-5">
       <h2>Filter By Room Type:</h2>
       {["single", "double", "twin", "triple", "quad", "twin-double"].map(
         (type) => (

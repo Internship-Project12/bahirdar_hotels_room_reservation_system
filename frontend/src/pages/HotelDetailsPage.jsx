@@ -149,7 +149,7 @@ function HotelDetailsPage() {
 
       <div className="mx-auto grid w-[70vw] grid-cols-[300px,300px,300px] items-center justify-center gap-4 rounded-md border-2 p-4 shadow-xl">
         {isLoadingRooms ? (
-          <div className="flex w-full items-center justify-center col-span-3">
+          <div className="col-span-3 flex w-full items-center justify-center">
             <Spinner />
           </div>
         ) : rooms?.length > 0 ? (
