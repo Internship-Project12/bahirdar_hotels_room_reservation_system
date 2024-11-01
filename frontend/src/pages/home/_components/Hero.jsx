@@ -44,8 +44,6 @@ function Hero() {
           ))}
         </div>
         <div className="swiper-pagination"></div>
-        {/* <div className="swiper-button-prev h-8 w-8 text-white"></div>
-        <div className="swiper-button-next h-8 w-8 text-white"></div> */}
       </div>
 
       <div className="absolute inset-0 z-10 flex h-full w-full flex-col items-center justify-center bg-black p-8 text-center text-white opacity-80">

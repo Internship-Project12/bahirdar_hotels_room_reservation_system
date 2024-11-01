@@ -1,6 +1,6 @@
-import Hero from "../ui/homepage/Hero";
-import { HotelsSection } from "../ui/homepage/HotelsSection";
-import OurServices from "../ui/homepage/OurServices";
+import Hero from "./_components/Hero";
+import { HotelsSection } from "./_components/HotelsSection";
+import OurServices from "./_components/OurServices";
 
 function HomePage() {
   return (

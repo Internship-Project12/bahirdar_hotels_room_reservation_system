@@ -6,7 +6,6 @@ import Dashboard from "./features/dashboard/Dashboard";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
 import AllHotels from "./features/hotels/AllHotels";
 import Account from "./features/profile/Account";
-import About from "./ui/homepage/About";
 import ProtectRoutes from "./ui/ProtectRoutes";
 import AllBookings from "./features/bookings/AllBookings";
 import { useAuthContext } from "./context/AuthContext";
@@ -19,6 +18,7 @@ import UpdateRoom from "./features/rooms/UpdateRoom";
 import Settings from "./features/settings/Settings";
 
 import {
+  AboutPage,
   HomePage,
   HotelDetailsPage,
   HotelsListPage,
@@ -57,7 +57,7 @@ function App() {
           ) : (
             <Route path="/" element={<HomePage />} />
           )}
-          <Route path="about" element={<About />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="hotels" element={<HotelsListPage />} />
           <Route path="hotels/:id" element={<HotelDetailsPage />} />
           <Route path="hotels/:hotelId/rooms" element={<RoomsListPage />}>
