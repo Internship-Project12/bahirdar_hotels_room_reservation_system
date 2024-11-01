@@ -33,6 +33,20 @@ const signup = catchAsync(async (req, res, next) => {
   // Remove the password from the output | it does not alter the database
   newUser.password = undefined;
 
+  try {
+    const message = `Welcome to BDHotels.com - Your Hotel Booking Platform. Every stay is a memorable experience. Book your dream hotel and stay effortlessly. Plan your next adventure with ease. Find and book hotels worldwide in just a few clicks.`;
+    const html = `<h1>Welcome to BDHotels.com - Your Hotel Booking Platform</h1><p>Every stay is a memorable experience. Book your dream hotel and stay effortlessly. Plan your next adventure with ease. Find and book hotels worldwide in just a few clicks.</p>`;
+
+    await sendEmail({
+      email: newUser.email,
+      subject: 'Welcome to BDHotels.com, Your Hotel Booking Platform',
+      message,
+      html,
+    });
+  } catch (error) {
+    console.log('Error sending welcome email', error);
+  }
+
   res.status(201).json({
     status: 'success',
     token,
