@@ -1,17 +1,20 @@
 /* eslint-disable react/prop-types */
 
 import { hotels } from "../../../data/hotels";
+import MaxWidthWrapper from "../../../ui/MaxWidthWrapper";
 
 export const HotelsSection = () => {
   return (
-    <div className="min-h-screen">
-      <h1 className="mb-8 text-4xl font-bold">Popular Hotels</h1>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {hotels.map((hotel) => (
-          <HotelCard hotel={hotel} key={hotel.id} />
-        ))}
-      </div>
-    </div>
+    <section className="">
+      <MaxWidthWrapper>
+        <h1 className="mb-8 text-4xl font-bold">Popular Hotels</h1>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {hotels.map((hotel) => (
+            <HotelCard hotel={hotel} key={hotel.id} />
+          ))}
+        </div>
+      </MaxWidthWrapper>
+    </section>
   );
 };
 

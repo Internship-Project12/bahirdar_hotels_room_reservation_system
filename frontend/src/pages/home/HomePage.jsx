@@ -9,7 +9,6 @@ function HomePage() {
         <Hero />
       </div>
       <HotelsSection />
-
       <OurServices />
     </section>
   );
