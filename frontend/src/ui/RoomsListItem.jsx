@@ -5,7 +5,7 @@ function RoomsListItem({ room }) {
   return (
     <div className="">
       <div className="mx-auto mb-4 flex max-h-[300px] w-[90%] overflow-hidden rounded border p-3 shadow-xl transition-all duration-300 hover:translate-x-1 hover:scale-[1.02]">
-        <div className="flex flex-1 gap-4">
+        <div className="flex flex-1 flex-col gap-4 md:flex-row">
           {/* ROOM IMAGE */}
           <div className="h-[200px] w-[250px] overflow-hidden rounded shadow-xl">
             <img
@@ -14,7 +14,6 @@ function RoomsListItem({ room }) {
               className="h-full w-full object-cover object-center"
             />
           </div>
-          
           {/* <div> */}
           <div className="flex flex-1 flex-col justify-between gap-3">
             <p className="inline-block items-center justify-center text-sm text-slate-600">
