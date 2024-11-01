@@ -76,6 +76,7 @@ roomSchema.virtual('bookings', {
 roomSchema.statics.calcMinPriceAndNumOfRooms = async function (hotelId) {
   const stats = await this.aggregate([
     { $match: { hotel: hotelId } },
+    // TODO: fix calculation of num of rooms on a hotel
     {
       $group: {
         _id: '$hotel',

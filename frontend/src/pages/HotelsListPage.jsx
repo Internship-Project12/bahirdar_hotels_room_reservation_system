@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router-dom";
-
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import Select from "react-select";
 import { useHotels } from "../features/hotels/useHotels";
-import HotelListFilter from "../ui/HotelListFilter";
 import HotelsListItem from "../ui/HotelsListItem";
-import Spinner from "../ui/Spinner";
 import StarRatingFilter from "../components/StarRatingFilter";
-import Search from "../ui/Search";
+import { FaSearch } from "react-icons/fa";
+import LoadingSkeleton from "../ui/LoadingSkeleton";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import MaxWidthWrapper from "../ui/MaxWidthWrapper";
 
 function HotelsListPage() {
   const [selectedStars, setSelectedStars] = useState([]);
@@ -18,6 +19,12 @@ function HotelsListPage() {
   const { data: { data: { data: hotels } = {} } = {}, isLoading } = useHotels({
     selectedStars,
   });
+
+  const handleSortChange = (selectedOption) => {
+    const sort = selectedOption.value;
+    searchParams.set("sortBy", sort);
+    setSearchParams(searchParams);
+  };
 
   const onSearchHandler = handleSubmit((data) => {
     if (!data?.search) {
@@ -38,53 +45,117 @@ function HotelsListPage() {
     );
   };
 
-  return (
-    <div>
-      <div className="z-10 h-24 overflow-hidden opacity-85">
-        {/* SEARCH */}
-        <div className="mx-auto w-[50vw] scale-150 rounded p-3">
-          <Search
-            onSearchHandler={onSearchHandler}
-            register={register}
-            isLoading={isLoading}
-            className="mt-4"
-          />
+  if (isLoading) {
+    return (
+      <div className="mx-auto flex min-h-screen justify-center lg:w-3/4">
+        <div className="flex w-full flex-col items-center">
+          <LoadingSkeleton className="h-52 w-[30rem]" />
+          <LoadingSkeleton className="h-52 w-[30rem]" />
         </div>
       </div>
+    );
+  }
 
-      <div className="flex w-full gap-4 p-6">
+  if (!hotels?.length) {
+    return (
+      <div className="mt-5 flex min-h-screen flex-col items-center gap-6 md:mt-12">
+        <Link
+          to="/"
+          className="flex w-fit items-center gap-2 rounded bg-blue-500 px-3 py-1 text-white"
+        >
+          <IoMdArrowRoundBack />
+          Back to Home
+        </Link>
+        <div className="">
+          <p className="text-4xl capitalize text-black/30 lg:text-6xl">
+            404) not hotels found
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <MaxWidthWrapper>
+      <div className="relative mt-1 flex min-h-screen w-full justify-center gap-4">
         {/* filter/sort */}
-        <div className="sticky top-2 h-fit w-[25%] border-r-2 border-t-2 p-2">
-          <HotelListFilter isLoading={isLoading}>
+        <div className="sticky top-4 p-2">
+          <div className="flex flex-col items-center justify-center gap-6 space-y-8 p-2">
             <StarRatingFilter
               selectedStars={selectedStars}
               onChange={handleStarsChange}
             />
-          </HotelListFilter>
-        </div>
-        {/* hotels list */}
-        {isLoading ? (
-          <div className="flex h-[10rem] w-full items-center justify-center">
-            <Spinner />
           </div>
-        ) : (
-          <section className="w-[80%] rounded-md border-l-2 border-r-2 py-4 shadow-lg">
-            {/* hotel cards */}
-            {hotels?.length > 0 ? (
-              [...hotels, ...hotels].map((hotel) => (
-                <HotelsListItem hotel={hotel} key={hotel._id} />
-              ))
-            ) : (
-              <div className="flex h-full items-center justify-center uppercase">
-                <p className="border-b-2 text-2xl">
-                  404): there are not hotels found
-                </p>
+        </div>
+
+        <div className="-mt-6">
+          {/* SEARCH */}
+          <div className="flex w-full p-6">
+            <section className="flex flex-1 items-center justify-between gap-x-6 gap-y-4 rounded bg-black/5 p-6">
+              <div className="w-full">
+                <Select
+                  onChange={handleSortChange}
+                  options={[
+                    {
+                      label: "price per night (high first)",
+                      value: "pricePerNight-desc",
+                    },
+                    {
+                      label: "price per night (low first)",
+                      value: "pricePerNight-asc",
+                    },
+                    {
+                      label: "avgRating (high first)",
+                      value: "avgRating-desc",
+                    },
+                    {
+                      label: "low avgRating (low first)",
+                      value: "avgRating-asc",
+                    },
+                    { label: "recent first", value: "newest" },
+                    { label: "oldest first", value: "oldest" },
+                    { label: "a-z", value: "a-z" },
+                    { label: "z-a", value: "z-a" },
+                  ]}
+                  placeholder="sort hotels"
+                />
               </div>
-            )}
-          </section>
-        )}
+
+              <form
+                className="group relative flex items-center justify-center"
+                onSubmit={onSearchHandler}
+              >
+                <div className="flex flex-row rounded bg-slate-200 shadow-lg">
+                  <input
+                    type="search"
+                    disabled={isLoading}
+                    autoFocus
+                    className="rounded bg-inherit px-6 py-2 focus:outline-none disabled:cursor-not-allowed"
+                    placeholder="Search"
+                    {...register("search")}
+                  />
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="-ml-12 rounded px-5 text-black/20 disabled:cursor-not-allowed"
+                  >
+                    <FaSearch className="size-5" />
+                  </button>
+                </div>
+              </form>
+            </section>
+          </div>
+          <div className="flex w-full gap-4 px-6">
+            <section className="min-h-[100vh] rounded-md border-l-2 border-r-2 py-4 shadow-lg">
+              {/* hotel cards */}
+              {hotels.map((hotel, i) => (
+                <HotelsListItem hotel={hotel} key={i} />
+              ))}
+            </section>
+          </div>{" "}
+        </div>
       </div>
-    </div>
+    </MaxWidthWrapper>
   );
 }
 

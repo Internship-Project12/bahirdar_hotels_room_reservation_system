@@ -6,7 +6,6 @@ import Dashboard from "./features/dashboard/Dashboard";
 import DashboardLayout from "./features/dashboard/DashboardLayout";
 import AllHotels from "./features/hotels/AllHotels";
 import Account from "./features/profile/Account";
-import About from "./ui/homepage/About";
 import ProtectRoutes from "./ui/ProtectRoutes";
 import AllBookings from "./features/bookings/AllBookings";
 import { useAuthContext } from "./context/AuthContext";
@@ -19,6 +18,7 @@ import UpdateRoom from "./features/rooms/UpdateRoom";
 import Settings from "./features/settings/Settings";
 
 import {
+  AboutPage,
   HomePage,
   HotelDetailsPage,
   HotelsListPage,
@@ -35,6 +35,7 @@ import ResetMyPassword from "./features/profile/ResetMyPassword";
 import ProtectAdminRoutes from "./ui/ProtectAdminRoutes";
 import BookRoomPage from "./pages/BookRoomPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import ForgotMyPassword from "./features/profile/ForgotMyPassword";
 
 function App() {
   const { role, isLoggedIn } = useAuthContext();
@@ -56,7 +57,7 @@ function App() {
           ) : (
             <Route path="/" element={<HomePage />} />
           )}
-          <Route path="about" element={<About />} />
+          <Route path="about" element={<AboutPage />} />
           <Route path="hotels" element={<HotelsListPage />} />
           <Route path="hotels/:id" element={<HotelDetailsPage />} />
           <Route path="hotels/:hotelId/rooms" element={<RoomsListPage />}>
@@ -119,6 +120,8 @@ function App() {
         <Route path="/settings/:resetToken" element={<ResetMyPassword />} />
         <Route path="/login" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        {/* forgot pass */}
+        <Route path="/forgot-password" element={<ForgotMyPassword />} />
 
         {/* NOT FOUND ROUTES */}
         <Route path="/*" element={<Navigate to="/" />} />

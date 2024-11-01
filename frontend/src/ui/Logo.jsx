@@ -4,11 +4,16 @@ function Logo() {
   return (
     <Link
       to="/"
-      className="flex items-center gap-2 text-2xl font-extrabold tracking-wider text-blue-900"
+      className="flex items-center gap-2 font-mono text-2xl font-extrabold tracking-tighter text-blue-600"
     >
-      <img src="/favicon.ico" width="50px" />
-      BDHotels.com
-      {/* HotelVerse */}
+      <div className="h-12 w-12 overflow-hidden rounded-full">
+        <img
+          src="/logo-main.jpg"
+          className="h-full w-full bg-cover bg-center"
+        />
+      </div>
+      {/* BDHotels.com */}
+      HotelVerse
     </Link>
   );
 }

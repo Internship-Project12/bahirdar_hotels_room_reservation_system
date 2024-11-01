@@ -21,7 +21,7 @@ function HeaderAccount() {
         onClick={handleOpenModal}
         className="flex items-center justify-center gap-2 hover:cursor-pointer"
       >
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50">
+        <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-slate-50">
           {user?.photo ? (
             <img
               className="h-full w-full object-cover object-center"

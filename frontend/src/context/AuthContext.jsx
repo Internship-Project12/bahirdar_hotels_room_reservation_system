@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import apiAuth from "../services/apiAuth";
 import QueryKey from "../constants/QueryKey";
 import { createContext, useContext, useState } from "react";
-import Spinner from "../ui/Spinner";
+import LoadingSkeleton from "../ui/LoadingSkeleton";
 
 const AuthContext = createContext();
 
@@ -25,14 +25,26 @@ function AuthContextProvider({ children }) {
     retry: false,
   });
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <div className="flex h-[70vh] items-center justify-center">
-        <Spinner />
+      <div className="mx-auto flex min-h-screen justify-center lg:w-1/4">
+        <div className="mt-5 p-4 lg:mt-12">
+          <LoadingSkeleton className="h-3 w-[10rem]" />
+          <LoadingSkeleton className="h-3 w-[30rem]" />
+          <LoadingSkeleton className="h-3 w-[20rem]" />
+          <LoadingSkeleton className="h-3 w-[15rem]" />
+          <LoadingSkeleton className="h-3 w-[25rem]" />
+          <LoadingSkeleton className="h-3 w-[10rem]" />
+        </div>
       </div>
     );
+  }
 
-  const user = res?.data?.data.user || null;
+  let user = res?.data?.data.user || null;
+
+  const handleSetUserOnLogout = () => {
+    user = null;
+  };
 
   const handleOpenModal = () => {
     setIsOpenModal((prev) => !prev);
@@ -58,6 +70,7 @@ function AuthContextProvider({ children }) {
         setCurrentHotelHandler,
         handleOpenModalWindow,
         openModalWindow,
+        handleSetUserOnLogout,
       }}
     >
       {children}

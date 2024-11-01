@@ -5,10 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../../context/AuthContext";
 import { useBookingContext } from "../../context/BookingContext";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiBookings from "../../services/apiBookings";
-import toast from "react-hot-toast";
-import QueryKey from "../../constants/QueryKey";
 import Spinner from "../../ui/Spinner";
 import isDateRangeAvailable from "../../utils/isDateRangeAvailable";
 import { useBookingsOnRoom } from "../../features/bookings/useBookingsOnRoom";
@@ -22,7 +18,6 @@ function BookingForm({ roomId }) {
   // BOOKING LOGIC
   const currentUserBookings = user?.bookings;
 
-  const queryClient = useQueryClient();
   const [isValidCheckOutDate, setIsValidCheckOutDate] = useState(false);
   const [activeBooking, setActiveBooking] = useState({});
   const [currentBookOnRoom, setCurrentBookOnRoom] = useState({});
@@ -30,35 +25,17 @@ function BookingForm({ roomId }) {
 
   const [showForm, setShowForm] = useState(true);
 
-  const { handleSubmit, watch, setValue, reset } = useForm();
+  const { handleSubmit, watch, setValue } = useForm();
 
   const {
     data: { data: { bookings: allBookingsOnThisRoom = [] } = {} } = {},
     isLoading,
   } = useBookingsOnRoom({ roomId });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (data) => apiBookings.createBooking(data),
-    onSuccess: async () => {
-      toast.success("Room booked successfully.");
-      await queryClient.invalidateQueries([QueryKey.BOOKINGS]);
-      await queryClient.invalidateQueries([QueryKey.USER]);
-      reset();
-      // setBooked(true);
-    },
-    onError: (error) => {
-      console.log(error);
-      toast.error(
-        "An error occurred When booking a room. Please try again later.",
-      );
-    },
-  });
-
   const onSubmitHandler = handleSubmit((data) => {
     console.log(data.checkInDate, data.checkOutDate);
     handleCheckIn(new Date(data.checkInDate));
     handleCheckOut(new Date(data.checkOutDate));
-    // mutate(data);
     navigate("booking");
   });
 
@@ -67,7 +44,6 @@ function BookingForm({ roomId }) {
 
   const minDate = new Date();
   const maxDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 15);
-  // maxDate.setFullYear(maxDate.getFullYear() + 1);
 
   // CHECK FOR THE IMPUTED DATE VALUES
   useEffect(() => {
@@ -77,8 +53,8 @@ function BookingForm({ roomId }) {
       new Date(checkInDate).getTime() <= new Date(checkOutDate).getTime();
 
     if (isValid) {
-      setIsValidCheckOutDate(!!isValid);
-    } else setIsValidCheckOutDate(!isValid);
+      setIsValidCheckOutDate(true);
+    } else setIsValidCheckOutDate(false);
   }, [checkInDate, checkOutDate]);
 
   // CHECK IF THE CURRENT USER BOOKED THE ROOM ALREADY OR NOT
@@ -127,15 +103,6 @@ function BookingForm({ roomId }) {
 
   // check the date in case the user books a room that is already in book
   useEffect(() => {
-    // allBookingsOnThisRoom?.filter((book) => {
-    //   const currentCheckIn =
-    //     activeBooking.checkInDate || currentBookOnRoom.checkInDate;
-    //   const currentCheckOut =
-    //     activeBooking.checkOutDate || currentBookOnRoom.checkOutDate;
-
-    //   console.log(currentCheckIn, currentCheckOut);
-    // });
-
     const bookingDates = allBookingsOnThisRoom
       .filter((book) => new Date(book.checkOutDate).getTime() > Date.now())
       .map((book) => {
@@ -156,13 +123,9 @@ function BookingForm({ roomId }) {
     }
   }, [allBookingsOnThisRoom, checkInDate, checkOutDate]);
 
-  if (isPending || isLoading) {
+  if (isLoading) {
     return <Spinner />;
   }
-
-  // if (booked) {
-  //   return <div>You booked this room</div>;
-  // }
 
   return (
     <div className="w-full rounded-lg border bg-slate-300 p-4 opacity-85 shadow-lg">
@@ -254,16 +217,19 @@ function BookingForm({ roomId }) {
               />
             </div>
 
-            <button className="w-full rounded bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-xl disabled:cursor-not-allowed disabled:bg-blue-500">
+            <button
+              disabled={!isValidDateRange}
+              className="w-full rounded bg-blue-600 px-3 py-2 text-xl uppercase text-slate-100 shadow-xl disabled:cursor-not-allowed disabled:bg-blue-500"
+            >
               Book Room Now
             </button>
           </form>
-          {!isValidCheckOutDate && (
+          {checkInDate && checkOutDate && !isValidCheckOutDate && (
             <p className="pt-3 text-center text-sm text-red-900 underline">
               select a valid check in and checkout date before submitting a form
             </p>
           )}
-          {!isValidDateRange && (
+          {!isValidDateRange && isValidCheckOutDate && (
             <p className="pt-3 text-center text-sm tracking-wide text-slate-900 underline">
               there is already a user who booked on the same day before you.
               please change another free room or adjust your date. thank you!
