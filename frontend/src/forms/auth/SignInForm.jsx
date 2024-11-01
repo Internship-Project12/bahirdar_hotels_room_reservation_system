@@ -65,6 +65,12 @@ function SignInForm({ onSubmitHandler, isPending }) {
           Create your account
         </Link>
       </div>
+
+      <div>
+        <Link to="/forgot-password" className="text-blue-600 underline">
+          Forgot Password?
+        </Link>
+      </div>
     </form>
   );
 }

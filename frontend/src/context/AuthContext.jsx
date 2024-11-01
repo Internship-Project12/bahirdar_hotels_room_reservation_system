@@ -32,7 +32,11 @@ function AuthContextProvider({ children }) {
       </div>
     );
 
-  const user = res?.data?.data.user || null;
+  let user = res?.data?.data.user || null;
+
+  const handleSetUserOnLogout = () => {
+    user = null;
+  };
 
   const handleOpenModal = () => {
     setIsOpenModal((prev) => !prev);
@@ -58,6 +62,7 @@ function AuthContextProvider({ children }) {
         setCurrentHotelHandler,
         handleOpenModalWindow,
         openModalWindow,
+        handleSetUserOnLogout,
       }}
     >
       {children}
