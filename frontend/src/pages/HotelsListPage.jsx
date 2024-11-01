@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Select from "react-select";
 import { useHotels } from "../features/hotels/useHotels";
-import HotelListFilter from "../ui/HotelListFilter";
 import HotelsListItem from "../ui/HotelsListItem";
 import StarRatingFilter from "../components/StarRatingFilter";
 import { FaSearch } from "react-icons/fa";
