@@ -15,7 +15,7 @@ function Header() {
       <header className="mx-auto flex h-[10vh] items-center justify-between px-6 py-1 opacity-85">
         <Logo />
         <nav>
-          <ul className="flex items-center justify-between gap-4">
+          <ul className="flex items-center justify-between md:gap-4 lg:gap-6">
             <li>
               <Link
                 to="/hotels"
