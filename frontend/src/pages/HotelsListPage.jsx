@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { useHotels } from "../features/hotels/useHotels";
 import HotelListFilter from "../ui/HotelListFilter";
 import HotelsListItem from "../ui/HotelsListItem";
-import Spinner from "../ui/Spinner";
 import StarRatingFilter from "../components/StarRatingFilter";
 import Search from "../ui/Search";
+import LoadingSkeleton from "../ui/LoadingSkeleton";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 function HotelsListPage() {
   const [selectedStars, setSelectedStars] = useState([]);
@@ -38,6 +39,36 @@ function HotelsListPage() {
     );
   };
 
+  if (isLoading) {
+    return (
+      <div className="mx-auto flex min-h-screen justify-center lg:w-3/4">
+        <div className="flex w-full flex-col items-center">
+          <LoadingSkeleton className="h-52 w-[30rem]" />
+          <LoadingSkeleton className="h-52 w-[30rem]" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!hotels?.length) {
+    return (
+      <div className="mt-5 flex min-h-screen flex-col items-center gap-6 md:mt-12">
+        <Link
+          to="/"
+          className="flex w-fit items-center gap-2 rounded bg-blue-500 px-3 py-1 text-white"
+        >
+          <IoMdArrowRoundBack />
+          Back to Home
+        </Link>
+        <div className="">
+          <p className="text-4xl capitalize text-black/30 lg:text-6xl">
+            404) not hotels found
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="z-10 h-24 overflow-hidden opacity-85">
@@ -63,26 +94,12 @@ function HotelsListPage() {
           </HotelListFilter>
         </div>
         {/* hotels list */}
-        {isLoading ? (
-          <div className="flex h-[10rem] w-full items-center justify-center">
-            <Spinner />
-          </div>
-        ) : (
-          <section className="w-[80%] rounded-md border-l-2 border-r-2 py-4 shadow-lg">
-            {/* hotel cards */}
-            {hotels?.length > 0 ? (
-              [...hotels, ...hotels].map((hotel) => (
-                <HotelsListItem hotel={hotel} key={hotel._id} />
-              ))
-            ) : (
-              <div className="flex h-full items-center justify-center uppercase">
-                <p className="border-b-2 text-2xl">
-                  404): there are not hotels found
-                </p>
-              </div>
-            )}
-          </section>
-        )}
+        <section className="w-[80%] rounded-md border-l-2 border-r-2 py-4 shadow-lg">
+          {/* hotel cards */}
+          {hotels.map((hotel, i) => (
+            <HotelsListItem hotel={hotel} key={i} />
+          ))}
+        </section>
       </div>
     </div>
   );

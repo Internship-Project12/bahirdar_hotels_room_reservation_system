@@ -3,7 +3,7 @@ import QueryKey from "../../constants/QueryKey";
 import apiHotels from "../../services/apiHotels";
 import { useSearchParams } from "react-router-dom";
 
-export const useHotels = ({ selectedStars } = {selectedStars: ''}) => {
+export const useHotels = ({ selectedStars } = { selectedStars: "" }) => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
   const hotelStar = searchParams.get("hotelStar") || "";
@@ -14,6 +14,7 @@ export const useHotels = ({ selectedStars } = {selectedStars: ''}) => {
   const { data, isLoading } = useQuery({
     queryKey: [QueryKey.HOTELS, filter],
     queryFn: () => apiHotels.getAllHotels({ filter }),
+    retry: false,
   });
 
   return { data, isLoading };
