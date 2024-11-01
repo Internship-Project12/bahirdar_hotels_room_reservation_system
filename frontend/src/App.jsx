@@ -35,6 +35,7 @@ import ResetMyPassword from "./features/profile/ResetMyPassword";
 import ProtectAdminRoutes from "./ui/ProtectAdminRoutes";
 import BookRoomPage from "./pages/BookRoomPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import ForgotMyPassword from "./features/profile/ForgotMyPassword";
 
 function App() {
   const { role, isLoggedIn } = useAuthContext();
@@ -119,6 +120,8 @@ function App() {
         <Route path="/settings/:resetToken" element={<ResetMyPassword />} />
         <Route path="/login" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        {/* forgot pass */}
+        <Route path="/forgot-password" element={<ForgotMyPassword />} />
 
         {/* NOT FOUND ROUTES */}
         <Route path="/*" element={<Navigate to="/" />} />
