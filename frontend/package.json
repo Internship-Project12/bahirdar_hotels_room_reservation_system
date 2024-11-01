@@ -25,7 +25,7 @@
     "react-icons": "^5.2.1",
     "react-phone-number-input": "^3.4.5",
     "react-router-dom": "^6.23.1",
-    "react-select": "^5.8.0",
+    "react-select": "^5.8.2",
     "recharts": "^2.12.7",
     "swiper": "^11.1.4",
     "tailwind-merge": "^2.5.4"
