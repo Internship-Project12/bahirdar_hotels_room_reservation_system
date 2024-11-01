@@ -1,4 +1,4 @@
-import MaxWidthWrapper from "../ui/MaxWidthWrapper";
+import MaxWidthWrapper from "../../../ui/MaxWidthWrapper";
 import { MdBedroomChild } from "react-icons/md";
 
 /* eslint-disable react/prop-types */
@@ -8,7 +8,7 @@ function HotelDetailHero({ hotel }) {
       <div
         className="relative flex min-h-[85vh] flex-col items-center justify-center"
         style={{
-          "clip-path": "polygon(0 0, 100vw 0%, 100vw 65vh, 0 85vh)",
+          "clip-path": "polygon(0 0, 100vw 0%, 100vw 70vh, 0 82vh)",
         }}
       >
         <div className="absolute -z-[-9] h-full w-full bg-blue-600 opacity-50"></div>
