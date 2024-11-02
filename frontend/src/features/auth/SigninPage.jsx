@@ -19,7 +19,7 @@ function SigninPage() {
     mutationFn: apiAuth.login,
     onSuccess: async (data) => {
       const { data: { data: { user } = {} } = {} } = data;
-      toast.success("Welcome to BDHotels Booking website");
+      toast.success("Welcome to Hotelify : yours Booking website");
 
       await queryClient.invalidateQueries(QueryKey.USER);
 

@@ -1,9 +1,11 @@
 import customFetch from "../utils/customFetch";
 
 const getAllUsers = async ({ filter }) => {
-  const { search, role } = filter;
+  const { search, role, limit } = filter;
 
-  const res = await customFetch(`/users?search=${search}&role=${role}`);
+  const res = await customFetch(
+    `/users?search=${search}&role=${role}&limit=${limit}`,
+  );
 
   return res.data;
 };

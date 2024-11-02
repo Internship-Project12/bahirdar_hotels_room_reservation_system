@@ -1,37 +1,53 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import { users } from "../../data/users";
+import { FaArrowRightLong } from "react-icons/fa6";
+import { useUsers } from "./useUsers";
+import Spinner from "../../ui/Spinner";
 
 function RecentUsers() {
+  const { data: { data } = {}, isLoading } = useUsers(5);
+
+  if (isLoading)
+    return (
+      <section className="bg-black/2 h-[50vh] w-[300px] overflow-y-auto rounded-sm border border-black/10 p-3">
+        <Spinner className="text-black/30" />
+      </section>
+    );
+
+  const { users } = data;
+
   return (
-    <>
-      <div className="flex flex-col">
-        <h2 className="mb-5 text-2xl font-bold">Recent Users</h2>
-        <div className="grid grid-cols-2-nv grid-rows-3 gap-x-20 p-5">
+    <section className="bg-black/2 w-[300px] overflow-y-auto rounded-sm shadow-lg">
+      <div className="flex flex-col items-center gap-5">
+        <h2 className="w-full bg-black/5 p-4 text-center">Recent Users</h2>
+        <div className="flex w-full flex-col items-center gap-x-12 gap-y-5">
           {users.map((user) => (
             <User key={user.id} user={user} />
           ))}
         </div>
-        <span className="self-start rounded-full border bg-purple-400 px-3 py-1 align-baseline font-bold text-white transition-all duration-200 hover:scale-105">
-          <Link to="/dashboard/users">See more &gt;&gt;</Link>
-        </span>
+        <Link
+          to="/dashboard/users"
+          className="inline-flex items-center justify-center rounded-lg bg-blue-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300"
+        >
+          View All Users <FaArrowRightLong className="ml-2" />
+        </Link>
       </div>
-    </>
+    </section>
   );
 }
 
 function User({ user }) {
   return (
     <>
-      <div className="mb-7" key={user.id}>
-        <div className="flex gap-2">
+      <div key={user.id} className="w-full">
+        <div className="flex justify-center gap-2 transition duration-300 hover:bg-black/10">
           <img
-            className="h-16 w-16 rounded-full object-cover"
+            className="h-10 w-10 rounded-full object-cover"
             src={user.photo}
-            alt={user.firstName}
+            alt=""
           />
           <div className="flex flex-col gap-1">
-            <span className="text-lg font-semibold">{user.firstName}</span>
+            <span className="font-semibold">{user.firstName}</span>
             <span className="text-sm">{user.email}</span>
           </div>
         </div>

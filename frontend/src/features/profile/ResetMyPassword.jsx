@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import SpinnerMini from "../../ui/SpinnerMini";
@@ -6,6 +6,7 @@ import apiUsers from "../../services/apiUsers";
 import toast from "react-hot-toast";
 import QueryKey from "../../constants/QueryKey";
 import { useAuthContext } from "../../context/AuthContext";
+import Logo from "../../ui/Logo";
 
 function ResetMyPassword() {
   const { user } = useAuthContext();
@@ -52,13 +53,7 @@ function ResetMyPassword() {
     <div className="flex min-h-screen items-center justify-center bg-slate-300">
       <div className="w-[95vw] rounded-xl bg-slate-200 p-4 shadow-xl sm:mx-auto sm:w-[30rem] lg:mt-4">
         <div className="mx-auto flex items-center justify-center p-3 sm:p-6">
-          <Link
-            to="/"
-            className="flex h-14 items-center gap-2 text-2xl font-extrabold tracking-tighter text-gray-800 sm:text-3xl md:text-4xl"
-          >
-            <img src="/favicon.ico" className="w-[60px] sm:w-[70px]" />
-            BDHotels.com
-          </Link>
+          <Logo />
         </div>
         <div className="mx-auto">
           <form

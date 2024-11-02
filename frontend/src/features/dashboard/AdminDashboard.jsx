@@ -90,27 +90,27 @@ function AdminDashboard() {
     {
       title: "Hotels",
       number: numHotels,
-      Icon: <LiaHotelSolid className="size-12" />,
+      Icon: <LiaHotelSolid className="size-8" />,
     },
     {
       title: "Users",
       number: numUsers,
-      Icon: <FaUsersLine className="size-12" />,
+      Icon: <FaUsersLine className="size-8" />,
     },
     {
       title: "Rooms",
       number: numRooms,
-      Icon: <MdOutlineBedroomParent className="size-12" />,
+      Icon: <MdOutlineBedroomParent className="size-8" />,
     },
     {
       title: "Bookings",
       number: numBookings,
-      Icon: <BsBookmarksFill className="size-12" />,
+      Icon: <BsBookmarksFill className="size-8" />,
     },
     {
       title: "Reviews",
       number: numReviews,
-      Icon: <MdOutlineRateReview className="size-12" />,
+      Icon: <MdOutlineRateReview className="size-8" />,
     },
   ];
 
@@ -123,9 +123,7 @@ function AdminDashboard() {
             className="flex flex-col items-center rounded bg-gradient-to-br from-[#E0A75E] to-[#E0A75E]/70 p-2 text-white shadow-xl"
           >
             {Icon}
-            <span className="text-2xl font-semibold md:text-3xl lg:text-5xl">
-              {number}
-            </span>
+            <span className="text-xl font-semibold md:text-2xl">{number}</span>
             <h3 className="text-sm">{title}</h3>
           </div>
         ))}
