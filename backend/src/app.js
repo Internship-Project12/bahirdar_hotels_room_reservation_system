@@ -14,7 +14,7 @@ import userRouter from './routes/userRoutes.js';
 import statsRouter from './routes/statsRoutes.js';
 import roomRouter from './routes/roomRoutes.js';
 import reviewRouter from './routes/reviewRoutes.js';
-import bookingRouter from './routes/reviewRoutes.js';
+import bookingRouter from './routes/bookingRoutes.js';
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
