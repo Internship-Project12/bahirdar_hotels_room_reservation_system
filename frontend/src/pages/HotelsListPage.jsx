@@ -47,10 +47,14 @@ function HotelsListPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto flex min-h-screen justify-center lg:w-3/4">
-        <div className="flex w-full flex-col items-center">
-          <LoadingSkeleton className="h-52 w-[30rem]" />
-          <LoadingSkeleton className="h-52 w-[30rem]" />
+      <div className="mx-auto flex min-h-screen justify-center lg:w-1/4">
+        <div className="mt-5 p-4 lg:mt-12">
+          <LoadingSkeleton className="h-3 w-[10rem]" />
+          <LoadingSkeleton className="h-3 w-[30rem]" />
+          <LoadingSkeleton className="h-3 w-[20rem]" />
+          <LoadingSkeleton className="h-3 w-[15rem]" />
+          <LoadingSkeleton className="h-3 w-[25rem]" />
+          <LoadingSkeleton className="h-3 w-[10rem]" />
         </div>
       </div>
     );
