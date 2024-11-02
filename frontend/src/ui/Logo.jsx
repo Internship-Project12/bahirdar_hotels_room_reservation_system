@@ -16,7 +16,6 @@ function Logo({ className = "" }) {
           className="h-full w-full bg-cover bg-center"
         />
       </div>
-      {/* BDHotels.com */}
       Hotelify
     </Link>
   );
