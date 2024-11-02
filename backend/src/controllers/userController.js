@@ -80,7 +80,13 @@ export const deleteMe = catchAsync(async (req, res, next) => {
 
 // ************CRUD***************
 export const getAllUsers = catchAsync(async (req, res, next) => {
-  const { search, role } = req.query;
+  const { search, role, sort, limit } = req.query;
+
+  let filterQuery = {};
+  console.log('req.query', req.query);
+
+  filterQuery.sort = sort || '-createdAt';
+  filterQuery.limit = parseInt(limit) || 20;
 
   const queryObj = {};
   if (search) {
@@ -94,7 +100,10 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
     queryObj.role = role;
   }
 
-  const users = await User.find(queryObj);
+  console.log('filterQuery', filterQuery);
+  const users = await User.find(queryObj)
+    .sort(filterQuery.sort)
+    .limit(filterQuery.limit);
 
   res.status(200).json({
     status: 'success',
