@@ -11,7 +11,6 @@ function HeaderAccount() {
   const { user, isOpenModal, handleOpenModal } = useAuthContext();
   const menuRef = useRef(null);
   const iconRef = useRef(null);
-  console.log(user);
   useOnClickOutside({ handler: handleOpenModal, refs: [menuRef, iconRef] });
 
   return (

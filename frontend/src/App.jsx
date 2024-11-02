@@ -29,7 +29,6 @@ import RoomsListPage from "./pages/RoomsListPage";
 import RoomListDetail from "./ui/RoomListDetail";
 import Profile from "./features/profile/Profile";
 import AccountSettings from "./features/profile/AccountSettings";
-import { useEffect, useState } from "react";
 import MyBookings from "./features/profile/MyBookings";
 import ResetMyPassword from "./features/profile/ResetMyPassword";
 import ProtectAdminRoutes from "./ui/ProtectAdminRoutes";
@@ -39,24 +38,13 @@ import ForgotMyPassword from "./features/profile/ForgotMyPassword";
 
 function App() {
   const { role, isLoggedIn } = useAuthContext();
-  const [initialLoad, setInitialLoad] = useState(true);
-
-  useEffect(() => {
-    if (initialLoad) {
-      setInitialLoad(false);
-    }
-  }, [initialLoad]);
 
   return (
     <BrowserRouter>
       <Routes>
         {/* HOME ROUTES */}
         <Route element={<AppLayout />}>
-          {initialLoad && (role === "manager" || role === "admin") ? (
-            <Route path="/" element={<Navigate to="/dashboard" />} />
-          ) : (
-            <Route path="/" element={<HomePage />} />
-          )}
+          <Route path="/" element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="hotels" element={<HotelsListPage />} />
           <Route path="hotels/:id" element={<HotelDetailsPage />} />
