@@ -8,7 +8,7 @@ export const useBookings = ({ hotelId }) => {
   const [searchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
 
-  const filter = { status, hotelId };
+  let filter = { status, hotelId };
 
   const { data, isLoading } = useQuery({
     queryKey: [QueryKey.BOOKINGS, filter],

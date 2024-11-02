@@ -7,6 +7,7 @@ const QueryKey = {
   ROOMS: "rooms",
   ROOM: "room",
   POPULAR_HOTELS: "popularHotels",
+  COUNT_ALL_DOCS: "count-all-docs",
 };
 
 export default QueryKey;
