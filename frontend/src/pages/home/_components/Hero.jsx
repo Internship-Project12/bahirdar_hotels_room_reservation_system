@@ -30,7 +30,7 @@ function Hero() {
       <MaxWidthWrapper className="my-12 space-y-10">
         <div className="flex flex-col items-center justify-center text-center">
           <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-            Experience Bahir Dar: Your Gateway to Lakeside Bliss
+            Experience Bahir Dar : Your Gateway to Lakeside Bliss
           </h1>
           <p className="mb-6 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48">
             Discover Bahir Dar’s charm—book your stay effortlessly and embrace

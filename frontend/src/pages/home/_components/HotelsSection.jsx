@@ -1,17 +1,32 @@
 /* eslint-disable react/prop-types */
 
-import { hotels } from "../../../data/hotels";
+import QueryKey from "../../../constants/QueryKey";
+import apiHotels from "../../../services/apiHotels";
 import MaxWidthWrapper from "../../../ui/MaxWidthWrapper";
+import { useQuery } from "@tanstack/react-query";
 
 export const HotelsSection = () => {
+  const { data: { data: { data } = {} } = {}, isLoading } = useQuery({
+    queryKey: [QueryKey.POPULAR_HOTELS],
+    queryFn: apiHotels.getPopularHotels,
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+
+  const hotels = data;
+
   return (
     <section className="">
       <MaxWidthWrapper>
-        <h1 className="mb-8 text-4xl font-bold">Popular Hotels</h1>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {hotels.map((hotel) => (
-            <HotelCard hotel={hotel} key={hotel.id} />
-          ))}
+        <div className="my-5 flex flex-col items-center justify-center space-y-10 p-4">
+          <h2 className="border-b p-4 text-xl text-black/70 shadow md:text-2xl md:font-bold lg:text-4xl">
+            Popular Hotels
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-16">
+            {hotels.map((hotel) => (
+              <HotelCard hotel={hotel} key={hotel.id} />
+            ))}
+          </div>
         </div>
       </MaxWidthWrapper>
     </section>
@@ -20,7 +35,7 @@ export const HotelsSection = () => {
 
 const HotelCard = ({ hotel }) => {
   return (
-    <div className="cursor-pointer overflow-hidden rounded-lg bg-slate-100 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+    <div className="cursor-pointer overflow-hidden rounded-sm bg-slate-100 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
       <img
         className="h-48 w-full object-cover"
         src={hotel.imageCover}
@@ -29,7 +44,7 @@ const HotelCard = ({ hotel }) => {
       <div className="p-4">
         <h2 className="mb-2 text-2xl font-bold">{hotel.name}</h2>
         <p className="text-gray-600">{hotel.address}</p>
-        <p className="mt-2 text-gray-800">{hotel.description}</p>
+        <p className="mt-2 text-sm text-black/30">{hotel.summary}</p>
         <div className="mt-4 flex items-center justify-between">
           <div className="flex items-center">
             {[...Array(hotel.hotelStar)].map((star, index) => (
@@ -43,7 +58,7 @@ const HotelCard = ({ hotel }) => {
               </svg>
             ))}
           </div>
-          <button className="border-n rounded bg-blue-500 p-2 text-lg font-bold text-white">
+          <button className="rounded bg-blue-600 px-3 py-1 text-lg text-white">
             ${hotel.minPricePerNight}/night
           </button>
         </div>
@@ -51,3 +66,44 @@ const HotelCard = ({ hotel }) => {
     </div>
   );
 };
+
+/*
+ [
+            {
+                "_id": "66cc9e7ad11fe9fe45ba7911",
+                "name": "Addis International Hotel",
+                "hotelStar": 5,
+                "imageCover": "http://res.cloudinary.com/dvp1mjhd9/image/upload/v1724685942/HotelBookingApp_Intern/hotels/myz1edlgmcybyqmsnhwm.jpg",
+                "address": "Bahir Dar, Amhara, 16km from the main straight",
+                "summary": "5-star hotel located in the heart of Addis Ababa, Ethiopia",
+                "minPricePerNight": 350,
+                "numOfRooms": 2,
+                "avgRating": 4.5,
+                "id": "66cc9e7ad11fe9fe45ba7911"
+            },
+            {
+                "_id": "6724ce454c8babc72db74daf",
+                "name": "Bahir Dar Sunshine Inn",
+                "hotelStar": 4,
+                "imageCover": "http://res.cloudinary.com/dvp1mjhd9/image/upload/v1730465319/HotelBookingApp_Intern/hotels/qef0t5ahpbkc2sw2da69.jpg",
+                "address": "Bahir Dar, Amhara, 16km from the main straight",
+                "summary": "The hotel offers a luxurious experience with its spacious rooms, modern amenities, and exceptional service.",
+                "minPricePerNight": 0,
+                "numOfRooms": 1,
+                "avgRating": 4.5,
+                "id": "6724ce454c8babc72db74daf"
+            },
+            {
+                "_id": "6724d0b462cd27952fce2bc2",
+                "name": "Lake Tana Palace",
+                "hotelStar": 3,
+                "imageCover": "http://res.cloudinary.com/dvp1mjhd9/image/upload/v1730465967/HotelBookingApp_Intern/hotels/gpfofzrhxy2i9ihs4f8k.jpg",
+                "address": "Bahir Dar, Amhara, 2km from Bahir Dar Market",
+                "summary": "4-star hotel in Bahir Dar offering modern amenities with convenient access to Lake Tana and local attractions.",
+                "minPricePerNight": 0,
+                "numOfRooms": 0,
+                "avgRating": 4.5,
+                "id": "6724d0b462cd27952fce2bc2"
+            }
+        ]
+ */

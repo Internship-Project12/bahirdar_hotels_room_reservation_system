@@ -11,7 +11,6 @@ function HeaderAccount() {
   const { user, isOpenModal, handleOpenModal } = useAuthContext();
   const menuRef = useRef(null);
   const iconRef = useRef(null);
-  console.log(user);
   useOnClickOutside({ handler: handleOpenModal, refs: [menuRef, iconRef] });
 
   return (
@@ -40,7 +39,7 @@ function HeaderAccount() {
             <>
               <div
                 ref={menuRef}
-                className="absolute right-[20px] top-14 z-[998] mt-2 w-[13rem] rounded-md bg-slate-900 text-slate-50"
+                className="absolute right-12 top-16 z-[100] mt-2 w-[13rem] rounded-md border-2 border-black/10 bg-white text-black/50 shadow-lg"
               >
                 <HeaderAccountMenu />
               </div>
