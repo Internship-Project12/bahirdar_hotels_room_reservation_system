@@ -13,12 +13,10 @@ function Logo() {
         />
       </div>
       {/* BDHotels.com */}
-      HotelVerse
+      Hotelify
     </Link>
   );
 }
 
 export default Logo;
-// "HotelVerse" combines “hotel” with “verse” (a shorthand for “universe”). It implies a comprehensive, all-encompassing platform or ecosystem for
-// hotel management and booking. In essence, HotelVerse suggests a centralized "universe" or hub for everything related to hotels, from booking to
-// room and payment management, aligning well with the features of your app.
+// "Hotelify" is a coined name, combining "hotel" with the suffix "-ify," which is often used in tech and branding to suggest making something easier, accessible, or enhanced through a particular service or platform. In this case, "Hotelify" implies a platform that makes booking hotels simpler, more efficient, and user-friendly.
