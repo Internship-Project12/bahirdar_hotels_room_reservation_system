@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { Link } from "react-router-dom";
 import QueryKey from "../../../constants/QueryKey";
 import apiHotels from "../../../services/apiHotels";
 import MaxWidthWrapper from "../../../ui/MaxWidthWrapper";
@@ -42,7 +43,9 @@ const HotelCard = ({ hotel }) => {
         alt={hotel.name}
       />
       <div className="p-4">
-        <h2 className="mb-2 text-2xl font-bold">{hotel.name}</h2>
+        <Link to={`/hotels/${hotel._id}`} className="mb-2 text-2xl font-bold">
+          {hotel.name}
+        </Link>
         <p className="text-gray-600">{hotel.address}</p>
         <p className="mt-2 text-sm text-black/30">{hotel.summary}</p>
         <div className="mt-4 flex items-center justify-between">

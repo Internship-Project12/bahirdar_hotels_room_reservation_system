@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
+import { cn } from "../utils/cn";
 
-function Logo() {
+function Logo({ className = "" }) {
   return (
     <Link
       to="/"
-      className="flex items-center gap-2 font-mono text-2xl font-extrabold tracking-tighter text-blue-600"
+      className={cn(
+        "flex items-center gap-2 font-mono text-3xl font-bold uppercase tracking-tighter text-black/70",
+        className,
+      )}
     >
       <div className="h-12 w-12 overflow-hidden rounded-full">
         <img
