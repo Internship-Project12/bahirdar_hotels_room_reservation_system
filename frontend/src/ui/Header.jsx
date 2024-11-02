@@ -49,7 +49,7 @@ function Header() {
                 {user.role === ("admin" || "manager") && (
                   <li>
                     <Link
-                      to="/account/dashboard"
+                      to="/dashboard"
                       className="flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2 text-white"
                     >
                       Dashboard

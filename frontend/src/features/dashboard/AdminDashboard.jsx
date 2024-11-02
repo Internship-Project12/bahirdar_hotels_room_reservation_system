@@ -1,13 +1,4 @@
-import {
-  MdOutlineBedroomChild,
-  MdOutlineFreeCancellation,
-  MdOutlineManageSearch,
-  MdOutlinePendingActions,
-  MdOutlineShoppingCartCheckout,
-} from "react-icons/md";
-import Stats from "../hotels/Stats";
 import HotelCard from "../hotels/HotelCard";
-// import BookingTable from "../bookings/BookingTable";
 import { Link } from "react-router-dom";
 import RecentUsers from "../users/RecentUsers";
 import BookingPieChart from "../stats/BookingPieChart";
@@ -21,45 +12,15 @@ import {
   hotelUserBookingmonthlyStatusData,
   lineChartData,
 } from "../../data/stat-data";
-
-const bookingHeaders = [
-  { label: "User", key: "user" },
-  { label: "Hotel", key: "hotel" },
-  { label: "Room Num", key: "room" },
-  { label: "Check-In", key: "checkIn" },
-  // { label: "Check-Out", key: "checkOut" },
-  { label: "Num Of Nights", key: "numOfNights" },
-  { label: "Price Per Night ", key: "pricePerNights" },
-  { label: "status", key: "paymentStatus" },
-];
-
-const AdminStats = [
-  {
-    Icon: MdOutlineBedroomChild,
-    title: "Available rooms",
-    number: 30,
-  },
-  {
-    Icon: MdOutlineManageSearch,
-    title: "Today's CheckIn",
-    number: 30,
-  },
-  {
-    Icon: MdOutlineShoppingCartCheckout,
-    title: "Today's Checkout",
-    number: 130,
-  },
-  {
-    Icon: MdOutlineFreeCancellation,
-    title: "Cancellations",
-    number: 30,
-  },
-  {
-    Icon: MdOutlinePendingActions,
-    title: "Pending Payments",
-    number: 30,
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import QueryKey from "../../constants/QueryKey";
+import { apiAdmin } from "../../services/apiAdmin";
+import LoadingSkeleton from "../../ui/LoadingSkeleton";
+import { FaUsersLine } from "react-icons/fa6";
+import { LiaHotelSolid } from "react-icons/lia";
+import { MdOutlineBedroomParent } from "react-icons/md";
+import { BsBookmarksFill } from "react-icons/bs";
+import { MdOutlineRateReview } from "react-icons/md";
 
 const Hotels = [
   {
@@ -89,17 +50,84 @@ const Hotels = [
   },
 ];
 
+/*
+{
+    "status": "success",
+    "message": "get admin stats",
+    "data": {
+        "numUsers": 10,
+        "numHotels": 7,
+        "numRooms": 5,
+        "numBookings": 4,
+        "numReviews": 0
+    }
+}
+*/
+
 function AdminDashboard() {
+  const { data: { data } = {}, isLoading } = useQuery({
+    queryKey: [QueryKey.COUNT_ALL_DOCS],
+    queryFn: apiAdmin.getCountDocs,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="mx-auto flex min-h-screen justify-center">
+        <div className="mt-5 p-4 lg:mt-12">
+          <LoadingSkeleton className="h-3 w-[10rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[30rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[20rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[15rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[25rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[10rem] bg-gray-50 dark:bg-gray-300" />
+        </div>
+      </div>
+    );
+  }
+  const { numUsers, numHotels, numRooms, numBookings, numReviews } = data;
+
+  const countData = [
+    {
+      title: "Hotels",
+      number: numHotels,
+      Icon: <LiaHotelSolid className="size-12" />,
+    },
+    {
+      title: "Users",
+      number: numUsers,
+      Icon: <FaUsersLine className="size-12" />,
+    },
+    {
+      title: "Rooms",
+      number: numRooms,
+      Icon: <MdOutlineBedroomParent className="size-12" />,
+    },
+    {
+      title: "Bookings",
+      number: numBookings,
+      Icon: <BsBookmarksFill className="size-12" />,
+    },
+    {
+      title: "Reviews",
+      number: numReviews,
+      Icon: <MdOutlineRateReview className="size-12" />,
+    },
+  ];
+
   return (
     <div className="flex w-full flex-col">
-      <section className="m-3 mb-8 grid grid-cols-5 justify-between">
-        {AdminStats.map((stat, i) => (
-          <Stats
+      <section className="m-3 mb-8 grid grid-cols-1 justify-between gap-4 gap-x-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-x-10">
+        {countData.map(({ title, Icon, number }, i) => (
+          <div
             key={i}
-            Icon={stat.Icon}
-            title={stat.title}
-            number={stat.number}
-          />
+            className="flex flex-col items-center rounded bg-gradient-to-br from-[#E0A75E] to-[#E0A75E]/70 p-2 text-white shadow-xl"
+          >
+            {Icon}
+            <span className="text-2xl font-semibold md:text-3xl lg:text-5xl">
+              {number}
+            </span>
+            <h3 className="text-sm">{title}</h3>
+          </div>
         ))}
       </section>
 

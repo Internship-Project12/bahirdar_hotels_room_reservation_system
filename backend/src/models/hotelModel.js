@@ -119,7 +119,7 @@ hotelSchema.virtual('bookings', {
 
 // hotelSchema.pre(/^find/, function (next) {
 //   if (
-//     !this.user 
+//     !this.user
 //     // ||
 //     // this.user?.role === 'user' ||
 //     // this.user?.role === 'manager'

@@ -77,7 +77,7 @@ function DashboardLayout() {
       ) : role === "manager" ? (
         <SideBar menus={managerMenus} />
       ) : null}
-      <div className="flex h-screen w-[calc(100vw-260px)] flex-col bg-slate-200 px-4 text-gray-700">
+      <div className="flex h-screen w-[calc(100vw-260px)] flex-col bg-slate-50 px-4 text-gray-700">
         <DashboardHeader />
         <main className="overflow-auto">
           <Outlet />

@@ -36,8 +36,8 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
       (sort === 'z-a' && '-name') ||
       (sort === 'newest' && '-createdAt') ||
       (sort === 'oldest' && 'createdAt') ||
-      (sort === 'pricePerNight-desc' && '-pricePerNight') ||
-      (sort === 'pricePerNight-asc' && 'pricePerNight') ||
+      (sort === 'minPricePerNight-desc' && '-minPricePerNight') ||
+      (sort === 'minPricePerNight-asc' && 'minPricePerNight') ||
       (sort === 'avgRating-desc' && '-avgRating') ||
       (sort === 'avgRating-asc' && 'avgRating') ||
       (sort === 'hotelStar-desc' && '-hotelStar') ||
@@ -46,7 +46,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 
   const features = new APIFeatures(Hotel.find(), req.query)
     // FILTERING IS SPECIFIC TO THE DATA WE FILTER SO I DON'T USE IT HERE
-    .sort()
+    .sort(sort)
     .limitFields()
     .paginate();
 
