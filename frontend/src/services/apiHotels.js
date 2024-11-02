@@ -2,13 +2,21 @@ import customFetch from "../utils/customFetch";
 
 const addHotel = async (hotel) => await customFetch.post("/hotels", hotel);
 
+const getPopularHotels = async () => {
+  const res = await customFetch(
+    `/hotels?sort=hotelStar-desc&limit=6&fields=name,address,summary,hotelStar,imageCover,minPricePerNight,numOfRooms,avgRating`,
+  );
+
+  return res.data;
+};
+
 const getAllHotels = async ({ filter }) => {
   const { search, hotelStar, sort, selectedStars } = filter;
   let url = `/hotels?search=${search}&sort=${sort}`;
 
   if (selectedStars?.length) {
     selectedStars.forEach((val) => (url = url + `&hotelStar=${val}`));
-  } else if(hotelStar) {
+  } else if (hotelStar) {
     url = url + `&hotelStar=${hotelStar}`;
   }
   const res = await customFetch.get(url);
@@ -37,6 +45,7 @@ const apiHotels = {
   getAllHotels,
   deleteHotel,
   updateHotel,
+  getPopularHotels,
 };
 
 export default apiHotels;

@@ -6,6 +6,7 @@ const QueryKey = {
   ALL_USERS: "allUsers",
   ROOMS: "rooms",
   ROOM: "room",
+  POPULAR_HOTELS: "popularHotels",
 };
 
 export default QueryKey;
