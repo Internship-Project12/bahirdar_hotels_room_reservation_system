@@ -36,16 +36,17 @@ export const HotelsSection = () => {
 
 const HotelCard = ({ hotel }) => {
   return (
-    <div className="cursor-pointer overflow-hidden rounded-sm bg-slate-100 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+    <Link
+      to={`/hotels/${hotel._id}`}
+      className="cursor-pointer overflow-hidden rounded-sm bg-slate-100 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl"
+    >
       <img
         className="h-48 w-full object-cover"
         src={hotel.imageCover}
         alt={hotel.name}
       />
       <div className="p-4">
-        <Link to={`/hotels/${hotel._id}`} className="mb-2 text-2xl font-bold">
-          {hotel.name}
-        </Link>
+        <p className="mb-2 text-2xl font-bold">{hotel.name}</p>
         <p className="text-gray-600">{hotel.address}</p>
         <p className="mt-2 text-sm text-black/30">{hotel.summary}</p>
         <div className="mt-4 flex items-center justify-between">
@@ -66,7 +67,7 @@ const HotelCard = ({ hotel }) => {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
