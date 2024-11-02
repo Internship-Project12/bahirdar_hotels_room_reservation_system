@@ -45,22 +45,22 @@ function HotelsListPage() {
     );
   };
 
-  if (isLoading) {
-    return (
-      <div className="mx-auto flex min-h-screen justify-center lg:w-1/4">
-        <div className="mt-5 p-4 lg:mt-12">
-          <LoadingSkeleton className="h-3 w-[10rem]" />
-          <LoadingSkeleton className="h-3 w-[30rem]" />
-          <LoadingSkeleton className="h-3 w-[20rem]" />
-          <LoadingSkeleton className="h-3 w-[15rem]" />
-          <LoadingSkeleton className="h-3 w-[25rem]" />
-          <LoadingSkeleton className="h-3 w-[10rem]" />
-        </div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="mx-auto flex min-h-screen justify-center lg:w-1/4">
+  //       <div className="mt-5 p-4 lg:mt-12">
+  //         <LoadingSkeleton className="h-3 w-[10rem]" />
+  //         <LoadingSkeleton className="h-3 w-[30rem]" />
+  //         <LoadingSkeleton className="h-3 w-[20rem]" />
+  //         <LoadingSkeleton className="h-3 w-[15rem]" />
+  //         <LoadingSkeleton className="h-3 w-[25rem]" />
+  //         <LoadingSkeleton className="h-3 w-[10rem]" />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (!hotels?.length) {
+  if (!hotels?.length && !isLoading) {
     return (
       <div className="mt-5 flex min-h-screen flex-col items-center gap-6 md:mt-12">
         <Link
@@ -100,24 +100,26 @@ function HotelsListPage() {
                 <Select
                   onChange={handleSortChange}
                   options={[
+                    { label: "recent first", value: "newest" },
+                    { label: "oldest first", value: "oldest" },
                     {
-                      label: "price per night (high first)",
-                      value: "pricePerNight-desc",
-                    },
-                    {
-                      label: "price per night (low first)",
-                      value: "pricePerNight-asc",
-                    },
-                    {
-                      label: "avgRating (high first)",
+                      label: "average Rating: high first",
                       value: "avgRating-desc",
                     },
                     {
-                      label: "low avgRating (low first)",
+                      label: "average Rating: low first",
                       value: "avgRating-asc",
                     },
-                    { label: "recent first", value: "newest" },
-                    { label: "oldest first", value: "oldest" },
+                    { label: "hotelStar: high first", value: "hotelStar-desc" },
+                    { label: "hotelStar: low first", value: "hotelStar-asc" },
+                    {
+                      label: "min price per night: high first",
+                      value: "minPricePerNight-desc",
+                    },
+                    {
+                      label: "min price per night: low first",
+                      value: "minPricePerNight-asc",
+                    },
                     { label: "a-z", value: "a-z" },
                     { label: "z-a", value: "z-a" },
                   ]}
@@ -150,12 +152,27 @@ function HotelsListPage() {
             </section>
           </div>
           <div className="flex w-full gap-4 px-6">
-            <section className="min-h-[100vh] rounded-md border-l-2 border-r-2 py-4 shadow-lg">
-              {/* hotel cards */}
-              {hotels.map((hotel, i) => (
-                <HotelsListItem hotel={hotel} key={i} />
-              ))}
-            </section>
+            {/* hotel cards */}
+            {isLoading ? (
+              <div className="mx-auto w-[69.5vw]">
+                <div className="mx-auto flex min-h-screen w-full justify-center">
+                  <div className="mt-5 p-4 lg:mt-12">
+                    <LoadingSkeleton className="h-3 w-[10rem]" />
+                    <LoadingSkeleton className="h-3 w-[30rem]" />
+                    <LoadingSkeleton className="h-3 w-[20rem]" />
+                    <LoadingSkeleton className="h-3 w-[15rem]" />
+                    <LoadingSkeleton className="h-3 w-[25rem]" />
+                    <LoadingSkeleton className="h-3 w-[10rem]" />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <section className="min-h-[100vh] rounded-md border-l-2 border-r-2 py-4 shadow-lg">
+                {hotels.map((hotel, i) => (
+                  <HotelsListItem hotel={hotel} key={i} />
+                ))}
+              </section>
+            )}
           </div>{" "}
         </div>
       </div>
