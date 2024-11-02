@@ -11,9 +11,10 @@ import AppError from './utils/appError.js';
 
 import hotelRouter from './routes/hotelRoutes.js';
 import userRouter from './routes/userRoutes.js';
+import statsRouter from './routes/statsRoutes.js';
 import roomRouter from './routes/roomRoutes.js';
-import bookingRouter from './routes/bookingRoutes.js';
 import reviewRouter from './routes/reviewRoutes.js';
+import bookingRouter from './routes/reviewRoutes.js';
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -67,6 +68,7 @@ app.use('/', (req, res, next) => {
 });
 
 // ROUTES
+app.use('/api/v1/admin-stats', statsRouter);
 app.use('/api/v1/hotels', hotelRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/rooms', roomRouter);
