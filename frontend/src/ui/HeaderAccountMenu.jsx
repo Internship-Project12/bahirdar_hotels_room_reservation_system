@@ -38,7 +38,7 @@ const links = [
 function HeaderAccountMenu() {
   const { logout, isPending } = useLogout();
   const { role, handleOpenModal } = useAuthContext();
-  console.log(role);
+  // console.log(role);
 
   return (
     <ul className="flex flex-col">

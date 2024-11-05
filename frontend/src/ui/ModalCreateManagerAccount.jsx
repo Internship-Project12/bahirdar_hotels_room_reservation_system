@@ -22,7 +22,7 @@ function ModalCreateManagerAccount({ setCreatedManager }) {
     mutationFn: (data) => apiUsers.createUser({ data }),
     onSuccess: (data) => {
       // const {} = data
-      console.log(data.data.user);
+      // console.log(data.data.user);
       toast.success("Manager account created successfully");
       setCreatedManager(data.data.user);
       handleOpenModalWindow();

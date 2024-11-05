@@ -14,7 +14,7 @@ function UpdateMyPassword() {
   const { mutate, isPending } = useUpdateMyPassword();
 
   const onSubmitHandler = handleSubmit((data) => {
-    console.log(data);
+    // console.log(data);
     mutate({ data });
   });
 

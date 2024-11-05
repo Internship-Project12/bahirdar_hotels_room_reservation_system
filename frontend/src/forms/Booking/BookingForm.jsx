@@ -33,7 +33,7 @@ function BookingForm({ roomId }) {
   } = useBookingsOnRoom({ roomId });
 
   const onSubmitHandler = handleSubmit((data) => {
-    console.log(data.checkInDate, data.checkOutDate);
+    // console.log(data.checkInDate, data.checkOutDate);
     handleCheckIn(new Date(data.checkInDate));
     handleCheckOut(new Date(data.checkOutDate));
     navigate("booking");

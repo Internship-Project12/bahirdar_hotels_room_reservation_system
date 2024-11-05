@@ -69,7 +69,7 @@ export const getAllHotels = catchAsync(async (req, res, next) => {
 export const createHotel = catchAsync(async (req, res, next) => {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  console.log(req.files, req.body);
+  // console.log(req.files, req.body);
 
   let imageCoverUrl;
   let hotelImagesUrl;

@@ -83,7 +83,7 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
   const { search, role, sort, limit } = req.query;
 
   let filterQuery = {};
-  console.log('req.query', req.query);
+  // console.log('req.query', req.query);
 
   filterQuery.sort = sort || '-createdAt';
   filterQuery.limit = parseInt(limit) || 20;
@@ -100,7 +100,7 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
     queryObj.role = role;
   }
 
-  console.log('filterQuery', filterQuery);
+  // console.log('filterQuery', filterQuery);
   const users = await User.find(queryObj)
     .sort(filterQuery.sort)
     .limit(filterQuery.limit);

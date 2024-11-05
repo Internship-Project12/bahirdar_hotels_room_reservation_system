@@ -34,7 +34,7 @@ const getAllRooms = catchAsync(async (req, res, next) => {
 });
 
 const getAvailableRoomsOnHotel = catchAsync(async (req, res, next) => {
-  console.log(req.params);
+  // console.log(req.params);
   let filter = {};
   // filter if getting all rooms of one hotel // nested get route
   if (req.params.hotelId) filter.hotel = req.params.hotelId;

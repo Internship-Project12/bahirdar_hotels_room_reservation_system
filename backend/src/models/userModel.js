@@ -97,7 +97,7 @@ userSchema.virtual('bookings', {
 // set the first user as an admin
 userSchema.pre('save', async function (next) {
   const countDoc = await this.constructor.countDocuments();
-  console.log(countDoc);
+  // console.log(countDoc);
 
   if (countDoc === 0) {
     this.role = 'admin';

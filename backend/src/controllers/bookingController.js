@@ -10,8 +10,6 @@ const verifyPaymentChapa = catchAsync(async (req, res, next) => {
   const { tx_ref, roomId, checkInDate, checkOutDate } = req.body;
   const user = req.user.id;
 
-  console.log(user, roomId, tx_ref, checkInDate, checkOutDate);
-
   if (!tx_ref) {
     return next(new AppError('tx_ref is not provided', 400));
   }
@@ -36,9 +34,6 @@ const verifyPaymentChapa = catchAsync(async (req, res, next) => {
     });
 
     const verifiedData = response.data.data;
-
-    console.log(booking);
-    console.log(verifiedData);
 
     res.status(200).json(booking);
   } catch (error) {

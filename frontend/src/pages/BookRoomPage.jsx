@@ -22,7 +22,7 @@ function BookRoomPage() {
         checkOut,
       }),
     onSuccess: (data) => {
-      console.log("paymentData: ", data);
+      // console.log("paymentData: ", data);
       setPaymentData(data);
     },
     onError: (error) => {
