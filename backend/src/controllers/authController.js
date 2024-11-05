@@ -192,7 +192,12 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 
     const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
 
-    const html = `<h1>Forgot your password?</h1><p>Submit a PATCH request with your new password and passwordConfirm to: <a href="${process.env.FRONT_END_URL}/settings/${resetToken}" target='_blank'>${resetURL}</a></p>`;
+    let html = '';
+    if (process.env.NODE_ENV === 'development')
+      html = `<h1>Forgot your password?</h1><p>Submit a PATCH request with your new password and passwordConfirm to: <a href="${process.env.DEV_URL}/settings/${resetToken}" target='_blank'>${resetURL}</a></p>`;
+    else {
+      html = `<h1>Forgot your password?</h1><p>Submit a PATCH request with your new password and passwordConfirm to: <a href="${process.env.PROD_URL}/settings/${resetToken}" target='_blank'>${resetURL}</a></p>`;
+    }
 
     await sendEmail({
       email: user.email,

@@ -94,16 +94,12 @@ const acceptPaymentChapa = catchAsync(async (req, res, next) => {
 
   const tx_ref = `${firstName}-${lastName}` + Date.now();
 
-  let return_url;
+  let return_url = '';
   if (process.env.NODE_ENV === 'development') {
-    return_url = `${process.env.CHAPA_RETURN_URL_DEV}`;
-  } else if (process.env.NODE_ENV === 'production') {
-    return_url = `${process.env.CHAPA_RETURN_URL_PROD}`;
+    return_url = `${process.env.DEV_URL}`;
+  } else {
+    return_url = `${process.env.PROD_URL}`;
   }
-
-  return_url =
-    return_url +
-    `/payment-successful/${roomId}?tx_ref=${tx_ref}&checkIn=${checkIn.getTime()}&checkOut=${checkOut.getTime()}`;
 
   const body = {
     amount: totalPrice,
@@ -113,7 +109,7 @@ const acceptPaymentChapa = catchAsync(async (req, res, next) => {
     last_name: lastName,
     phone_number: phoneNumber,
     tx_ref,
-    return_url,
+    return_url: `${return_url}/payment-successful/${roomId}?tx_ref=${tx_ref}&checkIn=${checkIn.getTime()}&checkOut=${checkOut.getTime()}`,
   };
 
   try {
