@@ -73,7 +73,7 @@ reviewSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'user',
     select: 'firstName lastName photo', // Adjust fields as per your user model
-  })
+  });
   // .populate({
   //   path: 'hotel',
   //   select: 'name', // Adjust fields as per your hotel model

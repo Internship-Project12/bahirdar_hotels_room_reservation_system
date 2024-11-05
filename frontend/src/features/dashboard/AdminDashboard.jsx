@@ -9,7 +9,7 @@ import {
   barChartBookingData,
   barChartBoxVisit,
   bookingRevenueData,
-  hotelUserBookingmonthlyStatusData,
+  hotelUserBookingMonthlyStatusData,
   lineChartData,
 } from "../../data/stat-data";
 import { useQuery } from "@tanstack/react-query";
@@ -123,7 +123,7 @@ function AdminDashboard() {
       <section className="m-3 my-6 flex h-[500px] bg-white p-8">
         <AreaChartBox
           title="Monthly Registered Number of Hotels and Users "
-          data={hotelUserBookingmonthlyStatusData}
+          data={hotelUserBookingMonthlyStatusData}
           dataKeys={["users", "hotels"]}
           colors={["#160ce4", "#15c458"]}
         />

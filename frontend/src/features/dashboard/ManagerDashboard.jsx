@@ -2,58 +2,32 @@ import {
   MdOutlineBedroomChild,
   MdOutlineFreeCancellation,
   MdOutlineManageSearch,
-  MdOutlinePendingActions,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-import Stats from "../hotels/Stats";
 import BookingCard from "../bookings/BookingCard";
 import { useCurrentHotel } from "./useCurrentHotel";
 import { useAuthContext } from "../../context/AuthContext";
-import Spinner from "../../ui/Spinner";
 import CustomLabeledPieChart from "../stats/CustomLabeledPieChart";
 import AreaChartBox from "../stats/AreaChartBox";
 import {
   barChartBookingData,
   barChartBoxVisit,
   bookingRevenueData,
-  hotelUserBookingmonthlyStatusData,
+  hotelUserBookingMonthlyStatusData,
   lineChartData,
 } from "../../data/stat-data";
 import BarChartBox from "../stats/BarChartBox";
 import LineChartBox from "../stats/LineChartBox";
 import ModalAddRoom from "../../ui/ModalAddRoom";
-
-const managerStats = [
-  {
-    Icon: MdOutlineBedroomChild,
-    title: "Available rooms",
-    number: 30,
-  },
-  {
-    Icon: MdOutlineManageSearch,
-    title: "Today's CheckIn",
-    number: 30,
-  },
-  {
-    Icon: MdOutlineShoppingCartCheckout,
-    title: "Today's Checkout",
-    number: 130,
-  },
-  {
-    Icon: MdOutlineFreeCancellation,
-    title: "Cancellations",
-    number: 30,
-  },
-  {
-    Icon: MdOutlinePendingActions,
-    title: "Pending Payments",
-    number: 30,
-  },
-];
+import LoadingSkeleton from "../../ui/LoadingSkeleton";
+import MaxWidthWrapper from "../../ui/MaxWidthWrapper";
+import { useQuery } from "@tanstack/react-query";
+import QueryKey from "../../constants/QueryKey";
+import { apiAdmin } from "../../services/apiAdmin";
 
 const RecentlyBookedRooms = [
   {
@@ -84,11 +58,30 @@ const RecentlyBookedRooms = [
 
 function ManagerDashboard() {
   const navigate = useNavigate();
-  const { setCurrentHotelHandler } = useAuthContext();
+  const { setCurrentHotelHandler, currentHotel } = useAuthContext();
 
   const { hotel, isLoading, isError } = useCurrentHotel();
 
-  if (isLoading) return <Spinner />;
+  const { data: { data } = {}, isLoading: isLoadingHotelStats } = useQuery({
+    queryKey: [QueryKey.HOTEL_STATS],
+    queryFn: () => apiAdmin.getHotelStats(currentHotel._id),
+    enabled: !!currentHotel._id,
+  });
+
+  if (isLoading || isLoadingHotelStats) {
+    return (
+      <div className="mx-auto flex min-h-screen justify-center">
+        <div className="mt-5 p-4 lg:mt-12">
+          <LoadingSkeleton className="h-3 w-[10rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[30rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[20rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[15rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[25rem] bg-gray-50 dark:bg-gray-300" />
+          <LoadingSkeleton className="h-3 w-[10rem] bg-gray-50 dark:bg-gray-300" />
+        </div>
+      </div>
+    );
+  }
 
   if (isError) {
     toast.error(
@@ -101,42 +94,80 @@ function ManagerDashboard() {
     setCurrentHotelHandler(hotel);
   }
 
+  if (!data) return null;
+
+  const { numBookings, numReviews, numRooms, numUsers } = data;
+
+  const managerStats = [
+    {
+      icon: <MdOutlineBedroomChild className="size-8" />,
+      title: "Rooms",
+      number: numRooms,
+    },
+    {
+      icon: <MdOutlineManageSearch className="size-8" />,
+      title: "Bookings",
+      number: numBookings,
+    },
+    {
+      icon: <MdOutlineShoppingCartCheckout className="size-8" />,
+      title: "Users",
+      number: numUsers,
+    },
+    {
+      icon: <MdOutlineFreeCancellation className="size-8" />,
+      title: "Reviews",
+      number: numReviews,
+    },
+  ];
+
   return (
     <>
-      <div className="flex w-full flex-col overflow-hidden">
-        <section className="m-3 mb-8 grid grid-cols-5 justify-between">
-          {managerStats.map((stat, i) => (
-            <Stats
-              key={i}
-              Icon={stat.Icon}
-              title={stat.title}
-              number={stat.number}
-            />
-          ))}
-        </section>
-        <section className="m-3 my-6 h-96 w-full bg-white p-8">
-          <CustomLabeledPieChart />
-        </section>
+      <div className="flex w-full flex-col gap-5 overflow-hidden">
+        <MaxWidthWrapper className="border-black/7 w-full border bg-black/5">
+          <section className="m-3 mx-auto mb-8 grid w-full grid-cols-1 gap-4 gap-x-5 sm:grid-cols-2 lg:w-3/4 lg:grid-cols-4 lg:gap-x-10">
+            {managerStats.map(({ title, icon, number }, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center rounded bg-gradient-to-br from-[#E0A75E] to-[#E0A75E]/70 p-4 text-white shadow-xl"
+              >
+                {icon}
+                <span className="text-xl font-semibold md:text-2xl">
+                  {number}
+                </span>
+                <h3 className="text-sm">{title}</h3>
+              </div>
+            ))}
+          </section>
+        </MaxWidthWrapper>
 
-        <section className="flex justify-between">
-          <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6">
-            <BarChartBox data={barChartBoxVisit} />
-          </div>
-          <div className="m-3 my-6 h-96 w-full bg-white p-6 py-6">
-            <BarChartBox data={barChartBookingData} />
-          </div>
-        </section>
+        <MaxWidthWrapper className="border-black/7 w-full border bg-black/5">
+          <section className="h-96 w-full">
+            <CustomLabeledPieChart />
+          </section>
+        </MaxWidthWrapper>
 
-        <section className="m-3 my-6 flex h-[500px] bg-white p-8">
+        <MaxWidthWrapper className="border-black/7 w-full border bg-black/5">
+          <section className="flex justify-between">
+            <div className="m-3 my-6 h-96 w-full p-6 py-6">
+              <BarChartBox data={barChartBoxVisit} />
+            </div>
+            <div className="m-3 my-6 h-96 w-full p-6 py-6">
+              <BarChartBox data={barChartBookingData} />
+            </div>
+          </section>
+        </MaxWidthWrapper>
+
+        <section className="m-3 my-6 flex h-[500px] p-8">
           <AreaChartBox
             title="Monthly Registered Number of Hotels and Users "
-            data={hotelUserBookingmonthlyStatusData}
+            data={hotelUserBookingMonthlyStatusData}
             dataKeys={["users", "hotels"]}
             colors={["#160ce4", "#15c458"]}
           />
         </section>
 
-        <section className="m-3 my-6 flex h-[500px] bg-white p-6">
+        <section className="m-3 my-6 flex h-[500px] p-6">
           <AreaChartBox
             title="Revenue Analysis"
             data={bookingRevenueData}
@@ -145,7 +176,7 @@ function ManagerDashboard() {
           />
         </section>
 
-        <section className="mx-3 my-6 flex h-[400px] bg-white p-6">
+        <section className="mx-3 my-6 flex h-[400px] p-6">
           <LineChartBox
             data={lineChartData}
             title={"Total Number of Registered Users and Bookings over Time"}
@@ -153,7 +184,7 @@ function ManagerDashboard() {
         </section>
 
         <section className="my-6 flex flex-col">
-          <div className="flex justify-between bg-white p-4">
+          <div className="flex justify-between p-4">
             <h2 className="text-2xl font-bold uppercase">
               Recently Booked Rooms
             </h2>
@@ -173,7 +204,7 @@ function ManagerDashboard() {
         </section>
 
         <section>
-          <div className="flex justify-between bg-white p-4">
+          <div className="flex justify-between p-4">
             <h2 className="text-2xl font-bold uppercase">Recent Users</h2>
             <Link
               to="/dashboard/users"

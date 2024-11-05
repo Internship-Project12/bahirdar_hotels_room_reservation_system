@@ -70,7 +70,7 @@ export const barChartBookingData = {
   ],
 };
 
-export const hotelUserBookingmonthlyStatusData = [
+export const hotelUserBookingMonthlyStatusData = [
   {
     month: "Jan",
     hotels: 120,
