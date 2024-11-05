@@ -8,9 +8,9 @@ export const useDeleteRoom = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (id) => apiRooms.deleteRoom({ id }),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("You deleted a room successfully");
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: [QueryKey.ROOMS],
       });
     },
