@@ -7,4 +7,10 @@ const getCountDocs = async () => {
   return data;
 };
 
-export const apiAdmin = { getCountDocs };
+const getHotelStats = async (hotelId) => {
+  const res = await customFetch(`/admin-stats/hotel-stats/${hotelId}`);
+
+  return res.data;
+};
+
+export const apiAdmin = { getCountDocs, getHotelStats };

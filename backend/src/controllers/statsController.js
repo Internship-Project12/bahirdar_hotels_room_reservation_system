@@ -6,7 +6,6 @@ import Room from '../models/roomModel.js';
 import catchAsync from '../utils/catchAsync.js';
 
 export const getCountDocs = catchAsync(async (req, res, next) => {
-  console.log('reached');
   // 1 number of hotels
   const numHotels = await Hotel.countDocuments();
 
@@ -27,6 +26,30 @@ export const getCountDocs = catchAsync(async (req, res, next) => {
       numHotels,
       numRooms,
       numBookings,
+      numReviews,
+    },
+  });
+});
+
+export const getHotelStats = catchAsync(async (req, res, next) => {
+  const { hotelId } = req.params;
+  // 1 get all rooms
+  const numRooms = await Room.countDocuments({ hotel: hotelId });
+  // 2 get all bookings
+  const numBookings = await Booking.countDocuments({ hotel: hotelId });
+  // 3 get all users
+  const users = await Booking.find({ hotel: hotelId }).distinct('user');
+  const numUsers = users.length;
+
+  // 4 get all reviews
+  const numReviews = await Review.countDocuments({ hotel: hotelId });
+  return res.status(200).json({
+    status: 'success',
+    message: 'get stats for one hotel',
+    data: {
+      numRooms,
+      numBookings,
+      numUsers,
       numReviews,
     },
   });

@@ -9,7 +9,7 @@ import {
   barChartBookingData,
   barChartBoxVisit,
   bookingRevenueData,
-  hotelUserBookingmonthlyStatusData,
+  hotelUserBookingMonthlyStatusData,
   lineChartData,
 } from "../../data/stat-data";
 import { useQuery } from "@tanstack/react-query";
@@ -49,20 +49,6 @@ const Hotels = [
     pricePerNight: 542,
   },
 ];
-
-/*
-{
-    "status": "success",
-    "message": "get admin stats",
-    "data": {
-        "numUsers": 10,
-        "numHotels": 7,
-        "numRooms": 5,
-        "numBookings": 4,
-        "numReviews": 0
-    }
-}
-*/
 
 function AdminDashboard() {
   const { data: { data } = {}, isLoading } = useQuery({
@@ -137,7 +123,7 @@ function AdminDashboard() {
       <section className="m-3 my-6 flex h-[500px] bg-white p-8">
         <AreaChartBox
           title="Monthly Registered Number of Hotels and Users "
-          data={hotelUserBookingmonthlyStatusData}
+          data={hotelUserBookingMonthlyStatusData}
           dataKeys={["users", "hotels"]}
           colors={["#160ce4", "#15c458"]}
         />

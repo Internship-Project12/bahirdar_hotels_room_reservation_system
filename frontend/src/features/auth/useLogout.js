@@ -17,7 +17,7 @@ function useLogout() {
       // remove all queries:
       queryClient.removeQueries();
       // refetch all queries:
-      await queryClient.refetchQueries();
+      // await queryClient.refetchQueries();
 
       toast.success("Logout successful");
       navigate("/", { replace: true });

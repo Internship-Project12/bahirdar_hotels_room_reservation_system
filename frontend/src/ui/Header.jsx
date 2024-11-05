@@ -46,17 +46,18 @@ function Header() {
             </li>
             {isLoggedIn ? (
               <>
-                {user.role === ("admin" || "manager") && (
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2 text-white"
-                    >
-                      Dashboard
-                      <FaArrowRight />
-                    </Link>
-                  </li>
-                )}
+                {user.role === "admin" ||
+                  (user.role === "manager" && (
+                    <li>
+                      <Link
+                        to="/dashboard"
+                        className="flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2 text-white"
+                      >
+                        Dashboard
+                        <FaArrowRight />
+                      </Link>
+                    </li>
+                  ))}
                 <li>
                   <HeaderAccount />
                 </li>

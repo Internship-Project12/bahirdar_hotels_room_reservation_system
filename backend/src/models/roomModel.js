@@ -93,16 +93,14 @@ roomSchema.statics.calcMinPriceAndNumOfRooms = async function (hotelId) {
     });
   } else {
     await Hotel.findByIdAndUpdate(hotelId, {
-      numOfRooms: 1,
+      numOfRooms: 0,
       minPricePerNight: 0,
     });
   }
 };
 
-roomSchema.pre('save', function (next) {
+roomSchema.post('save', function () {
   this.constructor.calcMinPriceAndNumOfRooms(this.hotel);
-
-  next();
 });
 
 const Room = mongoose.model('Room', roomSchema);
