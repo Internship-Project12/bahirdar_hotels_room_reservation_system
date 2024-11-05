@@ -3,6 +3,7 @@ import apiRooms from "../../services/apiRooms";
 import { useAuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import QueryKey from "../../constants/QueryKey";
 
 export const useCreateRoom = () => {
   const navigate = useNavigate();
@@ -18,7 +19,9 @@ export const useCreateRoom = () => {
     mutationFn: (data) => apiRooms.createRoom({ id, data }),
     onSuccess: async () => {
       toast.success("Room added successfully");
-      await queryClient.invalidateQueries();
+      await queryClient.invalidateQueries({
+        queryKey: [QueryKey.ROOMS],
+      });
 
       navigate("/dashboard/rooms");
     },
