@@ -94,9 +94,14 @@ const acceptPaymentChapa = catchAsync(async (req, res, next) => {
 
   const tx_ref = `${firstName}-${lastName}` + Date.now();
 
-  const return_url = `http://localhost:5173/payment-successful/${roomId}?tx_ref=${tx_ref}&checkIn=${checkIn.getTime()}&checkOut=${checkOut.getTime()}`;
+  let return_url;
+  if (process.env.NODE_ENV === 'development') {
+    return_url = `${process.env.CHAPA_RETURN_URL_DEV}`;
+  } else {
+    return_url = `${process.env.CHAPA_RETURN_URL_PROD}`;
+  }
 
-  // console.log(return_url);
+  return_url += `/payment-successful/${roomId}?tx_ref=${tx_ref}&checkIn=${checkIn.getTime()}&checkOut=${checkOut.getTime()}`;
 
   const body = {
     amount: totalPrice,
