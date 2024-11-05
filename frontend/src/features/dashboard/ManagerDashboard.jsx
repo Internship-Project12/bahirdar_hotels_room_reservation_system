@@ -14,8 +14,6 @@ import BookingCard from "../bookings/BookingCard";
 import { useCurrentHotel } from "./useCurrentHotel";
 import { useAuthContext } from "../../context/AuthContext";
 import Spinner from "../../ui/Spinner";
-import ModalWindow from "../../ui/ModalWindow";
-import AddRoom from "../rooms/AddRoom";
 import CustomLabeledPieChart from "../stats/CustomLabeledPieChart";
 import AreaChartBox from "../stats/AreaChartBox";
 import {

@@ -50,20 +50,6 @@ const Hotels = [
   },
 ];
 
-/*
-{
-    "status": "success",
-    "message": "get admin stats",
-    "data": {
-        "numUsers": 10,
-        "numHotels": 7,
-        "numRooms": 5,
-        "numBookings": 4,
-        "numReviews": 0
-    }
-}
-*/
-
 function AdminDashboard() {
   const { data: { data } = {}, isLoading } = useQuery({
     queryKey: [QueryKey.COUNT_ALL_DOCS],
