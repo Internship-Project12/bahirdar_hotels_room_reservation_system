@@ -40,7 +40,7 @@ function User({ user }) {
   return (
     <>
       <div key={user.id} className="w-full">
-        <div className="flex justify-center gap-2 transition duration-300 hover:bg-black/10">
+        <div className="flex justify-start gap-2 transition duration-300 hover:bg-black/10">
           <img
             className="h-10 w-10 rounded-full object-cover"
             src={user.photo}
